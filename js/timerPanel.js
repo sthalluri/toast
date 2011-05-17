@@ -1,39 +1,90 @@
-function initTimerPanel(){
-    
-	var formBase = {
-        scroll: 'vertical',
-        url   : 'postUser.php',
-        standardSubmit : false,
-        title: 'Tim',
-        items: [{
-                xtype: 'fieldset',
-                title: 'Log Time',
-                instructions: 'Please enter the information above.',
-                defaults: {
-                    required: true,
-                    labelAlign: 'left',
-                    labelWidth: '30%'
-                },
-                items: [
+TimerPanel = Ext.extend(Ext.form.FormPanel, 
+{
+	scroll: 'vertical',
+	url   : 'postUser.php',
+	standardSubmit : false,
+	title: 'Tim',
+	
+	initComponent : function() {
+
+	
+		this.userSelector =	new Ext.form.Select({
+		    xtype: 'selectfield',
+		    name : 'userId',
+		    label: 'Member',
+		    valueField : 'id',
+		    displayField : 'name',
+		    store : memberStore
+		});
+		
+		this.roleSelector = new Ext.form.Select({
+			    xtype: 'selectfield',
+			    name : 'role',
+			    label: 'Role',
+			    valueField : 'role',
+			    displayField : 'title',
+			    store : roleStore,
+			    parentForm: this,
+			    scope: this,
+			    listeners:{
+		            change : function(selector, value){
+						var values = this.parentForm.getValues();
+						console.log(values);
+						var obj = thisMeeting.roles[values['role']];
+						if(obj && obj.userId && obj.userId!=''){
+							this.parentForm.userSelector.setValue(obj.userId);
+							this.parentForm.timerPanelClock.setSecs(obj.time);
+							this.parentForm.updateTime();
+						}else{
+							this.parentForm.userSelector.reset();
+						}
+						this.parentForm.updateMessage('');
+			        }
+			    }
+		});
+		
+		this.formFields = new Ext.form.FieldSet({
+			 xtype: 'fieldset',
+             title:' ',
+             defaults: {
+                 required: true,
+                 labelAlign: 'left',
+                 labelWidth: '30%'
+             },
+             items: [
+				this.roleSelector,
+				this.userSelector,
 				{
-				    xtype: 'selectfield',
-				    name : 'speech',
-				    label: 'Speech',
-				    valueField : 'speech',
-				    displayField : 'title',
-				    store : speechStore
-				}, 
-				{
-                    xtype : 'textareafield',
-                    name  : 'timer',
-                    value : '    4:45',
-                    maxLength : 6,
-                    height: 200,
-                    maxRows : 1,
-                    style : 'font-weight:bold;font-size:74pt;color:#00008b;'
-                }]
-        },
-        {
+                 xtype : 'textareafield',
+                 id : 'clock',
+                 name  : 'timer',
+                 value : '0:00',
+                 maxLength : 6,
+                 height:50,
+                 maxRows : 1,
+                 style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;'
+				}
+			]
+		});
+	
+		this.startButton = new Ext.Button({
+			ui : 'confirm',
+			scope: this,
+		    text: 'Start',
+		    width:100,
+            handler: this.startTimer
+		});
+		
+		this.stopButton = new Ext.Button({
+        	ui:'decline',
+			scope: this,
+            text: 'Stop',
+            width:100,
+            handler: this.stopTimer
+        });
+		
+        this.items= [this.formFields,
+	        {
             xtype: 'fieldset',
             defaults: {
                 required: true,
@@ -42,46 +93,49 @@ function initTimerPanel(){
             },
             items: [        	
 				{
-					layout:'vbox',
+					layout:'hbox',
 					flex:1,
+               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+					items:[
+							this.startButton,
+							this.stopButton,
+			                new Ext.Button({
+			                    text: 'Reset',
+								scope: this,
+			                    width:100,
+				                handler: this.resetTimer
+			                })
+					       ]
+				
+				},
+				{
+					layout:'hbox',
+					flex:1,
+               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
 					items:[
 			                new Ext.Button({
-			                	ui:'decline',
-			                    text: 'Stop',
-			                    width:200
-			                }),
-							{
-								html:'<br/>'
-							},
-			                new Ext.Button({
-			                	ui : 'confirm',
-			                    text: 'Start',
-			                    width:200
-			                }),
-							{
-								html:'<br/>'
-							},
-			                new Ext.Button({
-			                    text: 'Rest',
-			                    width:200
+			                    text: 'Save',
+								scope: this,
+			                    width:100,
+				                handler: this.save
 			                })
-	       
 					       ]
 				
 				}
             	]
             }
-        ],
-        listeners : {
+        ];
+        
+        this.listeners = {
             submit : function(loginForm, result){
                 console.log('success', Ext.toArray(arguments));
             },
             exception : function(loginForm, result){
                 console.log('failure', Ext.toArray(arguments));
             }
-        },
+        };
     
-        dockedItems: [
+        this.dockedItems= [
             {
             	title: 'Timer',
                 xtype: 'toolbar',
@@ -106,9 +160,78 @@ function initTimerPanel(){
                     }
                 ]
             }
-        ]
-    };
+        ];
+        
+		this.timerPanelClock = new Clock(this.timerEvent);
 
-    
-    timerPanel = new Ext.form.FormPanel(formBase);
-}
+        TimerPanel.superclass.initComponent.call(this);
+	},
+	
+	startTimer: function(){
+		if(this.validate()){
+			this.startButton.disabled = true;
+			this.stopButton.disabled = false;
+			this.updateMessage('');
+			this.timerPanelClock.start();
+		}
+	},
+	
+	stopTimer: function(){
+		this.startButton.disabled = false;
+		this.stopButton.disabled = true;
+		this.timerPanelClock.stop();
+	},
+	
+	resetTimer: function(){
+        this.timerPanelClock.reset();
+		this.reset();
+	},
+	updateMessage: function(msg){
+		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+	},
+	
+	validate: function(){
+		var values = this.getValues();  
+		var noErrors = true;
+		if(!values.role || values.role =='none'){
+			this.updateMessage('Please select the role');
+			return false;
+		}
+		if(!values.userId || values.userId =='none'){
+			this.updateMessage('Please select the user');
+			return false;
+		}
+		return noErrors;
+	},
+	
+	save: function(){
+		var values = this.getValues();        
+        var obj = thisMeeting.roles[values['role']];
+        obj.userId =  values['userId'];
+        obj.time = this.timerPanelClock.getSecs();
+        this.logReport();
+        this.timerPanelClock.reset();
+		this.updateMessage('Saved Successfully');
+        this.reset();
+	},
+	
+	updateTime: function(){
+		var clock = this.formFields.items.getByKey('clock');
+		clock.setValue(this.timerPanelClock.getMins());
+	},
+	
+	logReport:function(){
+		for(var i=1; i<roles.length; i++){
+			var role = roles[i];
+	        var obj = thisMeeting.roles[role.role];
+	        if(obj){
+		        console.log(role.role+'->'+obj.time);
+	        }
+		}
+	},
+	
+	timerEvent: function(){
+		timerPanel.updateTime();
+	}
+});
+

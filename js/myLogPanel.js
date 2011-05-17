@@ -29,7 +29,7 @@ MyLogPanel = Ext.extend(Ext.Panel,
 		var logCarousel = new Ext.Carousel(
 		{
 			padding : 10,
-			xtype : 'carousel',
+			xtype : 'card',
 			activeItem : 0,
 			height : 500,
 			id : 'myLogCarousel',

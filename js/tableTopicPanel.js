@@ -1,6 +1,17 @@
-function initTableTopicPanel(){
+TableTopicPanel = Ext.extend( Ext.Panel, 
+{
+	title:'TbTopic',
+	fullscreen: true,
+    layout : {
+		align:'stretch'
+	},
+	defaults:{
+		flex : 1
+	},
 	
-	var questionBase = {
+	initComponent : function() {
+
+	this.questionBase = {
 	    itemTpl: '<div class="contact2"><strong>Question:{qnNo}</strong><br/> {text}..</div>',
 	    selModel: {
 	        mode: 'SINGLE',
@@ -8,24 +19,24 @@ function initTableTopicPanel(){
 	    },
 	    grouped: false,
 	    indexBar: false,
-
+	    parentPanel:this,	    
 	    onItemDisclosure: {
 	        scope: 'test',
 	        handler: function(record, btn, index) {
-	        	tblTopicCarouselPanel.setActiveItem(tblTopicCarouselPanel.items.get(index+1));
+	    		this.parentPanel.tblTopicCarouselPanel.setActiveItem(this.parentPanel.tblTopicCarouselPanel.items.get(index+1));
 	        }
 	    },
 	    store: questionDataStore
 	};
 
-    tblTopicCarouselPanel = new Ext.Carousel({
+    this.tblTopicCarouselPanel = new Ext.Carousel({
         padding:10,
     	xtype:'carousel',
     	activeItem:0,
     	height:'80%',
         id:'tableTopicCarousel',
     	items:[
-    	    new Ext.List(Ext.apply(questionBase, {
+    	    new Ext.List(Ext.apply(this.questionBase, {
                fullscreen: true
            	})),
     	    {
@@ -40,23 +51,14 @@ function initTableTopicPanel(){
     	]
     });
     
-	tableTopicPanel = new Ext.Panel({
-    	title:'TbTopic',
-    	fullscreen: true,
-        layout : {
-    		align:'stretch'
-    	},
-    	defaults:{
-    		flex : 1
-    	},
-        items: [
+	this.items= [
                 {
                 	padding:10,
                 	html : '<b>Table Topic Qns</b>'
                 },
-                tblTopicCarouselPanel
-		],
-        dockedItems:[
+                this.tblTopicCarouselPanel
+	];
+    this.dockedItems = [
         {
             xtype: 'toolbar',
             dock: 'top',
@@ -64,14 +66,9 @@ function initTableTopicPanel(){
             items: [
 				{
 				    text: 'Back',
+				    scope:this,
 				    handler: function() {
-				    	
-	                	if(tblTopicCarouselPanel.getActiveIndex()==0){
-					    	tableTopicPanel.hide();
-					    	roleListPanel.show();
-	                	}else{
-	                		tblTopicCarouselPanel.setActiveItem(tblTopicCarouselPanel.items.get(0));
-	                	}
+                		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
 				    }
 				},
 				{xtype: 'spacer'},
@@ -91,11 +88,10 @@ function initTableTopicPanel(){
                 }
             ]
         }
-	   ]
-
-    });
+	   ];
 	
-	
-}
+	TableTopicPanel.superclass.initComponent.call(this);
+	}
+});
 
-var tblTopicCarouselPanel ;
+

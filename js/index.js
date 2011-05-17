@@ -13,26 +13,47 @@ Ext.setup({
 
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
-        loginController = new LoginController(loginPanel);
+        userController = new UserController(loginPanel);
 
         registerPanel = new RegisterPanel();
         registerController = new RegisterController(loginPanel);
 
         navPanel = new NavPanel();
-        
+
+        gramPanel = new GramPanel();
+
         //initNavPanel();
-        initGramPanel();
-        initTimerPanel();
-        initTableTopicPanel();
+        //initTimerPanel();
+        timerPanel = new TimerPanel();
+
+        
+        tableTopicPanel = new TableTopicPanel();
+        //initTableTopicPanel();
         initSpeakerPanel();
         myLogPanel = new MyLogPanel();
-        initMeetingPanel();
-        initAddMeetingPanel();
+        
+        //initMeetingPanel();
+        meetingListPanel = new MeetingListPanel({
+        	controller: new MeetingController(),
+        	meetingStore : meetingStore
+        });
+        
+        
+        clubMemberListPanel = new ClubMemberListPanel();
+        
+        //initAddMeetingPanel();
+        
+        meetingPanel = new MeetingPanel({
+        	controller: new MeetingController(),
+        	meetingStore : meetingStore
+        });
+        
+        
         initRoleListPanel();
         helpPanel = new HelpPanel();
-        
+        roleHelpPanel = new RoleHelpPanel();
         //loginForm.hide();
-        meetingPanel.hide();
+        //meetingListPanel.hide();
         //myLogPanel.hide();
         
         rolePanel = new Ext.Panel({
@@ -46,14 +67,14 @@ Ext.setup({
         	title:'Home',
         	layout: 'card',
             iconCls:'home',
-            items: [homePanel, navPanel]
+            items: [homePanel, navPanel,clubMemberListPanel, roleHelpPanel]
         });
 
         meetingCardPanel = new Ext.Panel({
         	title:'Meetings',
         	layout: 'card',
             iconCls:'bookmarks',
-            items: [meetingPanel, addMeetingPanel]
+            items: [meetingListPanel, meetingPanel]
         });
         
         mainPanel = new Ext.TabPanel({
@@ -82,12 +103,16 @@ var timerPanel;
 var speakerPanel;
 var tableTopicPanel;
 var myLogPanel;
-var meetingPanel;
+var meetingListPanel;
 var homeCardPanel;
 var rolePanel;
 var roleListPanel;
 var helpPanel;
+var meetingPanel;
+var clubMemberListPanel;
+var roleHelpPanel;
 
 //Controllers
-var loginController ;
+var userController ;
 var registerController ;
+

@@ -34,12 +34,12 @@ NavPanel = Ext.extend(Ext.Panel,
             {
                 items: [
                     new Ext.Button({
-                        text: 'About Roles',
+                        text: 'Club Members',
                         width:300,
                         pack:'center',
                         handler: function() {
-                        	homeCardPanel.hide();
-                        	meetingCardPanel.show();
+                        	navPanel.hide();
+                        	clubMemberListPanel.show();
                         }
                     })
                 ]
@@ -50,16 +50,18 @@ NavPanel = Ext.extend(Ext.Panel,
             {
                 items: [
                     new Ext.Button({
-                        text: 'Club Members',
+                        text: 'About Roles',
                         width:300,
                         pack:'center',
+                        scope:this,
                         handler: function() {
-                        	homeCardPanel.hide();
-                        	meetingCardPanel.show();
+                        	navPanel.hide();
+                        	homePanel.hide();
+                        	roleHelpPanel.show();
                         }
                     })
                 ]
-            }
+            },
         ];
         this.dockedItems= [
               {
@@ -76,8 +78,9 @@ NavPanel = Ext.extend(Ext.Panel,
 	
 	startMeeting: function(){
     	thisMeeting = mockMeeting;
-    	thisMeeting.inProgress = true;    	
+    	thisMeeting.inProgress = true;
     	homeCardPanel.hide();
+    	
     	//rolePanel.show();
     	mainPanel.setActiveItem(mainPanel.items.get(1));
 	}

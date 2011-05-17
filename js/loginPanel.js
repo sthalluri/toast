@@ -83,7 +83,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		if(this.validate()){
 			var formValues = this.getValues();
 			console.log(formValues);
-			loginController.checkLogin(formValues.userId, formValues.password);
+			userController.checkLogin(formValues.userId, formValues.password);
 		}
 	},
 	validate: function(){

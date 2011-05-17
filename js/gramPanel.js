@@ -1,12 +1,71 @@
-function initGramPanel(){
-    var formBase = {
-        scroll: 'vertical',
-        url   : 'postUser.php',
-        standardSubmit : false,
-        title: 'Gram',
-        items: [{
+GramPanel = Ext.extend(Ext.form.FormPanel, 
+{
+    scroll: 'vertical',
+    url   : 'postUser.php',
+    standardSubmit : false,
+    title: 'Gram',
+
+	initComponent : function() {
+        
+		this.userSelector =	new Ext.form.Select({
+			    xtype: 'selectfield',
+			    name : 'userId',
+			    label: 'Member',
+			    valueField : 'id',
+			    displayField : 'name',
+			    store : memberStore
+		});
+	
+		this.roleSelector = new Ext.form.Select({
+			    xtype: 'selectfield',
+			    name : 'role',
+			    label: 'Role',
+			    valueField : 'role',
+			    displayField : 'title',
+			    store : roleStore,
+			    parentForm: this,
+			    scope: this,
+			    listeners:{
+		            change : function(selector, value){
+						var values = this.parentForm.getValues();
+						console.log(values);
+						var obj = thisMeeting.roles[values['role']];
+						if(obj.userId && obj.userId!=''){
+							this.parentForm.userSelector.setValue(obj.userId);
+							for(var j=0; j<fillers.length;j++){
+								var filler = fillers[j];
+								var spinner = this.parentForm.spinners[j];
+								spinner.setValue(obj.counts[filler]);
+							}
+						}else{
+							this.parentForm.userSelector.reset();
+						}
+						this.parentForm.updateMessage('');
+						//console.log('valu changed' + value);
+			        }
+			    }
+		});
+
+		this.spinners = new Array();
+		
+		for(var i=0; i<fillers.length;i++){
+			var filler = fillers[i];
+			var spinner = new Ext.form.Spinner({
+					xtype: 'spinnerfield',
+	                name : filler+'Spinner',
+	                minValue: 0,
+	                name : filler+'Count',
+	                label: filler,
+	                required:false
+				});
+			this.spinners[this.spinners.length]=spinner;
+		}
+
+		
+		
+		this.items = [{
                 xtype: 'fieldset',
-                title: 'Login',
+                title: 'Counter',
                 instructions: 'Please enter the information above.',
                 defaults: {
                     required: true,
@@ -14,34 +73,9 @@ function initGramPanel(){
                     labelWidth: '40%'
                 },
                 items: [
-				{
-				    xtype: 'selectfield',
-				    name : 'speech',
-				    label: 'Speech',
-				    valueField : 'speech',
-				    displayField : 'title',
-				    store : speechStore
-				}, 
-				{
-					xtype: 'spinnerfield',
-	                name : 'ahSpinner',
-	                label: 'Ah'
-				}, 
-				{
-					xtype: 'spinnerfield',
-	                name : 'ammSpinner',
-	                label: 'Amm'
-				}, 
-				{
-					xtype: 'spinnerfield',
-	                name : 'likeSpinner',
-	                label: 'Like'
-				}, 
-				{
-					xtype: 'spinnerfield',
-	                name : 'soSpinner',
-	                label: 'So'
-				}, {
+				this.roleSelector,
+				this.userSelector,
+				this.spinners, {
 		            layout: 'hbox',
 		            defaults: {xtype: 'button',  style: 'margin: .5em;'},
 		            items: [{
@@ -49,30 +83,28 @@ function initGramPanel(){
 		                scope: this,
 		                ui  : 'confirm',
 		                width:100,
-		                handler: function(btn){
-		                	console.log(this);
-		                }
+		                handler: this.save
 		            }, {
 		                text: 'Reset',
 		                scope: this,
 		                width:100,
-		                handler: function(){
-		                }
+		                handler: this.resetForm
 		            }]
 		        }
             	]
             }
-        ],
-        listeners : {
+        ];
+		
+        this.listeners = {
             submit : function(loginForm, result){
                 console.log('success', Ext.toArray(arguments));
             },
             exception : function(loginForm, result){
                 console.log('failure', Ext.toArray(arguments));
             }
-        },
+        };
     
-        dockedItems: [
+        this.dockedItems =[
             {
                 xtype: 'toolbar',
                 dock: 'top',
@@ -95,8 +127,46 @@ function initGramPanel(){
 	                }
                 ]
             }
-        ]
-    };
-    
-    gramPanel = new Ext.form.FormPanel(formBase);
-}
+        ];
+        
+        GramPanel.superclass.initComponent.call(this);
+	},
+	
+	save:function(){
+        //console.log(this.getValues());
+        var values = this.getValues();        
+        var obj = thisMeeting.roles[values['role']];
+        obj.userId =  values['userId'];
+        var countObj = obj.counts;
+        
+        for(var i=0; i<fillers.length;i++){
+			var filler = fillers[i];
+			var spinner = this.spinners[i];
+			countObj[filler] = values[filler+'Count'];
+		}
+        this.logReport();
+        this.reset();
+        this.updateMessage('Saved Successfully');
+        //this.hide();
+        //roleListPanel.show();
+        //console.log(objectToString(thisMeeting));        
+	},
+	
+	resetForm:function(){
+		this.updateMessage('');
+		this.reset();
+	},
+	
+	logReport:function(){
+		for(var i=1; i<roles.length; i++){
+			var role = roles[i];
+	        var obj = thisMeeting.roles[role.role];
+	        console.log(objectToString(obj));
+		}
+	},
+	
+	updateMessage: function(msg){
+		this.items.get(0).titleEl.setHTML('Counter'+'<div class="msg"><p >'+msg+'</p></div>');
+	}
+
+});

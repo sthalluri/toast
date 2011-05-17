@@ -1,4 +1,4 @@
-LoginController = function(panel) {
+UserController = function(panel) {
     var url = 'mockResponse/loginSuccess.jsp';
 	return {
 		checkLogin : function(userId, password) { 
