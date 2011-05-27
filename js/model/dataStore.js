@@ -29,11 +29,11 @@ var fillers= ['ah','amm','so','like'];
 Ext.regModel('Meeting', {
 	idProperty: 'id',
 	fields: [
-        {name: 'id',     type: 'string'},
+        {name: 'id',     type: 'int'},
         {name: 'wordOfTheDay',    type: 'string'},
         {name: 'themeOfTheDay',    type: 'string'},
         {name: 'inProgress'},
-        {name: 'date',    type: 'date'}
+        {name: 'meetingDate',    type: 'date'}
     ]
 });
 
@@ -64,10 +64,11 @@ var meetingStore = new Ext.data.JsonStore({
 
 Ext.regModel('Members', {
     fields: [
-        {name: 'id',    type: 'string'},
+        {name: 'id',    type: 'int'},
         {name: 'userId',    type: 'string'},
         {name: 'firstName',    type: 'string'},
-        {name: 'lastName',    type: 'string'}
+        {name: 'lastName',    type: 'string'},
+        {name: 'name',    type: 'string'}
     ]
 });
 
@@ -89,8 +90,11 @@ var memberStore = new Ext.data.JsonStore({
 					console.log(data);
 					memberStore.removeAll();
 					var members = data.returnVal.rows;
+					memberStore.add({ id : '0',     name : 'Select...', firstName:'AirName0',lastName:'Last0'});
 					for(var i=0 ; i<members.length; i++){
-						memberStore.add(members[i]);
+						var member = members[i];
+						member.name = member.firstName+' '+member.lastName;
+						memberStore.add(member);
 					}
 				} else {
 	

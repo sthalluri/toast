@@ -20,17 +20,17 @@ MeetingController = Ext.extend(Object, {
 	save : function(meeting) {
 		console.log('Invoking the save service');
 		Ext.Ajax.request( {
-			url : urlStore.meetingUrl.url,
+			url : urlStore.meetingUrl+'/save',
 			params : {
-				method : 'save',
-				meeting : Ext.encode(meeting)
+				json : Ext.encode(meeting)
 			},
 			success : function(response, opts) {
 				data = eval("(" + response.responseText + ")");
+				meetingStore.reload(thisUser.defaultClubId);
 				if (data.success) {
-
+					meetingPanel.updateMessage('Saved successfully');
 				} else {
-					meetingListPanel.updateMessage(data.error.msg);
+					meetingPanel.updateMessage(data.errorMessage);
 				}
 			}
 		});

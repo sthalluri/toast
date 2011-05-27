@@ -13,7 +13,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		this.formFields = [
 	          {
 	              xtype: 'datepickerfield',
-	              name : 'date',
+	              name : 'meetingDate',
 	              label: 'Date',
 	              useClearIcon: true,
 	              picker : { yearForm :  1900}
@@ -93,6 +93,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	
         this.items= [{
                 xtype: 'fieldset',
+    			title : 'Meeting',
                 instructions: 'Please enter the information above.',
                 defaults: {
                     required: true,
@@ -146,16 +147,19 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     
  	   MeetingListPanel.superclass.initComponent.call(this);	
 	},
-	
+	updateMessage: function(msg){
+		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+	},
 	loadMeeting: function(pMeeting){
 		
+		this.reset();
 		for(var i=0; i< this.fields.items.length ; i++){
 			var comp = this.fields.items[i];
 			if(comp.name == 'wordOfTheDay'){
 				comp.setValue(pMeeting.wordOfTheDay);
 			}
-			if(comp.name == 'date'){
-				comp.setValue(pMeeting.date);
+			if(comp.name == 'meetingDate'){
+				comp.setValue(pMeeting.meetingDate);
 			}
 			if(comp.name == 'themeOfTheDay'){
 				comp.setValue(pMeeting.themeOfTheDay);
@@ -164,31 +168,49 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 				comp.setValue(pMeeting.wordOfTheDay);
 			}
 			if(comp.name == 'speaker1'){
-				comp.setValue(pMeeting.roles.speaker1.userId);
+				if(pMeeting.roles.speaker1){
+					comp.setValue(pMeeting.roles.speaker1.userId);
+				}
 			}
 			if(comp.name == 'speaker2'){
-				comp.setValue(pMeeting.roles.speaker2.userId);
+				if(pMeeting.roles.speaker2){
+					comp.setValue(pMeeting.roles.speaker2.userId);
+				}
 			}
 			if(comp.name == 'tableTopics'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.tableTopics.userId);
+				}
 			}
 			if(comp.name == 'toastMaster'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.toastMaster.userId);
+				}
 			}
 			if(comp.name == 'generalEvaluator'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.generalEvaluator.userId);
+				}
 			}
 			if(comp.name == 'evaluator1'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.evaluator1.userId);
+				}
 			}
 			if(comp.name == 'evaluator2'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.evaluator2.userId);
+				}
 			}
 			if(comp.name == 'grammarian'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.grammarian.userId);
+				}
 			}
 			if(comp.name == 'timer'){
+				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.timer.userId);
+				}
 			}
 		}
 		this.meeting = pMeeting;
@@ -199,7 +221,8 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			this.meeting = getMeetingBareBones();
 		}
 		var values = this.getValues();
-		this.meeting.date = values.date;
+		this.meeting.clubId = thisUser.defaultClubId;
+		this.meeting.meetingDate = values.meetingDate;
 		this.meeting.wordOfTheDay = values.wordOfTheDay;
 		this.meeting.themeOfTheDay = values.themeOfTheDay;
 		this.meeting.roles.speaker1.userId = values.speaker1;

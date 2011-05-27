@@ -114,6 +114,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                	id:'meetingPanleAddIcon',
 	                    handler: function() {
 	                		meetingListPanel.hide();
+	                		meetingPanel.reset();
 	                		meetingPanel.show();
 	                    }
 	                }
