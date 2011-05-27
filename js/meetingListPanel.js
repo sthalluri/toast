@@ -139,11 +139,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingStore.removeAll();
 		for(var i=0 ; i<data.length; i++){
 			this.meetingStore.add(data[i]);
-			
-//			var panel = new Ext.Panel({
-//				html: 'Conente of the meeting '
-//			});
-			//this.meetingCarousel.items.add(panel);
 		}
 		this.render();
 	},

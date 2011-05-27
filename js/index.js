@@ -18,6 +18,8 @@ Ext.setup({
         registerPanel = new RegisterPanel();
         registerController = new RegisterController(loginPanel);
 
+        clubController = new ClubController();
+        
         navPanel = new NavPanel();
 
         gramPanel = new GramPanel();
@@ -50,8 +52,11 @@ Ext.setup({
         
         
         initRoleListPanel();
+        roleListPanel.hide();
+        
         helpPanel = new HelpPanel();
         roleHelpPanel = new RoleHelpPanel();
+        
         //loginForm.hide();
         //meetingListPanel.hide();
         //myLogPanel.hide();
@@ -91,6 +96,7 @@ Ext.setup({
             items: [homeCardPanel, rolePanel,
                     meetingCardPanel, myLogPanel,helpPanel]
         });       
+        rolePanel.hide();
     }
 });
 
@@ -115,4 +121,13 @@ var roleHelpPanel;
 //Controllers
 var userController ;
 var registerController ;
+var clubController ;
+
+//var urlStore = mockUrls;
+var urlStore = {
+		userUrl 		: '/toastService/user',
+		meetingUrl		: '/toastService/meeting',
+		registerUrl		: '/toastService/user/register',
+		clubUrl			: '/toastService/club'
+};
 

@@ -1,28 +1,25 @@
 LoginPanel = Ext.extend(Ext.form.FormPanel, 
 {
-	loggedIn:false,
-	
+	loggedIn:false,	
 	initComponent : function() {
 		this.items = [ {
 			xtype : 'fieldset',
 			title : 'Login',
-			instructions : '<b>Please enter the information above.</b>',
 			defaults : {
 				required : true,
 				labelAlign : 'left',
-				labelWidth : '40%'
+				labelWidth : '60%'
 			},
 			items : [ {
 				xtype : 'textfield',
 				name : 'userId',
-				label : 'Name',
 				placeHolder: 'User ID',
 				useClearIcon : true,
 				autoCapitalize : false
 			}, {
+				placeHolder: 'Password',
 				xtype : 'passwordfield',
 				name : 'password',
-				label : 'Password',
 				useClearIcon : false
 			}, {
 				xtype : 'togglefield',

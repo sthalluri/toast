@@ -22,9 +22,18 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 			},{
 				xtype : 'passwordfield',
 				name : 'password',
-				label : 'Passwd',
+				label : 'Password',
+				placeHolder: 'Password',
 				useClearIcon : false
 			},{
+				xtype : 'passwordfield',
+				name : 'confirmPassword',
+				placeHolder: 'Password',
+				label : 'Confirm',
+				useClearIcon : false
+			},
+			/*
+			{
 				xtype : 'textfield',
 				name : 'clubId',
 				label : 'Club ID',
@@ -39,7 +48,9 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				placeHolder: 'Club Passcode',
 				useClearIcon : false,
 				required:false
-			},{
+			},
+			*/
+			{
 				xtype : 'textfield',
 				name : 'firstName',
 				label : 'First Name',

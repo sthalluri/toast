@@ -1,6 +1,5 @@
 DataStore = new Ext.data.JsonStore( {
 	model : 'TrainStatus',
-
 	proxy : {
 		type : 'ajax',
 		url : 'getTrains.php?trainId=' + this.trainId,
@@ -18,7 +17,5 @@ DataStore = new Ext.data.JsonStore( {
 		load : function() {
 			controller.unmask();
 		}
-
 	}
-
 });

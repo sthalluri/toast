@@ -47,7 +47,7 @@ function Clock (paramHandler, paramInterval) {
 };
 
 function myalert(){
-	//console.log('From outside'+clock.getSecs());
+
 }
 
 
