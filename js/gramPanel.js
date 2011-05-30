@@ -35,7 +35,11 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 							for(var j=0; j<fillers.length;j++){
 								var filler = fillers[j];
 								var spinner = this.parentForm.spinners[j];
-								spinner.setValue(obj.counts[filler]);
+								if(obj.amCount && obj.amCount[filler]){
+									spinner.setValue(obj.amCount[filler]);
+								}else{
+									spinner.setValue(0);
+								}
 							}
 						}else{
 							this.parentForm.userSelector.reset();
@@ -133,23 +137,23 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	
 	save:function(){
-        //console.log(this.getValues());
         var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  values['userId'];
-        var countObj = obj.counts;
+		if(!obj.amCount){
+			obj.amCount = new Object();
+		}
+        var countObj = obj.amCount;
         
         for(var i=0; i<fillers.length;i++){
 			var filler = fillers[i];
 			var spinner = this.spinners[i];
 			countObj[filler] = values[filler+'Count'];
 		}
+        meetingController.save(thisMeeting);        
         this.logReport();
-        this.reset();
+        this.reset();        
         this.updateMessage('Saved Successfully');
-        //this.hide();
-        //roleListPanel.show();
-        //console.log(objectToString(thisMeeting));        
 	},
 	
 	resetForm:function(){

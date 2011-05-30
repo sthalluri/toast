@@ -19,10 +19,13 @@ Ext.setup({
         registerController = new RegisterController(loginPanel);
 
         clubController = new ClubController();
+        meetingController = new MeetingController();
         
         navPanel = new NavPanel();
 
-        gramPanel = new GramPanel();
+        gramPanel = new GramPanel({
+        	controller: meetingController
+        });
 
         //initNavPanel();
         //initTimerPanel();
@@ -36,7 +39,7 @@ Ext.setup({
         
         //initMeetingPanel();
         meetingListPanel = new MeetingListPanel({
-        	controller: new MeetingController(),
+        	controller: meetingController,
         	meetingStore : meetingStore
         });
         
@@ -122,6 +125,7 @@ var roleHelpPanel;
 var userController ;
 var registerController ;
 var clubController ;
+var meetingController;
 
 //var urlStore = mockUrls;
 var urlStore = {

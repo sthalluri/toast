@@ -77,7 +77,7 @@ NavPanel = Ext.extend(Ext.Panel,
 	},
 	
 	startMeeting: function(){
-    	thisMeeting = mockMeeting;
+		thisMeeting = meetingStore.getAt(0).data;
     	thisMeeting.inProgress = true;
     	homeCardPanel.hide();
     	

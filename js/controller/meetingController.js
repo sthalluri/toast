@@ -28,9 +28,9 @@ MeetingController = Ext.extend(Object, {
 				data = eval("(" + response.responseText + ")");
 				meetingStore.reload(thisUser.defaultClubId);
 				if (data.success) {
-					meetingPanel.updateMessage('Saved successfully');
+					//meetingPanel.updateMessage(data.successMessage);
 				} else {
-					meetingPanel.updateMessage(data.errorMessage);
+					//meetingPanel.updateMessage(data.errorMessage);
 				}
 			}
 		});

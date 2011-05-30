@@ -126,6 +126,7 @@ var roleStore = new Ext.data.JsonStore({
 					console.log(data);
 					roleStore.removeAll();
 					var roles = data.returnVal.rows;
+					roleStore.add({ id : '0',     description : 'Select...'});
 					for(var i=0 ; i<roles.length; i++){
 						roleStore.add(roles[i]);
 					}

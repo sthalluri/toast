@@ -35,13 +35,19 @@ function Clock (paramHandler, paramInterval) {
 		getMins : function(){
 			var formatmins = Math.floor(secs/60);
 			var formatSecs = secs%60;
-			if(secs<10){
+			if(formatSecs<10){
 				formatSecs = '0'+formatSecs;
 			}
 			return formatmins+':'+formatSecs;
 		},
 		setSecs: function(paramSecs){
 			secs = paramSecs;
+		},
+		setSecsFromStr: function(timeStr){
+			var pSecs = parseInt(timeStr.substring(timeStr.indexOf(':')+1));
+			var pMin  = parseInt(timeStr.substring(0, timeStr.indexOf(':')));
+			secs = pMin*60+pSecs;
+			console.log(secs);
 		}
 	};
 };

@@ -33,7 +33,10 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 						var obj = thisMeeting.roles[values['role']];
 						if(obj && obj.userId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
-							this.parentForm.timerPanelClock.setSecs(obj.time);
+							if(!obj.timeSpent){
+								obj.timeSpent = 0;
+							}
+							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 							this.parentForm.updateTime();
 						}else{
 							this.parentForm.userSelector.reset();
@@ -62,7 +65,14 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                  maxLength : 6,
                  height:50,
                  maxRows : 1,
-                 style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;'
+ 			     parentForm: this,
+                 style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
+ 			     scope: this,
+ 			     listeners:{
+ 			    		change : function(selector, value){
+ 			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
+ 			    		}
+ 			    	}
 				}
 			]
 		});
@@ -208,7 +218,9 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  values['userId'];
-        obj.time = this.timerPanelClock.getSecs();
+        obj.timeSpent = this.timerPanelClock.getSecs();
+        
+        meetingController.save(thisMeeting);        
         this.logReport();
         this.timerPanelClock.reset();
 		this.updateMessage('Saved Successfully');
@@ -225,7 +237,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			var role = roles[i];
 	        var obj = thisMeeting.roles[role.role];
 	        if(obj){
-		        console.log(role.role+'->'+obj.time);
+		        console.log(role.role+'->'+obj.timeSpent);
 	        }
 		}
 	},
