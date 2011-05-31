@@ -13,6 +13,7 @@ RoleListPanel = Ext.extend(Ext.Panel,
 				pack : 'center',
 				handler : function() {
 					roleListPanel.hide();
+					gramPanel.reset();
 					gramPanel.show();
 				}
 			}) ]
@@ -25,6 +26,7 @@ RoleListPanel = Ext.extend(Ext.Panel,
 				pack : 'center',
 				handler : function() {
 					roleListPanel.hide();
+					timerPanel.reset();
 					timerPanel.show();
 				}
 			}) ]
@@ -47,26 +49,26 @@ RoleListPanel = Ext.extend(Ext.Panel,
 				text : 'Table Topics',
 				width : 300,
 				pack : 'center',
-				handler : function() {
-					roleListPanel.hide();
-					tableTopicPanel.show();
-				}
+				scope: this,
+				handler : this.loadTableTopics
 			}) ]
 		}, {
 			html : '<br/><br/>'
-		}, {
-			items : [ new Ext.Button({
-				text : 'End Meeting',
-				width : 300,
-				pack : 'center',
-				ui : 'decline',
-				handler : function() {
-					roleListPanel.hide();
-					//meetingCardPanel.show();
-					mainPanel.setActiveItem(mainPanel.items.get(2));
-				}
-			}) ]
-		} ];
+		}
+//		, {
+//			items : [ new Ext.Button({
+//				text : 'End Meeting',
+//				width : 300,
+//				pack : 'center',
+//				ui : 'decline',
+//				handler : function() {
+//					roleListPanel.hide();
+//					//meetingCardPanel.show();
+//					mainPanel.setActiveItem(mainPanel.items.get(2));
+//				}
+//			}) ]
+//		} 
+		];
 
 		this.dockedItems = [ {
 			xtype : 'toolbar',
@@ -94,5 +96,13 @@ RoleListPanel = Ext.extend(Ext.Panel,
 	goMeetingList: function(){
 		roleListPanel.hide();
 		navPanel.show();
+	},
+	loadTableTopics: function(){
+		roleListPanel.hide();
+		if(thisMeeting.roles.tableTopics){
+			var contentId = thisMeeting.roles.tableTopics.id;
+			questionDataStore.reload(contentId);
+		}
+		tableTopicPanel.show();
 	}
 });

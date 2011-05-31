@@ -26,7 +26,28 @@ MeetingController = Ext.extend(Object, {
 			},
 			success : function(response, opts) {
 				data = eval("(" + response.responseText + ")");
-				meetingStore.reload(thisUser.defaultClubId);
+				if (data.success) {
+					meetingStore.reload(thisUser.defaultClubId);
+					
+					//meetingPanel.updateMessage(data.successMessage);
+				} else {
+					//meetingPanel.updateMessage(data.errorMessage);
+				}
+			}
+		});
+	},
+	
+	saveMeetingRoleContent : function(meetingRoleContent) {
+		console.log('Invoking the save service');
+		Ext.Ajax.request( {
+			url : urlStore.meetingUrl+'/saveContent',
+			params : {
+				json : Ext.encode(meetingRoleContent)
+			},
+			success : function(response, opts) {
+				console.log(response.responseText);
+				//data = eval("(" + response.responseText + ")");
+				//meetingStore.reload(thisUser.defaultClubId);
 				if (data.success) {
 					//meetingPanel.updateMessage(data.successMessage);
 				} else {
@@ -35,4 +56,5 @@ MeetingController = Ext.extend(Object, {
 			}
 		});
 	}
+
 });

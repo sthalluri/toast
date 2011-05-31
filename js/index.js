@@ -30,9 +30,10 @@ Ext.setup({
         //initNavPanel();
         //initTimerPanel();
         timerPanel = new TimerPanel();
-
         
-        tableTopicPanel = new TableTopicPanel();
+        tableTopicPanel = new TableTopicPanel({
+        	store : questionDataStore
+        });
         //initTableTopicPanel();
         initSpeakerPanel();
         
@@ -65,6 +66,10 @@ Ext.setup({
         helpPanel = new HelpPanel();
         roleHelpPanel = new RoleHelpPanel();
         
+        questionPanel = new QuestionPanel({
+        	controller: new MeetingController()
+        });
+        
         //loginForm.hide();
         //meetingListPanel.hide();
         //myLogPanel.hide();
@@ -86,7 +91,9 @@ Ext.setup({
                     clubMemberListPanel, 
                     roleHelpPanel,
                     meetingListPanel, meetingPanel,
-                    roleListPanel, gramPanel, timerPanel, tableTopicPanel,speakerPanel, 
+                    roleListPanel, gramPanel, timerPanel, 
+                    tableTopicPanel,questionPanel,
+                    speakerPanel, 
                     myLogPanel, 
                     helpPanel]
         });
@@ -140,6 +147,7 @@ var helpPanel;
 var meetingPanel;
 var clubMemberListPanel;
 var roleHelpPanel;
+var questionPanel;
 
 //Controllers
 var userController ;

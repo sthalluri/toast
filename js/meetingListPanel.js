@@ -17,7 +17,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingTmpl = new Ext.Template([
             '<div name="{id}">',
                 '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;',
-                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting()"/>',
+                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting({id})"/>',
             '</div>',
         ]);
 
@@ -96,11 +96,11 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		                		this.hide();
 		                    	navPanel.show();
 		                	}else{
-		                		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
 		    		    		this.listMode();
 		                	}
 		                }
 	            	},
+	            	/*
 	                {
 		                scope:this,
 	                    ui: 'plain',
@@ -108,6 +108,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		                id : 'homeButton',
 		                handler: this.goHome
 	            	},
+	            	*/
 					{xtype: 'spacer'},
 					{
 	                    iconMask: true,
@@ -141,6 +142,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	},
 	
 	listMode: function(){
+		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
 	},
@@ -171,13 +173,16 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     	navPanel.show();
 	},
 
-	startMeeting : function() {
-		thisMeeting = meetingStore.getAt(0).data;
+	startMeeting : function(meetingId) {
+		for(var i=0 ; i<meetingStore.data.length; i++){
+			var meeting = meetingStore.getAt(i).data;
+			if(meeting.id==meetingId){
+				thisMeeting = meeting;
+			}
+		}
 		thisMeeting.inProgress = true;
-		//homeCardPanel.hide();
 		this.hide();
 		roleListPanel.show();
-		//mainPanel.setActiveItem(mainPanel.items.get(1));
 	}
 
 });

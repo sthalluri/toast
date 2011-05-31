@@ -11,43 +11,53 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	
 	initComponent : function() {
 
+	this.questionTmpl = new Ext.Template([
+	                                     '<div class="contact2"><strong>Question:{id}</strong><br/> {text}..</div>',
+	                                 ]);
+
+	this.questionTmpl.compile();
+	
 	this.questionBase = {
-	    itemTpl: '<div class="contact2"><strong>Question:{qnNo}</strong><br/> {text}..</div>',
+	    itemTpl: '<div class="contact2"><strong>Question:{id}</strong><br/> {text}..</div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
 	    },
 	    grouped: false,
 	    indexBar: false,
-	    parentPanel:this,	    
+	    parentPanel:this,	   
+	    id:'tableTopicListPanel',
 	    onItemDisclosure: {
 	        scope: 'test',
 	        handler: function(record, btn, index) {
-	    		this.parentPanel.tblTopicCarouselPanel.setActiveItem(this.parentPanel.tblTopicCarouselPanel.items.get(index+1));
+	    		//this.parentPanel.tblTopicCarouselPanel.setActiveItem(this.parentPanel.tblTopicCarouselPanel.items.get(index+1));
+	        	//alert('Disclose more info for ' + record.get('firstName'));
+	    		var carousel = this.parentPanel.tblTopicCarouselPanel;
+	    		var question = this.parentPanel.store.getAt(index).data;
+	    		this.parentPanel.activeQuestion = question;
+	    		var html = this.parentPanel.questionTmpl.apply(question);
+	    		var detailsPanel = carousel.items.get(1);
+	    		detailsPanel.el.setHTML(html);
+	    		carousel.setActiveItem(carousel.items.get(1));
 	        }
 	    },
 	    store: questionDataStore
 	};
 
-    this.tblTopicCarouselPanel = new Ext.Carousel({
+    this.tblTopicCarouselPanel = new Ext.Panel({
         padding:10,
     	xtype:'carousel',
     	activeItem:0,
     	height:'80%',
         id:'tableTopicCarousel',
+    	layout: 'card',
     	items:[
     	    new Ext.List(Ext.apply(this.questionBase, {
                fullscreen: true
            	})),
-    	    {
-    			html:'<strong>Question:1</strong>This is a sample question which is good.'
-    		},
-    	    {
-    			html:'<strong>Question:2</strong><br/> This is a sample question which is good.'
-    		},
-    	    {
-    			html:'<strong>Question:3</strong><br/> This is a sample question which is good.'
-    		}  
+           	{
+    	    	html:'Sample content here'
+           	}
     	]
     });
     
@@ -69,11 +79,11 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	                ui: 'back',
 				    scope:this,
 				    handler: function() {
-				    	if(this.tblTopicCarouselPanel.getActiveIndex()==0){
+				    	if(this.tblTopicCarouselPanel.getActiveItem().id =='tableTopicListPanel'){
 				    		tableTopicPanel.hide();
-	                    	roleListPanel.show();
+				    		roleListPanel.show();
 	                	}else{
-	                		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+	    		    		this.listMode();
 	                	}
 				    }
 				},
@@ -89,14 +99,29 @@ TableTopicPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'add',
-                    handler: function() {
-                    }
+                    handler: this.addQuestion
                 }
             ]
         }
 	   ];
 	
 	TableTopicPanel.superclass.initComponent.call(this);
+	},
+	
+	updateCarousel: function(){
+		for(var i=0 ; i<questions.length; i++){
+			questionDataStore.add({id:questions[i].id,text:questions[i].text});
+		}		
+	},
+	
+	listMode: function(){
+		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+	},
+	
+	addQuestion: function(){
+		tableTopicPanel.hide();
+		questionPanel.load({});
+		questionPanel.show();
 	}
 });
 

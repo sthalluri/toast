@@ -85,7 +85,7 @@ MyLogPanel = Ext.extend(Ext.Panel,
 			items : [
 				{
 					text : 'Back',
-					ui : 'round',
+					ui : 'back',
 					scope : this,
 					handler : function() {
 						if(this.logCarousel.getActiveItem().id =='logListPanel'){

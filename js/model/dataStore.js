@@ -90,7 +90,7 @@ var memberStore = new Ext.data.JsonStore({
 					console.log(data);
 					memberStore.removeAll();
 					var members = data.returnVal.rows;
-					memberStore.add({ id : '0',     name : 'Select...', firstName:'AirName0',lastName:'Last0'});
+					memberStore.add({ id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'});
 					for(var i=0 ; i<members.length; i++){
 						var member = members[i];
 						member.name = member.firstName+' '+member.lastName;
@@ -140,16 +140,37 @@ var roleStore = new Ext.data.JsonStore({
 
 
 Ext.regModel('Question', {
-    fields: ['qnNo', 'text']
+    fields: ['id', 'text']
 });
 
 var questionDataStore = new Ext.data.Store({
     model: 'Question',
-    sorters: 'qnNo',
-    getGroupString : function(record) {
-        return record.get('qnNo')[0];
-    },
-    data: questions
+    sorters: 'id',
+    data: questions,
+    autoLoad : false,
+    autoDestroy : true,
+    reload : function(id) {
+ 		Ext.Ajax.request({
+ 			url : urlStore.meetingUrl + '/getContent/'+id,
+ 			success : function(response, opts) {
+ 				var data = eval("(" + response.responseText + ")");
+				var rContent = null;
+				if(data.returnVal.rows.length>0){
+					rContent = eval("(" + data.returnVal.rows[0].content+ ")");
+					var questions = rContent.questions;
+					questionDataStore.removeAll();					
+					for(var i=0 ; i<questions.length; i++){
+						questionDataStore.add({id:questions[i].id,text:questions[i].text});
+					}
+				}
+ 				if (data.success) {
+ 					console.log(data);
+ 				} else {
+ 					
+ 				}
+ 			}
+ 		});
+    }
 });
 
 Ext.regModel('NotesModel', {

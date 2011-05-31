@@ -121,7 +121,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                 items: [
                     {
                         text: 'Back',
-                        ui: 'round',
+                        ui: 'back',
                         scope:this,
                         handler: function() {
                         	this.hide();

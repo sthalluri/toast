@@ -442,3 +442,8 @@ div.spch-bub-outside {
     text-align: right;
     width: 4em;
 }
+
+img .homeicon{
+	width : 30px;
+	height : 30px;
+}

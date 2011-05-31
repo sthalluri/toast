@@ -62,7 +62,7 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				xtype : 'textfield',
 				name : 'lastName',
 				label : 'Last Name',
-				placeHolder: 'lastName',
+				placeHolder: 'Last Name',
 				useClearIcon : true,
 				autoCapitalize : false,
 				required:false
