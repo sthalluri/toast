@@ -1,14 +1,14 @@
 
 var mockUser={
 		'userId':'guest',
-		'name' : 'Akura',
+		'name' : 'Alpha',
 		'password' : 'guest',
 		'email' : 'MockingBird@gamil.com',
 		'clubId' : '1234',
 		'clubPasscode' : 'Club Passcode',
 		'rememberMe' : 1,
-		'firstName':'Simy',
-		'lastName':'Sipp',
+		'firstName':'Alpha',
+		'lastName':'User',
 		'confirmPassword':'secret'
 };
 

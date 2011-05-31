@@ -29,6 +29,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		        mode: 'SINGLE',
 		        allowDeselect: true
 		    },
+		    id:'meetingListPanel',
 		    grouped: false,
 		    indexBar: false,
 		    parentPanel:this,
@@ -90,9 +91,14 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		                text: 'Back',
 		                ui: 'back',
 		                scope:this,
-		                handler: function() {	                	
-	                		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
-	    		    		this.listMode();
+		                handler: function() {	 
+		                	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
+		                		this.hide();
+		                    	navPanel.show();
+		                	}else{
+		                		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
+		    		    		this.listMode();
+		                	}
 		                }
 	            	},
 	                {
@@ -168,10 +174,10 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	startMeeting : function() {
 		thisMeeting = meetingStore.getAt(0).data;
 		thisMeeting.inProgress = true;
-		homeCardPanel.hide();
-
-		//rolePanel.show();
-		mainPanel.setActiveItem(mainPanel.items.get(1));
+		//homeCardPanel.hide();
+		this.hide();
+		roleListPanel.show();
+		//mainPanel.setActiveItem(mainPanel.items.get(1));
 	}
 
 });

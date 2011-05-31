@@ -58,7 +58,8 @@ Ext.setup({
         });
         
         
-        initRoleListPanel();
+        roleListPanel = new RoleListPanel();
+        //initRoleListPanel();
         roleListPanel.hide();
         
         helpPanel = new HelpPanel();
@@ -68,18 +69,26 @@ Ext.setup({
         //meetingListPanel.hide();
         //myLogPanel.hide();
         
+        /*
         rolePanel = new Ext.Panel({
         	title:'Now',
         	layout: 'card',
         	iconCls:'star',
             items: [roleListPanel, gramPanel, timerPanel, tableTopicPanel,speakerPanel]
         });
+        */
 
         homeCardPanel = new Ext.Panel({
         	title:'Home',
         	layout: 'card',
             iconCls:'home',
-            items: [homePanel, navPanel,clubMemberListPanel, roleHelpPanel,meetingListPanel, meetingPanel]
+            items: [homePanel, navPanel,
+                    clubMemberListPanel, 
+                    roleHelpPanel,
+                    meetingListPanel, meetingPanel,
+                    roleListPanel, gramPanel, timerPanel, tableTopicPanel,speakerPanel, 
+                    myLogPanel, 
+                    helpPanel]
         });
 
         /*
@@ -90,6 +99,7 @@ Ext.setup({
             items: [meetingListPanel, meetingPanel]
         });
         */
+        
         
         mainPanel = new Ext.Panel({
         	tabBar:{
@@ -102,11 +112,14 @@ Ext.setup({
         	layout: 'card',
         	title:'ToastMasters',
             fullscreen: true,
-            items: [homeCardPanel, rolePanel,
+            items: [homeCardPanel 
+                    //rolePanel,
                     //meetingCardPanel,
-                    myLogPanel,helpPanel]
+                    //myLogPanel
+                    //,helpPanel
+                    ]
         });       
-        rolePanel.hide();
+        //rolePanel.hide();
     }
 });
 

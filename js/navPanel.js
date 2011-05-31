@@ -60,15 +60,6 @@ NavPanel = Ext.extend(Ext.Panel,
 		NavPanel.superclass.initComponent.call(this);
 	},
 
-	startMeeting : function() {
-		thisMeeting = meetingStore.getAt(0).data;
-		thisMeeting.inProgress = true;
-		homeCardPanel.hide();
-
-		//rolePanel.show();
-		mainPanel.setActiveItem(mainPanel.items.get(1));
-	},
-
 	viewMeetings: function(){
 		navPanel.hide();
 		meetingListPanel.show();
@@ -88,6 +79,11 @@ NavPanel = Ext.extend(Ext.Panel,
 		navPanel.hide();
 		homePanel.hide();
 		helpPanel.show();
+	},
+	
+	viewLog: function(){
+		navPanel.hide();
+		myLogPanel.show();
 	}
 
 

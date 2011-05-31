@@ -29,23 +29,20 @@ RoleHelpPanel = Ext.extend(Ext.Panel, {
             	'</div>'}
         ];
 
-        this.dockedItems =[
-           {
-               xtype: 'toolbar',
-               dock: 'top',
-               title:'Roles Help',
-               items: [
-                   {
-				    text: 'Back',
-				    scope: this,
-				    handler: function() {
-	                	this.hide();
-	                   	navPanel.show();
-				    }
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			dock : 'top',
+			title : 'Roles Help',
+			items : [ {
+				text : 'Back',
+				scope : this,
+				ui : 'back',
+				handler : function() {
+					this.hide();
+					navPanel.show();
 				}
-               ]
-           }
-       ];
+			} ]
+		} ];
 
         RoleHelpPanel.superclass.initComponent.call(this);
     }

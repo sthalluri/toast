@@ -116,6 +116,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
                 items: [
                     {
 					    text: 'Back',
+		                ui: 'back',
 					    handler: function() {
 					    	gramPanel.hide();
 					    	roleListPanel.show();

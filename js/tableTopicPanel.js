@@ -66,9 +66,15 @@ TableTopicPanel = Ext.extend( Ext.Panel,
             items: [
 				{
 				    text: 'Back',
+	                ui: 'back',
 				    scope:this,
 				    handler: function() {
-                		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+				    	if(this.tblTopicCarouselPanel.getActiveIndex()==0){
+				    		tableTopicPanel.hide();
+	                    	roleListPanel.show();
+	                	}else{
+	                		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+	                	}
 				    }
 				},
 				{xtype: 'spacer'},

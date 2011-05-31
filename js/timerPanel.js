@@ -153,7 +153,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                 items: [
                     {
                         text: 'Back',
-                        ui: 'round',
+		                ui: 'back',
                         handler: function() {
                         	timerPanel.hide();
                         	roleListPanel.show();

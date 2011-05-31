@@ -7,11 +7,7 @@ HelpPanel = Ext.extend(Ext.Panel, {
 
     initComponent: function () {
 
-        this.topToolbar = new Ext.Toolbar({
-        	text:'Help',
-            dock: 'top'
-        });
-
+        
         this.items = [
             { html: '<div class="helpbox"><h2>So what does ToastMasters exactly?</h2> <p>Looking to improve your speaking and leadership skills? Ignite your career? Win that job interview? '+
             	'You have come to the right place. Since 1924, more than 4 million people around the world have become more confident speakers and leaders because of their participation in Toastmasters.'+ 
@@ -26,7 +22,20 @@ HelpPanel = Ext.extend(Ext.Panel, {
                     '&nbsp;</p><p>&nbsp;</p><div>'}
         ];
 
-        this.dockedItems = [ this.topToolbar ];
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			dock : 'top',
+			title : 'About ToastMaster',
+			items : [ {
+				text : 'Back',
+				scope : this,
+				ui : 'back',
+				handler : function() {
+					this.hide();
+					navPanel.show();
+				}
+			} ]
+		} ];
 
         HelpPanel.superclass.initComponent.call(this);
     }

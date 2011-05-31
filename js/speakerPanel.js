@@ -70,6 +70,7 @@ function initSpeakerPanel(){
             items: [
 				{
 				    text: 'Back',
+	                ui: 'back',
 				    handler: function() {
 	                	if(speakerNotesCarousel.getActiveIndex()==0){
 	                		speakerPanel.hide();
