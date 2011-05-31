@@ -34,6 +34,16 @@ RoleListPanel = Ext.extend(Ext.Panel,
 			html : '<br/><br/>'
 		}, {
 			items : [ new Ext.Button({
+				text : 'Table Topics',
+				width : 300,
+				pack : 'center',
+				scope: this,
+				handler : this.loadTableTopics
+			}) ]
+		}, {
+			html : '<br/><br/>'
+		}, {
+			items : [ new Ext.Button({
 				text : 'Speaker',
 				width : 300,
 				pack : 'center',
@@ -41,16 +51,6 @@ RoleListPanel = Ext.extend(Ext.Panel,
 					roleListPanel.hide();
 					speakerPanel.show();
 				}
-			}) ]
-		}, {
-			html : '<br/><br/>'
-		}, {
-			items : [ new Ext.Button({
-				text : 'Table Topics',
-				width : 300,
-				pack : 'center',
-				scope: this,
-				handler : this.loadTableTopics
 			}) ]
 		}, {
 			html : '<br/><br/>'
@@ -102,6 +102,7 @@ RoleListPanel = Ext.extend(Ext.Panel,
 		if(thisMeeting.roles.tableTopics){
 			var contentId = thisMeeting.roles.tableTopics.id;
 			questionDataStore.reload(contentId);
+			questionDataStore.contentId = contentId;
 		}
 		tableTopicPanel.show();
 	}

@@ -37,22 +37,30 @@ MeetingController = Ext.extend(Object, {
 		});
 	},
 	
-	saveMeetingRoleContent : function(meetingRoleContent) {
-		console.log('Invoking the save service');
+	saveTableTopics : function() {
+		console.log('Invoking the save table topics service');		
+		var tableTopics = new Object();
+		tableTopics.meetingRoleId = questionDataStore.contentId;
+		var content = new Object();
+		content.questions = new Array();	
+		tableTopics.id = questionDataStore.rowId;		
+		for(var i=0 ; i<questionDataStore.data.length; i++){
+			var question = questionDataStore.getAt(i).data;
+			content.questions[i]=question;
+		}
+		tableTopics.content = Ext.encode(content);
+		
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
 			params : {
-				json : Ext.encode(meetingRoleContent)
+				json : Ext.encode(tableTopics)
 			},
 			success : function(response, opts) {
 				console.log(response.responseText);
-				//data = eval("(" + response.responseText + ")");
-				//meetingStore.reload(thisUser.defaultClubId);
+				data = eval("(" + response.responseText + ")");
 				if (data.success) {
-					//meetingPanel.updateMessage(data.successMessage);
-				} else {
-					//meetingPanel.updateMessage(data.errorMessage);
-				}
+					questionDataStore.reload();
+				} 
 			}
 		});
 	}

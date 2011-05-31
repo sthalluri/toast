@@ -4,12 +4,7 @@ var thisUser;
 var members = [];
 var meetings =[];
 var roles = [];
-
-var questions = [
-                 {qnNo: '1', text: 'This is a sample question with some text and this is a long one'},
-                 {qnNo: '2', text: 'This is a sample question with some text and this is a long one'},
-                 {qnNo: '3', text: 'This is a sample question with some text and this is a long one'}
-             ];
+var questions = [];
 
 var notes = [
             {highlight: '1. Get this done', notes: 'This is a sample question with some text and this is a long one'},
@@ -150,15 +145,22 @@ var questionDataStore = new Ext.data.Store({
     autoLoad : false,
     autoDestroy : true,
     reload : function(id) {
+    	if(id){
+        	this.contentId = id;
+    	}
  		Ext.Ajax.request({
- 			url : urlStore.meetingUrl + '/getContent/'+id,
+ 			url : urlStore.meetingUrl + '/getContent/'+this.contentId,
  			success : function(response, opts) {
  				var data = eval("(" + response.responseText + ")");
 				var rContent = null;
 				if(data.returnVal.rows.length>0){
 					rContent = eval("(" + data.returnVal.rows[0].content+ ")");
+					questionDataStore.rowId = data.returnVal.rows[0].id;
 					var questions = rContent.questions;
-					questionDataStore.removeAll();					
+					questionDataStore.removeAll();
+					if(!questions){
+						questions = new Array();
+					}
 					for(var i=0 ; i<questions.length; i++){
 						questionDataStore.add({id:questions[i].id,text:questions[i].text});
 					}

@@ -28,18 +28,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	    parentPanel:this,	   
 	    id:'tableTopicListPanel',
 	    onItemDisclosure: {
-	        scope: 'test',
-	        handler: function(record, btn, index) {
-	    		//this.parentPanel.tblTopicCarouselPanel.setActiveItem(this.parentPanel.tblTopicCarouselPanel.items.get(index+1));
-	        	//alert('Disclose more info for ' + record.get('firstName'));
-	    		var carousel = this.parentPanel.tblTopicCarouselPanel;
-	    		var question = this.parentPanel.store.getAt(index).data;
-	    		this.parentPanel.activeQuestion = question;
-	    		var html = this.parentPanel.questionTmpl.apply(question);
-	    		var detailsPanel = carousel.items.get(1);
-	    		detailsPanel.el.setHTML(html);
-	    		carousel.setActiveItem(carousel.items.get(1));
-	        }
+	        scope: this,
+	        handler: this.updateDetailsPanel
 	    },
 	    store: questionDataStore
 	};
@@ -88,18 +78,26 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    }
 				},
 				{xtype: 'spacer'},
+//                {
+//                    text: 'Change Role',
+//                    handler: function() {
+//                    	tableTopicPanel.hide();
+//                    	roleListPanel.show();
+//                    }
+//                },
                 {
-                    text: 'Change Role',
-                    handler: function() {
-                    	tableTopicPanel.hide();
-                    	roleListPanel.show();
-                    }
+                    iconMask: true,
+                    ui: 'plain',
+                	iconCls:'action',
+                	scope:this,
+                    handler: this.editQuestion
                 },
                 {
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'add',
-                    handler: this.addQuestion
+                	scope:this,
+                    handler: this.newQuestion
                 }
             ]
         }
@@ -118,11 +116,33 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
 	},
 	
-	addQuestion: function(){
+	newQuestion:function(){
+		this.activeQuestion = null;
+		this.editQuestion();
+	},
+	
+	editQuestion: function(){
 		tableTopicPanel.hide();
-		questionPanel.load({});
+		if(!this.activeQuestion){
+			var question = new Object();
+			question.id = questionDataStore.data.length;
+			questionDataStore.add(question);
+			this.activeQuestion = question;
+		}
+		questionPanel.loadQuestion(this.activeQuestion);
 		questionPanel.show();
-	}
+	},
+	
+	updateDetailsPanel : function(record, btn, index) {
+    	this.parentPanel.questionIndex = index;
+		var carousel = this.parentPanel.tblTopicCarouselPanel;
+		var question = this.parentPanel.store.getAt(index).data;
+		this.parentPanel.activeQuestion = question;
+		var html = this.parentPanel.questionTmpl.apply(question);
+		var detailsPanel = carousel.items.get(1);
+		detailsPanel.el.setHTML(html);
+		carousel.setActiveItem(carousel.items.get(1));
+    }	
 });
 
 
