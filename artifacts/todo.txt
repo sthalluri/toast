@@ -1,0 +1,60 @@
+UI
+
+- Home Page
+Better Icon for the home page
+Icon for the app
+
+- Login Screen
+EmailID validation
+Password length validations
+
+- Main Screen
+Club View Roles and About to one panel
+Instead of view roles, give my profile
+My Club UI is incomplete
+
+- Meeting List
+Better view for each meeting
+Hightlight the current ones
+
+- Meeting Details
+Format view for the meeting details
+
+- My Log
+Format view for the log
+
+- Members
+Add a new Registered member.
+Add a new non Registered member.
+
+- UI Cleanup
+Font sizes and layouts
+
+- Tabletopics Notes
+View cleanup
+
+- Speaker Notes
+View cleanup
+
+- Functional
+
+Remember Me Not working
+Generate meeting agenda
+
+Tabletopics content save
+Speaker content save
+
+
+Cleanup
+
+- Enable and disable the panels
+
+
+Club Features
+
+Add simple postings to the club
+Manage club roles
+Request user to sign in
+Forgot password
+Manage profile, picture and other info
+Give a logout option
