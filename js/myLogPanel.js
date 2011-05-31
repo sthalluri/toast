@@ -1,82 +1,107 @@
 MyLogPanel = Ext.extend(Ext.Panel, 
 {
 	iconCls : 'compose',
-	tabId : 'myLog',
-	scroll : 'vertical',
-	title : 'My Log	',
-
+	fullscreen: true,
+	title:'My Log',
+    layout : {
+		align:'stretch'
+	},
+	defaults:{
+		flex : 1
+	},
+	
 	initComponent : function() {
 
-		var logBase = {
-			itemTpl : '<div class="contact2"><b>{date}</b><br/>{topic}</div>',
-			selModel : {
-				mode : 'SINGLE',
-				allowDeselect : true
-			},
-			grouped : false,
-			indexBar : false,
+		this.logTmpl = new Ext.Template([
+            '<div name="{id}">',
+            	'<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>',
+            '</div>',
+        ]);
 
-			onItemDisclosure : {
-				scope : 'test',
-				handler : function(record, btn, index) {
-					//alert('Disclose more info for ' + record.get('firstName'));
-					logCarousel.setActiveItem(logCarousel.items.get(index + 1));
-				}
-			},
-			store : myLogDataStore
+		this.logTmpl.compile();
+		
+		this.logBase = {
+		    itemTpl: this.logTmpl,
+		    selModel: {
+		        mode: 'SINGLE',
+		        allowDeselect: true
+		    },
+		    grouped: false,
+		    indexBar: false,
+		    parentPanel:this,
+	
+		    onItemDisclosure: {
+		        scope: this,
+		        handler: function(record, btn, index) {
+		            //alert('Disclose more info for ' + record.get('firstName'));
+		    		var carousel = this.parentPanel.logCarousel;
+		    		var log = this.parentPanel.store.getAt(index).data;
+		    		this.parentPanel.activeLog = log;
+		    		var html = this.parentPanel.logTmpl.apply(log);
+		    		var detailsPanel = carousel.items.get(1);
+		    		detailsPanel.el.setHTML(html);
+		    		carousel.setActiveItem(carousel.items.get(1));
+		    		this.parentPanel.detailMode();
+		        }
+		    },
+		    store: this.store
 		};
-
-		var logCarousel = new Ext.Carousel(
-		{
-			padding : 10,
-			xtype : 'card',
-			activeItem : 0,
-			height : 500,
-			id : 'myLogCarousel',
-			items : [
-					new Ext.List(Ext.apply(logBase, {
-						fullscreen : true
-					})),
-					{
-						html : '<hr/>8/24/2010 <b><br/>Main Speaker</b><br/> Type : Ice Breaker <br/> Time : 5.25min <br/> Grammer Log : <br/> Ahs : 5 , Ams : 7, Sos : 3<br/> '
-								+ '<hr/>9/24/2010 <br/><b>Grammarian</b> <br/> Time : 5.25min <br/> Grammer Log : <br/> Ahs : 5 , Ams : 7, Sos : 3'
-								+ '<hr/>10/24/2010<br/><b>Toast Master</b><br/> Time : 5.25min <br/> Grammer Log : <br/> Ahs : 5 , Ams : 7, Sos : 3'
-					} ]
-		});
-
-		this.defaults = {
-			flex : 1
-		};
-
-		this.items = [ logCarousel ];
-
-		this.dockedItems = [ {
-			xtype : 'toolbar',
-			dock : 'top',
-			title : 'My Log',
-			items : [ {
-				text : 'Back',
-				ui : 'round',
-				handler : function() {
-					if (speakerNotesCarousel.getActiveIndex() == 0) {
-						myLogPanel.hide();
-						mainPanel.setActiveItem(mainPanel.items.get(0));
-						//homeCardPanel.show();
-					} else {
-						logCarousel.setActiveItem(logCarousel.items.get(0));
-					}
-				}
-			} ]
-		} ];
-
-		this.topToolbar = new Ext.Toolbar( {
-			text : 'My Log',
-			dock : 'top'
-		});
-
-		//this.dockedItems = [ this.topToolbar ];
-
-		MyLogPanel.superclass.initComponent.call(this);
+	
+	    this.logCarousel = new Ext.Panel({
+	        padding:10,
+	    	activeItem:0,
+	    	height:'95%',	
+        	layout: 'card',
+	    	items:[
+	    	    new Ext.List(Ext.apply(this.logBase, {
+	               fullscreen: true
+	           	})),
+	           	{
+	    	    	html:'Sample content here'
+	           	}
+	    	]
+	    });
+	
+	   this.items=[
+	            {
+		        	padding:10,
+		        	html : '<b></b>'
+	        	},
+	        	this.logCarousel
+			];
+	   
+	   this.dockedItems=[
+	        {
+	            xtype: 'toolbar',
+	            title:'My Log',
+	            dock: 'top',
+	            defaults: {
+	                iconMask: true,
+	                ui: 'plain'
+	            },
+	            layout: {
+	                pack: 'center'
+	            },
+	            items: [
+		                {
+			                text: 'Back',
+			                ui: 'round',
+			                scope:this,
+			                handler: function() {	                	
+		                		this.logCarousel.setActiveItem(this.logCarousel.items.get(0));
+		    		    		this.listMode();
+			                }
+		            	},
+						{xtype: 'spacer'}
+		            ]
+	        }
+	   ];
+	   MeetingListPanel.superclass.initComponent.call(this);	
+	},
+	detailMode: function(){
+	},
+	listMode: function(){
 	}
+
 });
 

@@ -16,14 +16,15 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 
 		this.meetingTmpl = new Ext.Template([
             '<div name="{id}">',
-                '<span class="{cls}">{id}: {wordOfTheDay}:{date}</span>',
+                '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;',
+                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting()"/>',
             '</div>',
         ]);
 
 		this.meetingTmpl.compile();
 		
 		this.logBase = {
-		    itemTpl: '<div class="contact2">{id}:<b>{date}</b><br/>{themeOfTheDay}</div>',
+		    itemTpl: '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;',
 		    selModel: {
 		        mode: 'SINGLE',
 		        allowDeselect: true
@@ -52,7 +53,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    this.meetingCarousel = new Ext.Panel({
 	        padding:10,
 	    	activeItem:0,
-	    	height:'95%',
+	    	height:'95%',	
         	layout: 'card',
 	    	items:[
 	    	    new Ext.List(Ext.apply(this.logBase, {
@@ -87,12 +88,19 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	            items: [
 	                {
 		                text: 'Back',
-		                ui: 'round',
+		                ui: 'back',
 		                scope:this,
 		                handler: function() {	                	
 	                		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
 	    		    		this.listMode();
 		                }
+	            	},
+	                {
+		                scope:this,
+	                    ui: 'plain',
+	                	iconCls:'home',
+		                id : 'homeButton',
+		                handler: this.goHome
 	            	},
 					{xtype: 'spacer'},
 					{
@@ -150,5 +158,20 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	
 	save : function(){
 		this.controller.save(thisMeeting);
+	},
+	
+	goHome: function(){
+    	this.hide();
+    	navPanel.show();
+	},
+
+	startMeeting : function() {
+		thisMeeting = meetingStore.getAt(0).data;
+		thisMeeting.inProgress = true;
+		homeCardPanel.hide();
+
+		//rolePanel.show();
+		mainPanel.setActiveItem(mainPanel.items.get(1));
 	}
+
 });

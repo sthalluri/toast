@@ -35,7 +35,11 @@ Ext.setup({
         tableTopicPanel = new TableTopicPanel();
         //initTableTopicPanel();
         initSpeakerPanel();
-        myLogPanel = new MyLogPanel();
+        
+        myLogPanel = new MyLogPanel({
+        	controller: new MeetingController(),
+        	store : meetingStore
+        });
         
         //initMeetingPanel();
         meetingListPanel = new MeetingListPanel({
@@ -75,17 +79,19 @@ Ext.setup({
         	title:'Home',
         	layout: 'card',
             iconCls:'home',
-            items: [homePanel, navPanel,clubMemberListPanel, roleHelpPanel]
+            items: [homePanel, navPanel,clubMemberListPanel, roleHelpPanel,meetingListPanel, meetingPanel]
         });
 
+        /*
         meetingCardPanel = new Ext.Panel({
         	title:'Meetings',
         	layout: 'card',
             iconCls:'bookmarks',
             items: [meetingListPanel, meetingPanel]
         });
+        */
         
-        mainPanel = new Ext.TabPanel({
+        mainPanel = new Ext.Panel({
         	tabBar:{
         		dock:'bottom',
         		height:50,
@@ -97,7 +103,8 @@ Ext.setup({
         	title:'ToastMasters',
             fullscreen: true,
             items: [homeCardPanel, rolePanel,
-                    meetingCardPanel, myLogPanel,helpPanel]
+                    //meetingCardPanel,
+                    myLogPanel,helpPanel]
         });       
         rolePanel.hide();
     }
@@ -135,3 +142,6 @@ var urlStore = {
 		clubUrl			: '/toastService/club'
 };
 
+function viewHome(){
+	homeCardPanel.show();
+}

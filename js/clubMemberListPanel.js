@@ -28,6 +28,7 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
                items: [
                    {
 				    text: 'Back',
+	                ui: 'back',
 				    handler: function() {
 	                	clubMemberListPanel.hide();
 	                   	navPanel.show();
