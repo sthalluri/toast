@@ -123,11 +123,23 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('Register'+'<div class="msg"><p >'+msg+'</p></div>');
 	},
+	onRegister:function(data){
+    	if(data.success){
+    		this.registerSuccess();
+    		thisUser = data.returnVal;
+    	}else{
+    		if(data.errorMessage)
+    		{
+    			this.updateMessage(data.errorMessage);
+    		}
+    	}
+	},
 	register : function() {
 		if(this.validate()){
 			var formValues = this.getValues();
 			console.log(formValues);
-			registerController.register(formValues);
+			//registerController.register(formValues);
+			UserService.register(formValues, this.onRegister, this);
 		}
 	},
 	validate: function(){
@@ -143,12 +155,11 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 			return false;
 		}
 
-		/*
 		if(!formValues.confirmPassword || 
 				formValues.confirmPassword<5 || formValues.confirmPassword != formValues.password){
 			this.updateMessage('Confirm your password');
 			return false;
-		}*/
+		}
 
 		return true;
 	},

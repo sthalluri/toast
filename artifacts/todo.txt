@@ -49,6 +49,7 @@ After Save on meeting and questions should go back to the list probably
 Can remove the detail page for the question
 Roles need to change based on the grammer and timer screens
 
+Alerts/Announcements section for the club
 
 Cleanup
 

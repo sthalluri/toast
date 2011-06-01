@@ -38,12 +38,13 @@ NavPanel = Ext.extend(Ext.Panel,
 				'</tr>'+
 				'<tr><td height="30px"></td></tr>'+
 				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/user_list2.png" onclick="navPanel.viewRoles()"/></td>'+
+//				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/user_list2.png" onclick="navPanel.viewRoles()"/></td>'+
+				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/flag.png" onclick="navPanel.viewRoles()"/></td>'+
 				'<td width="20px"></td>'+
 				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/help_black.png" onclick="navPanel.viewHelp()"/></td>'+
 				'</tr>'+
 				'<tr >'+
-				'<td >View Roles</td>'+
+				'<td >Alerts</td>'+
 				'<td width="20px"></td>'+
 				'<td align ="center">About</td>'+
 				'</tr>'+

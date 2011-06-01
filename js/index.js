@@ -13,10 +13,8 @@ Ext.setup({
 
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
-        userController = new UserController(loginPanel);
 
         registerPanel = new RegisterPanel();
-        registerController = new RegisterController(loginPanel);
 
         clubController = new ClubController();
         meetingController = new MeetingController();
@@ -125,18 +123,8 @@ var roleHelpPanel;
 var questionPanel;
 
 //Controllers
-var userController ;
-var registerController ;
 var clubController ;
 var meetingController;
-
-//var urlStore = mockUrls;
-var urlStore = {
-		userUrl 		: '/toastService/user',
-		meetingUrl		: '/toastService/meeting',
-		registerUrl		: '/toastService/user/register',
-		clubUrl			: '/toastService/club'
-};
 
 function viewHome(){
 	homeCardPanel.show();

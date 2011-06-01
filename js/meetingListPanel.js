@@ -16,15 +16,15 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 
 		this.meetingTmpl = new Ext.Template([
             '<div name="{id}">',
-                '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;',
-                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting({id})"/>',
+                '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;<br/><hr/>',
+                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
             '</div>',
         ]);
 
 		this.meetingTmpl.compile();
 		
 		this.logBase = {
-		    itemTpl: '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;',
+		    itemTpl: '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting({id})"/>',
 		    selModel: {
 		        mode: 'SINGLE',
 		        allowDeselect: true

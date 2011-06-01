@@ -33,7 +33,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 				} ];
 
 		this.dockedItems = [ {
-			title : 'ToastMaster',
+			title : 'ToastMasters',
 			xtype : 'toolbar',
 			dock : 'top',
 			items : []

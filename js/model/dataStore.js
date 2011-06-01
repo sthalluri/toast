@@ -21,6 +21,15 @@ var userLog =[
 var fillers= ['ah','amm','so','like'];
 
 
+//var urlStore = mockUrls;
+var urlStore = {
+		userUrl 		: '/toastService/user',
+		meetingUrl		: '/toastService/meeting',
+		registerUrl		: '/toastService/user/register',
+		clubUrl			: '/toastService/club'
+};
+
+
 Ext.regModel('Meeting', {
 	idProperty: 'id',
 	fields: [

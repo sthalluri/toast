@@ -66,20 +66,21 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		    centered: true,
 		    hideOnMaskTap: false
 		});
-		
+
 		LoginPanel.superclass.initComponent.call(this);	
 	},
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('Login'+'<div class="msg"><p >'+msg+'</p></div>');
 	},
 	login : function() {
-		console.log(this.url);
-		
 		if(this.validate()){
 			var formValues = this.getValues();
 			console.log(formValues);
-			userController.checkLogin(formValues.userId, formValues.password);
+			UserService.checkLogin(formValues.userId, formValues.password, this.onCheckLogin, this);
 		}
+	},
+	onCheckLogin:function(logSuccess){
+		console.log('Came to the callback and its :'+logSuccess);
 	},
 	validate: function(){
 		var formValues = this.getValues();
