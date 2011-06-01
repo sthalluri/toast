@@ -79,8 +79,26 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			UserService.checkLogin(formValues.userId, formValues.password, this.onCheckLogin, this);
 		}
 	},
-	onCheckLogin:function(logSuccess){
-		console.log('Came to the callback and its :'+logSuccess);
+	onCheckLogin:function(data){
+		console.log('Came to the callback and its :'+data);
+		if (data.success) {
+			this.loggedIn = true;
+			thisUser = data.returnVal;
+			this.hide();
+			homePanel.hide();
+			navPanel.show();
+			
+			//Loading all the datastores
+			meetingStore.reload(thisUser.defaultClubId);
+			memberStore.reload(thisUser.defaultClubId);
+			roleStore.reload();
+		} else {
+			if (data.errorMessage) {
+				this.updateMessage(data.errorMessage);
+			} else {
+				this.updateMessage('Login Failed.');
+			}
+		}    	
 	},
 	validate: function(){
 		var formValues = this.getValues();

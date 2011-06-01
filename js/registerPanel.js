@@ -138,7 +138,6 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 		if(this.validate()){
 			var formValues = this.getValues();
 			console.log(formValues);
-			//registerController.register(formValues);
 			UserService.register(formValues, this.onRegister, this);
 		}
 	},
