@@ -3,7 +3,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     scroll: 'vertical',
     url   : 'postUser.php',
     standardSubmit : false,
-    title: 'Add Meeting',
+    title: 'Agenda',
 	controller: null,
 	meetingStore : null,
 	meeting:null,
@@ -117,7 +117,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Edit Meeting',
+                title:'Agenda',
                 items: [
                     {
                         text: 'Back',

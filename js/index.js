@@ -27,14 +27,12 @@ Ext.setup({
         	controller: meetingController
         });
 
-        //initNavPanel();
-        //initTimerPanel();
         timerPanel = new TimerPanel();
         
         tableTopicPanel = new TableTopicPanel({
         	store : questionDataStore
         });
-        //initTableTopicPanel();
+        
         initSpeakerPanel();
         
         myLogPanel = new MyLogPanel({
@@ -42,7 +40,6 @@ Ext.setup({
         	store : meetingStore
         });
         
-        //initMeetingPanel();
         meetingListPanel = new MeetingListPanel({
         	controller: meetingController,
         	meetingStore : meetingStore
@@ -50,8 +47,6 @@ Ext.setup({
         
         
         clubMemberListPanel = new ClubMemberListPanel();
-        
-        //initAddMeetingPanel();
         
         meetingPanel = new MeetingPanel({
         	controller: new MeetingController(),
@@ -70,24 +65,14 @@ Ext.setup({
         	controller: new MeetingController()
         });
         
-        //loginForm.hide();
-        //meetingListPanel.hide();
-        //myLogPanel.hide();
-        
-        /*
-        rolePanel = new Ext.Panel({
-        	title:'Now',
-        	layout: 'card',
-        	iconCls:'star',
-            items: [roleListPanel, gramPanel, timerPanel, tableTopicPanel,speakerPanel]
-        });
-        */
-
         homeCardPanel = new Ext.Panel({
-        	title:'Home',
+        	title:'ToastMasters',
         	layout: 'card',
             iconCls:'home',
-            items: [homePanel, navPanel,
+            fullscreen: true,
+            items: [homePanel, 
+                    loginPanel, registerPanel,
+                    navPanel,
                     clubMemberListPanel, 
                     roleHelpPanel,
                     meetingListPanel, meetingPanel,
@@ -98,35 +83,25 @@ Ext.setup({
                     helpPanel]
         });
 
-        /*
-        meetingCardPanel = new Ext.Panel({
-        	title:'Meetings',
-        	layout: 'card',
-            iconCls:'bookmarks',
-            items: [meetingListPanel, meetingPanel]
-        });
-        */
-        
-        
-        mainPanel = new Ext.Panel({
-        	tabBar:{
-        		dock:'bottom',
-        		height:50,
-        		layout:{
-        			pack:'center'
-        		}
-        	},
-        	layout: 'card',
-        	title:'ToastMasters',
-            fullscreen: true,
-            items: [homeCardPanel 
-                    //rolePanel,
-                    //meetingCardPanel,
-                    //myLogPanel
-                    //,helpPanel
-                    ]
-        });       
-        //rolePanel.hide();
+//        
+//        mainPanel = new Ext.Panel({
+//        	tabBar:{
+//        		dock:'bottom',
+//        		height:50,
+//        		layout:{
+//        			pack:'center'
+//        		}
+//        	},
+//        	layout: 'card',
+//        	title:'ToastMasters',
+//            fullscreen: true,
+//            items: [homeCardPanel 
+//                    //rolePanel,
+//                    //meetingCardPanel,
+//                    //myLogPanel
+//                    //,helpPanel
+//                    ]
+//        });       
     }
 });
 

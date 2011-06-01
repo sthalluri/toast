@@ -58,16 +58,13 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		// Base config options
 		Ext.apply(this, {
 			scroll : 'vertical',
-			url : 'postUser.php',
 			standardSubmit : false,
 			title : 'Login',
 			autoRender: true,
 		    floating: true,
 		    modal: true,
 		    centered: true,
-		    hideOnMaskTap: false,
-		    height: 385,
-		    width: 280
+		    hideOnMaskTap: false
 		});
 		
 		LoginPanel.superclass.initComponent.call(this);	
@@ -77,6 +74,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	login : function() {
 		console.log(this.url);
+		
 		if(this.validate()){
 			var formValues = this.getValues();
 			console.log(formValues);

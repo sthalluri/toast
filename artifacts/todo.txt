@@ -1,4 +1,4 @@
-UI
+UI	
 
 - Home Page
 Better Icon for the home page
@@ -43,6 +43,11 @@ Generate meeting agenda
 
 Tabletopics content save
 Speaker content save
+
+User Save saving it multiple times
+After Save on meeting and questions should go back to the list probably
+Can remove the detail page for the question
+Roles need to change based on the grammer and timer screens
 
 
 Cleanup

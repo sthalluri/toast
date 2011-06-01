@@ -55,19 +55,6 @@ RoleListPanel = Ext.extend(Ext.Panel,
 		}, {
 			html : '<br/><br/>'
 		}
-//		, {
-//			items : [ new Ext.Button({
-//				text : 'End Meeting',
-//				width : 300,
-//				pack : 'center',
-//				ui : 'decline',
-//				handler : function() {
-//					roleListPanel.hide();
-//					//meetingCardPanel.show();
-//					mainPanel.setActiveItem(mainPanel.items.get(2));
-//				}
-//			}) ]
-//		} 
 		];
 
 		this.dockedItems = [ {
