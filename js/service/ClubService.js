@@ -2,7 +2,13 @@ ClubServiceImpl = Ext.extend(Object, {
 
 	onClubMembers: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
+		if (data.success) {
+			var members = data.returnVal.rows;
+			for(var i=0 ; i<members.length; i++){
+				var member = members[i];
+				member.name = member.firstName+' '+member.lastName;
+			}
+		}cb.call(scope || window, data);
     },
     
     clubMembers : function(clubId, cb, scope) {

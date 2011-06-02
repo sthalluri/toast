@@ -94,8 +94,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 	onClubMemberLoad: function(data){
 		if (data.success) {
 			console.log('Loading meeting data');
-			memberStore.loadData(data.returnVal.rows);
-			memberStore.add({ id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'});
+			memberStore.loadWithDefault(data.returnVal.rows);
 		} else {
 			console.log('Unable to load the meetings ');
 		}

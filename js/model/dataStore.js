@@ -48,7 +48,7 @@ var meetingStore = new Ext.data.JsonStore({
 	autoDestroy : true
 });
 
-Ext.regModel('Members', {
+Ext.regModel('Member', {
     fields: [
         {name: 'id',    type: 'int'},
         {name: 'userId',    type: 'string'},
@@ -61,15 +61,20 @@ Ext.regModel('Members', {
 
 var memberStore = new Ext.data.JsonStore({
    data : members,
-   model : 'Members',
+   model : 'Member',
    autoLoad : false,
    autoDestroy : true,
    getGroupString : function(record) {
 		return record.get('firstName')[0];
+   },
+   loadWithDefault: function(records){
+		memberStore.loadData(records);
+		var defaultSelect = { id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'};
+		this.insert(0,Ext.ModelMgr.create( defaultSelect, 'Member'));
    }
 });
 
-Ext.regModel('Roles', {
+Ext.regModel('Role', {
     fields: [
         {name: 'id',     		type: 'string'},
         {name: 'description',   type: 'string'}
@@ -79,7 +84,7 @@ Ext.regModel('Roles', {
 
 var roleStore = new Ext.data.JsonStore({
    data : roles,
-   model : 'Roles',
+   model : 'Role',
    autoLoad : false,
    autoDestroy : true,
    reload : function() {
@@ -88,13 +93,10 @@ var roleStore = new Ext.data.JsonStore({
 			success : function(response, opts) {
 				var data = eval("(" + response.responseText + ")");
 				if (data.success) {
-					console.log(data);
-					roleStore.removeAll();
 					var roles = data.returnVal.rows;
-					roleStore.add({ id : '0',     description : 'Select...'});
-					for(var i=0 ; i<roles.length; i++){
-						roleStore.add(roles[i]);
-					}
+					roleStore.loadData(roles);
+					var defaultSelect = { id : '0',     description : 'Select...'};
+					roleStore.insert(0,Ext.ModelMgr.create( defaultSelect, 'Role'));
 				} else {
 					
 				}
@@ -113,36 +115,7 @@ var questionDataStore = new Ext.data.Store({
     sorters: 'id',
     data: questions,
     autoLoad : false,
-    autoDestroy : true,
-    reload : function(id) {
-    	if(id){
-        	this.contentId = id;
-    	}
- 		Ext.Ajax.request({
- 			url : urlStore.meetingUrl + '/getContent/'+this.contentId,
- 			success : function(response, opts) {
- 				var data = eval("(" + response.responseText + ")");
-				var rContent = null;
-				if(data.returnVal.rows.length>0){
-					rContent = eval("(" + data.returnVal.rows[0].content+ ")");
-					questionDataStore.rowId = data.returnVal.rows[0].id;
-					var questions = rContent.questions;
-					questionDataStore.removeAll();
-					if(!questions){
-						questions = new Array();
-					}
-					for(var i=0 ; i<questions.length; i++){
-						questionDataStore.add({id:questions[i].id,text:questions[i].text});
-					}
-				}
- 				if (data.success) {
- 					console.log(data);
- 				} else {
- 					
- 				}
- 			}
- 		});
-    }
+    autoDestroy : true
 });
 
 Ext.regModel('NotesModel', {

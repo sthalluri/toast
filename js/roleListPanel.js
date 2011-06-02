@@ -84,13 +84,22 @@ RoleListPanel = Ext.extend(Ext.Panel,
 		roleListPanel.hide();
 		navPanel.show();
 	},
+	
+	onTableTopicsLoad: function(data){
+		if (data.success) {
+			questionDataStore.loadData(data.returnVal);
+			tableTopicPanel.show();
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+	
 	loadTableTopics: function(){
 		roleListPanel.hide();
 		if(thisMeeting.roles.tableTopics){
 			var contentId = thisMeeting.roles.tableTopics.id;
-			questionDataStore.reload(contentId);
 			questionDataStore.contentId = contentId;
+			MeetingService.getContent(contentId, this.onTableTopicsLoad, this);
 		}
-		tableTopicPanel.show();
 	}
 });

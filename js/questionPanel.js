@@ -62,11 +62,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
                         text: 'Back',
                         ui: 'back',
                         scope:this,
-                        handler: function() {
-                        	this.hide();
-                        	tableTopicPanel.listMode();
-                        	tableTopicPanel.show();
-                        }
+                        handler: this.goBack
                     }
                 ]
             }
@@ -87,9 +83,24 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		this.question = pQuestion;
 	},
+	
+	goBack: function(){
+		MeetingService.getContent(questionDataStore.contentId, this.onTableTopicsLoad, this);
+	},
+	
+	onTableTopicsLoad: function(data){
+		if (data.success) {
+			questionDataStore.loadData(data.returnVal);
+	    	this.hide();
+	    	tableTopicPanel.listMode();
+	    	tableTopicPanel.show();
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
 	onSave:function(data){
 		if (data.success) {
-			questionDataStore.reload();
 			this.updateMessage(data.successMessage);
 		} else {
 			this.updateMessage(data.errorMessage);

@@ -1,58 +1,43 @@
 MeetingServiceImpl = Ext.extend(Object, {
 	
-	onGetList: function(response, args, cb, scope) {
+	onAjaxResponse: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
     },
-	
+    
+    //Get the list of meetings
 	getList : function(cb, scope) {
 		console.log('Invoking the check service');
-	    this.onGetList = Ext.createDelegate(MeetingServiceImpl.prototype.onGetList, scope || window, [cb, scope], true);
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/list',			
-			success: this.onGetList
+			success: this.onAjaxResponse
 		});
 	},
 
-	
 	//Get the meetings by club id
-	onGetByClubId: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
-    },
-	
 	getByClubId : function(clubId, cb, scope) {
-	    this.onGetByClubId = Ext.createDelegate(MeetingServiceImpl.prototype.onGetByClubId, scope || window, [cb, scope], true);
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.meetingUrl + '/getByClubId/' + clubId,
-			success : this.onGetByClubId
+			success : this.onAjaxResponse
 		});
 	},
 
-
-	onSave: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
-    },
-
+	//Save the meeting
 	save : function(meeting, cb, scope) {
 		console.log('Invoking the save service');
-	    this.onSave = Ext.createDelegate(MeetingServiceImpl.prototype.onSave, scope || window, [cb, scope], true);
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/save',
 			params : {
 				json : Ext.encode(meeting)
 			},
-			success : this.onSave
+			success : this.onAjaxResponse
 		});
 	},
 
-	onsaveTableTopics: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-		console.log(response.responseText);
-        cb.call(scope || window, data);
-    },
-
+	//Save the Table Topic question
 	saveTableTopics : function(cb, scope) {
 		console.log('Invoking the save table topics service');		
 		var tableTopics = new Object();
@@ -65,15 +50,43 @@ MeetingServiceImpl = Ext.extend(Object, {
 			content.questions[i]=question;
 		}
 		tableTopics.content = Ext.encode(content);
-	    this.onsaveTableTopics = Ext.createDelegate(MeetingServiceImpl.prototype.onsaveTableTopics, scope || window, [cb, scope], true);
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
 			params : {
 				json : Ext.encode(tableTopics)
 			},
-			success : this.onsaveTableTopics
+			success : this.onAjaxResponse
 		});
-	}
+	},
+	
+	//Process the response to parse out the content
+	onGetContent: function(response, args, cb, scope) {
+		var data = eval("(" + response.responseText + ")");
+		var rContent = null;
+		if(data.success && data.returnVal.rows.length>0){
+			rContent = eval("(" + data.returnVal.rows[0].content+ ")");
+			questionDataStore.rowId = data.returnVal.rows[0].id;
+			var questions = rContent.questions;				
+			var rQuestions = new Array();
+			if(questions){
+				for(var i=0 ; i<questions.length; i++){
+					rQuestions[i] = {id:questions[i].id,text:questions[i].text};
+				}
+			}
+			data.returnVal = rQuestions;
+		}
+        cb.call(scope || window, data);
+    },
+	
+	//Get the content for a specific meetingrole
+	getContent : function(contentId, cb, scope) {
+	    this.onGetContent = Ext.createDelegate(MeetingServiceImpl.prototype.onGetContent, scope || window, [cb, scope], true);
+		Ext.Ajax.request( {
+ 			url : urlStore.meetingUrl + '/getContent/'+contentId,
+			success: this.onGetContent
+		});
+	},
 
 });
 
