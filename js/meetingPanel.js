@@ -5,6 +5,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     standardSubmit : false,
     title: 'Agenda',
 
+    
 	initComponent : function() {
 
 		this.formFields = [

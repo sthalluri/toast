@@ -9,28 +9,42 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	defaults:{
 		flex : 1
 	},
+	getHeaderConfig: function(title) {
+        return {
+            xtype: 'component',
+            html: title,
+            cls: 'x-list-header'
+        };
+    },
 	initComponent : function() {
 
 		this.meetingTmpl = new Ext.Template([
-            '<div name="{id}">',
-                '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;<br/><hr/>',
-                'Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
-            '</div>',
+            '<span style="background-color:#aaaaaa;">{meetingDate}</span>',
+            '<div name="{id}" >',
+                '<span class="{cls}">{themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
+                'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
+            '</div>'
         ]);
 
 		this.meetingTmpl.compile();
-		
+
+		this.meetingListTmpl = Ext.XTemplate.from('meeting-list');
+			
+//		new Ext.Template([
+//             '<span style="background:#abc">{[values.meetingDate.format("l, F d, Y g:i:s A")]}</span>',
+//             '<div name="{id}" >',
+//                 '<span class="{cls}">Theme: {themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
+//                 'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
+//             '</div>',
+//	     ]);
+	
+		this.meetingListTmpl.compile();
+
 		this.logBase = {
-		    itemTpl: '<span class="{cls}">{id}: {wordOfTheDay}:{meetingDate}</span>&nbsp;&nbsp;Log Work <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="meetingListPanel.startMeeting({id})"/>',
-		    selModel: {
-		        mode: 'SINGLE',
-		        allowDeselect: true
-		    },
+		    itemTpl: this.meetingListTmpl,
 		    id:'meetingListPanel',
 		    grouped: false,
-		    indexBar: false,
-		    parentPanel:this,
-	
+		    parentPanel:this,	
 		    onItemDisclosure: {
 		        scope: this,
 		        handler: function(record, btn, index) {
@@ -49,32 +63,26 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		};
 	
 	    this.meetingCarousel = new Ext.Panel({
-	        padding:10,
 	    	activeItem:0,
 	    	height:'95%',	
         	layout: 'card',
 	    	items:[
 	    	    new Ext.List(Ext.apply(this.logBase, {
-	               fullscreen: true
+	               fullscreen: false
 	           	})),
-	           	{
-	    	    	html:'Sample content here'
-	           	}
+	           	{html:'Sample text here'}
 	    	]
 	    });
 	
 	   this.items=[
-	            {
-		        	padding:10,
-		        	html : '<b></b>'
-	        	},
+	    	    this.getHeaderConfig('Meetings'),
 	        	this.meetingCarousel
-			];
+	   ];
 	   
 	   this.dockedItems=[
 	        {
 	            xtype: 'toolbar',
-	            title:'Meetings',
+	            title:'ToastMasters',
 	            dock: 'top',
 	            defaults: {
 	                iconMask: true,

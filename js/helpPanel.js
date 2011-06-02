@@ -3,7 +3,7 @@ HelpPanel = Ext.extend(Ext.Panel, {
     iconCls: 'info',
     tabId: 'help',
     scroll: 'vertical',
-    title:'Help',
+    title:'ToastMasters',
 
     initComponent: function () {
 
@@ -22,20 +22,20 @@ HelpPanel = Ext.extend(Ext.Panel, {
                     '&nbsp;</p><p>&nbsp;</p><div>'}
         ];
 
-		this.dockedItems = [ {
-			xtype : 'toolbar',
-			dock : 'top',
-			title : 'ToastMasters',
-			items : [ {
-				text : 'Back',
-				scope : this,
-				ui : 'back',
-				handler : function() {
-					this.hide();
-					navPanel.show();
-				}
-			} ]
-		} ];
+//		this.dockedItems = [ {
+//			xtype : 'toolbar',
+//			dock : 'top',
+//			title : 'ToastMasters',
+//			items : [ {
+//				text : 'Back',
+//				scope : this,
+//				ui : 'back',
+//				handler : function() {
+//					this.hide();
+//					navPanel.show();
+//				}
+//			} ]
+//		} ];
 
         HelpPanel.superclass.initComponent.call(this);
     }

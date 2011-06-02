@@ -79,8 +79,7 @@ NavPanel = Ext.extend(Ext.Panel,
 	
 	viewHelp:function(){
 		navPanel.hide();
-		homePanel.hide();
-		helpPanel.show();
+		helpTabPanel.show();
 	},
 	
 	viewLog: function(){

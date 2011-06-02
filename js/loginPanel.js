@@ -74,9 +74,13 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		this.items.get(0).titleEl.setHTML('Login'+'<div class="msg"><p >'+msg+'</p></div>');
 	},
 	login : function() {
+		//Temporary to disable login
+		thisUser = Ext.ModelMgr.create( mockUser, 'User');
+		loginPanel.loadModel(thisUser);
+		//End of temp code
+		
 		if(this.validate()){
 			var formValues = this.getValues();
-			console.log(formValues);
 			UserService.checkLogin(formValues.userId, formValues.password, this.onCheckLogin, this);
 		}
 	},

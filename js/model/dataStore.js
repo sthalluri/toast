@@ -151,17 +151,12 @@ var myLogDataStore = new Ext.data.Store({
 Ext.regModel('User', {
 	idProperty: 'id',
     fields: [
+        {name: 'id',     type: 'int'},
         {name: 'userId',     type: 'string'},
-        {name: 'userId',     type: 'string'},
-        {name: 'name',     type: 'string'},
-        {name: 'password', type: 'password'},
+        {name: 'firstName',     type: 'string'},
+        {name: 'lastName',     type: 'string'},
+        {name: 'phone',     type: 'string'},
         {name: 'email',    type: 'string'},
-        {name: 'url',      type: 'string'},
-        {name: 'rank',     type: 'string'},
-        {name: 'enable',   type: 'boolean'},
-        {name: 'cool',     type: 'boolean'},
-        {name: 'color',    type: 'string'},
-        {name: 'team',     type: 'string'},
-        {name: 'secret',   type: 'boolean'}
+        {name: 'defaultClubId',      type: 'string'}
     ]
 });

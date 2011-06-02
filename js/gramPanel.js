@@ -157,7 +157,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
         
         for(var i=0; i<fillers.length;i++){
 			var filler = fillers[i];
-			var spinner = this.spinners[i];
 			countObj[filler] = values[filler+'Count'];
 		}
         MeetingService.save(thisMeeting, this.onSave, this);

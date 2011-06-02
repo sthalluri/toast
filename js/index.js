@@ -5,12 +5,6 @@ Ext.setup({
     glossOnIcon: false,
     
     onReady: function() {
-        var timeline = new Ext.Component({
-            title: 'Timeline',
-            cls: 'timeline',
-            scroll: 'vertical'
-        });
-
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
         registerPanel = new RegisterPanel();
@@ -39,6 +33,7 @@ Ext.setup({
         helpPanel = new HelpPanel();
         roleHelpPanel = new RoleHelpPanel();
         questionPanel = new QuestionPanel();
+        helpTabPanel = new HelpTabPanel();
         
         homeCardPanel = new Ext.Panel({
         	title:'ToastMasters',
@@ -49,34 +44,13 @@ Ext.setup({
                     loginPanel, registerPanel,
                     navPanel,
                     clubMemberListPanel, 
-                    roleHelpPanel,
                     meetingListPanel, meetingPanel,
                     roleListPanel, gramPanel, timerPanel, 
                     tableTopicPanel,questionPanel,
                     speakerPanel, 
                     myLogPanel, 
-                    helpPanel]
-        });
-
-//        
-//        mainPanel = new Ext.Panel({
-//        	tabBar:{
-//        		dock:'bottom',
-//        		height:50,
-//        		layout:{
-//        			pack:'center'
-//        		}
-//        	},
-//        	layout: 'card',
-//        	title:'ToastMasters',
-//            fullscreen: true,
-//            items: [homeCardPanel 
-//                    //rolePanel,
-//                    //meetingCardPanel,
-//                    //myLogPanel
-//                    //,helpPanel
-//                    ]
-//        });       
+                    helpTabPanel]
+        });      
     }
 });
 

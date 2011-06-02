@@ -3,7 +3,7 @@ RoleHelpPanel = Ext.extend(Ext.Panel, {
     iconCls: 'info',
     tabId: 'help',
     scroll: 'vertical',
-    title:'Help',
+    title:'Roles',
 
     initComponent: function () {
 
@@ -29,20 +29,20 @@ RoleHelpPanel = Ext.extend(Ext.Panel, {
             	'</div>'}
         ];
 
-		this.dockedItems = [ {
-			xtype : 'toolbar',
-			dock : 'top',
-			title : 'Roles Help',
-			items : [ {
-				text : 'Back',
-				scope : this,
-				ui : 'back',
-				handler : function() {
-					this.hide();
-					navPanel.show();
-				}
-			} ]
-		} ];
+//		this.dockedItems = [ {
+//			xtype : 'toolbar',
+//			dock : 'top',
+//			title : 'Roles Help',
+//			items : [ {
+//				text : 'Back',
+//				scope : this,
+//				ui : 'back',
+//				handler : function() {
+//					this.hide();
+//					navPanel.show();
+//				}
+//			} ]
+//		} ];
 
         RoleHelpPanel.superclass.initComponent.call(this);
     }
