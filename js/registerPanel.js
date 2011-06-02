@@ -128,10 +128,7 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
     		this.registerSuccess();
     		thisUser = data.returnVal;
     	}else{
-    		if(data.errorMessage)
-    		{
-    			this.updateMessage(data.errorMessage);
-    		}
+			this.updateMessage(data.errorMessage);
     	}
 	},
 	register : function() {

@@ -214,17 +214,22 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		return noErrors;
 	},
 	
+	onSave: function(data){
+		if (data.success) {
+			this.updateMessage(data.successMessage);
+	        this.timerPanelClock.reset();
+	        this.reset();
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
 	save: function(){
 		var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  values['userId'];
-        obj.timeSpent = this.timerPanelClock.getSecs();
-        
-        meetingController.save(thisMeeting);        
-        this.logReport();
-        this.timerPanelClock.reset();
-		this.updateMessage('Saved Successfully');
-        this.reset();
+        obj.timeSpent = this.timerPanelClock.getSecs();        
+        MeetingService.save(thisMeeting, this.onSave, this);
 	},
 	
 	updateTime: function(){

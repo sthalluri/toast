@@ -1,5 +1,6 @@
 LoginPanel = Ext.extend(Ext.form.FormPanel, 
 {
+	width: 300,
 	loggedIn:false,	
 	initComponent : function() {
 		this.items = [ {
@@ -79,6 +80,28 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			UserService.checkLogin(formValues.userId, formValues.password, this.onCheckLogin, this);
 		}
 	},
+	
+	onMeetingDataLoad: function(data){
+		if (data.success) {
+			console.log('Loading meeting data');
+			meetingStore.removeAll();
+			meetingStore.loadData(data.returnVal.rows);
+		} else {
+			console.log('Unable to load the meetings ');
+		}
+	},
+
+	onClubMemberLoad: function(data){
+		if (data.success) {
+			console.log('Loading meeting data');
+			memberStore.removeAll();
+			memberStore.add({ id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'});
+			memberStore.loadData(data.returnVal.rows);
+		} else {
+			console.log('Unable to load the meetings ');
+		}
+	},
+
 	onCheckLogin:function(data){
 		console.log('Came to the callback and its :'+data);
 		if (data.success) {
@@ -89,15 +112,15 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			navPanel.show();
 			
 			//Loading all the datastores
-			meetingStore.reload(thisUser.defaultClubId);
-			memberStore.reload(thisUser.defaultClubId);
+			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingDataLoad, this);
+			
+			//Loading the club members
+			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+			
+			//memberStore.reload(thisUser.defaultClubId);
 			roleStore.reload();
 		} else {
-			if (data.errorMessage) {
-				this.updateMessage(data.errorMessage);
-			} else {
-				this.updateMessage('Login Failed.');
-			}
+			this.updateMessage(data.errorMessage);
 		}    	
 	},
 	validate: function(){

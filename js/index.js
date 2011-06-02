@@ -13,20 +13,10 @@ Ext.setup({
 
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
-
         registerPanel = new RegisterPanel();
-
-        clubController = new ClubController();
-        meetingController = new MeetingController();
-        
         navPanel = new NavPanel();
-
-        gramPanel = new GramPanel({
-        	controller: meetingController
-        });
-
+        gramPanel = new GramPanel();
         timerPanel = new TimerPanel();
-        
         tableTopicPanel = new TableTopicPanel({
         	store : questionDataStore
         });
@@ -34,34 +24,21 @@ Ext.setup({
         initSpeakerPanel();
         
         myLogPanel = new MyLogPanel({
-        	controller: new MeetingController(),
         	store : meetingStore
-        });
-        
+        });        
         meetingListPanel = new MeetingListPanel({
-        	controller: meetingController,
         	meetingStore : meetingStore
         });
-        
-        
         clubMemberListPanel = new ClubMemberListPanel();
         
         meetingPanel = new MeetingPanel({
-        	controller: new MeetingController(),
         	meetingStore : meetingStore
         });
-        
-        
-        roleListPanel = new RoleListPanel();
-        //initRoleListPanel();
-        roleListPanel.hide();
-        
+                
+        roleListPanel = new RoleListPanel();        
         helpPanel = new HelpPanel();
         roleHelpPanel = new RoleHelpPanel();
-        
-        questionPanel = new QuestionPanel({
-        	controller: new MeetingController()
-        });
+        questionPanel = new QuestionPanel();
         
         homeCardPanel = new Ext.Panel({
         	title:'ToastMasters',
@@ -121,10 +98,6 @@ var meetingPanel;
 var clubMemberListPanel;
 var roleHelpPanel;
 var questionPanel;
-
-//Controllers
-var clubController ;
-var meetingController;
 
 function viewHome(){
 	homeCardPanel.show();

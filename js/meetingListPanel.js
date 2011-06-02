@@ -9,9 +9,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	defaults:{
 		flex : 1
 	},
-	meetingStore : null,
-	activeMeeting:null,
-	
 	initComponent : function() {
 
 		this.meetingTmpl = new Ext.Template([
@@ -152,20 +149,12 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleEditIcon').show();
 	},
 
-	loadData: function(data){
-		this.meetingStore.removeAll();
-		for(var i=0 ; i<data.length; i++){
-			this.meetingStore.add(data[i]);
-		}
-		this.render();
+	onRefresh:function(){
+		console.log('From the callback');
 	},
 	
 	refresh : function(){
-		this.controller.getList();
-	},
-	
-	save : function(){
-		this.controller.save(thisMeeting);
+        MeetingService.save(this.onRefresh, this);
 	},
 	
 	goHome: function(){

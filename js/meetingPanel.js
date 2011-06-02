@@ -4,9 +4,6 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     url   : 'postUser.php',
     standardSubmit : false,
     title: 'Agenda',
-	controller: null,
-	meetingStore : null,
-	meeting:null,
 
 	initComponent : function() {
 
@@ -123,10 +120,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                         text: 'Back',
                         ui: 'back',
                         scope:this,
-                        handler: function() {
-                        	this.hide();
-                        	meetingListPanel.show();
-                        }
+                        handler: this.goBack
                     },
                     {xtype: 'spacer'},
                     {
@@ -153,6 +147,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	loadMeeting: function(pMeeting){
 		
 		this.reset();
+		this.updateMessage('');
 		for(var i=0; i< this.fields.items.length ; i++){
 			var comp = this.fields.items[i];
 			if(comp.name == 'wordOfTheDay'){
@@ -215,6 +210,31 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		this.meeting = pMeeting;
 	},
+
+	onMeetingListDataLoad: function(data){
+		if (data.success) {
+			console.log('Loading meeting data');
+			meetingStore.removeAll();
+			meetingStore.loadData(data.returnVal.rows);
+	    	this.hide();
+	    	meetingListPanel.listMode();
+		} else {
+			console.log('Unable to load the meetings ');
+		}
+	},
+
+	onSave: function(data){
+		console.log('From the call back');
+		if (data.success) {
+			this.updateMessage(data.successMessage);
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
+	goBack: function(){
+		MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingListDataLoad, this);
+	},
 	
 	save : function(){
 		if(!this.meeting){
@@ -234,6 +254,8 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		this.meeting.roles.evaluator2.userId = values.evaluator2;
 		this.meeting.roles.grammarian.userId = values.grammarian;
 		this.meeting.roles.timer.userId = values.timer;
-		this.controller.save(this.meeting);
+		
+		//this.controller.save(this.meeting);
+        MeetingService.save(this.meeting, this.onSave, this);
 	}
 });

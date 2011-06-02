@@ -87,6 +87,14 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		this.question = pQuestion;
 	},
+	onSave:function(data){
+		if (data.success) {
+			questionDataStore.reload();
+			this.updateMessage(data.successMessage);
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
 	save : function(){
 		var values = this.getValues();
 		this.question.text = values.question;
@@ -96,6 +104,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 				qData.text = values.question;
 			}
 		}
-		this.controller.saveTableTopics();
+		//this.controller.saveTableTopics();
+        MeetingService.saveTableTopics( this.onSave, this);
 	}
 });

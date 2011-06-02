@@ -136,6 +136,15 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
         
         GramPanel.superclass.initComponent.call(this);
 	},
+
+	onSave: function(data){
+		if (data.success) {
+			this.updateMessage(data.successMessage);
+	        this.reset();        
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
 	
 	save:function(){
         var values = this.getValues();        
@@ -151,10 +160,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			var spinner = this.spinners[i];
 			countObj[filler] = values[filler+'Count'];
 		}
-        meetingController.save(thisMeeting);        
-        this.logReport();
-        this.reset();        
-        this.updateMessage('Saved Successfully');
+        MeetingService.save(thisMeeting, this.onSave, this);
 	},
 	
 	resetForm:function(){

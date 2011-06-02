@@ -45,25 +45,7 @@ var meetingStore = new Ext.data.JsonStore({
 	data : meetings,
 	model : 'Meeting',
 	autoLoad : false,
-	autoDestroy : true,
-	reload : function(clubId) {
-		Ext.Ajax.request({
-			url : urlStore.meetingUrl + '/getByClubId/' + clubId,
-			success : function(response, opts) {
-				var data = eval("(" + response.responseText + ")");
-				if (data.success) {
-					console.log(data);
-					meetingStore.removeAll();
-					var meetings = data.returnVal.rows;
-					for ( var i = 0; i < meetings.length; i++) {
-						meetingStore.add(meetings[i]);
-					}
-				} else {
-
-				}
-			}
-		});
-	}
+	autoDestroy : true
 });
 
 Ext.regModel('Members', {
@@ -84,27 +66,6 @@ var memberStore = new Ext.data.JsonStore({
    autoDestroy : true,
    getGroupString : function(record) {
 		return record.get('firstName')[0];
-   },
-   reload : function(clubId) {
-		Ext.Ajax.request({
-			url : urlStore.clubUrl + '/getClubMembers/'+clubId,
-			success : function(response, opts) {
-				var data = eval("(" + response.responseText + ")");
-				if (data.success) {
-					console.log(data);
-					memberStore.removeAll();
-					var members = data.returnVal.rows;
-					memberStore.add({ id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'});
-					for(var i=0 ; i<members.length; i++){
-						var member = members[i];
-						member.name = member.firstName+' '+member.lastName;
-						memberStore.add(member);
-					}
-				} else {
-	
-				}
-			}
-		});
    }
 });
 
