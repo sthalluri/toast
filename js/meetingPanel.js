@@ -217,6 +217,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			console.log('Loading meeting data');
 			meetingStore.loadData(data.returnVal.rows);
 	    	this.hide();
+	    	meetingListPanel.show();
 	    	meetingListPanel.listMode();
 		} else {
 			console.log('Unable to load the meetings ');

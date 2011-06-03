@@ -37,7 +37,8 @@ Ext.regModel('Meeting', {
         {name: 'wordOfTheDay',    type: 'string'},
         {name: 'themeOfTheDay',    type: 'string'},
         {name: 'inProgress'},
-        {name: 'meetingDate',    type: 'date'}
+        {name: 'meetingDate',    type: 'date'},
+        {name: 'location'}
     ]
 });
 

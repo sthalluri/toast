@@ -44,7 +44,16 @@ UserServiceImpl = Ext.extend(Object, {
 			},
             success: this.onRegister
        });
+	},
+	
+	getName: function(userId){
+		if(userId){
+			return memberStore.getById(userId).data.name;
+		}else{
+			return 'Not Available';
+		}
 	}
+	
 
 });
 

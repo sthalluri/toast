@@ -86,7 +86,7 @@ MeetingServiceImpl = Ext.extend(Object, {
  			url : urlStore.meetingUrl + '/getContent/'+contentId,
 			success: this.onGetContent
 		});
-	},
+	}
 
 });
 

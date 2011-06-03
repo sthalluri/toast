@@ -60,6 +60,10 @@
     font-weight: normal;
 }
 
+.detailTable table{
+	font-size: 0.6em;	
+}
+
 .helpbox h2 {
     color: #071F52;
     font-size: 1.3em;
@@ -195,28 +199,15 @@ a.spch-bub-outside-medium {
     width: 4em;
 }
 
-.x-list-subheader{background-color:#aaaaaa;background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #dedede), color-stop(100%, #1a1a1a));
-background-image:linear-gradient(#cccccc,#dedede 3%,#bababa);
-color:gray;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
-border-top:1px solid #cccccc;border-bottom:1px solid #999999;
-font-weight:bold;font-size:0.8em;padding:0.2em 1.02em;
-text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
--webkit-box-shadow:0px 0.1em 0.3em rgba(0, 0, 0, 0.3)}
-
-.x-list-header{background-color:#cccccc;background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #dedede), color-stop(100%, #bababa));background-image:linear-gradient(#ffffff,#dedede 2%,#bababa);color:gray;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;border-top:1px solid #cccccc;border-bottom:1px solid #999999;font-weight:bold;font-size:0.8em;padding:0.2em 1.02em;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;-webkit-box-shadow:0px 0.1em 0.3em rgba(0, 0, 0, 0.3)}
-.x-list-header-swap{z-index:1;position:absolute;top:0;left:0;width:100%}
-
-.x-list .x-list-item {
-	position: relative;
-	color: black;
-	padding: 0.1em 0.1em;
-	min-height: 2.6em;
-	display: -webkit-box;
-	display: box;
-	border-top: 1px solid #D1D1D1;
-}
-
 .meeting-list-item{border:1px; width:100%; border-color:black}
-.meeting-list-header{background-color:#bababa; padding:.2em; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+.meeting-list-header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .meeting-list-content{padding: .5em 0 .2em 0;font-size: .9em; }
-.meeting-list-highlight{color:#AA2200;}
+.meeting-list-highlight{color:#AA2200;font-size: 1em;}
+
+table.contentTable{font-size:.8em; cellpadding:.2em}
+
+td
+{
+    margin:10px;
+    padding:5px
+}

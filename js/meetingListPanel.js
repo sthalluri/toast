@@ -18,13 +18,15 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     },
 	initComponent : function() {
 
-		this.meetingTmpl = new Ext.Template([
-            '<span style="background-color:#aaaaaa;">{meetingDate}</span>',
-            '<div name="{id}" >',
-                '<span class="{cls}">{themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
-                'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
-            '</div>'
-        ]);
+		this.meetingTmpl = Ext.XTemplate.from('meeting-detail');
+		
+//		new Ext.Template([
+//            '<span style="background-color:#aaaaaa;">{meetingDate}</span>',
+//            '<div name="{id}" >',
+//                '<span class="{cls}">{themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
+//                'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
+//            '</div>'
+//        ]);
 
 		this.meetingTmpl.compile();
 
