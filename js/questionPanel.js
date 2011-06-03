@@ -119,3 +119,6 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
         MeetingService.saveTableTopics( this.onSave, this);
 	}
 });
+
+
+Ext.reg('questionPanel', QuestionPanel);

@@ -40,7 +40,8 @@ Ext.setup({
         	layout: 'card',
             iconCls:'home',
             fullscreen: true,
-            items: [homePanel, 
+            items: [
+                    homePanel, 
                     loginPanel, registerPanel,
                     navPanel,
                     clubMemberListPanel, 

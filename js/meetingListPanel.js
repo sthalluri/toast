@@ -46,7 +46,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    itemTpl: this.meetingListTmpl,
 		    id:'meetingListPanel',
 		    grouped: false,
-		    parentPanel:this,	
+		    parentPanel:this,
+		    sorters: 'date',
+		    singleSelect:true,
 		    onItemDisclosure: {
 		        scope: this,
 		        handler: function(record, btn, index) {
@@ -55,15 +57,24 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    		var meeting = this.parentPanel.meetingStore.getAt(index).data;
 		    		this.parentPanel.activeMeeting = meeting;
 		    		var html = this.parentPanel.meetingTmpl.apply(meeting);
-		    		var detailsPanel = carousel.items.get(1);
-		    		detailsPanel.el.setHTML(html);
-		    		carousel.setActiveItem(carousel.items.get(1));
+		    		//var detailsPanel = carousel.items.get(1);
+		    		this.parentPanel.meetingPanel.html = html;
+		    		var tabPanel = carousel.items.get(1);
+		    		carousel.setActiveItem(tabPanel);
 		    		this.parentPanel.detailMode();
 		        }
 		    },
 		    store: this.meetingStore
 		};
 	
+		this.meetingActionPanel = new MeetingActionPanel();
+		this.meetingPanel = new Ext.Panel({html:'Test', title:'Agenda'});
+		//new MeetingPanel();
+		this.meetingDetailPanel = new Ext.TabPanel({
+			cls: 'legislator-tabs',
+			fullscreen : false,
+			items : [ this.meetingActionPanel, this.meetingPanel ]
+		});
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,
 	    	height:'95%',	
@@ -72,12 +83,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    	    new Ext.List(Ext.apply(this.logBase, {
 	               fullscreen: false
 	           	})),
+	           	this.meetingDetailPanel,
 	           	{html:'Sample text here'}
 	    	]
 	    });
 	
 	   this.items=[
-	    	    this.getHeaderConfig('Meetings'),
+	            this.getHeaderConfig('Meeting'),
 	        	this.meetingCarousel
 	   ];
 	   
@@ -98,11 +110,12 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		                text: 'Back',
 		                ui: 'back',
 		                scope:this,
-		                handler: function() {	 
+		                handler: function() {	
 		                	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
 		                		this.hide();
 		                    	navPanel.show();
 		                	}else{
+			            		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
 		    		    		this.listMode();
 		                	}
 		                }

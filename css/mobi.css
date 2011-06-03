@@ -60,10 +60,6 @@
     font-weight: normal;
 }
 
-.detailTable table{
-	font-size: 0.6em;	
-}
-
 .helpbox h2 {
     color: #071F52;
     font-size: 1.3em;
@@ -139,14 +135,6 @@
     font-weight: bold
 }
 
-.header {
-
-    font-size: .8em;
-    text-align: center;
-    font-family: sans-serif;
-
-}
-
 .helpbox {
 
     width: 90%;
@@ -199,15 +187,16 @@ a.spch-bub-outside-medium {
     width: 4em;
 }
 
-.meeting-list-item{border:1px; width:100%; border-color:black}
-.meeting-list-header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
-.meeting-list-content{padding: .5em 0 .2em 0;font-size: .9em; }
-.meeting-list-highlight{color:#AA2200;font-size: 1em;}
+.header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+.content{padding: .5em 0 .2em 0;font-size: .9em; }
+.highlight{color:#AA2200;font-size: 1em;}
 
 table.contentTable{font-size:.8em; cellpadding:.2em}
 
-td
+table.contentTable td
 {
     margin:10px;
     padding:5px
 }
+
+.x-button-round,.x-button.x-button-action-round,.x-button.x-button-confirm-round,.x-button.x-button-decline-round{-webkit-border-radius:0.9em;border-radius:0.9em;padding:0.1em 0.9em}.x-button-small,.x-button.x-button-action-small,.x-button.x-button-confirm-small,.x-button.x-button-decline-small,.x-toolbar .x-button-small,.x-toolbar .x-button.x-button-action-small,.x-toolbar .x-button.x-button-confirm-small,.x-toolbar .x-button.x-button-decline-small{-webkit-border-radius:0.3em;border-radius:0.3em;padding:.2em .4em;min-height:0}.x-button-small 

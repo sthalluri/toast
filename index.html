@@ -33,6 +33,9 @@
 	<script type="text/javascript" src="js/helpPanel.js"></script>
 	<script type="text/javascript" src="js/roleHelpPanel.js"></script>
 	<script type="text/javascript" src="js/helpTabPanel.js"></script>
+
+	<script type="text/javascript" src="js/meetingActionPanel.js"></script>
+	<script type="text/javascript" src="js/htmlPage.js"></script>
 	
 	<!-- Controller classes -->
 	<script type="text/javascript" src="js/service/UserService.js"></script>
@@ -46,51 +49,53 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<div class="meeting-list-header" >12/12/210</div>
-	<div class="meeting-list-content" >
-    	<b class="meeting-list-highlight">Theme </b> : {themeOfTheDay} &nbsp;&nbsp; 
-    	<b class="meeting-list-highlight">Word of the Day</b>: {themeOfTheDay} 
-	</div>
-	<div class="meeting-list-content" >
-    	<b class="meeting-list-highlight">Location </b> : {location} &nbsp;&nbsp; 
-	</div>
+	<div class="header" >{[values.meetingDate.format("F d, Y g:i A")]}</div>
+	<table style="width:100%;"   class="contentTable" >
+		<tr>
+			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+		<tr>
+		<tr>
+			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
+		</tr>
+	</table>
 </div>
 
 
 <div id="meeting-detail" class="x-hidden-display">
-	<div class="meeting-list-header" >12/12/2010</div>
+	<div class="header" >{[values.meetingDate.format("F d, Y g:i A")]}</div>
 	<table style="width:100%;"   class="contentTable" >
-        <tr><td colSpan="4">'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>'</td></tr>
+        <tr><td colSpan="4">Log Activity <img width="30" height="30" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/></td></tr>
 		<tr>
-			<td class="meeting-list-highlight">Theme:</td><td>{themeOfTheDay}</td>
-			<td class="meeting-list-highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
 		<tr>
-			<td class="meeting-list-highlight">Location:</td><td colSpan="3">{location}</td>
+			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
 		</tr>
-		<tr ><td colSpan="4" class="meeting-list-header" >12:00PM Opening</td></tr>
+		<tr ><td colSpan="4" class="header" >12:00PM Opening</td></tr>
 		<tr><td colSpan="4">1.Introduction <br/>2.New Introduction</td></tr>
-		<tr><td colSpan="4" class="meeting-list-header" >12:25PM Speech One</td></tr>
+		<tr><td colSpan="4" class="header" >12:25PM Speech One</td></tr>
 		<tr>
-			<td class="meeting-list-highlight">Speaker:</td>
+			<td class="highlight">Speaker:</td>
 			<td>{[UserService.getName(values.roles.speaker1.userId)]} </td>
 			<td>Speech Type:</td>
 			<td>Speaker1</td>
 		</tr>
 		<tr>
-			<td class="meeting-list-highlight">Evaluator:</td>
+			<td class="highlight">Evaluator:</td>
 			<td>{[UserService.getName(values.roles.evaluator1.userId)]} </td>
 			<td>Duration:</td>
 			<td>5-7min</td>
 		</tr>
-		<tr><td colSpan="4" class="meeting-list-header" >12:35PM Speech Two</td></tr>
-		<tr><td class="meeting-list-highlight">Speaker:</td><td>{[UserService.getName(values.roles.speaker2.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
-		<tr><td class="meeting-list-highlight">Evaluator:</td><td>{[UserService.getName(values.roles.evaluator2.userId)]} </td><td>Duration:</td><td>5-7min</td></tr>
-		<tr><td colSpan="4" class="meeting-list-header" >12:45PM Table Topics</td></tr>
-		<tr><td class="meeting-list-highlight">Speaker:</td><td>{[UserService.getName(values.roles.tableTopics.userId)]} </td><td>Each Question:</td><td>1-2min</td></tr>
-		<tr><td colSpan="4" class="meeting-list-header" >12:50PM General Evalatoin</td></tr>
-		<tr><td class="meeting-list-highlight">General Evaluator:</td><td>{[UserService.getName(values.roles.generalEvaluator.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
-		<tr><td colSpan="4" class="meeting-list-header" >12:55PM Closing</td></tr>
+		<tr><td colSpan="4" class="header" >12:35PM Speech Two</td></tr>
+		<tr><td class="highlight">Speaker:</td><td>{[UserService.getName(values.roles.speaker2.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
+		<tr><td class="highlight">Evaluator:</td><td>{[UserService.getName(values.roles.evaluator2.userId)]} </td><td>Duration:</td><td>5-7min</td></tr>
+		<tr><td colSpan="4" class="header" >12:45PM Table Topics</td></tr>
+		<tr><td class="highlight">Speaker:</td><td>{[UserService.getName(values.roles.tableTopics.userId)]} </td><td>Each Question:</td><td>1-2min</td></tr>
+		<tr><td colSpan="4" class="header" >12:50PM General Evalatoin</td></tr>
+		<tr><td class="highlight">General Evaluator:</td><td>{[UserService.getName(values.roles.generalEvaluator.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
+		<tr><td colSpan="4" class="header" >12:55PM Closing</td></tr>
 		<tr><td colSpan="4">1.Closing <br/>2.Next Closing</td></tr>
 	</table>
 </div>

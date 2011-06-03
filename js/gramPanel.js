@@ -119,7 +119,8 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 		                ui: 'back',
 					    handler: function() {
 					    	gramPanel.hide();
-					    	roleListPanel.show();
+					    	//roleListPanel.show();
+					    	meetingListPanel.show();
 					    }
 					},
 					{xtype: 'spacer'},
@@ -180,3 +181,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	}
 
 });
+
+
+Ext.reg('gramPanel', GramPanel);

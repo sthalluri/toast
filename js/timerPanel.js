@@ -156,7 +156,8 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		                ui: 'back',
                         handler: function() {
                         	timerPanel.hide();
-                        	roleListPanel.show();
+                        	//roleListPanel.show();
+                        	meetingListPanel.show();
                         }
                     },
                     {xtype: 'spacer'},
@@ -252,3 +253,5 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	}
 });
 
+
+Ext.reg('timerPanel', TimerPanel);

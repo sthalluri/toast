@@ -2,13 +2,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 {
 	title:'TbTopic',
 	fullscreen: true,
-    layout : {
-		align:'stretch'
-	},
-	defaults:{
-		flex : 1
-	},
-	
 	initComponent : function() {
 
 	this.questionTmpl = new Ext.Template([
@@ -71,7 +64,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    handler: function() {
 				    	if(this.tblTopicCarouselPanel.getActiveItem().id =='tableTopicListPanel'){
 				    		tableTopicPanel.hide();
-				    		roleListPanel.show();
+				    		//roleListPanel.show();
+                        	meetingListPanel.show();
 	                	}else{
 	    		    		this.listMode();
 	                	}
@@ -146,3 +140,4 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 });
 
 
+Ext.reg('tableTopicPanel', TableTopicPanel);
