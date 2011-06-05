@@ -30,7 +30,15 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	              label: 'Theme of the Day',
 	              useClearIcon: true,
 	              autoCapitalize : false
-	          }, 
+	          },
+	          {
+				    xtype: 'selectfield',
+				    name : 'toastMaster',
+				    label: 'ToastMaster',
+				    valueField : 'id',
+				    displayField : 'name',
+				    store : memberStore
+			  }, 
 	          {
 			    xtype: 'selectfield',
 			    name : 'speaker1',
