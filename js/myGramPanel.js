@@ -1,4 +1,4 @@
-GramPanel = Ext.extend(Ext.form.FormPanel, 
+MyGramPanel = Ext.extend(Ext.form.FormPanel, 
 {
     scroll: 'vertical',
     url   : 'postUser.php',
@@ -6,50 +6,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
     title: 'Gram',
 
 	initComponent : function() {
-        
-		this.userSelector =	new Ext.form.Select({
-			    xtype: 'selectfield',
-			    name : 'userId',
-			    label: 'Member',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-		});
-	
-		this.roleSelector = new Ext.form.Select({
-			    xtype: 'selectfield',
-			    name : 'role',
-			    label: 'Role',
-			    valueField : 'id',
-			    displayField : 'description',
-			    store : roleStore,
-			    parentForm: this,
-			    scope: this,
-			    listeners:{
-		            change : function(selector, value){
-						var values = this.parentForm.getValues();
-						console.log(values);
-						var obj = thisMeeting.roles[values['role']];
-						if(obj.userId && obj.userId!=''){
-							this.parentForm.userSelector.setValue(obj.userId);
-							for(var j=0; j<fillers.length;j++){
-								var filler = fillers[j];
-								var spinner = this.parentForm.spinners[j];
-								if(obj.amCount && obj.amCount[filler]){
-									spinner.setValue(obj.amCount[filler]);
-								}else{
-									spinner.setValue(0);
-								}
-							}
-						}else{
-							this.parentForm.userSelector.reset();
-						}
-						this.parentForm.updateMessage('');
-						//console.log('valu changed' + value);
-			        }
-			    }
-		});
-
+		
 		this.spinners = new Array();
 		
 		for(var i=0; i<fillers.length;i++){
@@ -65,8 +22,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			this.spinners[this.spinners.length]=spinner;
 		}
 
-		
-		
 		this.items = [{
                 xtype: 'fieldset',
                 title: 'Counter',
@@ -77,8 +32,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
                     labelWidth: '40%'
                 },
                 items: [
-				this.roleSelector,
-				this.userSelector,
 				this.spinners, {
 		            layout: 'hbox',
 		            defaults: {xtype: 'button',  style: 'margin: .5em;'},
@@ -118,25 +71,17 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 					    text: 'Back',
 		                ui: 'back',
 					    handler: function() {
-					    	gramPanel.hide();
+					    	myGramPanel.hide();
 					    	//roleListPanel.show();
 					    	meetingListPanel.show();
 					    }
 					},
 					{xtype: 'spacer'}
-//					,
-//	                {
-//	                    text: 'Change Role',
-//	                    handler: function() {
-//	                    	gramPanel.hide();
-//	                    	roleListPanel.show();
-//	                    }
-//	                }
                 ]
             }
         ];
         
-        GramPanel.superclass.initComponent.call(this);
+        MyGramPanel.superclass.initComponent.call(this);
 	},
 
 	onSave: function(data){
@@ -150,13 +95,15 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	save:function(){
         var values = this.getValues();        
-        var obj = thisMeeting.roles[values['role']];
-        obj.userId =  values['userId'];
+        var obj = thisMeeting.roles['participant'];
+        if(!obj){
+        	thisMeeting.roles.participant = new Object();
+        }
+        obj.userId =  thisUser.id;
 		if(!obj.amCount){
 			obj.amCount = new Object();
 		}
         var countObj = obj.amCount;
-        
         for(var i=0; i<fillers.length;i++){
 			var filler = fillers[i];
 			countObj[filler] = values[filler+'Count'];
@@ -167,14 +114,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	resetForm:function(){
 		this.updateMessage('');
 		this.reset();
-	},
-	
-	logReport:function(){
-		for(var i=1; i<roles.length; i++){
-			var role = roles[i];
-	        var obj = thisMeeting.roles[role.role];
-	        console.log(objectToString(obj));
-		}
 	},
 	
 	updateMessage: function(msg){

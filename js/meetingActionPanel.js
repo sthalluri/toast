@@ -2,25 +2,24 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
     layout: 'card',
     title : 'Actions',
     initComponent: function(){
-        
         this.list = new Ext.List({
-            itemTpl: '<div class="page">{title}</div>',
+            itemTpl: '<div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}" onclick="navPanel.viewMyClub()"/>&nbsp;&nbsp;{title}</div>',
             ui: 'round',
+            grouped: true,
+            indexBar: false,
+        	cls: 'demo-list',
             store: new Ext.data.Store({
                 fields: ['name', 'card'],
-                data: [{title:'Add Your Grammarian Log',name:'Gram'},
-                       {title:'Add Your Timer Log',name:'Timer'},
-                       {title:'Add Your Tabletopic Qns',name:'TableTopics'},
-                       {title:'Add Your Speech Notes',name:'SpeechNotes',card: {
-                    xtype: 'htmlpage',
-                    url: 'README'
-                }},{title:'Be a Grammarian',name:'new',card: {
-                    xtype: 'htmlpage',
-                    url: 'README'
-                }},{title:'Be a Timer',name:'new',card: {
-                    xtype: 'htmlpage',
-                    url: 'README'
-                }}]
+                getGroupString : function(record) {
+            		return record.get('actionGroup');
+               },
+                data: [
+                       {title:'Speech',name:'SpeechNotes',actionGroup:'Play A Role',image:'chat4.png'},
+                       {title:'Tabletopic',name:'TableTopics',actionGroup:'Play A Role',image:'twitter2.png'},
+                       {title:'Grammarian',name:'Gram',actionGroup:'Play A Role',image:'user_business.png'},
+                       {title:'Timer',name:'Timer',actionGroup:'Play A Role',image:'time.png'},
+                       {title:'Grammarian Report',name:'MyGram',actionGroup:'Add My Report',image:'doc_list.png'},
+                       {title:'Timer Report',name:'MyTimer',actionGroup:'Add My Report',image:'doc_list.png'}]
             }),
             listeners: {
                 selectionchange: {fn: this.onSelect, scope: this}
@@ -51,9 +50,14 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
         	}else if("Timer"==data.name){
 				timerPanel.show();
 			}else if("TableTopics"==data.name){
+				roleListPanel.loadTableTopics();
 				tableTopicPanel.show();
 			}else if("SpeechNotes"==data.name){
 				gramPanel.show();
+			}else if("MyGram"==data.name){
+				myGramPanel.show();
+			}else if("MyTimer"==data.name){
+				myTimerPanel.show();
 			}
         }
     }
@@ -62,3 +66,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
 Ext.reg('meetingActionPanel', MeetingActionPanel);
 
 
+//{title:'Be a Timer',name:'new',card: {
+//     xtype: 'htmlpage',
+//     url: 'README'
+// }}

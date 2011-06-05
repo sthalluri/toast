@@ -21,6 +21,8 @@
 	<script type="text/javascript" src="js/registerPanel.js"></script>
 	<script type="text/javascript" src="js/navPanel.js"></script>
 	<script type="text/javascript" src="js/gramPanel.js"></script>
+	<script type="text/javascript" src="js/myGramPanel.js"></script>
+	<script type="text/javascript" src="js/myTimerPanel.js"></script>
 	<script type="text/javascript" src="js/timerPanel.js"></script>
 	<script type="text/javascript" src="js/tableTopicPanel.js"></script>
 	<script type="text/javascript" src="js/speakerPanel.js"></script>
@@ -49,7 +51,7 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<div class="header" >{[values.meetingDate.format("F d, Y g:i A")]}</div>
+	<div class="header" >Jan 10 2010 10:00PM</div>
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
@@ -63,9 +65,8 @@
 
 
 <div id="meeting-detail" class="x-hidden-display">
-	<div class="header" >{[values.meetingDate.format("F d, Y g:i A")]}</div>
+	<div class="header" >Jan 10 2010  10:00PM</div>
 	<table style="width:100%;"   class="contentTable" >
-        <tr><td colSpan="4">Log Activity <img width="30" height="30" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/></td></tr>
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
 			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
@@ -97,6 +98,55 @@
 		<tr><td class="highlight">General Evaluator:</td><td>{[UserService.getName(values.roles.generalEvaluator.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
 		<tr><td colSpan="4" class="header" >12:55PM Closing</td></tr>
 		<tr><td colSpan="4">1.Closing <br/>2.Next Closing</td></tr>
+	</table>
+</div>
+
+<div id="meeting-report" class="x-hidden-display">
+	<div class="header" >Grammarian Report</div>
+	<table style="width:100%;"   class="contentTable" >
+		<tr>
+			<td class="highlight">Member:</td>
+			<td>Alpha User</td>
+		</tr>
+		<tr>
+			<td class="highlight">Report:</td>
+			<td>{[objectToString(values.roles.speaker1.amCount)]}</td>
+		</tr>
+		<tr><td colspan="2"><hr/></td></tr>
+		<tr>
+			<td class="highlight">Member:</td>
+			<td>Beta User</td>
+		</tr>
+		<tr>
+			<td class="highlight">Report:</td>
+			<td>{[objectToString(values.roles.speaker1.amCount)]}</td>
+		</tr>
+	</table>
+	<div class="header" >Timer Report</div>
+	<table style="width:100%;"   class="contentTable" >
+		<tr>
+			<td class="highlight">Role:</td>
+			<td>Speech Two</td>
+			<td class="highlight">Member:</td>
+			<td>Alpha User</td>
+		</tr>
+		<tr>
+			<td class="highlight">Time:</td>
+			<td >2:25</td>
+			<td colSpan="2" class="red"></td>
+		</tr>
+		<tr><td colspan="4"><hr/></td></tr>
+		<tr>
+			<td class="highlight">Role:</td>
+			<td>Speech One</td>
+			<td class="highlight">Member:</td>
+			<td>Alpha User</td>
+		</tr>
+		<tr>
+			<td class="highlight">Time:</td>
+			<td >2:25</td>
+			<td colSpan="2" class="green"></td>
+		</tr>
 	</table>
 </div>
 

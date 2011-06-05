@@ -17,30 +17,17 @@ MeetingListPanel = Ext.extend(Ext.Panel,
         };
     },
 	initComponent : function() {
-
+		// Meeting Detail Template
 		this.meetingTmpl = Ext.XTemplate.from('meeting-detail');
-		
-//		new Ext.Template([
-//            '<span style="background-color:#aaaaaa;">{meetingDate}</span>',
-//            '<div name="{id}" >',
-//                '<span class="{cls}">{themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
-//                'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
-//            '</div>'
-//        ]);
-
 		this.meetingTmpl.compile();
 
+		// Meeting List Template
 		this.meetingListTmpl = Ext.XTemplate.from('meeting-list');
-			
-//		new Ext.Template([
-//             '<span style="background:#abc">{[values.meetingDate.format("l, F d, Y g:i:s A")]}</span>',
-//             '<div name="{id}" >',
-//                 '<span class="{cls}">Theme: {themeOfTheDay}</span>&nbsp;&nbsp;<br/>',
-//                 'Log Activity <img width="20" height="20" src="js/ext/resources/themes/images/default/pictos/note2.png" onclick="javascript:meetingListPanel.startMeeting({id})"/>',
-//             '</div>',
-//	     ]);
-	
 		this.meetingListTmpl.compile();
+
+		// Meeting Report Template
+		this.meetingReportTmpl = Ext.XTemplate.from('meeting-report');
+		this.meetingReportTmpl.compile();
 
 		this.logBase = {
 		    itemTpl: this.meetingListTmpl,
@@ -55,10 +42,17 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		            //alert('Disclose more info for ' + record.get('firstName'));
 		    		var carousel = this.parentPanel.meetingCarousel;
 		    		var meeting = this.parentPanel.meetingStore.getAt(index).data;
+		    		thisMeeting = meeting;
 		    		this.parentPanel.activeMeeting = meeting;
-		    		var html = this.parentPanel.meetingTmpl.apply(meeting);
-		    		//var detailsPanel = carousel.items.get(1);
+		    		
+		    		//Set the content for the agenda tab
+		    		var html = this.parentPanel.meetingTmpl.apply(meeting);		    		
 		    		this.parentPanel.meetingPanel.html = html;
+		    		
+		    		//Set the content for the meeting report tab
+		    		html = this.parentPanel.meetingReportTmpl.apply(meeting);		    		
+		    		this.parentPanel.meetingReportPanel.html = html;
+		    		
 		    		var tabPanel = carousel.items.get(1);
 		    		carousel.setActiveItem(tabPanel);
 		    		this.parentPanel.detailMode();
@@ -69,11 +63,12 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	
 		this.meetingActionPanel = new MeetingActionPanel();
 		this.meetingPanel = new Ext.Panel({html:'Test', title:'Agenda'});
-		//new MeetingPanel();
-		this.meetingDetailPanel = new Ext.TabPanel({
+		this.meetingReportPanel = new Ext.Panel({html:'Test', title:'Report'});
+
+		this.meetingDetailTabPanel = new Ext.TabPanel({
 			cls: 'legislator-tabs',
 			fullscreen : false,
-			items : [ this.meetingActionPanel, this.meetingPanel ]
+			items : [ this.meetingPanel, this.meetingActionPanel, this.meetingReportPanel ]
 		});
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,
@@ -83,13 +78,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    	    new Ext.List(Ext.apply(this.logBase, {
 	               fullscreen: false
 	           	})),
-	           	this.meetingDetailPanel,
+	           	this.meetingDetailTabPanel,
 	           	{html:'Sample text here'}
 	    	]
 	    });
 	
 	   this.items=[
-	            this.getHeaderConfig('Meeting'),
+	         //   this.getHeaderConfig('Meeting'),
 	        	this.meetingCarousel
 	   ];
 	   

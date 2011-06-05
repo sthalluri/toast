@@ -1,17 +1,16 @@
-TableTopicPanel = Ext.extend( Ext.Panel, 
+SpeechNotesPanel = Ext.extend( Ext.Panel, 
 {
 	title:'TbTopic',
 	fullscreen: true,
 	initComponent : function() {
 
-	this.questionTmpl = new Ext.Template([
-	                                     '<div class="contact2"><strong>Question:{id}</strong><br/> {text}..</div>',
+	this.speechNotesTmpl = new Ext.Template([
+	                                     '<div class="contact2"><strong>{id}.</strong><br/> {text}..</div>',
 	                                 ]);
-
-	this.questionTmpl.compile();
+	this.speechNotesTmpl.compile();
 	
-	this.questionBase = {
-	    itemTpl: '<div class="contact2"><strong>Question:{id}</strong><br/> {text}..</div>',
+	this.base = {
+	    itemTpl: '<div class="contact2">{text}..</div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
@@ -35,7 +34,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
         id:'tableTopicCarousel',
     	layout: 'card',
     	items:[
-    	    new Ext.List(Ext.apply(this.questionBase, {
+    	    new Ext.List(Ext.apply(this.base, {
                fullscreen: true
            	})),
            	{
@@ -90,7 +89,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
         }
 	   ];
 	
-	TableTopicPanel.superclass.initComponent.call(this);
+    SpeechNotesPanel.superclass.initComponent.call(this);
 	},
 	
 	updateCarousel: function(){
@@ -133,4 +132,4 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 });
 
 
-Ext.reg('tableTopicPanel', TableTopicPanel);
+Ext.reg('speechNotesPanel', SpeechNotesPanel);

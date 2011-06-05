@@ -111,12 +111,12 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 		this.question.text = values.question;
 		for(var i=0 ; i<questionDataStore.data.length; i++){
 			var qData = questionDataStore.getAt(i).data;
-			if(qData.id == this.question.id){
+			if(qData && qData.id == this.question.id){
 				qData.text = values.question;
 			}
 		}
 		//this.controller.saveTableTopics();
-        MeetingService.saveTableTopics( this.onSave, this);
+        MeetingService.saveTableTopics(this.onSave, this);
 	}
 });
 

@@ -64,3 +64,58 @@ Request user to sign in
 Forgot password
 Manage profile, picture and other info
 Give a logout option
+
+
+
+Golu feedback
+
+Home Page
+- Home page icon not good
+
+Login Screen
+- Resize the login screen to a managable size
+
+Main Screen
+- Think of a way to hightlight the current meeting
+
+MeetingList screen
+- Fix the hightlighting
+- Spacing and what to show on the metings screen
+-* Word of the day hightligt 
+
+Action Panle
+
+Play the Role
+Grammarian
+Timer
+TableTopics
+Toastmaster
+Speaker
+
+Add My Report
+Grammarian Report
+Timer Report
+
+
+My Log page formatting
+
+
+_______________
+
+For final wrap up 
+
+Speaker Notes
+Managing contacts
+Work Log report basic
+Making all actions for a meeting work
+Working on iphone mobile
+Working on android mobile
+Phonegap
+Working with local datastore
+Format meeting report
+Format agenda
+Format Work Log report
+UI cleanup
+Agenda Management
+My Club Info
+

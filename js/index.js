@@ -10,7 +10,9 @@ Ext.setup({
         registerPanel = new RegisterPanel();
         navPanel = new NavPanel();
         gramPanel = new GramPanel();
+        myGramPanel = new MyGramPanel();
         timerPanel = new TimerPanel();
+        myTimerPanel = new MyTimerPanel();
         tableTopicPanel = new TableTopicPanel({
         	store : questionDataStore
         });
@@ -46,6 +48,7 @@ Ext.setup({
                     navPanel,
                     clubMemberListPanel, 
                     meetingListPanel, meetingPanel,
+                    myGramPanel, myTimerPanel,
                     roleListPanel, gramPanel, timerPanel, 
                     tableTopicPanel,questionPanel,
                     speakerPanel, 
@@ -73,7 +76,11 @@ var meetingPanel;
 var clubMemberListPanel;
 var roleHelpPanel;
 var questionPanel;
+var myGramPanel;
+var myTimerPanel;
 
 function viewHome(){
 	homeCardPanel.show();
 }
+
+//[values.meetingDate.format("F d, Y g:i A")]
