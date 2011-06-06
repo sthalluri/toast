@@ -8,11 +8,12 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             grouped: true,
             indexBar: false,
         	cls: 'demo-list',
+		    singleSelect:true,
             store: new Ext.data.Store({
                 fields: ['name', 'card'],
                 getGroupString : function(record) {
             		return record.get('actionGroup');
-               },
+                },
                 data: [
                        {title:'Speech',name:'SpeechNotes',actionGroup:'Play A Role',image:'chat4.png'},
                        {title:'Tabletopic',name:'TableTopics',actionGroup:'Play A Role',image:'twitter2.png'},
@@ -41,7 +42,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
         MeetingActionPanel.superclass.initComponent.call(this);
     },
     
-    onSelect: function(sel, records, p2, p3, p4){
+    onSelect: function(sel, records){
         if (records[0] !== undefined) {
         	var data = records[0].data;
         	meetingListPanel.hide();
@@ -50,17 +51,19 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
         	}else if("Timer"==data.name){
 				timerPanel.show();
 			}else if("TableTopics"==data.name){
-				roleListPanel.loadTableTopics();
-				tableTopicPanel.show();
+				//this.loadTableTopics();
+				tableTopicPanel.loadAndShow();
 			}else if("SpeechNotes"==data.name){
-				gramPanel.show();
+				//speechNoteListPanel.show();
+				speechNoteListPanel.loadAndShow();
 			}else if("MyGram"==data.name){
-				myGramPanel.show();
+				myGramPanel.refresh();
 			}else if("MyTimer"==data.name){
 				myTimerPanel.show();
 			}
         }
     }
+
 });
 
 Ext.reg('meetingActionPanel', MeetingActionPanel);

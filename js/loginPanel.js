@@ -88,7 +88,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 	onMeetingDataLoad: function(data){
 		if (data.success) {
 			console.log('Loading meeting data');
-			meetingStore.removeAll();
+			//meetingStore.removeAll();
 			meetingStore.loadData(data.returnVal.rows);
 		} else {
 			console.log('Unable to load the meetings ');

@@ -43,13 +43,16 @@ MeetingServiceImpl = Ext.extend(Object, {
 		var tableTopics = new Object();
 		tableTopics.meetingRoleId = questionDataStore.contentId;
 		var content = new Object();
-		content.questions = new Array();	
-		tableTopics.id = questionDataStore.rowId;		
+		content.questions = new Array();
+		if(questionDataStore.rowId){
+			tableTopics.id = questionDataStore.rowId;					
+		}
 		for(var i=0 ; i<questionDataStore.data.length; i++){
 			var question = questionDataStore.getAt(i).data;
 			content.questions[i]=question;
 		}
 		tableTopics.content = Ext.encode(content);
+		console.log(tableTopics);
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
@@ -59,26 +62,40 @@ MeetingServiceImpl = Ext.extend(Object, {
 			success : this.onAjaxResponse
 		});
 	},
-	
+
+	//Save the Table Topic question
+	saveSpeechNotes : function(cb, scope) {
+		console.log('Invoking the save table topics service');		
+		var speechNotes = new Object();
+		speechNotes.meetingRoleId = speechNoteDataStore.contentId;
+		var content = new Object();
+		content.speechNotes = new Array();
+		if(speechNoteDataStore.rowId){
+			speechNotes.id = speechNoteDataStore.rowId;					
+		}
+		for(var i=0 ; i<speechNoteDataStore.data.length; i++){
+			var speechNote = speechNoteDataStore.getAt(i).data;
+			content.speechNotes[i]=speechNote;
+		}
+		speechNotes.content = Ext.encode(content);
+		console.log(speechNotes);
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
+		Ext.Ajax.request( {
+			url : urlStore.meetingUrl+'/saveContent',
+			params : {
+				json : Ext.encode(speechNotes)
+			},
+			success : this.onAjaxResponse
+		});
+	},
+
 	//Process the response to parse out the content
 	onGetContent: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
-		var rContent = null;
-		if(data.success && data.returnVal.rows.length>0){
-			rContent = eval("(" + data.returnVal.rows[0].content+ ")");
-			questionDataStore.rowId = data.returnVal.rows[0].id;
-			var questions = rContent.questions;				
-			var rQuestions = new Array();
-			if(questions){
-				for(var i=0 ; i<questions.length; i++){
-					rQuestions[i] = {id:questions[i].id,text:questions[i].text};
-				}
-			}
-			data.returnVal = rQuestions;
-		}
         cb.call(scope || window, data);
     },
-	
+
+    
 	//Get the content for a specific meetingrole
 	getContent : function(contentId, cb, scope) {
 	    this.onGetContent = Ext.createDelegate(MeetingServiceImpl.prototype.onGetContent, scope || window, [cb, scope], true);

@@ -1,14 +1,14 @@
-QuestionPanel = Ext.extend(Ext.form.FormPanel, 
+SpeechNotePanel = Ext.extend(Ext.form.FormPanel, 
 {	
     scroll: 'vertical',
     standardSubmit : false,
-    title: 'Add Question',
+    title: 'Add Card',
 
 	initComponent : function() {
 
 		this.formFields = [ {
 				xtype : 'textareafield',
-				name : 'question',
+				name : 'speechNote',
 				useClearIcon : true,
 				height : 100,
 				maxRows : 10,
@@ -56,7 +56,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Edit Meeting',
+                title:'Edit Notes',
                 items: [
                     {
                         text: 'Back',
@@ -68,38 +68,37 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
             }
         ];
     
-        QuestionPanel.superclass.initComponent.call(this);	
+        SpeechNotePanel.superclass.initComponent.call(this);	
 	},
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
-	loadQuestion: function(pQuestion){
+	loadSpeechNote: function(pSpeechNote){
 		this.reset();
 		for(var i=0; i< this.fields.items.length ; i++){
 			var comp = this.fields.items[i];
-			if(comp.name == 'question'){
-				comp.setValue(pQuestion.text);
+			if(comp.name == 'speechNote'){
+				comp.setValue(pSpeechNote.text);
 			}
 		}
-		this.question = pQuestion;
+		this.speechNote = pSpeechNote;
 	},
 	
-	goBack: function(){
-		MeetingService.getContent(questionDataStore.contentId, this.onTableTopicsLoad, this);
-	},
-	
-	onTableTopicsLoad: function(data){
+	onSpeechNotesLoad: function(data){
 		if (data.success) {
-			//questionDataStore.loadData(data.returnVal);
 	    	this.hide();
-	    	tableTopicPanel.listMode();
-	    	tableTopicPanel.show();
-	    	tableTopicPanel.onTableTopicsLoad(data);
+	    	speechNoteListPanel.onSpeechNotesLoad(data);
+	    	speechNoteListPanel.listMode();
+	    	speechNoteListPanel.show();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
 	},
 
+	goBack: function(){
+		MeetingService.getContent(speechNoteDataStore.contentId, this.onSpeechNotesLoad, this);
+	},
+	
 	onSave:function(data){
 		if (data.success) {
 			this.updateMessage(data.successMessage);
@@ -107,19 +106,20 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 			this.updateMessage(data.errorMessage);
 		}
 	},
+	
 	save : function(){
 		var values = this.getValues();
-		this.question.text = values.question;
-		for(var i=0 ; i<questionDataStore.data.length; i++){
-			var qData = questionDataStore.getAt(i).data;
-			if(qData && qData.id == this.question.id){
-				qData.text = values.question;
+		this.speechNote.text = values.speechNotes;
+		for(var i=0 ; i<speechNoteDataStore.data.length; i++){
+			var qData = speechNoteDataStore.getAt(i).data;
+			if(qData && qData.id == this.speechNote.id){
+				qData.text = values.speechNote;
 			}
 		}
 		//this.controller.saveTableTopics();
-        MeetingService.saveTableTopics(this.onSave, this);
+        MeetingService.saveSpeechNotes(this.onSave, this);
 	}
 });
 
 
-Ext.reg('questionPanel', QuestionPanel);
+Ext.reg('speechNotePanel', SpeechNotePanel );

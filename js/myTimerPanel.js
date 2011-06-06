@@ -19,9 +19,39 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 						var values = this.parentForm.getValues();
 						console.log(values);
 						var obj = thisMeeting.roles[values['role']];
+						if(obj && obj.userId && obj.userId!=''){
+							if(!obj.timeSpent){
+								obj.timeSpent = 0;
+							}
+							//this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
+							this.parentForm.timer.setValue(getMins(obj.timeSpent));
+						}else{
+							this.parentForm.timer.setValue(getMins(0));
+						}
 						this.parentForm.updateMessage('');
-			        }
+
+		            }
 			    }
+		});
+		
+
+		this.timer = new Ext.form.TextArea({
+			xtype : 'textareafield',
+			id : 'clock',
+			name : 'timer',
+			value : '0:00',
+			maxLength : 6,
+			id : 'myTimer',
+			height : 50,
+			maxRows : 1,
+			parentForm : this,
+			style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
+			scope : this,
+			listeners : {
+				change : function(selector, value) {
+					// this.parentForm.timerPanelClock.setSecsFromStr(value);
+				}
+			}
 		});
 		
 		this.formFields = new Ext.form.FieldSet({
@@ -34,23 +64,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
              },
              items: [
 				this.roleSelector,
-				{
-                 xtype : 'textareafield',
-                 id : 'clock',
-                 name  : 'timer',
-                 value : '0:00',
-                 maxLength : 6,
-                 height:50,
-                 maxRows : 1,
- 			     parentForm: this,
-                 style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
- 			     scope: this,
- 			     listeners:{
- 			    		change : function(selector, value){
- 			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
- 			    		}
- 			    	}
-				}
+				this.timer
 			]
 		});
 	
@@ -109,7 +123,6 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	
 	resetTimer: function(){
-        this.timerPanelClock.reset();
 		this.reset();
 	},
 	updateMessage: function(msg){
@@ -133,7 +146,6 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	onSave: function(data){
 		if (data.success) {
 			this.updateMessage(data.successMessage);
-	        this.timerPanelClock.reset();
 	        this.reset();
 		} else {
 			this.updateMessage(data.errorMessage);
@@ -143,11 +155,10 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	save: function(){
 		var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
-        obj.userId =  values['userId'];
-        obj.timeSpent = this.timerPanelClock.getSecs();        
+        obj.userId =  thisUser.id;
+        obj.timeSpent = getSecsFromStr(values.timer); 
         MeetingService.save(thisMeeting, this.onSave, this);
 	}
-	
 });
 
 

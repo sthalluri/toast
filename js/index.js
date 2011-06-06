@@ -17,8 +17,7 @@ Ext.setup({
         	store : questionDataStore
         });
         
-        initSpeakerPanel();
-        
+        speechNotePanel = new SpeechNotePanel();
         myLogPanel = new MyLogPanel({
         	store : meetingStore
         });        
@@ -37,13 +36,15 @@ Ext.setup({
         questionPanel = new QuestionPanel();
         helpTabPanel = new HelpTabPanel();
         
+        speechNoteListPanel = new SpeechNoteListPanel();
+        
         homeCardPanel = new Ext.Panel({
         	title:'ToastMasters',
         	layout: 'card',
             iconCls:'home',
             fullscreen: true,
             items: [
-                    homePanel, 
+                    //homePanel, 
                     loginPanel, registerPanel,
                     navPanel,
                     clubMemberListPanel, 
@@ -51,10 +52,11 @@ Ext.setup({
                     myGramPanel, myTimerPanel,
                     roleListPanel, gramPanel, timerPanel, 
                     tableTopicPanel,questionPanel,
-                    speakerPanel, 
+                    speechNoteListPanel,speechNotePanel,
                     myLogPanel, 
                     helpTabPanel]
         });      
+        
     }
 });
 
@@ -78,6 +80,8 @@ var roleHelpPanel;
 var questionPanel;
 var myGramPanel;
 var myTimerPanel;
+var speechNoteListPanel;
+var speechNotePanel;
 
 function viewHome(){
 	homeCardPanel.show();

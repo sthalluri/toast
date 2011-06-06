@@ -1,7 +1,6 @@
 MyGramPanel = Ext.extend(Ext.form.FormPanel, 
 {
     scroll: 'vertical',
-    url   : 'postUser.php',
     standardSubmit : false,
     title: 'Gram',
 
@@ -70,8 +69,9 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
                     {
 					    text: 'Back',
 		                ui: 'back',
+		                scope:this,
 					    handler: function() {
-					    	myGramPanel.hide();
+					    	this.hide();
 					    	//roleListPanel.show();
 					    	meetingListPanel.show();
 					    }
@@ -97,7 +97,8 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
         var values = this.getValues();        
         var obj = thisMeeting.roles['participant'];
         if(!obj){
-        	thisMeeting.roles.participant = new Object();
+        	obj = new Object();
+        	thisMeeting.roles.participant = obj;
         }
         obj.userId =  thisUser.id;
 		if(!obj.amCount){
@@ -114,6 +115,31 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	resetForm:function(){
 		this.updateMessage('');
 		this.reset();
+	},
+
+	load: function(){
+		var obj = thisMeeting.roles['participant'];
+		if(obj){
+			for(var j=0; j<fillers.length;j++){
+				var filler = fillers[j];
+				var spinner = this.spinners[j];
+				if(obj.amCount && obj.amCount[filler]){
+					spinner.setValue(obj.amCount[filler]);
+				}else{
+					spinner.setValue(0);
+				}
+			}
+		}
+	},
+	
+	refresh: function(){
+		for(var j=0; j<fillers.length;j++){
+			var filler = fillers[j];
+			var spinner = this.spinners[j];
+			spinner.setValue(0);
+		}
+		this.load();
+		this.show();		
 	},
 	
 	updateMessage: function(msg){

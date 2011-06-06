@@ -106,16 +106,19 @@ For final wrap up
 
 - 6/5
 Speaker Notes
-*Managing contacts
-*My Club Info
 Making all actions for a meeting work
-Agenda Management, for multiple speeches
-Work Log report basic
 Working on iphone mobile
 Working on android mobile
+*Managing contacts
+*My Club Info
 
 -6th-8th
 Phonegap
+Work Log report basic
+Timer full screen functionality
+Set meeting type and timer settings
+Agenda Management, for multiple speeches
+Speech text to format
 
 -9th
 Working with local datastore

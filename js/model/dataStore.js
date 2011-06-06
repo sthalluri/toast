@@ -5,6 +5,11 @@ var members = [];
 var meetings =[];
 var roles = [];
 var questions = [];
+var speechNotes = [        
+   {id:1,     text: 'Notes1'},
+   {id:2,     text: 'Notes2'},
+   {id:3,     text: 'Notes3'},
+];
 
 var notes = [
             {highlight: '1. Get this done', notes: 'This is a sample question with some text and this is a long one'},
@@ -119,21 +124,17 @@ var questionDataStore = new Ext.data.Store({
     autoDestroy : true
 });
 
-Ext.regModel('NotesModel', {
-    fields: ['highlight', 'notes']
+Ext.regModel('SpeechNote', {
+    fields: ['id', 'text']
 });
 
-var speakerNotesDataStore = new Ext.data.Store({
-    model: 'NotesModel',
-    sorters: 'highlight',
-
-    getGroupString : function(record) {
-        return record.get('highlight')[0];
-    },
-
-    data: notes
+var speechNoteDataStore = new Ext.data.Store({
+    model: 'SpeechNote',
+    sorters: 'id',
+    data: speechNotes,
+    autoLoad : false,
+    autoDestroy : true
 });
-
 
 Ext.regModel('MyLogModel', {
     fields: ['date', 'topic']

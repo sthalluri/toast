@@ -68,7 +68,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			cls: 'legislator-tabs',
 			fullscreen : false,
-			items : [ this.meetingPanel, this.meetingActionPanel, this.meetingReportPanel ]
+			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ]
 		});
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,

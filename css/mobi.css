@@ -213,3 +213,4 @@ height: 1.8em;
 border-radius: 0.1em;
 }
 
+.notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/sticky-notes1.jpg'}

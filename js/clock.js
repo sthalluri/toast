@@ -75,3 +75,19 @@ function increment ( )
 	secs+=1;
 	console.log(secs);
 }
+
+function getSecsFromStr(timeStr){
+	var pSecs = parseInt(timeStr.substring(timeStr.indexOf(':')+1));
+	var pMin  = parseInt(timeStr.substring(0, timeStr.indexOf(':')));
+	var tSecs = pMin*60+pSecs;
+	return tSecs;
+}
+
+function getMins (secs){
+	var formatmins = Math.floor(secs/60);
+	var formatSecs = secs%60;
+	if(formatSecs<10){
+		formatSecs = '0'+formatSecs;
+	}
+	return formatmins+':'+formatSecs;
+}
