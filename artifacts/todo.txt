@@ -112,13 +112,15 @@ Working on android mobile
 *Managing contacts
 *My Club Info
 
--6th-8th
+-6th-9th
 Phonegap
-Work Log report basic
+Work Log report basic and not working from andriod
 Timer full screen functionality
 Set meeting type and timer settings
 Agenda Management, for multiple speeches
 Speech text to format
+HTML panel doesnt scroll in ipod
+
 
 -9th
 Working with local datastore

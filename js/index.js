@@ -30,7 +30,7 @@ Ext.setup({
         	meetingStore : meetingStore
         });
                 
-        roleListPanel = new RoleListPanel();        
+        //roleListPanel = new RoleListPanel();        
         helpPanel = new HelpPanel();
         roleHelpPanel = new RoleHelpPanel();
         questionPanel = new QuestionPanel();
@@ -44,13 +44,14 @@ Ext.setup({
             iconCls:'home',
             fullscreen: true,
             items: [
-                    //homePanel, 
+                    homePanel, 
                     loginPanel, registerPanel,
                     navPanel,
                     clubMemberListPanel, 
                     meetingListPanel, meetingPanel,
                     myGramPanel, myTimerPanel,
-                    roleListPanel, gramPanel, timerPanel, 
+                    //roleListPanel, 
+                    gramPanel, timerPanel, 
                     tableTopicPanel,questionPanel,
                     speechNoteListPanel,speechNotePanel,
                     myLogPanel, 
