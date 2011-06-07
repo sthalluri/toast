@@ -150,5 +150,34 @@
 	</table>
 </div>
 
+<div id="gram-log" class="x-hidden-display">
+{name}
+	<tpl for="gramLogs">
+         Am Count: <p>{amCount}</p>
+    </tpl>
+</div>
+
+<div id="timer-log" class="x-hidden-display">
+{name}
+	<tpl for="timerLogs">
+         TimeSpent: <p>{timeSpent}</p>
+    </tpl>
+</div>
+
+<div id="meeting-log" class="x-hidden-display">
+	<tpl for="meetingList">
+		<div class="header" >Jan 10 2010 10:00PM</div>
+		<table style="width:100%;"   class="contentTable" >
+			<tr>
+				<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+				<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+			<tr>
+			<tr>
+				<td class="highlight">Location:</td><td colSpan="3">{location}</td>
+			</tr>
+		</table>
+	</tpl>
+</div>
 </body>
 </html>
+

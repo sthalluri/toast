@@ -113,13 +113,13 @@ Working on android mobile
 *My Club Info
 
 -6th-9th
+HTML panel doesn't scroll
 Phonegap
 Work Log report basic and not working from andriod
 Timer full screen functionality
+Speech text to format
 Set meeting type and timer settings
 Agenda Management, for multiple speeches
-Speech text to format
-HTML panel doesnt scroll in ipod
 
 
 -9th

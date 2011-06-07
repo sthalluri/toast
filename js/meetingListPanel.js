@@ -62,8 +62,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		};
 	
 		this.meetingActionPanel = new MeetingActionPanel();
-		this.meetingPanel = new Ext.Panel({html:'Test', title:'Agenda'});
-		this.meetingReportPanel = new Ext.Panel({html:'Test', title:'Report'});
+		this.meetingPanel = new Ext.Panel({html:'Loading..', title:'Agenda',scroll: 'vertical'});
+		this.meetingReportPanel = new Ext.Panel({html:'Loading..', title:'Report',scroll: 'vertical'});
 
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			cls: 'legislator-tabs',
