@@ -35,6 +35,7 @@ Ext.setup({
         roleHelpPanel = new RoleHelpPanel();
         questionPanel = new QuestionPanel();
         helpTabPanel = new HelpTabPanel();
+        cardPanel = new CardPanel();
         
         speechNoteListPanel = new SpeechNoteListPanel();
         
@@ -51,7 +52,8 @@ Ext.setup({
                     meetingListPanel, meetingPanel,
                     myGramPanel, myTimerPanel,
                     //roleListPanel, 
-                    gramPanel, timerPanel, 
+                    timerPanel, cardPanel,
+                    gramPanel, 
                     tableTopicPanel,questionPanel,
                     speechNoteListPanel,speechNotePanel,
                     myLogPanel, 
@@ -83,7 +85,7 @@ var myGramPanel;
 var myTimerPanel;
 var speechNoteListPanel;
 var speechNotePanel;
-
+var cardPanel;
 function viewHome(){
 	homeCardPanel.show();
 }

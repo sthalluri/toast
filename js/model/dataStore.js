@@ -26,6 +26,12 @@ var userLog =[
 var fillers= ['ah','amm','so','like'];
 
 
+var timingStore={
+	speech : {red: 5, green: 2, yellow:1},	
+	ttResponse : {red: 6, green: 2, yellow:4}	,
+	evaluator : {red: 7, green: 2, yellow:5}	
+};
+
 //var urlStore = mockUrls;
 var urlStore = {
 		userUrl 		: '/toastService/user',

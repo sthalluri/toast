@@ -189,17 +189,25 @@ a.spch-bub-outside-medium {
 
 .header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:#AA2200;font-size: 1em;}
+.highlight{color:#AA2200;font-size: 1em;vertical-align:text-top;}
 
-.red{background-color:#33FF00;padding:.2em;cellpadding:.2em}
-.green{background-color:#FF3344;padding:.2em;cellpadding:.2em}
+.red{color:red;font-size: 1em;font-weight:bold;}
+.yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
+.green{color:green;font-size: 1em;font-weight:bold;}
+
+.redIndi{background-color:red;font-size: 1em;vertical-align:text-top;}
+.yellowIndi{background-color:#CCCC00;font-size: 1em;vertical-align:text-top;}
+.greenIndi{background-color:green;font-size: 1em;vertical-align:text-top;}
+.silverIndi{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+
 
 table.contentTable{font-size:.8em; cellpadding:.2em}
 
 table.contentTable td
 {
     margin:10px;
-    padding:5px
+    padding:5px;
+    text-align: left;    
 }
 
 .x-button-round,.x-button.x-button-action-round,.x-button.x-button-confirm-round,.x-button.x-button-decline-round{-webkit-border-radius:0.9em;border-radius:0.9em;padding:0.1em 0.9em}.x-button-small,.x-button.x-button-action-small,.x-button.x-button-confirm-small,.x-button.x-button-decline-small,.x-toolbar .x-button-small,.x-toolbar .x-button.x-button-action-small,.x-toolbar .x-button.x-button-confirm-small,.x-toolbar .x-button.x-button-decline-small{-webkit-border-radius:0.3em;border-radius:0.3em;padding:.2em .4em;min-height:0}.x-button-small 

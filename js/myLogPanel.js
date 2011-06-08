@@ -15,6 +15,10 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		this.meetingLogTmpl = Ext.XTemplate.from('meeting-log');
 		this.meetingLogTmpl.compile();
 
+		// Meeting Report Template
+		this.roleLogTmpl = Ext.XTemplate.from('role-log');
+		this.roleLogTmpl.compile();
+
 		this.gramLogPanel = new Ext.Panel({
 			html : 'Loading..',
 			title : 'Gram Log',
@@ -59,9 +63,11 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 	},
 	
 	reload: function(){
+		console.log('Came to refresh');
+		
 		var gramLogs = new Array();
 		var timerLogs = new Array();
-		var meetingList  = new Array();
+		var meetingLogs = new Array();
 		
 		var roles = new Array();
 		
@@ -72,24 +78,47 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		
 		for(var i=0; i<meetingStore.data.length; i++){
 			var meeting = meetingStore.getAt(i).data;
-			meetingList[meetingList.length] = meeting;
 			var meetingRoles = meeting.roles;
+			var meetingLog = new Object();
+			meetingLog.roles = new Array();
+			meetingLog.themeOfTheDay = meeting.themeOfTheDay;
+			meetingLog.wordOfTheDay = meeting.wordOfTheDay;		
+			meetingLog.rolesStr = 'None';
 			for(var j=1; j<roles.length; j++){
 				var role = meetingRoles[roles[j]];
 				if(role && role.amCount && role.userId == thisUser.id){ 
 					var gramLog = new Object();
-					gramLog.amCount = objectToString(role.amCount);
+					var amCount = role.amCount;
+					gramLog.amCount = objectToString(amCount);
+					gramLog.amCountStr = 'None';
+					for(var p in role.amCount){
+						if(amCount[p]>0){
+							if(gramLog.amCountStr =='None'){
+								gramLog.amCountStr = p+':'+amCount[p];
+							}else{
+								gramLog.amCountStr += ',&nbsp;'+p+':'+amCount[p];
+							}
+						}
+					}
 					gramLog.role = roles[j];
-					gramLogs[gramLogs.length] = gramLog;
+					gramLogs.push(gramLog);
 				}
 				if(role && role.timeSpent 
 						&& role.userId == thisUser.id){ 
 					var timerLog = new Object();
 					timerLog.timeSpent = role.timeSpent;
 					timerLog.role = roles[j];
-					timerLogs[timerLogs.length] = timerLog;
+					timerLogs.push(timerLog);
+				}
+				if(role && role.userId == thisUser.id){ 
+					if(meetingLog.rolesStr == 'None'){
+						meetingLog.rolesStr = roleStore.getById(roles[j]).data.description;
+					}else{
+						meetingLog.rolesStr += ',<br/>'+roleStore.getById(roles[j]).data.description;
+					}
 				}
 			}
+			meetingLogs.push(meetingLog);
 		}
 		
 		var wrapper = new Object();
@@ -97,18 +126,29 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		wrapper.name = 'Grammarian Log';
 		
 		var html = this.gramLogTmpl.apply(wrapper);
-		this.gramLogPanel.html = html;
+		if(!this.gramLogPanel.el){
+			this.gramLogPanel.html = html;
+		}else{
+			this.gramLogPanel.el.dom.innerHTML = html;
+		}
 
 		wrapper.name = 'Timer Log';
 		wrapper.timerLogs = timerLogs;
 		html = this.timerLogTmpl.apply(wrapper);
-		this.timerLogPanel.html = html;
+		if(!this.timerLogPanel.el){
+			this.timerLogPanel.html = html;
+		}else{
+			this.timerLogPanel.el.dom.innerHTML = html;
+		}
 
 		wrapper.name = 'Meeting List';
-		wrapper.meetingList = meetingList;
+		wrapper.meetingLogs = meetingLogs;
 		html = this.meetingLogTmpl.apply(wrapper);
-		this.meetingLogPanel.html = html;
-
+		if(!this.meetingLogPanel.el){
+			this.meetingLogPanel.html = html;
+		}else{
+			this.meetingLogPanel.el.dom.innerHTML = html;
+		}
 		console.log(html);
 	},
 	

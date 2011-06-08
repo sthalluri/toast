@@ -35,6 +35,7 @@
 	<script type="text/javascript" src="js/helpPanel.js"></script>
 	<script type="text/javascript" src="js/roleHelpPanel.js"></script>
 	<script type="text/javascript" src="js/helpTabPanel.js"></script>
+	<script type="text/javascript" src="js/cardPanel.js"></script>
 
 	<script type="text/javascript" src="js/meetingActionPanel.js"></script>
 	<script type="text/javascript" src="js/htmlPage.js"></script>
@@ -151,21 +152,29 @@
 </div>
 
 <div id="gram-log" class="x-hidden-display">
-{name}
 	<tpl for="gramLogs">
-         Am Count: <p>{amCount}</p>
+    <div class="header" >Jan 10 2010 10:00PM</div>
+		<table style="width:100%;"   class="contentTable" >
+			<tr>
+				<td width="30%" class="highlight"> Am Count:</td><td>{amCountStr}</td>
+			<tr>
+	</table>
     </tpl>
 </div>
 
 <div id="timer-log" class="x-hidden-display">
-{name}
 	<tpl for="timerLogs">
-         TimeSpent: <p>{timeSpent}</p>
+    <div class="header" >Jan 10 2010 10:00PM</div>
+		<table style="width:100%;"   class="contentTable" >
+			<tr>
+				<td class="highlight">Speech Type:</td><td>Ice Breaker </td><td class="highlight"> TimeSpent:</td><td>{[getMins(values.timeSpent)]}</td><td width="100px" class="green"></td>
+			<tr>
+	</table>
     </tpl>
 </div>
 
 <div id="meeting-log" class="x-hidden-display">
-	<tpl for="meetingList">
+	<tpl for="meetingLogs">
 		<div class="header" >Jan 10 2010 10:00PM</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
@@ -173,11 +182,33 @@
 				<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
 			<tr>
 			<tr>
-				<td class="highlight">Location:</td><td colSpan="3">{location}</td>
+				<td class="highlight" colSpan="2">Roles Played:</td><td>{rolesStr}</td>
 			</tr>
 		</table>
 	</tpl>
 </div>
+
+<div id="role-log" class="x-hidden-display">
+	<tpl for="roles">
+		&nbsp; {[roleStore.getById(values.roleName).data.description]}
+	</tpl>
+</div>
+
+<div id="time-indicator" class="x-hidden-display">
+	<table class="contentTable" style="width: 100%">
+		<tr><td class="green">Green</td><td>{[getMins(values.green)]}</td>
+		<td class="yellow">Yellow</td><td>{[getMins(values.yellow)]}</td>
+		<td class="red">Red</td><td>{[getMins(values.red)]}</td>
+		<td>
+			<div class=" x-button x-button-normal" style="margin-bottom: 0.5em; margin-left: 0.5em; ">
+				<span class="x-button-label" onclick="console.log('selected');">Edit</span>
+			</div>		
+		</td>
+		<tr>
+	</table>
+</div>						
+
 </body>
 </html>
+
 

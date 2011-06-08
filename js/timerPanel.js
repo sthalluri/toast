@@ -30,21 +30,58 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
 						console.log(values);
-						var obj = thisMeeting.roles[values['role']];
+						var role = values['role'];
+						var obj = thisMeeting.roles[role];
+						if(role.substring(0,5) == 'speak'){
+							this.parentForm.timings = timingStore.speech;
+						}
+						if(role.substring(0,5) == 'ttRes'){
+							this.parentForm.timings = timingStore.ttResponse;
+						}
+						if(role.substring(0,5) == 'evalu'){
+							this.parentForm.timings = timingStore.evaluator;
+						}
+						console.log(this.parentForm.timeIndicatorTmpl.apply(this.parentForm.timings));
+						Ext.getCmp('timeIndicator').el.dom.innerHTML= this.parentForm.timeIndicatorTmpl.apply(this.parentForm.timings);
 						if(obj && obj.userId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
 							if(!obj.timeSpent){
 								obj.timeSpent = 0;
 							}
+							this.parentForm.clockField.reset();
 							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 							this.parentForm.updateTime();
 						}else{
+							this.parentForm.updateColor('silverIndi');
 							this.parentForm.userSelector.reset();
 						}
 						this.parentForm.updateMessage('');
 			        }
 			    }
 		});
+		
+		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
+		this.timeIndicatorTmpl.compile();
+		this.timings = {red:'0', yellow:'0', green:'0', className:'silverIndi'};
+		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timings);
+		
+		this.clockField = new Ext.form.TextArea({
+                xtype : 'textareafield',
+                id : 'clock',
+                name  : 'timer',
+                value : '0:00',
+                maxLength : 6,
+                height:10,
+                maxRows : 1,
+			     parentForm: this,
+                style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
+			     scope: this,
+			     listeners:{
+			    		change : function(selector, value){
+			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
+			    		}
+			    	}
+				});
 		
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
@@ -55,25 +92,21 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                  labelWidth: '30%'
              },
              items: [
+                {
+                	 html:'	<table class="contentTable" style="width: 100%">'+
+								'<tr>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
+									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
+								'</tr>'+
+							'</table>'
+                },
 				this.roleSelector,
 				this.userSelector,
-				{
-                 xtype : 'textareafield',
-                 id : 'clock',
-                 name  : 'timer',
-                 value : '0:00',
-                 maxLength : 6,
-                 height:50,
-                 maxRows : 1,
- 			     parentForm: this,
-                 style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
- 			     scope: this,
- 			     listeners:{
- 			    		change : function(selector, value){
- 			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
- 			    		}
- 			    	}
-				}
+ 				{
+					id: 'timeIndicator',
+					html:indicatorHtml
+				},
+				this.clockField
 			]
 		});
 	
@@ -237,6 +270,26 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	updateTime: function(){
 		var clock = this.formFields.items.getByKey('clock');
 		clock.setValue(this.timerPanelClock.getMins());
+		var value = this.timerPanelClock.getSecs();
+		if(value > this.timings.red){
+			this.updateColor("redIndi");
+		}else if(value > this.timings.yellow){
+			this.updateColor("yellowIndi");
+		}else if(value > this.timings.green){
+			this.updateColor("greenIndi");
+		}else{
+			this.updateColor("silverIndi");
+		}
+	},
+	
+	updateColor: function(colourClass){
+		var colorDiv = document.getElementById('timeColorDiv');
+		if(colorDiv.className != colourClass){
+			colorDiv.className= colourClass;
+			this.timings.className = colourClass;
+			cardPanel.updateColor(colourClass);
+			console.log('Changing to yello');
+		}
 	},
 	
 	logReport:function(){
@@ -251,8 +304,14 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	
 	timerEvent: function(){
 		timerPanel.updateTime();
+	},
+	
+	showCard: function(){
+		this.hide();
+		cardPanel.showCard(this.timings.className);
 	}
 });
 
+//Ext.getCmp('timeIndicator').el.dom.innerHTML='NEW'
 
 Ext.reg('timerPanel', TimerPanel);
