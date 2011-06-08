@@ -33,16 +33,15 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 						var role = values['role'];
 						var obj = thisMeeting.roles[role];
 						if(role.substring(0,5) == 'speak'){
-							this.parentForm.timings = timingStore.speech;
+							this.parentForm.timeLimits = timingStore.speech;
 						}
 						if(role.substring(0,5) == 'ttRes'){
-							this.parentForm.timings = timingStore.ttResponse;
+							this.parentForm.timeLimits = timingStore.ttResponse;
 						}
 						if(role.substring(0,5) == 'evalu'){
-							this.parentForm.timings = timingStore.evaluator;
+							this.parentForm.timeLimits = timingStore.evaluator;
 						}
-						console.log(this.parentForm.timeIndicatorTmpl.apply(this.parentForm.timings));
-						Ext.getCmp('timeIndicator').el.dom.innerHTML= this.parentForm.timeIndicatorTmpl.apply(this.parentForm.timings);
+						this.parentForm.updateTimings();
 						if(obj && obj.userId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
 							if(!obj.timeSpent){
@@ -62,8 +61,8 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timings = {red:'0', yellow:'0', green:'0', className:'silverIndi'};
-		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timings);
+		this.timeLimits = {red:'0', yellow:'0', green:'0', className:'silverIndi'};
+		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 		
 		this.clockField = new Ext.form.TextArea({
                 xtype : 'textareafield',
@@ -253,6 +252,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			this.updateMessage(data.successMessage);
 	        this.timerPanelClock.reset();
+	        this.updateTime();
 	        this.reset();
 		} else {
 			this.updateMessage(data.errorMessage);
@@ -263,7 +263,8 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  values['userId'];
-        obj.timeSpent = this.timerPanelClock.getSecs();        
+        obj.timeSpent = this.timerPanelClock.getSecs();
+        obj.timeLimits = Ext.encode(this.timeLimits);
         MeetingService.save(thisMeeting, this.onSave, this);
 	},
 	
@@ -271,11 +272,11 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		var clock = this.formFields.items.getByKey('clock');
 		clock.setValue(this.timerPanelClock.getMins());
 		var value = this.timerPanelClock.getSecs();
-		if(value > this.timings.red){
+		if(value > this.timeLimits.red){
 			this.updateColor("redIndi");
-		}else if(value > this.timings.yellow){
+		}else if(value > this.timeLimits.yellow){
 			this.updateColor("yellowIndi");
-		}else if(value > this.timings.green){
+		}else if(value > this.timeLimits.green){
 			this.updateColor("greenIndi");
 		}else{
 			this.updateColor("silverIndi");
@@ -286,7 +287,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		var colorDiv = document.getElementById('timeColorDiv');
 		if(colorDiv.className != colourClass){
 			colorDiv.className= colourClass;
-			this.timings.className = colourClass;
+			this.timeLimits.className = colourClass;
 			cardPanel.updateColor(colourClass);
 			console.log('Changing to yello');
 		}
@@ -308,7 +309,20 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	
 	showCard: function(){
 		this.hide();
-		cardPanel.showCard(this.timings.className);
+		cardPanel.showCard(this.timeLimits.className);
+	},
+	
+	editTimeLimit:function(){
+		this.hide();
+		timeLimitPanel.loadAndShow(this.timeLimits);
+	},
+	
+	updateTimings:function(pTimings){
+		if(pTimings){
+			this.timeLimits = pTimings;
+		}
+		Ext.getCmp('timeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
+		this.updateTime();
 	}
 });
 

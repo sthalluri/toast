@@ -119,12 +119,11 @@ Phonegap
 Set meeting type and timer settings
 Timer full screen functionality
 Speech text to format
-Agenda Management, for multiple speeches
-Add custom counter
 Filter Roles based on the screens
 Move gram log to the meeting level
 Re-factor homelayout via tabs
 Sort meeting data based on the date and only the completed ones in the log
+Agenda Management, for multiple speeches
 
 -9th
 Working with local datastore
@@ -134,3 +133,4 @@ Format meeting report
 Format agenda
 Format Work Log report
 UI cleanup
+Add custom counter

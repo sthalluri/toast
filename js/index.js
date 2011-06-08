@@ -36,6 +36,7 @@ Ext.setup({
         questionPanel = new QuestionPanel();
         helpTabPanel = new HelpTabPanel();
         cardPanel = new CardPanel();
+        timeLimitPanel = new TimeLimitPanel({parentPanel:timerPanel});
         
         speechNoteListPanel = new SpeechNoteListPanel();
         
@@ -52,8 +53,8 @@ Ext.setup({
                     meetingListPanel, meetingPanel,
                     myGramPanel, myTimerPanel,
                     //roleListPanel, 
-                    timerPanel, cardPanel,
-                    gramPanel, 
+                    timerPanel, cardPanel,timeLimitPanel,
+                    gramPanel,
                     tableTopicPanel,questionPanel,
                     speechNoteListPanel,speechNotePanel,
                     myLogPanel, 
@@ -86,6 +87,8 @@ var myTimerPanel;
 var speechNoteListPanel;
 var speechNotePanel;
 var cardPanel;
+var timeLimitPanel;
+
 function viewHome(){
 	homeCardPanel.show();
 }
