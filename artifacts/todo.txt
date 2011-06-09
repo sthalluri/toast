@@ -118,6 +118,7 @@ Phonegap
 
 Set meeting type and timer settings
 Timer full screen functionality
+Timer work for individual log
 Speech text to format
 Filter Roles based on the screens
 Move gram log to the meeting level

@@ -32,7 +32,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 						console.log(values);
 						var role = values['role'];
 						var obj = thisMeeting.roles[role];
-						if (obj.timeLimits && obj.timeLimits.red > 0) {
+						if (obj && obj.timeLimits && obj.timeLimits.red > 0) {
 							this.parentForm.timeLimits.red = obj.timeLimits.red;
 							this.parentForm.timeLimits.green = obj.timeLimits.green;
 							this.parentForm.timeLimits.yellow = obj.timeLimits.yellow;
@@ -55,6 +55,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 							this.parentForm.clockField.reset();
 							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 						}else{
+							this.parentForm.timerPanelClock.setSecs(0);
 							this.parentForm.updateColor('silverIndi');
 							this.parentForm.userSelector.reset();
 							this.parentForm.clockField.reset();
@@ -67,7 +68,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timeLimits = {red:'0', yellow:'0', green:'0', className:'silverIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 		
 		this.clockField = new Ext.form.TextArea({
@@ -194,20 +195,10 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		                ui: 'back',
                         handler: function() {
                         	timerPanel.hide();
-                        	//roleListPanel.show();
                         	meetingListPanel.show();
                         }
                     },
                     {xtype: 'spacer'}
-//                    ,
-//                    {
-//                        text: 'Change Role',
-//                        ui: 'confirm',
-//                        handler: function() {
-//                        	timerPanel.hide();
-//                        	roleListPanel.show();
-//                        }
-//                    }
                 ]
             }
         ];
@@ -233,7 +224,9 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	
 	resetTimer: function(){
-        this.timerPanelClock.reset();
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timerPanelClock.reset();
+        this.updateTimeLimitSection();
 		this.reset();
 	},
 	updateMessage: function(msg){

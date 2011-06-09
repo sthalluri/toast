@@ -125,7 +125,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		}else{
 			questionDataStore.rowId = null;
 			data.returnval = new Array();
-			this.updateMessage(data.errorMessage);
+			this.show();
+			//this.updateMessage(data.errorMessage);
 		}
 	},
 
