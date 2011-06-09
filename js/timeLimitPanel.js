@@ -97,6 +97,6 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		timings.red = getSecsFromStr(this.redLimit.getValue());
 		timings.yellow = getSecsFromStr(this.yellowLimit.getValue());
 		timings.green = getSecsFromStr(this.greenLimit.getValue());
-		this.parentPanel.updateTimings(timings);
+		this.parentPanel.updateTimeLimitSection(timings);
 	}
 });

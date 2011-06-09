@@ -32,16 +32,21 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 						console.log(values);
 						var role = values['role'];
 						var obj = thisMeeting.roles[role];
-						if(role.substring(0,5) == 'speak'){
-							this.parentForm.timeLimits = timingStore.speech;
+						if (obj.timeLimits && obj.timeLimits.red > 0) {
+							this.parentForm.timeLimits.red = obj.timeLimits.red;
+							this.parentForm.timeLimits.green = obj.timeLimits.green;
+							this.parentForm.timeLimits.yellow = obj.timeLimits.yellow;
+						} else {
+							if (role.substring(0, 5) == 'speak') {
+								this.parentForm.timeLimits = timingStore.speech;
+							}
+							if (role.substring(0, 5) == 'ttRes') {
+								this.parentForm.timeLimits = timingStore.ttResponse;
+							}
+							if (role.substring(0, 5) == 'evalu') {
+								this.parentForm.timeLimits = timingStore.evaluator;
+							}
 						}
-						if(role.substring(0,5) == 'ttRes'){
-							this.parentForm.timeLimits = timingStore.ttResponse;
-						}
-						if(role.substring(0,5) == 'evalu'){
-							this.parentForm.timeLimits = timingStore.evaluator;
-						}
-						this.parentForm.updateTimings();
 						if(obj && obj.userId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
 							if(!obj.timeSpent){
@@ -49,11 +54,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 							}
 							this.parentForm.clockField.reset();
 							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
-							this.parentForm.updateTime();
 						}else{
 							this.parentForm.updateColor('silverIndi');
 							this.parentForm.userSelector.reset();
+							this.parentForm.clockField.reset();
 						}
+						this.parentForm.updateTimeLimitSection();
 						this.parentForm.updateMessage('');
 			        }
 			    }
@@ -264,7 +270,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  values['userId'];
         obj.timeSpent = this.timerPanelClock.getSecs();
-        obj.timeLimits = Ext.encode(this.timeLimits);
+        obj.timeLimits = this.timeLimits;
         MeetingService.save(thisMeeting, this.onSave, this);
 	},
 	
@@ -317,7 +323,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		timeLimitPanel.loadAndShow(this.timeLimits);
 	},
 	
-	updateTimings:function(pTimings){
+	updateTimeLimitSection:function(pTimings){
 		if(pTimings){
 			this.timeLimits = pTimings;
 		}
