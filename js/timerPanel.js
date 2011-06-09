@@ -4,10 +4,10 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	url   : 'postUser.php',
 	standardSubmit : false,
 	title: 'Tim',
-	
+
 	initComponent : function() {
 
-	
+
 		this.userSelector =	new Ext.form.Select({
 		    xtype: 'selectfield',
 		    name : 'userId',
@@ -16,7 +16,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		    displayField : 'name',
 		    store : memberStore
 		});
-		
+
 		this.roleSelector = new Ext.form.Select({
 			    xtype: 'selectfield',
 			    name : 'role',
@@ -65,12 +65,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			        }
 			    }
 		});
-		
+
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
 		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
-		
+
 		this.clockField = new Ext.form.TextArea({
                 xtype : 'textareafield',
                 id : 'clock',
@@ -88,7 +88,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			    		}
 			    	}
 				});
-		
+
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
              title:' ',
@@ -98,24 +98,24 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                  labelWidth: '30%'
              },
              items: [
-                {
-                	 html:'	<table class="contentTable" style="width: 100%">'+
-								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
-									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
-								'</tr>'+
-							'</table>'
-                },
 				this.roleSelector,
 				this.userSelector,
  				{
 					id: 'timeIndicator',
 					html:indicatorHtml
 				},
+                {
+               	 html:'	<table class="contentTable" style="width: 100%">'+
+								'<tr>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
+									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
+								'</tr>'+
+							'</table>'
+                },
 				this.clockField
 			]
 		});
-	
+
 		this.startButton = new Ext.Button({
 			ui : 'confirm',
 			scope: this,
@@ -123,7 +123,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		    width:100,
             handler: this.startTimer
 		});
-		
+
 		this.stopButton = new Ext.Button({
         	ui:'decline',
 			scope: this,
@@ -131,7 +131,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
             width:100,
             handler: this.stopTimer
         });
-		
+
         this.items= [this.formFields,
 	        {
             xtype: 'fieldset',
@@ -155,7 +155,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 				                handler: this.resetTimer
 			                })
 					       ]
-				
+
 				},
 				{
 					layout:'hbox',
@@ -169,20 +169,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 				                handler: this.save
 			                })
 					       ]
-				
+
 				}
             	]
             }
         ];
-        
-        this.listeners = {
-            submit : function(loginForm, result){
-                console.log('success', Ext.toArray(arguments));
-            },
-            exception : function(loginForm, result){
-                console.log('failure', Ext.toArray(arguments));
-            }
-        };
+    
     
         this.dockedItems= [
             {
@@ -207,7 +199,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 
         TimerPanel.superclass.initComponent.call(this);
 	},
-	
+
 	startTimer: function(){
 		if(this.validate()){
 			this.startButton.disabled = true;
@@ -216,13 +208,13 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			this.timerPanelClock.start();
 		}
 	},
-	
+
 	stopTimer: function(){
 		this.startButton.disabled = false;
 		this.stopButton.disabled = true;
 		this.timerPanelClock.stop();
 	},
-	
+
 	resetTimer: function(){
 		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		this.timerPanelClock.reset();
@@ -232,7 +224,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
-	
+
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;
@@ -246,7 +238,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		return noErrors;
 	},
-	
+
 	onSave: function(data){
 		if (data.success) {
 			this.updateMessage(data.successMessage);
@@ -266,7 +258,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
         obj.timeLimits = this.timeLimits;
         MeetingService.save(thisMeeting, this.onSave, this);
 	},
-	
+
 	updateTime: function(){
 		var clock = this.formFields.items.getByKey('clock');
 		clock.setValue(this.timerPanelClock.getMins());
@@ -281,7 +273,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			this.updateColor("silverIndi");
 		}
 	},
-	
+
 	updateColor: function(colourClass){
 		var colorDiv = document.getElementById('timeColorDiv');
 		if(colorDiv.className != colourClass){
@@ -291,7 +283,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			console.log('Changing to yello');
 		}
 	},
-	
+
 	logReport:function(){
 		for(var i=1; i<roles.length; i++){
 			var role = roles[i];
@@ -301,21 +293,21 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	        }
 		}
 	},
-	
+
 	timerEvent: function(){
 		timerPanel.updateTime();
 	},
-	
+
 	showCard: function(){
 		this.hide();
 		cardPanel.showCard(this.timeLimits.className);
 	},
-	
+
 	editTimeLimit:function(){
 		this.hide();
 		timeLimitPanel.loadAndShow(this.timeLimits);
 	},
-	
+
 	updateTimeLimitSection:function(pTimings){
 		if(pTimings){
 			this.timeLimits = pTimings;

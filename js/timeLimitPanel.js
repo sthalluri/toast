@@ -74,7 +74,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		                scope:this,
 					    handler: function() {
 					    	this.hide();
-					    	timerPanel.show();
+					    	this.parentPanel.show();
 					    }
 					},
 					{xtype: 'spacer'}
