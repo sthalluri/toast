@@ -243,9 +243,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
         MeetingService.saveSpeechNotes(this.onDelete, this);
 	},
 	
-	//speechNoteListPanel.speechNoteTopicCarousel.removeAt(1)
-	//speechNoteListPanel.speechNoteTopicCarousel.remove(speechNoteListPanel.speechNoteTopicCarousel.items.get(1))
-	
 	newSpeechNote:function(){
 		this.activeSpeechNote = null;
 		this.editSpeechNote();
