@@ -36,7 +36,7 @@ Ext.setup({
         questionPanel = new QuestionPanel();
         helpTabPanel = new HelpTabPanel();
         cardPanel = new CardPanel();
-        timeLimitPanel = new TimeLimitPanel({parentPanel:timerPanel});
+        timeLimitPanel = new TimeLimitPanel();
         
         speechNoteListPanel = new SpeechNoteListPanel();
         

@@ -69,6 +69,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
 		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits.panel = "timerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
 		this.clockField = new Ext.form.TextArea({
@@ -85,6 +86,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			     listeners:{
 			    		change : function(selector, value){
 			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
+	    					this.parentForm.updateTime();
 			    		}
 			    	}
 				});
@@ -300,12 +302,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 
 	showCard: function(){
 		this.hide();
-		cardPanel.showCard(this.timeLimits.className);
+		cardPanel.showCard(this, this.timeLimits.className);
 	},
 
 	editTimeLimit:function(){
 		this.hide();
-		timeLimitPanel.loadAndShow(this.timeLimits);
+		timeLimitPanel.loadAndShow(this, this.timeLimits);
 	},
 
 	updateTimeLimitSection:function(pTimings){

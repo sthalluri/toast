@@ -222,3 +222,46 @@ border-radius: 0.1em;
 }
 
 .notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/sticky-notes1.jpg'}
+
+
+
+div.background
+  {
+  width:350px;
+  height:400px;
+  background:url(../images/Stickyhight.png)  no-repeat ;
+  background-size: 100%;
+  margin:10px 10px;
+  /*border:2px solid black;*/
+  }
+  
+div.transbox
+  {
+  width:340px;
+  height:360px;
+  padding:10px;
+  /*
+  background-color:#ffffff;
+  border:1px solid black;
+  */
+  /* for IE */
+  filter:alpha(opacity=60);
+  /* CSS3 standard */
+  opacity:0.6;
+  }
+div.transbox p
+  {
+	font-family: cursive;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: large;
+	line-height: 1.5em;
+	word-spacing: normal;
+	letter-spacing: 0.1ex;
+	text-decoration: none;
+	text-transform: none;
+	text-align: left;
+	text-indent: 0ex;
+  }
+  

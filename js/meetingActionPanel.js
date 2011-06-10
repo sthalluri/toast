@@ -8,7 +8,6 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             grouped: true,
             indexBar: false,
         	cls: 'demo-list',
-		    singleSelect:true,
             store: new Ext.data.Store({
                 fields: ['name', 'card'],
                 getGroupString : function(record) {

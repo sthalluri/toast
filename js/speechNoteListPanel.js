@@ -2,15 +2,17 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 {
 	title:'TbTopic',
 	fullscreen: true,
+    layout: 'card',    
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([
-	                                     '<div class="notes">{text}</div>',
-	                                 ]);
+	                                     '<div class="background"><div class="transbox"><p>{formatText}</p></div></div>',
+                         ]);
 	this.speechNoteTmpl.compile();
 	
+	this.activeIndex =1;
 	this.base = {
-	    itemTpl: '<div class="contact2">{text}..</div>',
+	    itemTpl: '<div class="contact2">{text}</div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
@@ -18,7 +20,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	    grouped: false,
 	    indexBar: false,
 	    parentPanel:this,	   
-	    id:'speechNoteListPanel',
 	    onItemDisclosure: {
 	        scope: this,
 	        handler: this.updateDetailsPanel
@@ -26,30 +27,26 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	    store: speechNoteDataStore
 	};
 
-    this.speechNoteTopicCarousel = new Ext.Panel({
-        padding:10,
-    	xtype:'carousel',
-    	activeItem:0,
-    	height:'80%',
-        id:'speechNoteTopicCarousel',
-    	layout: 'card',
-    	items:[
-    	    new Ext.List(Ext.apply(this.base, {
-               fullscreen: true
-           	})),
-           	{
-    	    	html:'Sample content here'
-           	}
-    	]
-    });
+	
+//    this.speechNoteTopicCarousel = new Ext.Carousel({
+//        padding:10,
+//    	xtype:'carousel',
+//    	activeItem:0,
+//    	height:'80%',
+//        id:'speechNoteTopicCarousel',
+//    	layout: 'card',
+//    	items:[
+//    	    new Ext.List(Ext.apply(this.base, {
+//               fullscreen: true
+//           	}))
+//    	]
+//    });
+
+//	this.items = [ new Ext.List(Ext.apply(this.base, {
+//		fullscreen : true
+//	})) ];
+
     
-	this.items= [
-                {
-                	padding:10,
-                	html : '<b>Cards</b>'
-                },
-                this.speechNoteTopicCarousel
-	];
     this.dockedItems = [
         {
             xtype: 'toolbar',
@@ -61,12 +58,8 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	                ui: 'back',
 				    scope:this,
 				    handler: function() {
-				    	if(this.speechNoteTopicCarousel.getActiveItem().id =='speechNoteListPanel'){
-				    		speechNoteListPanel.hide();
-                        	meetingListPanel.show();
-	                	}else{
-	    		    		this.listMode();
-	                	}
+			    		speechNoteListPanel.hide();
+                    	meetingListPanel.show();
 				    }
 				},
 				{xtype: 'spacer'},
@@ -94,13 +87,18 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	loadAndShow: function(){
 		if(thisMeeting.roles.speaker1){
 			var contentId = thisMeeting.roles.speaker1.id;
-			console.log('Setting the contentid '+contentId);
 			speechNoteDataStore.contentId = contentId;
-			MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
+			if(this.loaded){
+				this.show();
+			}else{
+				this.loaded = true;
+				MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
+			}
 		}
 	},
 	
-	onSpeechNotesLoad: function(data){
+	onSpeechNotesLoad: function(data, dontDoUpdate){
+		
 		if(data.success && data.returnVal.rows.length>0){
 			rContent = eval("(" + data.returnVal.rows[0].content+ ")");
 			speechNoteDataStore.rowId = data.returnVal.rows[0].id;
@@ -112,36 +110,72 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 				}
 			}
 			data.returnVal = rSpeechNotes;
-			console.log(data.returnVal);
 			if(data.returnVal.length>0){
 				speechNoteDataStore.loadData(data.returnVal);
 			}else{
 				speechNoteDataStore.removeAll();
 			}
-			this.show();
 		}
 		
 		if (data.success) {
-			console.log(data.returnVal);
+			this.show();
 			if(data.returnVal.length>0){
 				speechNoteDataStore.loadData(data.returnVal);
+				if(!dontDoUpdate){
+					this.updateCarousel();
+				}
 			}else{
 				speechNoteDataStore.removeAll();
 			}
-			this.show();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
 	},
-
+	
 	updateCarousel: function(){
-		for(var i=0 ; i<speechNotes.length; i++){
-			speechNoteDataStore.add({id:speechNotes[i].id,text:speechNotes[i].text});
-		}		
+		var items = [];
+		if(this.speechNoteTopicCarousel){
+			this.remove(this.speechNoteTopicCarousel);
+		}
+		
+		items.push(new Ext.List(Ext.apply(this.base, {
+		})));
+
+		speechNoteDataStore.each(function(rec){
+			var data = rec.data;
+			this.activeSpeechNote = rec;
+			data.formatText = data.text.replace(
+					// Replace out the new line character.
+					new RegExp( "\\n", "g" ), "<br/>" );
+            items.push({
+                html: this.speechNoteTmpl.apply(data)
+            });
+        }, this); 
+		
+		this.speechNoteTopicCarousel = new Ext.Carousel({
+            items: items,
+            scope:this,
+            listeners: {
+                cardswitch: {fn: this.cardChanged, scope: this}
+            }
+        });
+        this.add(this.speechNoteTopicCarousel);
+        this.cardChanged(null, null, null, this.activeIndex);
+        this.doLayout();
 	},
 	
 	listMode: function(){
-		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(0));
+		//this.updateCarousel();
+		console.log(this.activeIndex);
+		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(this.activeIndex));
+	},
+	
+	cardChanged:function(p0, p1, p2, index, newIndex){
+		if(index>0&&speechNoteDataStore.getAt(index-1)){
+			this.activeIndex = index;
+			console.log(this.activeIndex);
+			this.activeSpeechNote = speechNoteDataStore.getAt(index-1).data;
+		}
 	},
 	
 	newSpeechNote:function(){
@@ -162,14 +196,9 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {
-    	this.parentPanel.speechNoteIndex = index;
 		var carousel = this.parentPanel.speechNoteTopicCarousel;
-		var speechNote = speechNoteDataStore.getAt(index).data;
-		this.parentPanel.activeSpeechNote = speechNote;
-		var html = this.parentPanel.speechNoteTmpl.apply(speechNote);
-		var detailsPanel = carousel.items.get(1);
-		detailsPanel.el.setHTML(html);
-		carousel.setActiveItem(carousel.items.get(1));
+		this.parentPanel.activeIndex = index+1;
+		carousel.setActiveItem(carousel.items.get(index+1));
     }	
 });
 

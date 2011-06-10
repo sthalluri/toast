@@ -3,7 +3,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	scroll: 'vertical',
 	url   : 'postUser.php',
 	standardSubmit : false,
-	title: 'Timer',	
+	title: 'My Timer Log',	
 	initComponent : function() {
 		this.roleSelector = new Ext.form.Select({
 			    xtype: 'selectfield',
@@ -18,30 +18,48 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
 						console.log(values);
-						var obj = thisMeeting.roles[values['role']];
+						var role = values['role'];
+						var obj = thisMeeting.roles[role];
+						if (obj && obj.timeLimits && obj.timeLimits.red > 0) {
+							this.parentForm.timeLimits.red = obj.timeLimits.red;
+							this.parentForm.timeLimits.green = obj.timeLimits.green;
+							this.parentForm.timeLimits.yellow = obj.timeLimits.yellow;
+						} else {
+							if (role.substring(0, 5) == 'speak') {
+								this.parentForm.timeLimits = timingStore.speech;
+							}
+							if (role.substring(0, 5) == 'ttRes') {
+								this.parentForm.timeLimits = timingStore.ttResponse;
+							}
+							if (role.substring(0, 5) == 'evalu') {
+								this.parentForm.timeLimits = timingStore.evaluator;
+							}
+						}
+
 						if(obj && obj.userId && obj.userId!=''){
 							if(!obj.timeSpent){
 								obj.timeSpent = 0;
 							}
-							//this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 							this.parentForm.timer.setValue(getMins(obj.timeSpent));
 						}else{
 							this.parentForm.timer.setValue(getMins(0));
 						}
+						this.parentForm.updateTimeLimitSection();
 						this.parentForm.updateMessage('');
 
 		            }
 			    }
 		});
-		
+
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
 		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits.panel = "myTimerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
 		this.timer = new Ext.form.TextArea({
 			xtype : 'textareafield',
-			id : 'clock',
+			id : 'pClock',
 			name : 'timer',
 			value : '0:00',
 			maxLength : 6,
@@ -53,11 +71,11 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 			scope : this,
 			listeners : {
 				change : function(selector, value) {
-					// this.parentForm.timerPanelClock.setSecsFromStr(value);
+					this.parentForm.updateTime();
 				}
 			}
 		});
-		
+
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
              title:' ',
@@ -68,22 +86,21 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
              },
              items: [
 				this.roleSelector,
-				{
-					id: 'timeIndicator',
+				this.timer,
+ 				{
+					id: 'pTimeIndicator',
 					html:indicatorHtml
 				},
                 {
                	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
-									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
 								'</tr>'+
 							'</table>'
-                },
-				this.timer
+               }
 			]
 		});
-	
+
         this.items= [this.formFields,
 	        {
             xtype: 'fieldset',
@@ -111,7 +128,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 				                handler: this.resetTimer
 			                })
 					       ]
-				
+
 				}
             	]
             }
@@ -137,14 +154,14 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
         ];
         MyTimerPanel.superclass.initComponent.call(this);
 	},
-	
+
 	resetTimer: function(){
 		this.reset();
 	},
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
-	
+
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;
@@ -158,7 +175,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		return noErrors;
 	},
-	
+
 	onSave: function(data){
 		if (data.success) {
 			this.updateMessage(data.successMessage);
@@ -175,9 +192,11 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
         obj.timeSpent = getSecsFromStr(values.timer); 
         MeetingService.save(thisMeeting, this.onSave, this);
 	},
-	
+
+
 	updateTime: function(){
-		var value = this.timerPanelClock.getSecs();
+		var values = this.getValues();        
+		var value = getSecsFromStr(values.timer);
 		if(value > this.timeLimits.red){
 			this.updateColor("redIndi");
 		}else if(value > this.timeLimits.yellow){
@@ -190,44 +209,23 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	},
 
 	updateColor: function(colourClass){
-		var colorDiv = document.getElementById('timeColorDiv');
+		var colorDiv = document.getElementById('ptimeColorDiv');
 		if(colorDiv.className != colourClass){
 			colorDiv.className= colourClass;
 			this.timeLimits.className = colourClass;
-			cardPanel.updateColor(colourClass);
-			console.log('Changing to yello');
 		}
-	},
-
-	logReport:function(){
-		for(var i=1; i<roles.length; i++){
-			var role = roles[i];
-	        var obj = thisMeeting.roles[role.role];
-	        if(obj){
-		        console.log(role.role+'->'+obj.timeSpent);
-	        }
-		}
-	},
-
-	timerEvent: function(){
-		timerPanel.updateTime();
-	},
-
-	showCard: function(){
-		this.hide();
-		cardPanel.showCard(this.timeLimits.className);
 	},
 
 	editTimeLimit:function(){
 		this.hide();
-		timeLimitPanel.loadAndShow(this.timeLimits);
+		timeLimitPanel.loadAndShow(this, this.timeLimits);
 	},
 
 	updateTimeLimitSection:function(pTimings){
 		if(pTimings){
 			this.timeLimits = pTimings;
 		}
-		Ext.getCmp('timeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
+		Ext.getCmp('pTimeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
 		this.updateTime();
 	}
 });

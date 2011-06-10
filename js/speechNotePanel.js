@@ -87,7 +87,8 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 	onSpeechNotesLoad: function(data){
 		if (data.success) {
 	    	this.hide();
-	    	speechNoteListPanel.onSpeechNotesLoad(data);
+	    	speechNoteListPanel.onSpeechNotesLoad(data, true);
+	    	//speechNoteListPanel.updateCarousel();
 	    	speechNoteListPanel.listMode();
 	    	speechNoteListPanel.show();
 		} else {

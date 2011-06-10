@@ -111,7 +111,8 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			thisUser = data.returnVal;
 			this.hide();
 			homePanel.hide();
-			navPanel.show();
+			meetingListPanel.show();
+			//navPanel.show();
 			//timerPanel.show();
 			
 			//Loading all the datastores
