@@ -249,12 +249,13 @@ div.transbox
   /* CSS3 standard */
   opacity:0.6;
   }
+
 div.transbox p
   {
 	font-family: cursive;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: bold;
+	font-weight: normal;
 	font-size: large;
 	line-height: 1.5em;
 	word-spacing: normal;
@@ -264,4 +265,24 @@ div.transbox p
 	text-align: left;
 	text-indent: 0ex;
   }
-  
+
+div.notesHeading p
+  {
+	font-family: cursive;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: x-large;
+	color:green;
+	line-height: 2em;
+	word-spacing: normal;
+	letter-spacing: 0.1ex;
+	text-decoration: none;
+	text-transform: none;
+	text-align: center;
+	text-indent: 0ex;
+  }
+
+.legislator-tnail{width:50px;height:50px;background-position:center center;-webkit-border-radius:5px;overflow:hidden;position:absolute;left:10px;top:10px;-webkit-box-shadow:#ccc 0 1px 2px}
+.legislator-list-item{height:60px;position:relative;overflow:hidden;font-weight:bold;padding:20px 10px 10px 70px !important;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+ 

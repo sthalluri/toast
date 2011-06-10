@@ -6,13 +6,16 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([
-	                                     '<div class="background"><div class="transbox"><p>{formatText}</p></div></div>',
+                             '<div class="background"><div class="notesHeading"><p>{heading}</p></div><div class="transbox"><p>{formatText}</p></div></div>',
                          ]);
 	this.speechNoteTmpl.compile();
 	
 	this.activeIndex =1;
 	this.base = {
-	    itemTpl: '<div class="contact2">{text}</div>',
+	    itemTpl: 	'<div class="legislator-list-item">'+
+	    			'<div class="legislator-tnail" style="background-image: url(./images/Stickysmall.png)"></div>'+
+	    			'{heading}'+
+	    			'</div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
@@ -26,26 +29,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	    },
 	    store: speechNoteDataStore
 	};
-
-	
-//    this.speechNoteTopicCarousel = new Ext.Carousel({
-//        padding:10,
-//    	xtype:'carousel',
-//    	activeItem:0,
-//    	height:'80%',
-//        id:'speechNoteTopicCarousel',
-//    	layout: 'card',
-//    	items:[
-//    	    new Ext.List(Ext.apply(this.base, {
-//               fullscreen: true
-//           	}))
-//    	]
-//    });
-
-//	this.items = [ new Ext.List(Ext.apply(this.base, {
-//		fullscreen : true
-//	})) ];
-
     
     this.dockedItems = [
         {
@@ -63,6 +46,13 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 				    }
 				},
 				{xtype: 'spacer'},
+				{
+                    iconMask: true,
+                    ui: 'plain',
+                	iconCls:'delete',
+                	scope:this,
+                    handler: this.deleteCard
+                },
                 {
                     iconMask: true,
                     ui: 'plain',
@@ -96,8 +86,37 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			}
 		}
 	},
+
 	
-	onSpeechNotesLoad: function(data, dontDoUpdate){
+	formatNotes: function(note){
+		
+		var obj = new Object();
+		obj.id = note.id;
+		obj.text = note.text;
+		var firstBreak = obj.text.indexOf("\n");
+		
+		if(firstBreak>0){
+			obj.heading = obj.text.substring(0, firstBreak);
+		}else{
+			obj.heading = obj.text;
+		}
+		if(obj.heading.length>20){
+			obj.shortHeading = obj.heading.substring(0, 20)+"..";
+		}else{
+			obj.shortHeading = obj.heading;
+		}
+		if(firstBreak<0){
+			obj.formatText = '';
+		}else{
+			obj.formatText = obj.text.substring(firstBreak);
+		}
+		obj.formatText = obj.formatText.replace(
+				// Replace out the new line character.
+				new RegExp( "\\n", "g" ), "<br/>" );
+		return obj;
+	},
+	
+	onSpeechNotesLoad: function(data){
 		
 		if(data.success && data.returnVal.rows.length>0){
 			rContent = eval("(" + data.returnVal.rows[0].content+ ")");
@@ -106,7 +125,18 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			var rSpeechNotes = new Array();
 			if(speechNotes){
 				for(var i=0 ; i<speechNotes.length; i++){
-					rSpeechNotes[i] = {id:speechNotes[i].id,text:speechNotes[i].text};
+					var obj = new Object();
+					obj.id = speechNotes[i].id;
+					obj.text = speechNotes[i].text;
+					if(obj.text.indexOf("\n")>0){
+						obj.heading = obj.text.substring(0, obj.text.indexOf("\n"));
+					}else{
+						obj.heading = obj.text;
+					}
+					if(obj.heading.length > 20){
+						obj.heading = obj.text.substring(0, 20)+"..";
+					}
+					rSpeechNotes[i] = obj;
 				}
 			}
 			data.returnVal = rSpeechNotes;
@@ -121,7 +151,10 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			this.show();
 			if(data.returnVal.length>0){
 				speechNoteDataStore.loadData(data.returnVal);
-				if(!dontDoUpdate){
+				if(!this.carouselInit){
+					this.initCarousel();
+					this.carouselInit = true;
+				}else{
 					this.updateCarousel();
 				}
 			}else{
@@ -132,7 +165,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		}
 	},
 	
-	updateCarousel: function(){
+	initCarousel: function(){
 		var items = [];
 		if(this.speechNoteTopicCarousel){
 			this.remove(this.speechNoteTopicCarousel);
@@ -143,18 +176,15 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;
-			this.activeSpeechNote = rec;
-			data.formatText = data.text.replace(
-					// Replace out the new line character.
-					new RegExp( "\\n", "g" ), "<br/>" );
             items.push({
-                html: this.speechNoteTmpl.apply(data)
+                html: this.speechNoteTmpl.apply(this.formatNotes(data))
             });
         }, this); 
 		
 		this.speechNoteTopicCarousel = new Ext.Carousel({
             items: items,
             scope:this,
+            cardSwitchAnimation: 'cube',
             listeners: {
                 cardswitch: {fn: this.cardChanged, scope: this}
             }
@@ -164,19 +194,57 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
         this.doLayout();
 	},
 	
+	updateCarousel: function(){
+		var i = 1;
+		speechNoteDataStore.each(function(rec){
+			var data = rec.data;			
+			var card = this.speechNoteTopicCarousel.items.get(i);
+			if(card){
+				card.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(data));
+			}else{
+//				this.speechNoteTopicCarousel.add({
+//					html: this.speechNoteTmpl.apply(data)
+//				});
+			}
+			i++;
+        }, this);
+	},
+	
 	listMode: function(){
 		//this.updateCarousel();
 		console.log(this.activeIndex);
-		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(this.activeIndex));
+		var activeCard = this.speechNoteTopicCarousel.items.get(this.activeIndex);
+		if(activeCard.el && activeCard.el.dom){
+			activeCard.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(speechNoteDataStore.getAt(this.activeIndex-1).data));
+		}
+		this.speechNoteTopicCarousel.setActiveItem(activeCard);
 	},
 	
-	cardChanged:function(p0, p1, p2, index, newIndex){
+	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&speechNoteDataStore.getAt(index-1)){
 			this.activeIndex = index;
 			console.log(this.activeIndex);
 			this.activeSpeechNote = speechNoteDataStore.getAt(index-1).data;
 		}
 	},
+
+	onDelete:function(data){
+		if (data.success) {
+			this.speechNoteTopicCarousel.remove(this.speechNoteTopicCarousel.items.get(this.activeIndex));
+			this.activeIndex = 1;
+			this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(0));
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
+	deleteCard: function(){
+		speechNoteDataStore.removeAt(this.activeIndex-1);
+        MeetingService.saveSpeechNotes(this.onDelete, this);
+	},
+	
+	//speechNoteListPanel.speechNoteTopicCarousel.removeAt(1)
+	//speechNoteListPanel.speechNoteTopicCarousel.remove(speechNoteListPanel.speechNoteTopicCarousel.items.get(1))
 	
 	newSpeechNote:function(){
 		this.activeSpeechNote = null;
