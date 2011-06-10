@@ -78,12 +78,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		if(thisMeeting.roles.speaker1){
 			var contentId = thisMeeting.roles.speaker1.id;
 			speechNoteDataStore.contentId = contentId;
-			if(this.loaded){
-				this.show();
-			}else{
-				this.loaded = true;
-				MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
-			}
+			MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
 		}
 	},
 
@@ -145,23 +140,13 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			}else{
 				speechNoteDataStore.removeAll();
 			}
-		}
-		
-		if (data.success) {
 			this.show();
-			if(data.returnVal.length>0){
-				speechNoteDataStore.loadData(data.returnVal);
-				if(!this.carouselInit){
-					this.initCarousel();
-					this.carouselInit = true;
-				}else{
-					this.updateCarousel();
-				}
+			if(!this.carouselInit){
+				this.initCarousel();
+				this.carouselInit = true;
 			}else{
-				speechNoteDataStore.removeAll();
+				this.updateCarousel();
 			}
-		} else {
-			this.updateMessage(data.errorMessage);
 		}
 	},
 	

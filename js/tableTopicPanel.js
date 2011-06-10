@@ -2,16 +2,21 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 {
 	title:'TbTopic',
 	fullscreen: true,
+    layout: 'card',    
 	initComponent : function() {
 
 	this.questionTmpl = new Ext.Template([
-	                                     '<div class="notes"><strong>Question{id}:</strong><br/>{text}</div>',
-	                                 ]);
+	                                        '<div class="background"><div class="transbox"><p>{text}</p></div></div>',
+	                                    ]);
 
 	this.questionTmpl.compile();
 	
+	this.activeIndex =1;
 	this.questionBase = {
-	    itemTpl: '<div class="contact2"><strong>Question:{id}</strong><br/> {text}..</div>',
+	    itemTpl: 	'<div class="legislator-list-item">'+
+					'<div class="legislator-tnail" style="background-image: url(./images/Stickysmall.png)"></div>'+
+					'{text}'+
+					'</div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
@@ -27,30 +32,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	    store: questionDataStore
 	};
 
-    this.tblTopicCarouselPanel = new Ext.Panel({
-        padding:10,
-    	xtype:'carousel',
-    	activeItem:0,
-    	height:'80%',
-        id:'tableTopicCarousel',
-    	layout: 'card',
-    	items:[
-    	    new Ext.List(Ext.apply(this.questionBase, {
-               fullscreen: true
-           	})),
-           	{
-    	    	html:'Sample content here'
-           	}
-    	]
-    });
-    
-	this.items= [
-                {
-                	padding:10,
-                	html : '<b>Table Topic Qns</b>'
-                },
-                this.tblTopicCarouselPanel
-	];
     this.dockedItems = [
         {
             xtype: 'toolbar',
@@ -62,13 +43,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	                ui: 'back',
 				    scope:this,
 				    handler: function() {
-				    	if(this.tblTopicCarouselPanel.getActiveItem().id =='tableTopicListPanel'){
 				    		tableTopicPanel.hide();
-				    		//roleListPanel.show();
                         	meetingListPanel.show();
-	                	}else{
-	    		    		this.listMode();
-	                	}
 				    }
 				},
 				{xtype: 'spacer'},
@@ -96,7 +72,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	loadAndShow: function(){
 		if(thisMeeting.roles.tableTopics){
 			var contentId = thisMeeting.roles.tableTopics.id;
-			console.log('Setting the contentid '+contentId);
 			questionDataStore.contentId = contentId;
 			MeetingService.getContent(contentId, this.onTableTopicsLoad, this);
 		}
@@ -121,25 +96,105 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			}else{
 				questionDataStore.removeAll();
 			}
-			this.show();
 		}else{
 			questionDataStore.rowId = null;
 			data.returnval = new Array();
-			this.show();
-			//this.updateMessage(data.errorMessage);
+		}
+		this.show();
+		if(!this.carouselInit){
+			this.initCarousel();
+			this.carouselInit = true;
+		}else{
+			this.updateCarousel();
 		}
 	},
 
+	initCarousel: function(){
+		var items = [];
+		if(this.tblTopicCarouselPanel){
+			this.remove(this.tblTopicCarouselPanel);
+		}
+		
+		items.push(new Ext.List(Ext.apply(this.questionBase, {
+		})));
+
+		questionDataStore.each(function(rec){
+			var data = rec.data;
+            items.push({
+                html: this.questionTmpl.apply(this.formatNotes(data))
+            });
+        }, this); 
+		
+		this.tblTopicCarouselPanel = new Ext.Carousel({
+            items: items,
+            scope:this,
+            cardSwitchAnimation: 'cube',
+            listeners: {
+                cardswitch: {fn: this.cardChanged, scope: this}
+            }
+        });
+        this.add(this.tblTopicCarouselPanel);
+        this.cardChanged(null, null, null, this.activeIndex);
+        this.doLayout();
+	},
+
 	updateCarousel: function(){
-		for(var i=0 ; i<questions.length; i++){
-			questionDataStore.add({id:questions[i].id,text:questions[i].text});
-		}		
+		var i = 1;
+		questionDataStore.each(function(rec){
+			var data = rec.data;			
+			var card = this.tblTopicCarouselPanel.items.get(i);
+			if(card){
+				card.el.dom.innerHTML = this.questionTmpl.apply(this.formatNotes(data));
+			}else{
+//				this.speechNoteTopicCarousel.add({
+//					html: this.speechNoteTmpl.apply(data)
+//				});
+			}
+			i++;
+        }, this);		
 	},
 	
 	listMode: function(){
-		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+		//this.updateCarousel();
+		console.log(this.activeIndex);
+		var activeCard = this.tblTopicCarouselPanel.items.get(this.activeIndex);
+		if(activeCard.el && activeCard.el.dom){
+			activeCard.el.dom.innerHTML = this.questionTmpl.apply(this.formatNotes(questionDataStore.getAt(this.activeIndex-1).data));
+		}
+		this.tblTopicCarouselPanel.setActiveItem(activeCard);
 	},
 	
+	formatNotes: function(question){
+		var obj = new Object();
+		obj.id = question.id;
+		obj.text = question.text;
+		return obj;
+	},
+	
+	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
+		if(index>0&&questionDataStore.getAt(index-1)){
+			this.activeIndex = index;
+			console.log(this.activeIndex);
+			this.activeSpeechNote = questionDataStore.getAt(index-1).data;
+		}
+	},
+
+	onDelete:function(data){
+		if (data.success) {
+			this.tblTopicCarouselPanel.remove(this.tblTopicCarouselPanel.items.get(this.activeIndex));
+			this.activeIndex = 1;
+			this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+	
+	deleteCard: function(){
+		questionDataStore.removeAt(this.activeIndex-1);
+        MeetingService.saveTableTopics(this.onDelete, this);
+	},
+	
+
 	newQuestion:function(){
 		this.activeQuestion = null;
 		this.editQuestion();
@@ -158,15 +213,10 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {
-    	this.parentPanel.questionIndex = index;
 		var carousel = this.parentPanel.tblTopicCarouselPanel;
-		var question = this.parentPanel.store.getAt(index).data;
-		this.parentPanel.activeQuestion = question;
-		var html = this.parentPanel.questionTmpl.apply(question);
-		var detailsPanel = carousel.items.get(1);
-		detailsPanel.el.setHTML(html);
-		carousel.setActiveItem(carousel.items.get(1));
-    }	
+		this.parentPanel.activeIndex = index+1;
+		carousel.setActiveItem(carousel.items.get(index+1));
+    }
 });
 
 
