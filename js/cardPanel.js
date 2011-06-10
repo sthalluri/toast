@@ -30,7 +30,8 @@ CardPanel = Ext.extend(Ext.Panel,
 		CardPanel.superclass.initComponent.call(this);	
 	},
 	
-	showCard: function(colourClass){
+	showCard: function(parentPanel, colourClass){
+		this.parentPanel = parentPanel;
 		this.colourClass = colourClass;
 		this.show();
 		this.updateColor(colourClass);
@@ -44,7 +45,7 @@ CardPanel = Ext.extend(Ext.Panel,
 	
 	goBack:function() {
 		this.hide();
-		timerPanel.show();
+		this.parentPanel.show();
 	}
 });
 

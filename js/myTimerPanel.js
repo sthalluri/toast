@@ -3,7 +3,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	scroll: 'vertical',
 	url   : 'postUser.php',
 	standardSubmit : false,
-	title: 'Timer',	
+	title: 'My Timer Log',	
 	initComponent : function() {
 		this.roleSelector = new Ext.form.Select({
 			    xtype: 'selectfield',
@@ -18,26 +18,48 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
 						console.log(values);
-						var obj = thisMeeting.roles[values['role']];
+						var role = values['role'];
+						var obj = thisMeeting.roles[role];
+						if (obj && obj.timeLimits && obj.timeLimits.red > 0) {
+							this.parentForm.timeLimits.red = obj.timeLimits.red;
+							this.parentForm.timeLimits.green = obj.timeLimits.green;
+							this.parentForm.timeLimits.yellow = obj.timeLimits.yellow;
+						} else {
+							if (role.substring(0, 5) == 'speak') {
+								this.parentForm.timeLimits = timingStore.speech;
+							}
+							if (role.substring(0, 5) == 'ttRes') {
+								this.parentForm.timeLimits = timingStore.ttResponse;
+							}
+							if (role.substring(0, 5) == 'evalu') {
+								this.parentForm.timeLimits = timingStore.evaluator;
+							}
+						}
+
 						if(obj && obj.userId && obj.userId!=''){
 							if(!obj.timeSpent){
 								obj.timeSpent = 0;
 							}
-							//this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 							this.parentForm.timer.setValue(getMins(obj.timeSpent));
 						}else{
 							this.parentForm.timer.setValue(getMins(0));
 						}
+						this.parentForm.updateTimeLimitSection();
 						this.parentForm.updateMessage('');
 
 		            }
 			    }
 		});
 		
+		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
+		this.timeIndicatorTmpl.compile();
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits.panel = "myTimerPanel";
+		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
 		this.timer = new Ext.form.TextArea({
 			xtype : 'textareafield',
-			id : 'clock',
+			id : 'pClock',
 			name : 'timer',
 			value : '0:00',
 			maxLength : 6,
@@ -49,7 +71,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 			scope : this,
 			listeners : {
 				change : function(selector, value) {
-					// this.parentForm.timerPanelClock.setSecsFromStr(value);
+					this.parentForm.updateTime();
 				}
 			}
 		});
@@ -64,7 +86,18 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
              },
              items: [
 				this.roleSelector,
-				this.timer
+				this.timer,
+ 				{
+					id: 'pTimeIndicator',
+					html:indicatorHtml
+				},
+                {
+               	 html:'	<table class="contentTable" style="width: 100%">'+
+								'<tr>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
+								'</tr>'+
+							'</table>'
+               }
 			]
 		});
 	
@@ -158,6 +191,42 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
         obj.userId =  thisUser.id;
         obj.timeSpent = getSecsFromStr(values.timer); 
         MeetingService.save(thisMeeting, this.onSave, this);
+	},
+	
+	
+	updateTime: function(){
+		var values = this.getValues();        
+		var value = getSecsFromStr(values.timer);
+		if(value > this.timeLimits.red){
+			this.updateColor("redIndi");
+		}else if(value > this.timeLimits.yellow){
+			this.updateColor("yellowIndi");
+		}else if(value > this.timeLimits.green){
+			this.updateColor("greenIndi");
+		}else{
+			this.updateColor("silverIndi");
+		}
+	},
+	
+	updateColor: function(colourClass){
+		var colorDiv = document.getElementById('ptimeColorDiv');
+		if(colorDiv.className != colourClass){
+			colorDiv.className= colourClass;
+			this.timeLimits.className = colourClass;
+		}
+	},
+		
+	editTimeLimit:function(){
+		this.hide();
+		timeLimitPanel.loadAndShow(this, this.timeLimits);
+	},
+
+	updateTimeLimitSection:function(pTimings){
+		if(pTimings){
+			this.timeLimits = pTimings;
+		}
+		Ext.getCmp('pTimeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
+		this.updateTime();
 	}
 });
 

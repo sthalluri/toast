@@ -69,6 +69,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
 		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits.panel = "timerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 		
 		this.clockField = new Ext.form.TextArea({
@@ -85,6 +86,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			     listeners:{
 			    		change : function(selector, value){
 			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
+	    					this.parentForm.updateTime();
 			    		}
 			    	}
 				});
@@ -98,20 +100,20 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                  labelWidth: '30%'
              },
              items: [
-                {
-                	 html:'	<table class="contentTable" style="width: 100%">'+
-								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
-									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
-								'</tr>'+
-							'</table>'
-                },
 				this.roleSelector,
 				this.userSelector,
  				{
 					id: 'timeIndicator',
 					html:indicatorHtml
 				},
+                {
+               	 html:'	<table class="contentTable" style="width: 100%">'+
+								'<tr>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
+									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
+								'</tr>'+
+							'</table>'
+               },
 				this.clockField
 			]
 		});
@@ -308,12 +310,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	
 	showCard: function(){
 		this.hide();
-		cardPanel.showCard(this.timeLimits.className);
+		cardPanel.showCard(this, this.timeLimits.className);
 	},
 	
 	editTimeLimit:function(){
 		this.hide();
-		timeLimitPanel.loadAndShow(this.timeLimits);
+		timeLimitPanel.loadAndShow(this, this.timeLimits);
 	},
 	
 	updateTimeLimitSection:function(pTimings){

@@ -74,7 +74,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		                scope:this,
 					    handler: function() {
 					    	this.hide();
-					    	timerPanel.show();
+					    	this.parentPanel.show();
 					    }
 					},
 					{xtype: 'spacer'}
@@ -85,7 +85,8 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
         TimeLimitPanel.superclass.initComponent.call(this);
 	},
 	
-	loadAndShow: function(pTimings){
+	loadAndShow: function(parentPanel, pTimings){
+		this.parentPanel = parentPanel;
 		this.redLimit.setValue(getMins(pTimings.red));
 		this.greenLimit.setValue(getMins(pTimings.green));
 		this.yellowLimit.setValue(getMins(pTimings.yellow));
