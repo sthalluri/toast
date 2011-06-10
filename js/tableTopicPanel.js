@@ -175,7 +175,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		if(index>0&&questionDataStore.getAt(index-1)){
 			this.activeIndex = index;
 			console.log(this.activeIndex);
-			this.activeSpeechNote = questionDataStore.getAt(index-1).data;
+			this.activeQuestion = questionDataStore.getAt(index-1).data;
 		}
 	},
 

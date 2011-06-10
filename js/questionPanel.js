@@ -90,11 +90,11 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onTableTopicsLoad: function(data){
 		if (data.success) {
-			//questionDataStore.loadData(data.returnVal);
 	    	this.hide();
+	    	tableTopicPanel.onTableTopicsLoad(data, true);
+			//questionDataStore.loadData(data.returnVal);
 	    	tableTopicPanel.listMode();
 	    	tableTopicPanel.show();
-	    	tableTopicPanel.onTableTopicsLoad(data);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
