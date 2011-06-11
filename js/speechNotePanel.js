@@ -10,7 +10,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 				xtype : 'textareafield',
 				name : 'speechNote',
 				useClearIcon : true,
-				height : 100,
+				height : 250,
 				maxRows : 10,
 				autoCapitalize : false
 			}, 
