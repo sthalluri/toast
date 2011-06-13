@@ -47,6 +47,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
         	meetingListPanel.hide();
         	if("Gram"==data.name){
             	gramPanel.show();
+            	gramPanel.loadSpinners();
         	}else if("Timer"==data.name){
 				timerPanel.show();
 			}else if("TableTopics"==data.name){

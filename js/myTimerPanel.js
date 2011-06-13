@@ -11,7 +11,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 			    label: 'Role',
 			    valueField : 'id',
 			    displayField : 'description',
-			    store : roleStore,
+			    store : timerRoleStore,
 			    parentForm: this,
 			    scope: this,
 			    listeners:{

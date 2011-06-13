@@ -98,6 +98,10 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 	onClubMemberLoad: function(data){
 		if (data.success) {
 			console.log('Loading meeting data');
+			if(data.returnVal.clubSettings && data.returnVal.clubSettings.fillers){
+				fillers = data.returnVal.clubSettings.fillers;
+			}
+			//gramPanel.loadItems();
 			memberStore.loadWithDefault(data.returnVal.rows);
 		} else {
 			console.log('Unable to load the meetings ');

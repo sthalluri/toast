@@ -23,7 +23,7 @@ var userLog =[
               {date: '10/24/2011', topic: 'Admirable'}
           ];
 
-var fillers= ['ah','amm','so','like'];
+var fillers= [];
 
 
 var timingStore={
@@ -89,10 +89,45 @@ var memberStore = new Ext.data.JsonStore({
 Ext.regModel('Role', {
     fields: [
         {name: 'id',     		type: 'string'},
-        {name: 'description',   type: 'string'}
+        {name: 'description',   type: 'string'},
+        {name: 'trackTime',     type: 'boolean'}
     ]
 });
 
+
+var timerRoleStore = new Ext.data.JsonStore({
+	   data : roles,
+	   model : 'Role',
+	   autoLoad : false,
+	   autoDestroy : true,
+	   reload : function(roles) {
+			var defaultSelect = { id : '0',     description : 'Select...'};
+			this.add(Ext.ModelMgr.create( defaultSelect, 'Role'));
+			for(var i=0; i< roles.length; i++){
+				var role = roles[i];
+				if(role.data.trackTime){
+					this.add(Ext.ModelMgr.create( role.data, 'Role'));				
+				}
+			}
+	   }
+});
+
+var gramRoleStore = new Ext.data.JsonStore({
+	   data : roles,
+	   model : 'Role',
+	   autoLoad : false,
+	   autoDestroy : true,
+	   reload : function(roles) {
+			var defaultSelect = { id : '0',     description : 'Select...'};
+			this.add(Ext.ModelMgr.create( defaultSelect, 'Role'));
+			for(var i=0; i< roles.length; i++){
+				var role = roles[i];
+				if(role.data.id != 'grammarian'){
+					this.add(Ext.ModelMgr.create( role.data, 'Role'));				
+				}
+			}
+	   }
+});
 
 var roleStore = new Ext.data.JsonStore({
    data : roles,
@@ -109,6 +144,12 @@ var roleStore = new Ext.data.JsonStore({
 					roleStore.loadData(roles);
 					var defaultSelect = { id : '0',     description : 'Select...'};
 					roleStore.insert(0,Ext.ModelMgr.create( defaultSelect, 'Role'));
+					
+					//Load the toaststore
+					timerRoleStore.reload(data.returnVal.rows);
+
+					//Load the toaststore
+					gramRoleStore.reload(data.returnVal.rows);
 				} else {
 					
 				}
@@ -116,6 +157,7 @@ var roleStore = new Ext.data.JsonStore({
 		});
    }
 });
+
 
 
 Ext.regModel('Question', {

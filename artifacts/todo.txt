@@ -114,20 +114,21 @@ Working on android mobile
 
 -6th-9th
 HTML panel doesn't scroll
-Phonegap
 
 Set meeting type and timer settings
 Timer full screen functionality
 Timer work for individual log
 Speech text to format
 Questions formatting
+Move gram log to the meeting level
+Add custom counter
+Save fillers in the backend
+Filter Roles based on the screens
+Sort meeting data based on the date
 
 Re-factor homelayout via tabs
-
-Filter Roles based on the screens
-Move gram log to the meeting level
-Sort meeting data based on the date and only the completed ones in the log
-Agenda Management, for multiple speeches
+Phonegap
+Messages and error handling
 Adding new notes doesnt add a new panel well
 
 -9th
@@ -137,5 +138,9 @@ Working with local datastore
 Format meeting report
 Format agenda
 Format Work Log report
-UI cleanup
-Add custom counter
+UI cleanup 
+	- Icons on the tops
+	- Better icons for the home page
+
+Agenda Management, for multiple speeches
+Delete meeting

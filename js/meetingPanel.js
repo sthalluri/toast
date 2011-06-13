@@ -8,94 +8,91 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     
 	initComponent : function() {
 
-		this.formFields = [
-	          {
-	              xtype: 'datepickerfield',
-	              name : 'meetingDate',
-	              label: 'Date',
-	              useClearIcon: true,
-	              picker : { yearForm :  1900}
-	          },
-	          {
-	              xtype: 'textfield',
-	              name : 'wordOfTheDay',
-	              id: 'wordOfTheDay',
-	              label: 'Word of the Day',
-	              useClearIcon: true,
-	              autoCapitalize : false
-	          }, 
-	          {
-	              xtype: 'textfield',
-	              name : 'themeOfTheDay',
-	              label: 'Theme of the Day',
-	              useClearIcon: true,
-	              autoCapitalize : false
-	          },
-	          {
-				    xtype: 'selectfield',
-				    name : 'toastMaster',
-				    label: 'ToastMaster',
-				    valueField : 'id',
-				    displayField : 'name',
-				    store : memberStore
-			  }, 
-	          {
-			    xtype: 'selectfield',
-			    name : 'speaker1',
-			    label: 'Speech One',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			}, {
-			    xtype: 'selectfield',
-			    name : 'speaker2',
-			    label: 'Speech Two',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			},  {
-			    xtype: 'selectfield',
-			    name : 'tableTopics',
-			    label: 'Table Topics',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			},{
-			    xtype: 'selectfield',
-			    name : 'generalEvaluator',
-			    label: 'Gen Evaluator',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			},{
-			    xtype: 'selectfield',
-			    name : 'evaluator1',
-			    label: 'Speech1 Evaluator',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			},{
-			    xtype: 'selectfield',
-			    name : 'evaluator2',
-			    label: 'Speech1 Evaluator',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			},{
-			    xtype: 'selectfield',
-			    name : 'grammarian',
-			    label: 'Grammarian',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			}, {
-			    xtype: 'selectfield',
-			    name : 'timer',
-			    label: 'Timer',
-			    valueField : 'id',
-			    displayField : 'name',
-			    store : memberStore
-			}];
+		this.formFields = [ {
+			xtype : 'datepickerfield',
+			name : 'meetingDate',
+			label : 'Date',
+			useClearIcon : true,
+			picker : {
+				yearForm : 1900
+			}
+		}, {
+			xtype : 'textfield',
+			name : 'wordOfTheDay',
+			id : 'wordOfTheDay',
+			label : 'Word of the Day',
+			useClearIcon : true,
+			autoCapitalize : false
+		}, {
+			xtype : 'textfield',
+			name : 'themeOfTheDay',
+			label : 'Theme',
+			useClearIcon : true,
+			autoCapitalize : false
+		}, {
+			xtype : 'selectfield',
+			name : 'toastMaster',
+			label : 'ToastMaster',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'grammarian',
+			label : 'Grammarian',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'timer',
+			label : 'Timer',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'tableTopics',
+			label : 'Table Topics',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'generalEvaluator',
+			label : 'Gen Evaluator',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'speaker1',
+			label : 'Speech1',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'evaluator1',
+			label : 'Speech1 Eval',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'speaker2',
+			label : 'Speech2',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}, {
+			xtype : 'selectfield',
+			name : 'evaluator2',
+			label : 'Speech2 Eval',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberStore
+		}];
 	
         this.items= [{
                 xtype: 'fieldset',
