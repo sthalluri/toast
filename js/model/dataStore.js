@@ -32,23 +32,25 @@ var timingStore={
 	evaluator : {red: 7, green: 2, yellow:5}	
 };
 
+var serverUrl = 'http://localhost:8080';
+
 //var urlStore = mockUrls;
 var urlStore = {
-		userUrl 		: '/toastService/user',
-		meetingUrl		: '/toastService/meeting',
-		registerUrl		: '/toastService/user/register',
-		clubUrl			: '/toastService/club'
+		userUrl 		: serverUrl+'/toastService/user',
+		meetingUrl		: serverUrl+'/toastService/meeting',
+		registerUrl		: serverUrl+'/toastService/user/register',
+		clubUrl			: serverUrl+'/toastService/club'
 };
 
 
 Ext.regModel('Meeting', {
 	idProperty: 'id',
 	fields: [
-        {name: 'id',     type: 'int'},
-        {name: 'wordOfTheDay',    type: 'string'},
-        {name: 'themeOfTheDay',    type: 'string'},
+        {name: 'id',     		type: 'int'},
+        {name: 'wordOfTheDay',  type: 'string'},
+        {name: 'themeOfTheDay', type: 'string'},
         {name: 'inProgress'},
-        {name: 'meetingDate',    type: 'date'},
+        {name: 'meetingDate',	type: 'date'},
         {name: 'location'}
     ]
 });
@@ -57,7 +59,16 @@ var meetingStore = new Ext.data.JsonStore({
 	data : meetings,
 	model : 'Meeting',
 	autoLoad : false,
-	autoDestroy : true
+	autoDestroy : true,
+	loadAndFormat : function(records){
+		for(var i=0 ;i<records.length; i++){
+			if(records[i].meetingDate){
+				var fDate = Date.parseDate(records[i].meetingDate,"Y-m-d H:i:s.u");
+				records[i].fMeetingDate = fDate.format('F j, Y, g:i a');
+			}
+		}
+		this.loadData(records);
+	}
 });
 
 Ext.regModel('Member', {
