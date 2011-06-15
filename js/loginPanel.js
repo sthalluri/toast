@@ -114,9 +114,11 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			thisUser = data.returnVal;
 			this.hide();
 			homePanel.hide();
-			meetingListPanel.show();
+			//meetingListPanel.show();
 			//navPanel.show();
 			//timerPanel.show();
+			meetingListPanel.listMode();
+			homeTabPanel.show();
 			
 			//Loading all the datastores
 			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingDataLoad, this);

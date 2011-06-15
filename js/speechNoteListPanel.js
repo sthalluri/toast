@@ -41,8 +41,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	                ui: 'back',
 				    scope:this,
 				    handler: function() {
-			    		speechNoteListPanel.hide();
-                    	meetingListPanel.show();
+                    	closePanel(this);
 				    }
 				},
 				{xtype: 'spacer'},
@@ -56,7 +55,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
                 {
                     iconMask: true,
                     ui: 'plain',
-                	iconCls:'action',
+                	iconCls:'compose',
                 	scope:this,
                     handler: this.editSpeechNote
                 },

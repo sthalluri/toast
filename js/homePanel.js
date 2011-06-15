@@ -7,7 +7,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 
 		this.items = [
 				{
-					html : '<div class="home"><br/><img width="300" class="imageLeft" src="images/bg_footer.gif"/><br/><h2>Welcome to ToastMasters</h2><br/><br/><br/></div>'
+					html : '<div class="home"><br/><img width="250" class="imageLeft" src="images/bg_footer.gif"/><br/><h2>Welcome to ToastMasters</h2><br/><br/><br/></div>'
 				}, {
 					layout : 'hbox',
 					defaults : {

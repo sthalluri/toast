@@ -1,8 +1,9 @@
 MeetingListPanel = Ext.extend(Ext.Panel, 
 {	
-	fullscreen: true,
-	iconCls:'bookmarks',
-	controller: null,
+	iconCls:'time',
+    tabId: 'meetingList',
+    title:'Meetings',
+    fullScreen:true,
     layout : {
 		align:'stretch'
 	},
@@ -88,6 +89,21 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	        	this.meetingCarousel
 	   ];
 	   
+	   this.backButton = {
+               text: 'Meetings',
+               ui: 'back',
+               scope:this,
+           	   id:'meetingListBackButton',
+               handler: function() {	
+               	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
+               		this.hide();
+                   	navPanel.show();
+               	}else{
+	            		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
+   		    		this.listMode();
+               	}
+               }
+       	};
 	   this.dockedItems=[
 	        {
 	            xtype: 'toolbar',
@@ -101,20 +117,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                pack: 'center'
 	            },
 	            items: [
-	                {
-		                text: 'Back',
-		                ui: 'back',
-		                scope:this,
-		                handler: function() {	
-		                	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
-		                		this.hide();
-		                    	navPanel.show();
-		                	}else{
-			            		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
-		    		    		this.listMode();
-		                	}
-		                }
-	            	},
+	                this.backButton,
 	            	/*
 	                {
 		                scope:this,
@@ -128,7 +131,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 					{
 	                    iconMask: true,
 	                    ui: 'plain',
-	                	iconCls:'action',
+	                	iconCls:'compose',
 	                	id:'meetingPanleEditIcon',
 	                	scope:this,
 	                    handler: function() {
@@ -160,11 +163,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
+		Ext.getCmp('meetingListBackButton').hide();
 	},
 
 	detailMode: function(){
 		Ext.getCmp('meetingPanleAddIcon').hide();
 		Ext.getCmp('meetingPanleEditIcon').show();
+		Ext.getCmp('meetingListBackButton').show();
 	},
 
 	onRefresh:function(){

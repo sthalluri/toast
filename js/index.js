@@ -1,3 +1,29 @@
+/*
+mainCardPanel
+	|_ homePanel
+	|_ loginPanel
+	|_ navPanel
+	|_ registerPanel
+	|_ homeTabPanel
+		|_ meetingListpanel 
+			|_ meetingPanel
+		|_ myLogPanel
+		|_ clubMemberListPanel
+		|_ navPanel
+	|_ meetingPanel
+	|_ myGramPanel
+	|_ myTimerPanel
+	|_ timerPanel
+	|_ cardPanel	
+	|_ timeLimitPanel
+	|_ gramPanel
+	|_ tableTopicPanel
+	|_ questionPanel
+	|_ speechNoteListPanel
+	|_ speechNotePanel
+	|_ helpTabPanel
+ */
+
 Ext.setup({
     tabletStartupScreen: 'tablet_startup.png',
     phoneStartupScreen: 'phone_startup.png',
@@ -39,31 +65,51 @@ Ext.setup({
         timeLimitPanel = new TimeLimitPanel();
         
         speechNoteListPanel = new SpeechNoteListPanel();
+
+        homeTabPanel = new Ext.TabPanel({
+        	tabBar:{
+        		dock:'bottom',
+        		height:50,
+        		layout:{
+        			pack:'center'
+        		}
+        	},
+        	layout: 'card',
+        	title:'ToastMasters',
+            fullscreen: true,
+            items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel]
+        });   
         
-        homeCardPanel = new Ext.Panel({
+        mainCardItems = [
+                         homePanel,				//0
+                         loginPanel, 
+                         registerPanel,
+                         homeTabPanel,
+                         meetingPanel,
+                         myGramPanel, 			//5
+                         myTimerPanel,
+                         timerPanel, 
+                         cardPanel,
+                         timeLimitPanel,
+                         gramPanel,				//10
+                         tableTopicPanel,
+                         questionPanel,
+                         speechNoteListPanel,
+                         speechNotePanel,
+                         helpTabPanel
+                         ];
+
+        mainCardPanel = new Ext.Panel({
         	title:'ToastMasters',
         	layout: 'card',
             iconCls:'home',
             fullscreen: true,
-            items: [
-                    homePanel, 
-                    loginPanel, registerPanel,
-                    navPanel,
-                    clubMemberListPanel, 
-                    meetingListPanel, meetingPanel,
-                    myGramPanel, myTimerPanel,
-                    //roleListPanel, 
-                    timerPanel, cardPanel,timeLimitPanel,
-                    gramPanel,
-                    tableTopicPanel,questionPanel,
-                    speechNoteListPanel,speechNotePanel,
-                    myLogPanel, 
-                    helpTabPanel]
-        });      
-        
+            items: mainCardItems
+        });             
     }
 });
 
+var homeTabPanel;
 var mainPanel;
 var loginPanel;
 var homePanel;
@@ -74,7 +120,7 @@ var speakerPanel;
 var tableTopicPanel;
 var myLogPanel;
 var meetingListPanel;
-var homeCardPanel;
+var mainCardPanel;
 var rolePanel;
 var roleListPanel;
 var helpPanel;
@@ -89,8 +135,16 @@ var speechNotePanel;
 var cardPanel;
 var timeLimitPanel;
 
-function viewHome(){
-	homeCardPanel.show();
+function closePanel(panel){
+	mainCardPanel.setActiveItem(3);
+	meetingListPanel.meetingActionPanel.deselect();
 }
 
+function showPanel(showPanel){
+	for(var i =0; i<mainCardItems.length; i++){
+		if(showPanel.id == mainCardItems[i].id){
+			mainCardPanel.setActiveItem(i);
+		}
+	}
+}
 //[values.meetingDate.format("F d, Y g:i A")]

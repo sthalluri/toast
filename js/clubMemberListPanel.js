@@ -1,6 +1,9 @@
 ClubMemberListPanel = Ext.extend(Ext.Panel, 
 {	
-	fullscreen: true,
+	iconCls:'team',
+    tabId: 'myClub',
+    scroll: 'vertical',
+    title:'My Club',
     layout : {
 		align:'stretch'
 	},

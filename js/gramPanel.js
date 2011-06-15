@@ -1,6 +1,5 @@
 GramPanel = Ext.extend(Ext.form.FormPanel, 
 {
-    scroll: 'vertical',
     url   : 'postUser.php',
     standardSubmit : false,
     title: 'Gram',
@@ -66,9 +65,8 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 		                ui: 'back',
 		                scope:this,
 					    handler: function() {
-					    	this.hide();
-					    	//roleListPanel.show();
-					    	meetingListPanel.show();
+					    	this.updateMessage('');
+					    	closePanel(this);
 					    }
 					},
 					{xtype: 'spacer'}

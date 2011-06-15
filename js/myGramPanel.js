@@ -1,33 +1,34 @@
 MyGramPanel = Ext.extend(Ext.form.FormPanel, 
 {
-    scroll: 'vertical',
     standardSubmit : false,
     title: 'Gram',
-
 	initComponent : function() {
 		
 		this.spinners = new Array();
+		this.spinnerFiledSet = new Ext.form.FieldSet({
+				xtype : 'fieldset',
+				title : '<table width="100%"><tr><td >Counters</td>'+
+						'<td align="right" width="50px">'
+						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+						+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.addCustom();">Add</span>'
+						+ '</div></td>'+
+						'<td align="right" width="50px">'
+						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+						+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.removeCustom();">Delete</span>'
+						+ '</div></td>'+
+						'</tr></table>',
+				defaults : {
+					required : true,
+					labelAlign : 'left',
+					labelWidth : '40%'
+				},
+				items : [ this.spinners ]
+			});
 		
 		this.items = [ {
 			xtype : 'fieldset',
-			title:'&nbsp;',
-			title : '<table width="100%"><tr><td >Counters</td>'+
-					'<td align="right" width="50px">'
-					+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-					+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.addCustom();">Add</span>'
-					+ '</div></td>'+
-					'<td align="right" width="50px">'
-					+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-					+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.removeCustom();">Delete</span>'
-					+ '</div></td>'+
-					'</tr></table>',
-			defaults : {
-				required : true,
-				labelAlign : 'left',
-				labelWidth : '40%'
-			},
-			items : [ this.spinners ]
-		},{
+			title:'&nbsp;'
+		},this.spinnerFiledSet,{
 			layout : 'hbox',
 			defaults : {
 				xtype : 'button',
@@ -67,9 +68,8 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 		                ui: 'back',
 		                scope:this,
 					    handler: function() {
-					    	this.hide();
-					    	//roleListPanel.show();
-					    	meetingListPanel.show();
+                        	this.updateMessage('');
+                        	closePanel(this);
 					    }
 					},
 					{xtype: 'spacer'}
@@ -81,7 +81,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	},
 
 	loadSpinners: function(){
-		this.items.getAt(0).removeAll();
+		this.spinnerFiledSet.removeAll();
 		this.spinners = new Array();
 		for(var i=0; i<fillers.length; i++){
 			var spinner = new Ext.form.Spinner({
@@ -91,7 +91,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	            label: fillers[i],
 	            required:false
 			});
-			this.items.getAt(0).add(spinner);
+			this.spinnerFiledSet.add(spinner);
 			this.spinners.push(spinner);
 		}
 		this.doLayout();
@@ -157,12 +157,11 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 			}
 		}
     	this.loadSpinners();
-		this.show();		
 		this.load();
 	},
 	
 	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('Counter'+'<div class="msg"><p >'+msg+'</p></div>');
+		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
 	
 	addCustom: function(){
@@ -183,7 +182,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	            label: custom,
 	            required:false
 			});
-			myGramPanel.items.getAt(0).add(spinner);
+			myGramPanel.spinnerFiledSet.add(spinner);
 			myGramPanel.spinners.push(spinner);
 			myGramPanel.doLayout();
 			gramPanel.saveFillers();
@@ -198,7 +197,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 				var spinner = myGramPanel.spinners[i];
 				if(spinner.name == custom+'Count'){
 					console.log(spinner.name);
-					myGramPanel.items.getAt(0).remove(spinner);					
+					myGramPanel.spinnerFiledSet.remove(spinner);					
 				}
 			}
 			gramPanel.saveFillers();

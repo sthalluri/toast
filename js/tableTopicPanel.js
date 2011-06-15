@@ -42,16 +42,15 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    text: 'Back',
 	                ui: 'back',
 				    scope:this,
-				    handler: function() {
-				    		tableTopicPanel.hide();
-                        	meetingListPanel.show();
+				    handler: function() {                    	
+				    	closePanel(this);
 				    }
 				},
 				{xtype: 'spacer'},
                 {
                     iconMask: true,
                     ui: 'plain',
-                	iconCls:'action',
+                	iconCls:'compose',
                 	scope:this,
                     handler: this.editQuestion
                 },
@@ -188,7 +187,11 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.updateMessage(data.errorMessage);
 		}
 	},
-	
+	updateMessage: function(msg){
+		if(this.items.get(0).titleEl){
+			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+		}
+	},
 	deleteCard: function(){
 		questionDataStore.removeAt(this.activeIndex-1);
         MeetingService.saveTableTopics(this.onDelete, this);

@@ -1,12 +1,9 @@
 TimerPanel = Ext.extend(Ext.form.FormPanel, 
 {
-	scroll: 'vertical',
 	url   : 'postUser.php',
 	standardSubmit : false,
 	title: 'Tim',
-
 	initComponent : function() {
-
 
 		this.userSelector =	new Ext.form.Select({
 		    xtype: 'selectfield',
@@ -187,9 +184,10 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                     {
                         text: 'Back',
 		                ui: 'back',
+		                scope:this,
                         handler: function() {
-                        	timerPanel.hide();
-                        	meetingListPanel.show();
+                        	this.updateMessage('');
+                        	closePanel(this);
                         }
                     },
                     {xtype: 'spacer'}

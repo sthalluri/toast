@@ -42,7 +42,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 
         this.items= [{
                 xtype: 'fieldset',
-    			title : 'Notes',
+    			title : '&nbsp;',
                 defaults: {
                     required: true,
                     labelAlign: 'left',
@@ -71,9 +71,12 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
         SpeechNotePanel.superclass.initComponent.call(this);	
 	},
 	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+		if(this.items.get(0).titleEl){
+			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+		}
 	},
 	loadSpeechNote: function(pSpeechNote){
+		this.updateMessage('');
 		this.reset();
 		for(var i=0; i< this.fields.items.length ; i++){
 			var comp = this.fields.items[i];

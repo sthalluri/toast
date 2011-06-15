@@ -1,6 +1,9 @@
 MyLogPanel = Ext.extend(Ext.TabPanel, {
+	iconCls:'bookmarks',
+    tabId: 'myLog',
+    scroll: 'vertical',
+    title:'My Log',
 	cls: 'legislator-tabs',
-	fullscreen : false,
 	initComponent : function() {
 		
 		// Meeting Detail Template
@@ -50,14 +53,16 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			layout : {
 				pack : 'center'
 			},
-			items : [ {
-				text : 'Back',
-				ui : 'back',
-				scope : this,
-				handler: this.onBack
-			}, {
-				xtype : 'spacer'
-			} ]
+			items : [ 
+//			{
+//				text : 'Back',
+//				ui : 'back',
+//				scope : this,
+//				handler: this.onBack
+//			}, {
+//				xtype : 'spacer'
+//			} 
+			]
 		} ];
 		MyLogPanel.superclass.initComponent.call(this);
 	},

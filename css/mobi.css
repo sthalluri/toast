@@ -227,7 +227,7 @@ border-radius: 0.1em;
 
 div.background
   {
-  width:350px;
+  width:300px;
   height:400px;
   background:url(../images/Stickyhight.png)  no-repeat ;
   background-size: 100%;
@@ -237,7 +237,7 @@ div.background
   
 div.transbox
   {
-  width:340px;
+  width:290px;
   height:360px;
   padding:10px;
   /*

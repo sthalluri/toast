@@ -44,24 +44,29 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
     onSelect: function(sel, records){
         if (records[0] !== undefined) {
         	var data = records[0].data;
-        	meetingListPanel.hide();
+        	homeTabPanel.hide();
         	if("Gram"==data.name){
-            	gramPanel.show();
+				showPanel(gramPanel);
             	gramPanel.loadSpinners();
         	}else if("Timer"==data.name){
-				timerPanel.show();
+				showPanel(timerPanel);
 			}else if("TableTopics"==data.name){
-				//this.loadTableTopics();
+				showPanel(tableTopicPanel);
 				tableTopicPanel.loadAndShow();
 			}else if("SpeechNotes"==data.name){
-				//speechNoteListPanel.show();
+				showPanel(speechNoteListPanel);
 				speechNoteListPanel.loadAndShow();
 			}else if("MyGram"==data.name){
+				showPanel(myGramPanel);
 				myGramPanel.refresh();
 			}else if("MyTimer"==data.name){
-				myTimerPanel.show();
+				showPanel(myTimerPanel);
 			}
         }
+    },
+    
+    deselect: function(){
+    	this.list.deselect(this.list.getSelectedRecords());
     }
 
 });

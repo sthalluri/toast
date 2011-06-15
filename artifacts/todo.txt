@@ -125,16 +125,10 @@ Add custom counter
 Save fillers in the backend
 Filter Roles based on the screens
 Sort meeting data based on the date
-
 Re-factor homelayout via tabs
-Phonegap
-Messages and error handling
-Adding new notes doesnt add a new panel well
+List selection not working properly
+Messages not reset in most of the save panels
 
--9th
-Working with local datastore
-
--10th-12th
 Format meeting report
 Format agenda
 Format Work Log report
@@ -142,5 +136,16 @@ UI cleanup
 	- Icons on the tops
 	- Better icons for the home page
 
+Adding new notes doesnt add a new panel well
+Messages and error handling
+Validations 
+	- duplicate counter
+	
+Phonegap
+
+-9th
+Working with local datastore
+
+Remember me not working
 Agenda Management, for multiple speeches
 Delete meeting

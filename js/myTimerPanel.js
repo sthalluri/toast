@@ -3,7 +3,9 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	scroll: 'vertical',
 	url   : 'postUser.php',
 	standardSubmit : false,
+	type : 'myTimerPanel',
 	title: 'My Timer Log',	
+	fullscreen:true,
 	initComponent : function() {
 		this.roleSelector = new Ext.form.Select({
 			    xtype: 'selectfield',
@@ -143,9 +145,10 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
                     {
                         text: 'Back',
 		                ui: 'back',
+		                scope:this,
                         handler: function() {
-                        	myTimerPanel.hide();
-                        	meetingListPanel.show();
+                        	this.updateMessage('');
+                        	closePanel(this);
                         }
                     },
                     {xtype: 'spacer'}

@@ -148,7 +148,9 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
  	   MeetingListPanel.superclass.initComponent.call(this);	
 	},
 	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+		if(this.items.get(0).titleEl){
+			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+		}
 	},
 	loadMeeting: function(pMeeting){
 		
@@ -220,7 +222,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	onMeetingListDataLoad: function(data){
 		if (data.success) {
 			console.log('Loading meeting data');
-			meetingStore.loadData(data.returnVal.rows);
+			meetingStore.loadAndFormat(data.returnVal.rows);
 	    	this.hide();
 	    	meetingListPanel.show();
 	    	meetingListPanel.listMode();
