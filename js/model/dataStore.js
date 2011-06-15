@@ -221,3 +221,5 @@ Ext.regModel('User', {
         {name: 'defaultClubId',      type: 'string'}
     ]
 });
+
+

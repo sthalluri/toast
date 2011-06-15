@@ -51,8 +51,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    		this.parentPanel.meetingPanel.html = html;
 		    		
 		    		//Set the content for the meeting report tab
-		    		html = this.parentPanel.meetingReportTmpl.apply(meeting);		    		
+		    		var wrapper = new Object();
+		    		wrapper.name = 'Grammarian Log';
+		    		wrapper.gramLogs = this.parentPanel.getGramLog(meeting);
+		    		wrapper.timerLogs = this.parentPanel.getTimerLog(meeting);	
+		    		html = this.parentPanel.meetingReportTmpl.apply(wrapper);		    		
 		    		this.parentPanel.meetingReportPanel.html = html;
+		    		console.log(html);
 		    		
 		    		var tabPanel = carousel.items.get(1);
 		    		carousel.setActiveItem(tabPanel);
@@ -195,6 +200,68 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		thisMeeting.inProgress = true;
 		this.hide();
 		roleListPanel.show();
+	},
+	
+	getGramLog : function(meeting) {
+		var gramLogs = new Array();
+		for ( var userId in meeting.gramLog) {
+			var user = memberStore.getById(parseInt(userId)).data;
+			var amCount = meeting.gramLog[userId];
+			var gramLog = new Object();
+			gramLog.amCountStr = 'None';
+			for ( var p in amCount) {
+				if (amCount[p] > 0) {
+					if (gramLog.amCountStr == 'None') {
+						gramLog.amCountStr = p + ':'
+								+ amCount[p];
+					} else {
+						gramLog.amCountStr += ',&nbsp;' + p
+								+ ':' + amCount[p];
+					}
+				}
+				gramLog.user = user.name;
+			}
+			gramLogs.push(gramLog);
+		}
+		return gramLogs;
+	},
+
+	getTimerLog : function(meeting) {
+		var timerLogs = new Array();
+		var roles = new Array();
+
+		for ( var j = 0; j < roleStore.data.length; j++) {
+			var role = roleStore.data.getAt(j).data;
+			roles[j] = role.id;
+		}
+
+		var meetingRoles = meeting.roles;
+		for ( var j = 1; j < roles.length; j++) {
+			var role = meetingRoles[roles[j]];
+			if (role && role.timeSpent && role.userId) {
+				var user = memberStore
+						.getById(parseInt(role.userId)).data;
+				var timerLog = new Object();
+				timerLog.timeSpent = role.timeSpent;
+				timerLog.role = roleStore.getById(roles[j]).data.description;
+				timerLog.user = user.name;
+				timerLog.colorCode = this.getColorCode(role.timeSpent, role.timeLimits);
+				timerLogs.push(timerLog);
+			}
+		}
+		return timerLogs;
+	},
+	
+	getColorCode: function (timeSpent, timeLimits){
+		if(timeSpent>timeLimits.red){
+			return "red";
+		}else if (timeSpent>timeLimits.yellow){
+			return "yellow";
+		}else if (timeSpent>timeLimits.green){
+			return "green";
+		}else{
+			return "silver";
+		}					
 	}
 
 });

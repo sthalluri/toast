@@ -92,6 +92,26 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 //			this.spinners[this.spinners.length]=spinner;
 //		}
 
+		this.spinnerFieldSet = new Ext.form.FieldSet({
+				xtype : 'fieldset',
+				title : '<table width="100%"><tr><td >Counters</td>'+
+						'<td align="right" width="50px">'
+						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+						+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.addCustom();">Add</span>'
+						+ '</div></td>'+
+						'<td align="right" width="50px">'
+						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+						+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.removeCustom();">Delete</span>'
+						+ '</div></td>'+
+						'</tr></table>',
+				defaults : {
+					required : true,
+					labelAlign : 'left',
+					labelWidth : '40%'
+				},
+				items : [ this.spinners ]
+			});
+		
 		this.items = [ {
 			xtype : 'fieldset',
 			title:'&nbsp;',
@@ -102,25 +122,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			},
 			items : [ this.roleSelector, 
 			          this.userSelector]
-		},{
-			xtype : 'fieldset',
-			title : '<table width="100%"><tr><td >Counters</td>'+
-					'<td align="right" width="50px">'
-					+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-					+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.addCustom();">Add</span>'
-					+ '</div></td>'+
-					'<td align="right" width="50px">'
-					+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-					+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.removeCustom();">Delete</span>'
-					+ '</div></td>'+
-					'</tr></table>',
-			defaults : {
-				required : true,
-				labelAlign : 'left',
-				labelWidth : '40%'
-			},
-			items : [ this.spinners ]
-		},{
+		},this.spinnerFieldSet,{
 			layout : 'hbox',
 			defaults : {
 				xtype : 'button',
@@ -164,7 +166,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	},
 
 	loadSpinners: function(){
-		this.items.getAt(1).removeAll();
+		this.spinnerFieldSet.removeAll();
 		this.spinners = new Array();
 		for(var i=0; i<fillers.length; i++){
 			var spinner = new Ext.form.Spinner({
@@ -174,7 +176,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	            label: fillers[i],
 	            required:false
 			});
-			this.items.getAt(1).add(spinner);
+			this.spinnerFieldSet.add(spinner);
 			this.spinners.push(spinner);
 		}
 		this.doLayout();
@@ -190,7 +192,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
                 label: custom,
                 required:false
 			});
-			gramPanel.items.getAt(1).add(spinner);
+			gramPanel.spinnerFieldSet.add(spinner);
 			gramPanel.spinners.push(spinner);
 			gramPanel.doLayout();
 			gramPanel.saveFillers();
@@ -223,7 +225,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 				var spinner = gramPanel.spinners[i];
 				if(spinner.name == custom+'Count'){
 					console.log(spinner.name);
-					gramPanel.items.getAt(1).remove(spinner);					
+					gramPanel.spinnerFieldSet.remove(spinner);					
 				}
 			}
 			gramPanel.saveFillers();

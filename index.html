@@ -104,52 +104,26 @@
 </div>
 
 <div id="meeting-report" class="x-hidden-display">
-	<div class="header" >Grammarian Report</div>
+	<div class="header" >Grammarian Report</div>	
+	<tpl for="gramLogs">
 	<table style="width:100%;"   class="contentTable" >
-		<tr>
-			<td class="highlight">Member:</td>
-			<td>Alpha User</td>
-		</tr>
-		<tr>
-			<td class="highlight">Report:</td>
-			<td>{[objectToString(values.roles.speaker1.amCount)]}</td>
-		</tr>
-		<tr><td colspan="2"><hr/></td></tr>
-		<tr>
-			<td class="highlight">Member:</td>
-			<td>Beta User</td>
-		</tr>
-		<tr>
-			<td class="highlight">Report:</td>
-			<td>{[objectToString(values.roles.speaker1.amCount)]}</td>
-		</tr>
+			<tr>
+				<td width="30%" class="highlight">Member:</td><td>{user}</td>
+			</tr>
+			<tr>
+				<td width="30%" class="highlight">AmCounts:</td><td>{amCountStr}</td>
+			<tr>
+			<tr><td colSpan="2"><hr/></td></tr>
 	</table>
-	<div class="header" >Timer Report</div>
+    </tpl>
+	<div class="header" >Timer Report</div>	
+	<tpl for="timerLogs">
 	<table style="width:100%;"   class="contentTable" >
-		<tr>
-			<td class="highlight">Role:</td>
-			<td>Speech Two</td>
-			<td class="highlight">Member:</td>
-			<td>Alpha User</td>
-		</tr>
-		<tr>
-			<td class="highlight">Time:</td>
-			<td >2:25</td>
-			<td colSpan="2" class="red"></td>
-		</tr>
-		<tr><td colspan="4"><hr/></td></tr>
-		<tr>
-			<td class="highlight">Role:</td>
-			<td>Speech One</td>
-			<td class="highlight">Member:</td>
-			<td>Alpha User</td>
-		</tr>
-		<tr>
-			<td class="highlight">Time:</td>
-			<td >2:25</td>
-			<td colSpan="2" class="green"></td>
-		</tr>
+			<tr>
+				<td width="30%" class="highlight">{role}:</td><td>{user}</td><td>Time Spent:</td><td>{timeSpent}sec{colorCode}</td>
+			<tr>
 	</table>
+    </tpl>
 </div>
 
 <div id="gram-log" class="x-hidden-display">

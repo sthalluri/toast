@@ -128,10 +128,11 @@ Sort meeting data based on the date
 Re-factor homelayout via tabs
 List selection not working properly
 Messages not reset in most of the save panels
+Icons for the table topics and the speech cards
 
 Format meeting report
-Format agenda
 Format Work Log report
+Format agenda
 UI cleanup 
 	- Icons on the tops
 	- Better icons for the home page
@@ -147,5 +148,6 @@ Phonegap
 Working with local datastore
 
 Remember me not working
+Logout option
 Agenda Management, for multiple speeches
 Delete meeting

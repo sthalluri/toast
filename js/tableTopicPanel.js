@@ -51,6 +51,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'compose',
+                	id:'tableTopicEditIcon',
                 	scope:this,
                     handler: this.editQuestion
                 },
@@ -58,6 +59,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'add',
+                	id:'tableTopicAddIcon',
                 	scope:this,
                     handler: this.newQuestion
                 }
@@ -135,6 +137,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
         this.add(this.tblTopicCarouselPanel);
         this.cardChanged(null, null, null, this.activeIndex);
         this.doLayout();
+		Ext.getCmp('tableTopicAddIcon').show();
+        Ext.getCmp('tableTopicEditIcon').hide();
 	},
 
 	updateCarousel: function(){
@@ -155,6 +159,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	
 	listMode: function(){
 		//this.updateCarousel();
+		console.log(this.activeIndex );
 		console.log(this.activeIndex);
 		var activeCard = this.tblTopicCarouselPanel.items.get(this.activeIndex);
 		if(activeCard.el && activeCard.el.dom){
@@ -172,9 +177,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&questionDataStore.getAt(index-1)){
+			Ext.getCmp('tableTopicEditIcon').show();
+			Ext.getCmp('tableTopicAddIcon').hide();
 			this.activeIndex = index;
 			console.log(this.activeIndex);
 			this.activeQuestion = questionDataStore.getAt(index-1).data;
+		}else{
+			Ext.getCmp('tableTopicAddIcon').show();
+			Ext.getCmp('tableTopicEditIcon').hide();
 		}
 	},
 
@@ -216,6 +226,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {
+		Ext.getCmp('tableTopicEditIcon').show();
 		var carousel = this.parentPanel.tblTopicCarouselPanel;
 		this.parentPanel.activeIndex = index+1;
 		carousel.setActiveItem(carousel.items.get(index+1));

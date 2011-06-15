@@ -49,6 +49,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'delete',
+                	id: 'speechNoteDeleteIcon',
                 	scope:this,
                     handler: this.deleteCard
                 },
@@ -56,6 +57,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'compose',
+                	id: 'speechNoteEditIcon',
                 	scope:this,
                     handler: this.editSpeechNote
                 },
@@ -63,6 +65,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
                     iconMask: true,
                     ui: 'plain',
                 	iconCls:'add',
+                	id: 'speechNoteAddIcon',
                 	scope:this,
                     handler: this.newSpeechNote
                 }
@@ -176,6 +179,9 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
         this.add(this.speechNoteTopicCarousel);
         this.cardChanged(null, null, null, this.activeIndex);
         this.doLayout();
+		Ext.getCmp('speechNoteAddIcon').show();
+        Ext.getCmp('speechNoteEditIcon').hide();
+        Ext.getCmp('speechNoteDeleteIcon').hide();
 	},
 	
 	updateCarousel: function(){
@@ -206,9 +212,16 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&speechNoteDataStore.getAt(index-1)){
+			Ext.getCmp('speechNoteAddIcon').hide();
+			Ext.getCmp('speechNoteEditIcon').show();
+	        Ext.getCmp('speechNoteDeleteIcon').show();
 			this.activeIndex = index;
 			console.log(this.activeIndex);
 			this.activeSpeechNote = speechNoteDataStore.getAt(index-1).data;
+		}else{
+			Ext.getCmp('speechNoteAddIcon').show();
+			Ext.getCmp('speechNoteEditIcon').hide();
+	        Ext.getCmp('speechNoteDeleteIcon').hide();
 		}
 	},
 

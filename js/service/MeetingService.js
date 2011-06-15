@@ -104,7 +104,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 			success: this.onGetContent
 		});
 	}
-
 });
 
 MeetingService = new MeetingServiceImpl();
