@@ -113,14 +113,16 @@
 			<tr>
 				<td width="30%" class="highlight">AmCounts:</td><td>{amCountStr}</td>
 			<tr>
-			<tr><td colSpan="2"><hr/></td></tr>
 	</table>
     </tpl>
 	<div class="header" >Timer Report</div>	
 	<tpl for="timerLogs">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td width="30%" class="highlight">{role}:</td><td>{user}</td><td>Time Spent:</td><td>{timeSpent}sec{colorCode}</td>
+				<td colSpan="4">{role}</td>
+			</tr>
+			<tr>
+				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight">Time Spent:</td><td>{timeSpent}sec{colorCode}</td>
 			<tr>
 	</table>
     </tpl>
