@@ -25,6 +25,7 @@ Ext.setup({
         	meetingStore : meetingStore
         });
         clubMemberListPanel = new ClubMemberListPanel();
+        clubMemberAddPanel = new ClubMemberAddPanel();
         
         meetingPanel = new MeetingPanel({
         	meetingStore : meetingStore
@@ -47,7 +48,8 @@ Ext.setup({
                     homePanel, 
                     loginPanel, registerPanel,
                     navPanel,
-                    clubMemberListPanel, 
+                    clubMemberListPanel,
+                    clubMemberAddPanel,
                     meetingListPanel, meetingPanel,
                     myGramPanel, myTimerPanel,
                     //roleListPanel, 
@@ -77,6 +79,7 @@ var roleListPanel;
 var helpPanel;
 var meetingPanel;
 var clubMemberListPanel;
+var clubMemberAddPanel;
 var roleHelpPanel;
 var questionPanel;
 var myGramPanel;

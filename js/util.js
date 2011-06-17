@@ -31,7 +31,7 @@ function objectToString(o){
         
         return a;
         
-    }
+    };
     
     return "{" + parse(o).join(", ") + "}";
     
