@@ -18,29 +18,36 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
         {
             xtype: 'list',
             store: memberStore,
-            itemTpl: '<div class="contact"><img width="30" height="30" class="imageLeft" src="images/phone_startup.png"/><strong>{firstName}</strong> {lastName}</div>',
+            itemTpl: '<div id="{id}" class="contact"><img width="30" height="30" class="imageLeft" src="images/phone_startup.png"/><strong>{firstName}</strong> {lastName}</div>',
             grouped: true,
-            indexBar: true
+            indexBar: true,
+            onItemDisclosure: function(record, btn, index)
+            {
+            	clubMemberListPanel.hide();
+            	clubMemberAddPanel.populateUserDetails(record.data);
+            	clubMemberAddPanel.show();
+            }
         }];
 	
-        this.dockedItems =[
-           {
-               xtype: 'toolbar',
-               dock: 'top',
-               title:'Members',
-               items: [
-                   {
-				    text: 'Back',
-	                ui: 'back',
-				    handler: function() {
-	                	clubMemberListPanel.hide();
-	                   	navPanel.show();
-				    }
-				}
-               ]
-           }
-       ];
+        var buttonGroup1 = [];
+        var buttonGroup2 = [{
+	    	text: '+',
+	    	ui: 'action',
+	    	handler: function(){
+	    		clubMemberListPanel.hide();
+	    		clubMemberAddPanel.show();
+	    		clubMemberAddPanel.resetFields();
+	    	}
+        }];
+        
+        buttonGroup1.push({xtype:'spacer'});
+        this.dockedItems =[{
+           xtype: 'toolbar',
+           dock: 'top',
+           title:'Members',
+           items: buttonGroup1.concat(buttonGroup2)                   
+        }];
 
         ClubMemberListPanel.superclass.initComponent.call(this);	
-	}
+	},
 });

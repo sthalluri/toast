@@ -48,9 +48,53 @@ UserServiceImpl = Ext.extend(Object, {
 		}else{
 			return 'Not Available';
 		}
-	}
+	},
 	
-
+	onCreate : function(response, args, cb, scope)
+	{
+		var data = eval("("+response.responseText+")");
+		cb.call(scope || window, data);
+	},
+	
+	createClubMember : function(formValues, cb, scope)
+	{
+		var user = 
+		{
+			email : formValues.email,
+			phone : formValues.phone,
+			firstName : formValues.fname,
+			lastName : formValues.lname,
+			aboutMe: formValues.aboutme
+		};
+		if(formValues.id)
+		{
+			user.id = formValues.id;
+		}
+		this.onCreate = Ext.createDelegate(UserServiceImpl.prototype.onCreate, scope || window, [cb, scope], true);
+		Ext.Ajax.request({
+			url: urlStore.userUrl + '/create',
+			params: {
+				json:Ext.encode(user)
+			},
+			success:this.onCreate
+		});
+	},
+	
+	onDelete : function(response, args, cb, scope)
+	{
+		var data = eval("(" +response.responseText + ")");
+		cb.call(scope || window, data);
+	},
+	
+	deleteClubMember : function(id, cb, scope)
+	{
+		this.onDelete = Ext.createDelegate(UserServiceImpl.prototype.onDelete, scope || window, [cb, scope], true);
+		Ext.Ajax.request({
+			url: urlStore.userUrl + '/delete',
+			params: {id: id},
+			success:this.onDelete
+		});
+	}
 });
 
 UserService = new UserServiceImpl();

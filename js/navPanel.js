@@ -60,6 +60,8 @@ NavPanel = Ext.extend(Ext.Panel,
 
 	viewClubMembers: function(){
 		navPanel.hide();
+		//Loading the club members
+		ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
 		clubMemberListPanel.show();
 	},
 	
@@ -81,6 +83,16 @@ NavPanel = Ext.extend(Ext.Panel,
 
 	viewMyClub:function(){
         Ext.Msg.alert('Under Construction', 'Not implemented yet.', Ext.emptyFn);
-	}
+	},
+	
+	onClubMemberLoad: function(data)
+	{
+		if (data.success) {
+			console.log('Loading meeting data');
+			memberStore.loadWithDefault(data.returnVal.rows);
+		} else {
+			console.log('Unable to load the meetings ');
+		}
+	},
 
 });

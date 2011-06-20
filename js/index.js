@@ -51,6 +51,7 @@ Ext.setup({
         	meetingStore : meetingStore
         });
         clubMemberListPanel = new ClubMemberListPanel();
+        clubMemberAddPanel = new ClubMemberAddPanel();
         
         meetingPanel = new MeetingPanel({
         	meetingStore : meetingStore
@@ -66,6 +67,9 @@ Ext.setup({
         
         speechNoteListPanel = new SpeechNoteListPanel();
 
+        clubMemberListPanel = new ClubMemberListPanel();
+        clubMemberAddPanel = new ClubMemberAddPanel();
+        
         homeTabPanel = new Ext.TabPanel({
         	tabBar:{
         		dock:'bottom',
@@ -96,7 +100,8 @@ Ext.setup({
                          questionPanel,
                          speechNoteListPanel,
                          speechNotePanel,
-                         helpTabPanel
+                         helpTabPanel,
+                         clubMemberAddPanel
                          ];
 
         mainCardPanel = new Ext.Panel({
@@ -126,6 +131,7 @@ var roleListPanel;
 var helpPanel;
 var meetingPanel;
 var clubMemberListPanel;
+var clubMemberAddPanel;
 var roleHelpPanel;
 var questionPanel;
 var myGramPanel;
@@ -134,6 +140,8 @@ var speechNoteListPanel;
 var speechNotePanel;
 var cardPanel;
 var timeLimitPanel;
+var clubMemberListPanel;
+var clubMemberAddPanel;
 
 function closePanel(panel){
 	mainCardPanel.setActiveItem(3);
