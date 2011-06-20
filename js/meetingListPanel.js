@@ -48,16 +48,11 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    		
 		    		//Set the content for the agenda tab
 		    		var html = this.parentPanel.meetingTmpl.apply(meeting);		    		
-		    		this.parentPanel.meetingPanel.html = html;
-		    		
-		    		//Set the content for the meeting report tab
-		    		var wrapper = new Object();
-		    		wrapper.name = 'Grammarian Log';
-		    		wrapper.gramLogs = this.parentPanel.getGramLog(meeting);
-		    		wrapper.timerLogs = this.parentPanel.getTimerLog(meeting);	
-		    		html = this.parentPanel.meetingReportTmpl.apply(wrapper);		    		
-		    		this.parentPanel.meetingReportPanel.html = html;
-		    		console.log(html);
+		    		if(this.parentPanel.meetingPanel.el){
+			    		this.parentPanel.meetingPanel.el.dom.innerHTML = html;
+		    		}else{
+			    		this.parentPanel.meetingPanel.html = html;
+		    		}
 		    		
 		    		var tabPanel = carousel.items.get(1);
 		    		carousel.setActiveItem(tabPanel);
@@ -74,8 +69,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			cls: 'legislator-tabs',
 			fullscreen : false,
-			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ]
+			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ],
+			listeners : {
+				beforecardswitch : {fn: this.meetingPanelChanged, scope: this}
+			}
 		});
+		
+		
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,
 	    	height:'95%',	
@@ -262,6 +262,28 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		}else{
 			return "silver";
 		}					
+	},
+	
+	meetingPanelChanged: function(comp, newCard, oldCard, index) {
+		console.log('Showing tab panel');
+		console.log(comp);
+		console.log(newCard);
+		var meeting = this.activeMeeting;
+
+		if(index == 2){
+    		//Set the content for the meeting report tab
+    		var wrapper = new Object();
+    		wrapper.name = 'Grammarian Log';
+    		wrapper.gramLogs = this.getGramLog(meeting);
+    		wrapper.timerLogs = this.getTimerLog(meeting);	
+    		html = this.meetingReportTmpl.apply(wrapper);		    		
+    		if(this.meetingReportPanel.el){
+    			this.meetingReportPanel.el.dom.innerHTML = html;
+    		}else{
+	    		this.meetingReportPanel.html = html;
+    		}
+    		console.log(html);
+		}
 	}
 
 });
