@@ -252,6 +252,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		return timerLogs;
 	},
 	
+	
+	
 	getColorCode: function (timeSpent, timeLimits){
 		if(timeSpent>timeLimits.red){
 			return "red";
