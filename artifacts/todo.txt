@@ -133,6 +133,7 @@ Icons for the table topics and the speech cards
 Format meeting report
 Format Work Log report
 Format agenda
+Time and location for the meeting
 UI cleanup 
 	- Icons on the tops
 	- Better icons for the home page

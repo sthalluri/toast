@@ -77,7 +77,6 @@ NavPanel = Ext.extend(Ext.Panel,
 	
 	viewLog: function(){
 		navPanel.hide();
-		myLogPanel.reload();
 		myLogPanel.show();
 	},
 

@@ -36,7 +36,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 
 		this.meetingLogPanel = new Ext.Panel({
 			html : 'Loading..',
-			title : 'Meeting Log',
+			title : 'Roles Log',
 			scroll : 'vertical'
 		});
 
@@ -52,17 +52,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			},
 			layout : {
 				pack : 'center'
-			},
-			items : [ 
-//			{
-//				text : 'Back',
-//				ui : 'back',
-//				scope : this,
-//				handler: this.onBack
-//			}, {
-//				xtype : 'spacer'
-//			} 
-			]
+			}
 		} ];
 		MyLogPanel.superclass.initComponent.call(this);
 	},
@@ -89,31 +79,39 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			meetingLog.themeOfTheDay = meeting.themeOfTheDay;
 			meetingLog.wordOfTheDay = meeting.wordOfTheDay;		
 			meetingLog.rolesStr = 'None';
-			for(var j=1; j<roles.length; j++){
-				var role = meetingRoles[roles[j]];
-				if(role && role.amCount && role.userId == thisUser.id){ 
-					var gramLog = new Object();
-					var amCount = role.amCount;
-					gramLog.amCount = objectToString(amCount);
+			meetingLog.fMeetingDate = meeting.fMeetingDate;
+			var gramLog = new Object();
+			
+			for ( var userId in meeting.gramLog) {
+				if(userId == thisUser.id){
+					var amCount = meeting.gramLog[userId];
 					gramLog.amCountStr = 'None';
-					for(var p in role.amCount){
-						if(amCount[p]>0){
-							if(gramLog.amCountStr =='None'){
-								gramLog.amCountStr = p+':'+amCount[p];
-							}else{
-								gramLog.amCountStr += ',&nbsp;'+p+':'+amCount[p];
+					gramLog.fMeetingDate = meeting.fMeetingDate;
+					for ( var p in amCount) {
+						if (amCount[p] > 0) {
+							if (gramLog.amCountStr == 'None') {
+								gramLog.amCountStr = p + ':'
+										+ amCount[p];
+							} else {
+								gramLog.amCountStr += ',&nbsp;' + p
+										+ ':' + amCount[p];
 							}
 						}
 					}
-					gramLog.role = roles[j];
 					gramLogs.push(gramLog);
 				}
+			}
+			
+			for(var j=1; j<roles.length; j++){
+				var role = meetingRoles[roles[j]];
 				if(role && role.timeSpent 
 						&& role.userId == thisUser.id){ 
 					var timerLog = new Object();
 					timerLog.timeSpent = role.timeSpent;
-					timerLog.role = roles[j];
+					timerLog.role = roleStore.getById(roles[j]).data.description;
 					timerLogs.push(timerLog);
+					timerLog.fMeetingDate = meeting.fMeetingDate;
+					timerLog.colorCode = meetingListPanel.getColorCode(role.timeSpent, role.timeLimits);
 				}
 				if(role && role.userId == thisUser.id){ 
 					if(meetingLog.rolesStr == 'None'){

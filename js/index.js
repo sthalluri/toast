@@ -22,6 +22,7 @@ mainCardPanel
 	|_ speechNoteListPanel
 	|_ speechNotePanel
 	|_ helpTabPanel
+	|_ clubMemberAddPanel
  */
 
 Ext.setup({
@@ -66,9 +67,6 @@ Ext.setup({
         timeLimitPanel = new TimeLimitPanel();
         
         speechNoteListPanel = new SpeechNoteListPanel();
-
-        clubMemberListPanel = new ClubMemberListPanel();
-        clubMemberAddPanel = new ClubMemberAddPanel();
         
         homeTabPanel = new Ext.TabPanel({
         	tabBar:{
@@ -81,7 +79,10 @@ Ext.setup({
         	layout: 'card',
         	title:'ToastMasters',
             fullscreen: true,
-            items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel]
+            items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel],
+			listeners : {
+				beforecardswitch : {fn: logSelected, scope: this}
+			}
         });   
         
         mainCardItems = [
@@ -155,4 +156,11 @@ function showPanel(showPanel){
 		}
 	}
 }
+
+function logSelected(comp, newCard, oldCard, index) {
+	if(index == 2){
+		myLogPanel.reload();
+	}
+}
+
 //[values.meetingDate.format("F d, Y g:i A")]
