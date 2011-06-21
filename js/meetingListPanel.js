@@ -252,8 +252,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		return timerLogs;
 	},
 	
-	
-	
 	getColorCode: function (timeSpent, timeLimits){
 		if(timeSpent>timeLimits.red){
 			return "red";
@@ -265,6 +263,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 			return "silver";
 		}					
 	},
+	
+	
 	
 	meetingPanelChanged: function(comp, newCard, oldCard, index) {
 		console.log('Showing tab panel');
