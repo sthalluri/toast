@@ -132,7 +132,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		                handler: this.goHome
 	            	},
 	            	*/
-					{xtype: 'spacer'},
+	                {xtype: 'spacer'},
 					{
 	                    iconMask: true,
 	                    ui: 'plain',
