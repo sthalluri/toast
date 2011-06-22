@@ -264,8 +264,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		}					
 	},
 	
-	
-	
 	meetingPanelChanged: function(comp, newCard, oldCard, index) {
 		console.log('Showing tab panel');
 		console.log(comp);
