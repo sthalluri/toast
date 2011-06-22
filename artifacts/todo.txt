@@ -152,3 +152,4 @@ Remember me not working
 Logout option
 Agenda Management, for multiple speeches
 Delete meeting
+Editing time on the timerPanel

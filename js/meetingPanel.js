@@ -12,11 +12,17 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			xtype : 'datepickerfield',
 			name : 'meetingDate',
 			label : 'Date',
-			useClearIcon : true,
+			required: 'true',
 			picker : {
-				yearForm : 1900
-			}
-		}, {
+				 yearFrom: 2010,
+				 yearTo  : 2015
+			}		
+		},{
+            xtype: 'selectfield',
+            name: 'time',
+            label: 'Time',
+            options: timeOptions
+        }, {
 			xtype : 'textfield',
 			name : 'wordOfTheDay',
 			id : 'wordOfTheDay',
@@ -30,6 +36,15 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			useClearIcon : true,
 			autoCapitalize : false
 		}, {
+			xtype : 'textfield',
+			name : 'location',
+			label : 'Location',
+			useClearIcon : true,
+			autoCapitalize : false
+		}
+	];
+		
+		this.roleFields = [ {
 			xtype : 'selectfield',
 			name : 'toastMaster',
 			label : 'ToastMaster',
@@ -96,14 +111,21 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	
         this.items= [{
                 xtype: 'fieldset',
-    			title : 'Meeting',
-                instructions: 'Please enter the information above.',
+    			title : 'Meeting Info',
                 defaults: {
-                    required: true,
                     labelAlign: 'left',
                     labelWidth: '40%'
                 },
                 items: this.formFields
+            },
+            {
+                xtype: 'fieldset',
+    			title : 'Roles',
+                defaults: {
+                    labelAlign: 'left',
+                    labelWidth: '40%'
+                },
+                items: this.roleFields
             }
         ];
         
@@ -127,8 +149,14 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                         ui: 'back',
                         scope:this,
                         handler: this.goBack
-                    },
-                    {xtype: 'spacer'},
+                    }
+                ]
+            },
+            
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items: [
                     {
                         text: 'Save',
                         ui: 'confirm',
@@ -149,7 +177,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	updateMessage: function(msg){
 		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+			this.items.get(0).titleEl.setHTML('Meeting Info<div class="msg"><p >'+msg+'</p></div>');
 		}
 	},
 	loadMeeting: function(pMeeting){
@@ -169,6 +197,9 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			}
 			if(comp.name == 'wordOfTheDay'){
 				comp.setValue(pMeeting.wordOfTheDay);
+			}
+			if(comp.name == 'location'){
+				comp.setValue(pMeeting.location);
 			}
 			if(comp.name == 'speaker1'){
 				if(pMeeting.roles.speaker1){
@@ -223,9 +254,10 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			console.log('Loading meeting data');
 			meetingStore.loadAndFormat(data.returnVal.rows);
-	    	this.hide();
-	    	meetingListPanel.show();
-	    	meetingListPanel.listMode();
+	    	closePanel(this);
+			//this.hide();
+	    	//meetingListPanel.show();
+	    	//meetingListPanel.listMode();
 		} else {
 			console.log('Unable to load the meetings ');
 		}
@@ -250,6 +282,25 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		var values = this.getValues();
 		this.meeting.clubId = thisUser.defaultClubId;
+		this.meeting.location = values.location;
+		if(values.time){
+			var hours =  values.time.substring(0,2);
+			var mins =  parseInt(values.time.substring(3,5));
+			var am =  values.time.substring(6,8);
+			var iHours = 0;
+			
+			if(hours.substring(0,1)=="0"){
+				iHours = parseInt(hours.substring(1,2));
+			}else{
+				iHours = parseInt(hours.substring(1,2));
+			}			
+			if(am != "AM"){
+				iHours += 12;
+			}
+			
+			values.meetingDate.setHours(iHours);
+			values.meetingDate.setMinutes(parseInt(mins));
+		}
 		this.meeting.meetingDate = values.meetingDate;
 		this.meeting.wordOfTheDay = values.wordOfTheDay;
 		this.meeting.themeOfTheDay = values.themeOfTheDay;
@@ -264,6 +315,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		this.meeting.roles.timer.userId = values.timer;
 		
 		//this.controller.save(this.meeting);
+		console.log(this.meeting);
         MeetingService.save(this.meeting, this.onSave, this);
 	}
 });

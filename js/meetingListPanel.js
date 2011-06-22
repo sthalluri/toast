@@ -131,8 +131,10 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                	id:'meetingPanleEditIcon',
 	                	scope:this,
 	                    handler: function() {
-	                		meetingListPanel.hide();
-	                		meetingPanel.show();
+	                    	homeTabPanel.hide();
+	        				showPanel(meetingPanel);
+	                    	//meetingListPanel.hide();
+	                		//meetingPanel.show();
 	                		meetingPanel.loadMeeting(this.activeMeeting);
 	                    }
 	                },
@@ -142,9 +144,12 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                	iconCls:'add',
 	                	id:'meetingPanleAddIcon',
 	                    handler: function() {
-	                		meetingListPanel.hide();
-	                		meetingPanel.reset();
-	                		meetingPanel.show();
+	                    	homeTabPanel.hide();
+	        				showPanel(meetingPanel);
+
+	        				//meetingListPanel.hide();
+	                		//meetingPanel.reset();
+	                		//meetingPanel.show();
 	                    }
 	                }
 	            ]

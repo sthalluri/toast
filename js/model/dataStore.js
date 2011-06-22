@@ -5,26 +5,52 @@ var members = [];
 var meetings =[];
 var roles = [];
 var questions = [];
-var speechNotes = [        
-   {id:1,     text: 'Notes1'},
-   {id:2,     text: 'Notes2'},
-   {id:3,     text: 'Notes3'},
-];
-
-var notes = [
-            {highlight: '1. Get this done', notes: 'This is a sample question with some text and this is a long one'},
-            {highlight: '2. Dont get this', notes: 'This is a sample question with some text and this is a long one'},
-            {highlight: '3. Lets get it', notes: 'This is a sample question with some text and this is a long one'}
-        ];
-
-var userLog =[
-              {date: '8/24/2011', topic: 'Spring '},
-              {date: '9/24/2011', topic: 'Valentines Day'},
-              {date: '10/24/2011', topic: 'Admirable'}
-          ];
-
+var speechNotes = [];
+var notes = [];
+var userLog =[];
 var fillers= [];
 
+var timeOptions = [
+   {text: '04:00 AM',value: '04:00 AM'}, 
+   {text: '04:30 AM',value: '04:30 AM'}, 
+   {text: '05:00 AM',value: '05:00 AM'}, 
+   {text: '05:30 AM',value: '05:30 AM'}, 
+   {text: '06:00 AM',value: '06:00 AM'}, 
+   {text: '06:30 AM',value: '06:30 AM'}, 
+   {text: '07:00 AM',value: '07:00 AM'}, 
+   {text: '07:30 AM',value: '07:30 AM'}, 
+   {text: '08:00 AM',value: '08:00 AM'}, 
+   {text: '08:30 AM',value: '08:30 AM'}, 
+   {text: '09:00 AM',value: '09:00 AM'}, 
+   {text: '09:30 AM',value: '09:30 AM'},
+   {text: '10:00 AM',value: '10:00 AM'}, 
+   {text: '10:30 AM',value: '10:30 AM'},
+   {text: '11:00 AM',value: '11:00 AM'}, 
+   {text: '11:30 AM',value: '11:30 AM'},
+   {text: '12:00 AM',value: '12:00 AM'}, 
+   {text: '12:30 AM',value: '12:30 AM'},   
+   {text: '01:00 PM',value: '01:00 PM'}, 
+   {text: '01:30 PM',value: '01:30 PM'}, 
+   {text: '02:00 PM',value: '02:00 PM'}, 
+   {text: '02:30 PM',value: '02:30 PM'}, 
+   {text: '03:00 PM',value: '03:00 PM'}, 
+   {text: '03:30 PM',value: '03:30 PM'}, 
+   {text: '04:00 PM',value: '04:00 PM'}, 
+   {text: '04:30 PM',value: '04:30 PM'}, 
+   {text: '05:00 PM',value: '05:00 PM'}, 
+   {text: '05:30 PM',value: '05:30 PM'}, 
+   {text: '06:00 PM',value: '06:00 PM'}, 
+   {text: '06:30 PM',value: '06:30 PM'}, 
+   {text: '07:00 PM',value: '07:00 PM'}, 
+   {text: '07:30 PM',value: '07:30 PM'}, 
+   {text: '08:00 PM',value: '08:00 PM'}, 
+   {text: '08:30 PM',value: '08:30 PM'}, 
+   {text: '09:00 PM',value: '09:00 PM'}, 
+   {text: '09:30 PM',value: '09:30 PM'},
+   {text: '10:00 PM',value: '10:00 PM'}, 
+   {text: '10:30 PM',value: '10:30 PM'}
+
+];
 
 var timingStore={
 	speech : {red: 5, green: 2, yellow:1},	
@@ -63,7 +89,7 @@ var meetingStore = new Ext.data.JsonStore({
 	loadAndFormat : function(records){
 		for(var i=0 ;i<records.length; i++){
 			if(records[i].meetingDate){
-				var fDate = Date.parseDate(records[i].meetingDate,"Y-m-d H:i:s.u");
+				var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
 				records[i].fMeetingDate = fDate.format('F j, Y, g:i a');
 			}
 		}
