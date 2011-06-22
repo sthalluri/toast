@@ -123,15 +123,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	            },
 	            items: [
 	                this.backButton,
-	            	/*
-	                {
-		                scope:this,
-	                    ui: 'plain',
-	                	iconCls:'home',
-		                id : 'homeButton',
-		                handler: this.goHome
-	            	},
-	            	*/
 	                {xtype: 'spacer'},
 					{
 	                    iconMask: true,
