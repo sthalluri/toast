@@ -85,6 +85,7 @@ Ext.setup({
 			}
         });   
         
+        
         mainCardItems = [
                          homePanel,				//0
                          loginPanel, 
