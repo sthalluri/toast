@@ -112,7 +112,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	   this.dockedItems=[
 	        {
 	            xtype: 'toolbar',
-	            title:'ToastMasters',
+	            title:'Meetings',
 	            dock: 'top',
 	            defaults: {
 	                iconMask: true,
