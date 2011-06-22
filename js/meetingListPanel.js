@@ -265,9 +265,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	},
 	
 	meetingPanelChanged: function(comp, newCard, oldCard, index) {
-		console.log('Showing tab panel');
-		console.log(comp);
-		console.log(newCard);
 		var meeting = this.activeMeeting;
 
 		if(index == 2){
@@ -282,7 +279,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     		}else{
 	    		this.meetingReportPanel.html = html;
     		}
-    		console.log(html);
 		}
 	}
 

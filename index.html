@@ -123,7 +123,7 @@
 				<td colSpan="4">{role}</td>
 			</tr>
 			<tr>
-				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="background-color:{colorCode}">{timeSpent}sec</td>
+				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 			<tr>
 	</table>
     </tpl>
@@ -131,7 +131,7 @@
 
 <div id="gram-log" class="x-hidden-display">
 	<tpl for="gramLogs">
-    <div class="header" >Jan 10 2010 10:00PM</div>
+    <div class="header" >{fMeetingDate}</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td width="30%" class="highlight"> Am Count:</td><td>{amCountStr}</td>
@@ -142,10 +142,10 @@
 
 <div id="timer-log" class="x-hidden-display">
 	<tpl for="timerLogs">
-    <div class="header" >Jan 10 2010 10:00PM</div>
+    <div class="header" >{fMeetingDate}</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td class="highlight">Speech Type:</td><td>Ice Breaker </td><td class="highlight"> TimeSpent:</td><td>{[getMins(values.timeSpent)]}</td><td width="100px" class="green"></td>
+				<td class="highlight">Role:</td><td>{role}</td><td class="highlight"> TimeSpent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 			<tr>
 	</table>
     </tpl>
@@ -153,7 +153,7 @@
 
 <div id="meeting-log" class="x-hidden-display">
 	<tpl for="meetingLogs">
-		<div class="header" >Jan 10 2010 10:00PM</div>
+		<div class="header" >{fMeetingDate}</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
@@ -188,5 +188,3 @@
 
 </body>
 </html>
-
-

@@ -23,9 +23,9 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
             indexBar: true,
             onItemDisclosure: function(record, btn, index)
             {
-            	clubMemberListPanel.hide();
+	    		homeTabPanel.hide();
+	    		showPanel(clubMemberAddPanel);
             	clubMemberAddPanel.populateUserDetails(record.data);
-            	clubMemberAddPanel.show();
             }
         }];
 	
@@ -34,9 +34,8 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 	    	text: '+',
 	    	ui: 'action',
 	    	handler: function(){
-	    		clubMemberListPanel.hide();
-	    		clubMemberAddPanel.show();
-	    		clubMemberAddPanel.resetFields();
+	    		homeTabPanel.hide();
+	    		showPanel(clubMemberAddPanel);
 	    	}
         }];
         

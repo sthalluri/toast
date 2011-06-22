@@ -1,8 +1,6 @@
 ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 {
-	fullscreen:'true',
-	layout: 'vbox',
-	
+    title: 'Club Member',
 	initComponent : function()
 	{
 
@@ -123,8 +121,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	{
 		//Loading the club members
 		ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-		this.hide();
-		clubMemberListPanel.show();
 	},
 	
 	saveClubMember : function()
@@ -188,6 +184,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			console.log('Loading meeting data');
 			memberStore.loadWithDefault(data.returnVal.rows);
+	    	closePanel(this);
 		} else {
 			console.log('Unable to load the meetings ');
 		}
