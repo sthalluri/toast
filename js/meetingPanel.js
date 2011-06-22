@@ -1,7 +1,6 @@
 MeetingPanel = Ext.extend(Ext.form.FormPanel, 
 {	
     scroll: 'vertical',
-    url   : 'postUser.php',
     standardSubmit : false,
     title: 'Agenda',
 
@@ -151,12 +150,14 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                         handler: this.goBack
                     }
                 ]
-            },
-            
+            },            
             {
                 xtype: 'toolbar',
                 dock: 'bottom',
                 items: [
+					{
+						xtype : 'spacer'
+					},
                     {
                         text: 'Save',
                         ui: 'confirm',
@@ -165,8 +166,9 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                     },
                     {
                         text: 'Reset',
+                        scope: this,
                         handler: function() {
-                        	addMeetingPanel.reset();
+                        	this.reset();
                         }
                     }
                 ]

@@ -46,7 +46,7 @@ UserServiceImpl = Ext.extend(Object, {
 		if(userId){
 			return memberStore.getById(userId).data.name;
 		}else{
-			return 'Not Available';
+			return 'Not Assigned';
 		}
 	},
 	

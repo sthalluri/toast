@@ -13,30 +13,6 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 				height : 250,
 				maxRows : 10,
 				autoCapitalize : false
-			}, 
-			{
-				layout:'hbox',
-				flex:1,
-           	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
-				items:[
-						new Ext.Button({
-			                text: 'Save',
-							scope: this,
-			                width:100,
-			                ui : 'confirm',
-			                handler: this.save
-			            }), 
-						new Ext.Button({
-			                text: 'Reset',
-							scope: this,
-				        	ui:'decline',
-			                width:100,
-			                handler: function(){
-			                	this.reset();
-			                }
-			            })
-				]
-			
 			}
 		];
 
@@ -65,6 +41,24 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
                         handler: this.goBack
                     }
                 ]
+            },
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items : [ {
+						xtype : 'spacer'
+					}, new Ext.Button({
+						text : 'Save',
+						scope : this,
+						ui : 'confirm',
+						handler : this.save
+					}), new Ext.Button({
+						text : 'Reset',
+						scope : this,
+						handler : function() {
+							this.reset();
+						}
+					}) ]
             }
         ];
     

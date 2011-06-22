@@ -146,13 +146,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
 					items:[
 							this.startButton,
-							this.stopButton,
-			                new Ext.Button({
-			                    text: 'Reset',
-								scope: this,
-			                    width:100,
-				                handler: this.resetTimer
-			                })
+							this.stopButton
 					       ]
 
 				},
@@ -161,12 +155,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 					flex:1,
                	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
 					items:[
-			                new Ext.Button({
-			                    text: 'Save',
-								scope: this,
-			                    width:100,
-				                handler: this.save
-			                })
+			                
 					       ]
 
 				}
@@ -192,6 +181,22 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                     },
                     {xtype: 'spacer'}
                 ]
+            },
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items : [ {
+						xtype : 'spacer'
+					},new Ext.Button({
+	                    text: 'Save',
+						scope: this,
+						ui : 'confirm',
+		                handler: this.save
+	                }),new Ext.Button({
+	                    text: 'Reset',
+						scope: this,
+		                handler: this.resetTimer
+	                })]
             }
         ];
         

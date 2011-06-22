@@ -71,6 +71,24 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 					},
 					{xtype: 'spacer'}
                 ]
+            },
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items : [ {
+						xtype : 'spacer'
+					}, {
+						text : 'Save',
+						scope : this,
+						ui : 'confirm',
+						width : 80,
+						handler : this.save
+					}, {
+						text : 'Reset',
+						scope : this,
+						width : 80,
+						handler : this.resetForm
+					}]
             }
         ];
         
@@ -122,25 +140,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			},
 			items : [ this.roleSelector, 
 			          this.userSelector]
-		},this.spinnerFieldSet,{
-			layout : 'hbox',
-			defaults : {
-				xtype : 'button',
-				style : 'margin: .5em;'
-			},
-			items : [ {
-				text : 'Save',
-				scope : this,
-				ui : 'confirm',
-				width : 100,
-				handler : this.save
-			}, {
-				text : 'Reset',
-				scope : this,
-				width : 100,
-				handler : this.resetForm
-			}]
-		} ];
+		},this.spinnerFieldSet];
 	},
 	
 	userUpdated:function(selector , value){

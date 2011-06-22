@@ -72,35 +72,42 @@
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
-			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
+		<tr>
+			<td class="highlight">Word of the Day:</td><td colSpan="3">{wordOfTheDay}</td>
+		</tr>
 		<tr>
 			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
 		</tr>
-		<tr ><td colSpan="4" class="header" >12:00PM Opening</td></tr>
-		<tr><td colSpan="4">1.Introduction <br/>2.New Introduction</td></tr>
-		<tr><td colSpan="4" class="header" >12:25PM Speech One</td></tr>
+		<tr><td colSpan="4" class="header" >Roles</td></tr>
+		<tr>
+			<td class="highlight">Timer:</td>
+			<td colspan="3">{[UserService.getName(values.roles.grammarian.userId)]} </td>
+		</tr>
+		<tr>
+			<td class="highlight" >Grammarian:</td>
+			<td colspan="3">{[UserService.getName(values.roles.timer.userId)]} </td>
+		</tr>
+		<tr>
+			<td class="highlight" >Table Topics:</td>
+			<td colspan="3">{[UserService.getName(values.roles.tableTopics.userId)]} </td>
+		</tr>
+		<tr>
+			<td class="highlight">General Evaluator:</td>
+			<td colspan="3">{[UserService.getName(values.roles.generalEvaluator.userId)]} </td>
+		</tr>
+		<tr><td colSpan="4" class="header" >Speech One</td></tr>
 		<tr>
 			<td class="highlight">Speaker:</td>
-			<td>{[UserService.getName(values.roles.speaker1.userId)]} </td>
-			<td>Speech Type:</td>
-			<td>Speaker1</td>
+			<td colspan="3">{[UserService.getName(values.roles.speaker1.userId)]} </td>
 		</tr>
 		<tr>
 			<td class="highlight">Evaluator:</td>
-			<td>{[UserService.getName(values.roles.evaluator1.userId)]} </td>
-			<td>Duration:</td>
-			<td>5-7min</td>
+			<td colspan="3">{[UserService.getName(values.roles.evaluator1.userId)]} </td>
 		</tr>
-		<tr><td colSpan="4" class="header" >12:35PM Speech Two</td></tr>
-		<tr><td class="highlight">Speaker:</td><td>{[UserService.getName(values.roles.speaker2.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
-		<tr><td class="highlight">Evaluator:</td><td>{[UserService.getName(values.roles.evaluator2.userId)]} </td><td>Duration:</td><td>5-7min</td></tr>
-		<tr><td colSpan="4" class="header" >12:45PM Table Topics</td></tr>
-		<tr><td class="highlight">Speaker:</td><td>{[UserService.getName(values.roles.tableTopics.userId)]} </td><td>Each Question:</td><td>1-2min</td></tr>
-		<tr><td colSpan="4" class="header" >12:50PM General Evalatoin</td></tr>
-		<tr><td class="highlight">General Evaluator:</td><td>{[UserService.getName(values.roles.generalEvaluator.userId)]} </td><td>Speech Type:</td><td>Ice Breaker</td></tr>
-		<tr><td colSpan="4" class="header" >12:55PM Closing</td></tr>
-		<tr><td colSpan="4">1.Closing <br/>2.Next Closing</td></tr>
+		<tr><td colSpan="4" class="header" >Speech Two</td></tr>
+		<tr><td class="highlight">Speaker:</td><td colspan="3">{[UserService.getName(values.roles.speaker2.userId)]} </td></tr>
+		<tr><td class="highlight">Evaluator:</td><td colspan="3">{[UserService.getName(values.roles.evaluator2.userId)]} </td></tr>
 	</table>
 </div>
 

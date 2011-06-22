@@ -88,7 +88,6 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
              },
              items: [
 				this.roleSelector,
-				this.timer,
  				{
 					id: 'pTimeIndicator',
 					html:indicatorHtml
@@ -99,7 +98,8 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
 								'</tr>'+
 							'</table>'
-               }
+               },
+				this.timer
 			]
 		});
 
@@ -111,28 +111,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
                 labelAlign: 'left',
                 labelWidth: '10%'
             },
-            items: [        	
-				{
-					layout:'hbox',
-					flex:1,
-               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
-					items:[
-			                new Ext.Button({
-			                    text: 'Save',
-								scope: this,
-			                    width:100,
-				                handler: this.save
-			                }),
-			                new Ext.Button({
-			                    text: 'Reset',
-								scope: this,
-			                    width:100,
-				                handler: this.resetTimer
-			                })
-					       ]
-
-				}
-            	]
+            items: []
             }
         ];
         
@@ -153,6 +132,24 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
                     },
                     {xtype: 'spacer'}
                 ]
+            },
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items : [ {
+						xtype : 'spacer'
+					}, new Ext.Button({
+	                    text: 'Save',
+						scope: this,
+	                    width:100,
+		                handler: this.save
+	                }),
+	                new Ext.Button({
+	                    text: 'Reset',
+						scope: this,
+	                    width:100,
+		                handler: this.resetTimer
+	                })]
             }
         ];
         MyTimerPanel.superclass.initComponent.call(this);

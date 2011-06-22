@@ -67,6 +67,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingReportPanel = new Ext.Panel({html:'Loading..', title:'Report',scroll: 'vertical'});
 
 		this.meetingDetailTabPanel = new Ext.TabPanel({
+			scroll: 'vertical',
 			cls: 'legislator-tabs',
 			fullscreen : false,
 			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ],
