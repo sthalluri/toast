@@ -90,8 +90,9 @@ var meetingStore = new Ext.data.JsonStore({
 	loadAndFormat : function(records){
 		for(var i=0 ;i<records.length; i++){
 			if(records[i].meetingDate){
-				var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
-				records[i].fMeetingDate = fDate.format('F j, Y, g:i a');
+				//var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
+				records[i].fMeetingDate = records[i].meetingDate;
+				//fDate.format('F j, Y, g:i a');
 			}
 		}
 		this.loadData(records);

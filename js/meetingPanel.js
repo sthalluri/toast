@@ -162,11 +162,13 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                         text: 'Save',
                         ui: 'confirm',
                         scope:this,
+                        width:80,
                         handler: this.save
                     },
                     {
                         text: 'Reset',
                         scope: this,
+                        width:80,
                         handler: function() {
                         	this.reset();
                         }

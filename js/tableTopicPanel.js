@@ -47,6 +47,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    }
 				},
 				{xtype: 'spacer'},
+				{
+                    iconMask: true,
+                    ui: 'plain',
+                	iconCls:'delete',
+                	id: 'tableTopicDeleteIcon',
+                	scope:this,
+                    handler: this.deleteConfirm
+                },
                 {
                     iconMask: true,
                     ui: 'plain',
@@ -101,13 +109,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			questionDataStore.rowId = null;
 			data.returnval = new Array();
 		}
-		this.show();
 		if(!this.carouselInit){
 			this.initCarousel();
 			this.carouselInit = true;
 		}else{
 			this.updateCarousel();
 		}
+		this.show();
+		this.tblTopicCarouselPanel.doLayout();
 	},
 
 	initCarousel: function(){
@@ -139,6 +148,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
         this.doLayout();
 		Ext.getCmp('tableTopicAddIcon').show();
         Ext.getCmp('tableTopicEditIcon').hide();
+        Ext.getCmp('tableTopicDeleteIcon').hide();
 	},
 
 	updateCarousel: function(){
@@ -149,9 +159,9 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			if(card){
 				card.el.dom.innerHTML = this.questionTmpl.apply(this.formatNotes(data));
 			}else{
-//				this.speechNoteTopicCarousel.add({
-//					html: this.speechNoteTmpl.apply(data)
-//				});
+				this.tblTopicCarouselPanel.add({
+					html: this.questionTmpl.apply(this.formatNotes(data))
+				});
 			}
 			i++;
         }, this);		
@@ -178,6 +188,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&questionDataStore.getAt(index-1)){
 			Ext.getCmp('tableTopicEditIcon').show();
+	        Ext.getCmp('tableTopicDeleteIcon').show();
 			Ext.getCmp('tableTopicAddIcon').hide();
 			this.activeIndex = index;
 			console.log(this.activeIndex);
@@ -185,6 +196,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		}else{
 			Ext.getCmp('tableTopicAddIcon').show();
 			Ext.getCmp('tableTopicEditIcon').hide();
+	        Ext.getCmp('tableTopicDeleteIcon').hide();
 		}
 	},
 
@@ -197,14 +209,24 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.updateMessage(data.errorMessage);
 		}
 	},
+	
 	updateMessage: function(msg){
 		if(this.items.get(0).titleEl){
 			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 		}
 	},
-	deleteCard: function(){
-		questionDataStore.removeAt(this.activeIndex-1);
-        MeetingService.saveTableTopics(this.onDelete, this);
+	
+	deleteConfirm : function()
+	{
+		Ext.Msg.confirm("Confirm delete card", "Do you want to continue?", this.deleteCard, this);
+	},
+
+	deleteCard: function(opt){
+		if(opt == "yes")
+		{
+			questionDataStore.removeAt(this.activeIndex-1);
+	        MeetingService.saveTableTopics(this.onDelete, this);
+		}
 	},
 	
 

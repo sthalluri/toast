@@ -182,9 +182,11 @@
 
 <div id="time-indicator" class="x-hidden-display">
 	<table class="contentTable" style="width: 100%">
-		<tr><td class="green">Green</td><td>{[getMins(values.green)]}</td>
-		<td class="yellow">Yellow</td><td>{[getMins(values.yellow)]}</td>
-		<td class="red">Red</td><td>{[getMins(values.red)]}</td>
+		<tr>
+		<td ><b>Limits:</b></td>
+		<td class="green">{[getMins(values.green)]}</td>
+		<td class="yellow">{[getMins(values.yellow)]}</td>
+		<td class="red">{[getMins(values.red)]}</td>
 		<td>
 			<div class=" x-button x-button-normal" style="margin-bottom: 0.5em; margin-left: 0.5em; ">
 				<span class="x-button-label" onclick="{panel}.editTimeLimit();">Edit</span>

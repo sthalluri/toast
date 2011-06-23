@@ -129,23 +129,23 @@ Re-factor homelayout via tabs
 List selection not working properly
 Messages not reset in most of the save panels
 Icons for the table topics and the speech cards
+Time and location for the meeting
+Adding new notes doesnt add a new panel well
 
 Format meeting report
 Format Work Log report
 Format agenda
 
-Time and location for the meeting
 UI cleanup 
 	- Icons on the tops
 	- Better icons for the home page
 
-Adding new notes doesnt add a new panel well
 Messages and error handling
 Validations 
 	- duplicate counter
 	- Saving the same its saving multiple times on the meeting panel.
-Cleanup the last screen
-	
+Time format not correct
+
 Phonegap
 
 
@@ -157,3 +157,4 @@ Logout option
 Agenda Management, for multiple speeches
 Delete meeting
 Editing time on the timerPanel
+View my profile option

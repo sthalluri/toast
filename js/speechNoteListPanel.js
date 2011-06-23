@@ -13,7 +13,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	this.activeIndex =1;
 	this.base = {
 	    itemTpl: 	'<div class="legislator-list-item">'+
-	    			'<div class="legislator-tnail" style="background-image: url(./images/Stickysmall.png)"></div>'+
+	    			'<div class="legislator-tnail" style="background-image: url(./images/stickyBig.jpg)"></div>'+
 	    			'{heading}'+
 	    			'</div>',
 	    selModel: {
@@ -51,7 +51,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
                 	iconCls:'delete',
                 	id: 'speechNoteDeleteIcon',
                 	scope:this,
-                    handler: this.deleteCard
+                    handler: this.deleteConfirm
                 },
                 {
                     iconMask: true,
@@ -241,9 +241,17 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		}
 	},
 
-	deleteCard: function(){
-		speechNoteDataStore.removeAt(this.activeIndex-1);
-        MeetingService.saveSpeechNotes(this.onDelete, this);
+	deleteConfirm : function()
+	{
+		Ext.Msg.confirm("Confirm delete card", "Do you want to continue?", this.deleteCard, this);
+	},
+
+	deleteCard: function(opt){
+		if(opt == "yes")
+		{
+			speechNoteDataStore.removeAt(this.activeIndex-1);
+	        MeetingService.saveSpeechNotes(this.onDelete, this);
+		}
 	},
 	
 	newSpeechNote:function(){

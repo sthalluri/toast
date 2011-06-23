@@ -191,10 +191,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	                    text: 'Save',
 						scope: this,
 						ui : 'confirm',
+	                    width:80,
 		                handler: this.save
 	                }),new Ext.Button({
 	                    text: 'Reset',
 						scope: this,
+	                    width:80,
 		                handler: this.resetTimer
 	                })]
             }

@@ -47,11 +47,12 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 				text : 'Login',
 				ui : 'confirm',
 				scope: this,
+                width:80,
 				handler : this.login
 			}, {
 				text : 'Cancel',
-				ui : 'decline',
 				scope: this,
+                width:80,
 				handler : this.cancel
 			} ]
 		} ];

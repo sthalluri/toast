@@ -50,12 +50,14 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 					}, new Ext.Button({
 		                text: 'Save',
 						scope: this,
+	                    width:80,
 		                ui : 'confirm',
 		                handler: this.save
 		            }), 
 					new Ext.Button({
 		                text: 'Reset',
 						scope: this,
+	                    width:80,
 		                handler: function(){
 		                	this.reset();
 		                }
@@ -90,8 +92,6 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 	    	this.hide();
 	    	tableTopicPanel.onTableTopicsLoad(data, true);
-			//questionDataStore.loadData(data.returnVal);
-	    	tableTopicPanel.listMode();
 	    	tableTopicPanel.show();
 		} else {
 			this.updateMessage(data.errorMessage);
