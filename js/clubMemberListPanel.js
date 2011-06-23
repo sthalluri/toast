@@ -31,11 +31,15 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 	
         var buttonGroup1 = [];
         var buttonGroup2 = [{
-	    	text: '+',
-	    	ui: 'action',
+	    	iconMask: true,
+	    	ui: 'plain',
+	    	iconCls: 'add',
+	    	id: 'clubMemberAddIcon',
+	    	scope: this,
 	    	handler: function(){
 	    		homeTabPanel.hide();
 	    		showPanel(clubMemberAddPanel);
+	    		clubMemberAddPanel.resetFields();
 	    	}
         }];
         

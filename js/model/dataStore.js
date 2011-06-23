@@ -104,7 +104,9 @@ Ext.regModel('Member', {
         {name: 'userId',    type: 'string'},
         {name: 'firstName',    type: 'string'},
         {name: 'lastName',    type: 'string'},
-        {name: 'name',    type: 'string'}
+        {name: 'name',    type: 'string'},
+        {name: 'phone',   type: 'string'},
+        {name: 'aboutMe', type: 'string'}
     ]
 });
 
