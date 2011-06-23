@@ -81,6 +81,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 		this.speechNote = pSpeechNote;
 	},
 	
+	
 	onSpeechNotesLoad: function(data){
 		if (data.success) {
 	    	this.hide();

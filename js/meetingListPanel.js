@@ -266,6 +266,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		}
 	},
 	
+	
 	showMeeting: function(meeting){
 		var carousel = this.meetingCarousel;
 		this.activeMeeting = meeting;		    		

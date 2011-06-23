@@ -276,8 +276,10 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
+		
 	},
 
+	
 	goBack: function(){
 		MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingListDataLoad, this);
 	},

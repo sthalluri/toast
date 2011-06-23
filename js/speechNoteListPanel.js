@@ -169,6 +169,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
             });
         }, this); 
 		
+		
 		this.speechNoteTopicCarousel = new Ext.Carousel({
             items: items,
             scope:this,
@@ -184,6 +185,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
         Ext.getCmp('speechNoteEditIcon').hide();
         Ext.getCmp('speechNoteDeleteIcon').hide();
 	},
+	
 	
 	updateCarousel: function(){
 		var i = 1;
