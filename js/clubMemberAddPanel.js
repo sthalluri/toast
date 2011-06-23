@@ -9,7 +9,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			text:'Delete',
 			ui:'decline',
 			scope:this,
-			handler:this.deleteMember
+			handler:this.deleteConfirm
 		});
 
 		this.editButton = new Ext.Button({
@@ -18,6 +18,30 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			ui:'drastic',
 			scope:this,
 			handler:this.editMember
+		});
+		
+		this.saveButton = new Ext.Button({
+			id:'save',
+			text:'Save',
+			ui:'action',
+			scope:this,
+			handler:this.saveClubMember
+		});
+		
+		this.cancelButton = new Ext.Button({
+			id:'cancel',
+			text:'Cancel',
+			ui:'drastic',
+			scope:this,
+			handler:this.hideAddPanel
+		});
+		
+		this.backButton = new Ext.Button({
+			id:'back',
+			text:'Back',
+			ui:'back',
+			scope:this,
+			handler:this.hideAddPanel
 		});
 
 		this.items = [{
@@ -76,22 +100,12 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			layout:'hbox',
 			flex:1,
        	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;', width:100},
-			items:[
-					{
-						id:'save',
-						text:'Save',
-						ui:'action',
-						scope:this,
-						handler:this.saveClubMember
-					},
-					{
-						id:'cancel',
-						text:'Cancel',
-						ui:'drastic',
-						scope:this,
-						handler:this.hideAddPanel
-					},
-					this.deleteButton]
+			items:
+			[
+				this.saveButton,
+				this.cancelButton,
+				this.deleteButton
+			]
 		}
 		];
 		
@@ -99,14 +113,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		{
 			xtype:'toolbar',
 			dock:'top',
+			title:'Member Information',
 			items:[
-			{
-				id:'back',
-				text:'Back',
-				ui:'back',
-				scope:this,
-				handler:this.hideAddPanel
-			},
+			this.backButton,
 			{
 				xtype:'spacer'
 			},
@@ -132,10 +141,18 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		}
 	},
 	
-	deleteMember : function()
+	deleteConfirm : function()
+	{
+		Ext.Msg.confirm("Confirm delete user", "Deleting this user will delete all it's history too. Do you want to continue?", this.deleteMember, this);
+	},
+	
+	deleteMember : function(opt)
 	{
 		var id = this.getValues().id;
-		UserService.deleteClubMember(id, this.onOperation, this);
+		if(opt == "yes")
+		{
+			UserService.deleteClubMember(id, this.onOperation, this);
+		}
 	},
 	
 	onOperation : function(data)
@@ -152,6 +169,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	editMember : function()
 	{
 		this.enable();
+		this.saveButton.show();
+		this.cancelButton.show();
+		this.deleteButton.show();
 	},
 	
 	populateUserDetails : function(user)
@@ -165,8 +185,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			aboutme: user.aboutMe
 		});
 		this.disable();
-		
-		this.deleteButton.show();
+		this.saveButton.hide();
+		this.cancelButton.hide();
+		this.deleteButton.hide();
 		this.editButton.show();
 	},
 	

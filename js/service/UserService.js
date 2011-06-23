@@ -64,7 +64,8 @@ UserServiceImpl = Ext.extend(Object, {
 			phone : formValues.phone,
 			firstName : formValues.fname,
 			lastName : formValues.lname,
-			aboutMe: formValues.aboutme
+			aboutMe: formValues.aboutme,
+			defaultClubId: thisUser.defaultClubId
 		};
 		if(formValues.id)
 		{
