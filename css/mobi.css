@@ -330,9 +330,11 @@ div .logData{
 .x-list .x-list-item {
 	position: relative;
 	color: #333;
-	padding: 0.1em 0.3em 0.1em 0.0em;
+	padding: 0.2em 0.3em 0.2em 0.2em;
 	min-height: 2.6em;
 	display: -webkit-box;
 	display: box;
 	border-top: 1px solid #C8C8C8;
 }
+
+# last left
