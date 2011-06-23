@@ -198,6 +198,8 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		this.updateMessage('');
 		this.deleteButton.hide();
 		this.editButton.hide();
+		this.saveButton.show();
+		this.cancelButton.show();
 	},
 	
 	onClubMemberLoad: function(data)
