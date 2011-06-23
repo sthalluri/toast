@@ -287,7 +287,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			colorDiv.className= colourClass;
 			this.timeLimits.className = colourClass;
 			cardPanel.updateColor(colourClass);
-			console.log('Changing to yello');
+			console.log('Changing to yellow');
 		}
 	},
 

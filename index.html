@@ -59,6 +59,8 @@
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+		<tr/>
+		<tr>
 			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
 		<tr>
@@ -131,10 +133,10 @@
 	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td colSpan="4">{role}</td>
+				<td class="highlight">Role:</td><td colSpan="4">{role}</td>
 			</tr>
 			<tr>
-				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 			<tr>
 	</table>
 	</div>
@@ -160,8 +162,17 @@
 	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
-			<td class="highlight">Role:</td><td>{role}</td><td class="highlight"> TimeSpent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+			<td class="highlight">Role:</td><td colspan="5">{role}</td>
+		</tr>
 		<tr>
+			<td class="highlight">Limits:</td>
+			<td class="green">{[getMins(values.timeLimits.green)]}</td>
+			<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
+			<td class="red">{[getMins(values.timeLimits.red)]}</td>
+		</tr>
+		<tr>
+			<td class="highlight"> TimeSpent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+		</tr>
 	</table>
 	</div>
     </tpl>
@@ -173,10 +184,12 @@
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+			<tr>
+			<tr>
 				<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+			</tr>
 			<tr>
-			<tr>
-				<td class="highlight" colSpan="2">Roles Played:</td><td>{rolesStr}</td>
+				<td class="highlight" >Roles Played:</td><td>{rolesStr}</td>
 			</tr>
 		</table>
 	</tpl>

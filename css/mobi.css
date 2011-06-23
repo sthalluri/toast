@@ -189,7 +189,7 @@ a.spch-bub-outside-medium {
 
 .header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:#AA2200;font-size: 1em;vertical-align:text-top;}
+.highlight{color:#883120;font-size: 1em;vertical-align:text-top;font-weight:bold;}
 
 .red{color:red;font-size: 1em;font-weight:bold;}
 .yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
@@ -206,7 +206,7 @@ table.contentTable{font-size:.8em; cellpadding:.2em;padding:.2em}
 table.contentTable td
 {
     margin:10px;
-    padding:5px;
+    padding:.3em;
     text-align: left;    
 }
 
@@ -324,4 +324,15 @@ div.notesHeading p
 
 div .logData{
 	padding: .3em;	
+}
+
+
+.x-list .x-list-item {
+	position: relative;
+	color: #333;
+	padding: 0.1em 0.3em 0.1em 0.0em;
+	min-height: 2.6em;
+	display: -webkit-box;
+	display: box;
+	border-top: 1px solid #C8C8C8;
 }

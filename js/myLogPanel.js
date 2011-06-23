@@ -108,6 +108,9 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 						&& role.userId == thisUser.id){ 
 					var timerLog = new Object();
 					timerLog.timeSpent = role.timeSpent;
+					if(role.timeLimits){
+						timerLog.timeLimits = role.timeLimits;
+					}
 					timerLog.role = roleStore.getById(roles[j]).data.description;
 					timerLogs.push(timerLog);
 					timerLog.fMeetingDate = meeting.fMeetingDate;

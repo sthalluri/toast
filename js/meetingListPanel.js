@@ -4,12 +4,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     tabId: 'meetingList',
     title:'Meetings',
     fullScreen:true,
-    layout : {
-		align:'stretch'
-	},
-	defaults:{
-		flex : 1
-	},
 	getHeaderConfig: function(title) {
         return {
             xtype: 'component',
