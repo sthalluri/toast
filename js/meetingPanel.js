@@ -256,7 +256,11 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			console.log('Loading meeting data');
 			meetingStore.loadAndFormat(data.returnVal.rows);
-	    	closePanel(this);
+	    	
+			closePanel(this);
+	    	
+			meetingListPanel.showMeeting(thisMeeting);
+			
 			//this.hide();
 	    	//meetingListPanel.show();
 	    	//meetingListPanel.listMode();

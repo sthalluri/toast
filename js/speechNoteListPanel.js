@@ -142,13 +142,14 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			}else{
 				speechNoteDataStore.removeAll();
 			}
-			this.show();
 			if(!this.carouselInit){
 				this.initCarousel();
 				this.carouselInit = true;
 			}else{
 				this.updateCarousel();
 			}
+			this.show();
+			this.speechNoteTopicCarousel.doLayout();
 		}
 	},
 	
@@ -192,9 +193,9 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			if(card){
 				card.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(data));
 			}else{
-//				this.speechNoteTopicCarousel.add({
-//					html: this.speechNoteTmpl.apply(data)
-//				});
+				this.speechNoteTopicCarousel.add({
+					html: this.speechNoteTmpl.apply(this.formatNotes(data))
+				});
 			}
 			i++;
         }, this);
@@ -204,10 +205,13 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		//this.updateCarousel();
 		console.log(this.activeIndex);
 		var activeCard = this.speechNoteTopicCarousel.items.get(this.activeIndex);
-		if(activeCard.el && activeCard.el.dom){
+		if(activeCard && activeCard.el && activeCard.el.dom){
 			activeCard.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(speechNoteDataStore.getAt(this.activeIndex-1).data));
+			this.speechNoteTopicCarousel.setActiveItem(activeCard);
+		}else{
+			activeCard = this.speechNoteTopicCarousel.items.get(0);
+			this.speechNoteTopicCarousel.setActiveItem(activeCard);
 		}
-		this.speechNoteTopicCarousel.setActiveItem(activeCard);
 	},
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
@@ -261,7 +265,13 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		var carousel = this.parentPanel.speechNoteTopicCarousel;
 		this.parentPanel.activeIndex = index+1;
 		carousel.setActiveItem(carousel.items.get(index+1));
-    }	
+    },
+    
+    showLastCard: function(){
+		this.activeIndex = this.speechNoteTopicCarousel.items.length;
+		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(this.activeIndex));
+    	this.cardChanged(null, null, null, this.activeIndex);
+    }
 });
 
 

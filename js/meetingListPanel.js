@@ -41,22 +41,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		        scope: this,
 		        handler: function(record, btn, index) {
 		            //alert('Disclose more info for ' + record.get('firstName'));
-		    		var carousel = this.parentPanel.meetingCarousel;
 		    		var meeting = this.parentPanel.meetingStore.getAt(index).data;
 		    		thisMeeting = meeting;
-		    		this.parentPanel.activeMeeting = meeting;
-		    		
-		    		//Set the content for the agenda tab
-		    		var html = this.parentPanel.meetingTmpl.apply(meeting);		    		
-		    		if(this.parentPanel.meetingPanel.el){
-			    		this.parentPanel.meetingPanel.el.dom.innerHTML = html;
-		    		}else{
-			    		this.parentPanel.meetingPanel.html = html;
-		    		}
-		    		
-		    		var tabPanel = carousel.items.get(1);
-		    		carousel.setActiveItem(tabPanel);
-		    		this.parentPanel.detailMode();
+		    		this.parentPanel.showMeeting(meeting);
 		        }
 		    },
 		    store: this.meetingStore
@@ -277,6 +264,22 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    		this.meetingReportPanel.html = html;
     		}
 		}
+	},
+	
+	showMeeting: function(meeting){
+		var carousel = this.meetingCarousel;
+		this.activeMeeting = meeting;		    		
+		//Set the content for the agenda tab
+		var html = this.meetingTmpl.apply(meeting);		    		
+		if(this.meetingPanel.el){
+    		this.meetingPanel.el.dom.innerHTML = html;
+		}else{
+    		this.meetingPanel.html = html;
+		}
+		
+		var tabPanel = carousel.items.get(1);
+		carousel.setActiveItem(tabPanel);
+		this.detailMode();
 	}
 
 });

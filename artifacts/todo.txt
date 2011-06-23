@@ -143,6 +143,7 @@ Adding new notes doesnt add a new panel well
 Messages and error handling
 Validations 
 	- duplicate counter
+	- Saving the same its saving multiple times on the meeting panel.
 Cleanup the last screen
 	
 Phonegap
