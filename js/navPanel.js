@@ -80,7 +80,7 @@ NavPanel = Ext.extend(Ext.Panel,
 	},
 
 	viewMyClub:function(){
-        Ext.Msg.alert('Under Construction', 'Not implemented yet.', Ext.emptyFn);
+        Ext.Msg.alert('Under Construction', '', Ext.emptyFn);
 	},
 	
 	onClubMemberLoad: function(data)
