@@ -13,8 +13,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		});
 
 		this.editButton = new Ext.Button({
+			iconMask: true,
 			id:'edit',
-			text:'Edit',
+			iconCls: 'compose',
 			ui:'drastic',
 			scope:this,
 			handler:this.editMember
@@ -95,17 +96,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		    	label:'About Me',
 		    }
 		    ]
-		},
-		{
-			layout:'hbox',
-			flex:1,
-       	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;', width:100},
-			items:
-			[
-				this.saveButton,
-				this.cancelButton,
-				this.deleteButton
-			]
 		}
 		];
 		
@@ -115,11 +105,27 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			dock:'top',
 			title:'Member Information',
 			items:[
-			this.backButton,
-			{
-				xtype:'spacer'
-			},
-			this.editButton]
+			       this.backButton,
+			       {
+			    	   xtype:'spacer'
+			       },
+			       this.editButton
+			]
+		},
+		{
+			xtype:'toolbar',
+			dock:'bottom',
+			items:[
+			       {
+			    	   xtype:'spacer'
+			       },
+			       this.saveButton,
+			       this.cancelButton,
+			       {
+			    	   xtype:'spacer'
+			       },
+			       this.deleteButton
+			]
 		}];
 		
 		
