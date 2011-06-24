@@ -17,7 +17,7 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
         {
             xtype: 'list',
             store: memberStore,
-            itemTpl: '<div id="{id}" class="contact"><img width="30" height="30" class="imageLeft" src="images/phone_startup.png"/><strong>{firstName}</strong> {lastName}</div>',
+            itemTpl: '<div id="{id}" class="contact"><img class="imageLeft" src="js/ext/resources/themes/images/default/pictos/user.png"/>&nbsp;&nbsp;&nbsp;<strong>{firstName}</strong> {lastName}</div>',
             grouped: true,
             indexBar: true,
             onItemDisclosure: function(record, btn, index)
