@@ -214,7 +214,6 @@ table.contentTable td
     text-align: left;    
 }
 
-.x-button-round,.x-button.x-button-action-round,.x-button.x-button-confirm-round,.x-button.x-button-decline-round{-webkit-border-radius:0.9em;border-radius:0.9em;padding:0.1em 0.9em}.x-button-small,.x-button.x-button-action-small,.x-button.x-button-confirm-small,.x-button.x-button-decline-small,.x-toolbar .x-button-small,.x-toolbar .x-button.x-button-action-small,.x-toolbar .x-button.x-button-confirm-small,.x-toolbar .x-button.x-button-decline-small{-webkit-border-radius:0.3em;border-radius:0.3em;padding:.2em .4em;min-height:0}.x-button-small 
 
 
 .x-tabbar.x-docked-top .x-tab {
@@ -298,7 +297,6 @@ div.notesHeading p
 	padding: 10px;
 	height: 45px;
 	background: url(../images/toolbar.png) black repeat-x;
-	position: relative;
 	box-sizing: border-box;
 }
 
