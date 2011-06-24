@@ -31,7 +31,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    parentPanel:this,
 		    sorters: 'date',
 		    singleSelect:true,
-            indexBar: false,
         	defaults:{
         		flex : 1
         	},
