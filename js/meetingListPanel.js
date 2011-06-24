@@ -4,13 +4,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     tabId: 'meetingList',
     title:'Meetings',
     fullScreen:true,
-	getHeaderConfig: function(title) {
-        return {
-            xtype: 'component',
-            html: title,
-            cls: 'x-list-header'
-        };
-    },
+	defaults:{
+		flex : 1
+	},
+    layout : {
+		align:'stretch'
+	},
+	cls: 'demo-list',	
 	initComponent : function() {
 		// Meeting Detail Template
 		this.meetingTmpl = Ext.XTemplate.from('meeting-detail');
@@ -31,15 +31,16 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    parentPanel:this,
 		    sorters: 'date',
 		    singleSelect:true,
-		    onItemDisclosure: {
-		        scope: this,
-		        handler: function(record, btn, index) {
-		            //alert('Disclose more info for ' + record.get('firstName'));
-		    		var meeting = this.parentPanel.meetingStore.getAt(index).data;
-		    		thisMeeting = meeting;
-		    		this.parentPanel.showMeeting(meeting);
-		        }
-		    },
+            indexBar: false,
+        	defaults:{
+        		flex : 1
+        	},
+            layout : {
+        		align:'stretch'
+        	},
+		    listeners: {
+                selectionchange: {fn: this.onSelect, scope: this}
+            },
 		    store: this.meetingStore
 		};
 	
@@ -141,6 +142,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 
 	   MeetingListPanel.superclass.initComponent.call(this);	
 	},
+
 	
 	listMode: function(){
 		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
@@ -275,6 +277,17 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		var tabPanel = carousel.items.get(1);
 		carousel.setActiveItem(tabPanel);
 		this.detailMode();
-	}
+	},
+	
+    onSelect: function(sel, records){
+        if (records[0] !== undefined) {
+        	var data = records[0].data;
+        	console.log(data);
+    		//var meeting = this.parentPanel.meetingStore.getAt(index).data;
+    		thisMeeting = data;
+    		this.showMeeting(data);
+        }
+    }
+   
 
 });

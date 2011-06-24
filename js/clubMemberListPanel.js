@@ -10,8 +10,7 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 	defaults:{
 		flex : 1
 	},
-	cls: 'demo-list',
-	
+	cls: 'demo-list',	
 	initComponent : function() {
 
         this.items = [
