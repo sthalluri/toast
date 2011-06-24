@@ -3,7 +3,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
     title : 'Actions',
     initComponent: function(){
         this.list = new Ext.List({
-            itemTpl: '<div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}" onclick="navPanel.viewMyClub()"/>&nbsp;&nbsp;{title}</div>',
+            itemTpl: '<div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}"/>&nbsp;&nbsp;{title}</div>',
             ui: 'round',
             grouped: true,
             indexBar: false,

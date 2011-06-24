@@ -165,3 +165,6 @@ function logSelected(comp, newCard, oldCard, index) {
 	}
 }
 
+
+
+

@@ -51,10 +51,12 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 						text : 'Save',
 						scope : this,
 						ui : 'confirm',
+	                    width:80,
 						handler : this.save
 					}), new Ext.Button({
 						text : 'Reset',
 						scope : this,
+	                    width:80,
 						handler : function() {
 							this.reset();
 						}
@@ -81,13 +83,15 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 		this.speechNote = pSpeechNote;
 	},
 	
+	
 	onSpeechNotesLoad: function(data){
 		if (data.success) {
 	    	this.hide();
 	    	speechNoteListPanel.onSpeechNotesLoad(data, true);
 	    	//speechNoteListPanel.updateCarousel();
-	    	speechNoteListPanel.listMode();
+	    	//speechNoteListPanel.listMode();
 	    	speechNoteListPanel.show();
+	    	//speechNoteListPanel.showLastCard();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

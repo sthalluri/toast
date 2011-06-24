@@ -189,7 +189,7 @@ a.spch-bub-outside-medium {
 
 .header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:#AA2200;font-size: 1em;vertical-align:text-top;}
+.highlight{color:#883120;font-size: 1em;vertical-align:text-top;font-weight:bold;}
 
 .red{color:red;font-size: 1em;font-weight:bold;}
 .yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
@@ -201,12 +201,12 @@ a.spch-bub-outside-medium {
 .silverIndi{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 
 
-table.contentTable{font-size:.8em; cellpadding:.2em}
+table.contentTable{font-size:.8em; cellpadding:.2em;padding:.2em}
 
 table.contentTable td
 {
     margin:10px;
-    padding:5px;
+    padding:.3em;
     text-align: left;    
 }
 
@@ -221,23 +221,23 @@ height: 1.8em;
 border-radius: 0.1em;
 }
 
-.notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/sticky-notes1.jpg'}
+.notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/stickyBig.jpg'}
 
 
 
 div.background
   {
-  width:300px;
-  height:400px;
-  background:url(../images/Stickyhight.png)  no-repeat ;
+  width:'100%';
+  height:380px;
+  padding:10px;
+  background:url(../images/stickyBig.jpg)  no-repeat ;
   background-size: 100%;
-  margin:10px 10px;
   /*border:2px solid black;*/
   }
   
 div.transbox
   {
-  width:290px;
+  width:'95%';
   height:360px;
   padding:10px;
   /*
@@ -287,3 +287,54 @@ div.notesHeading p
 .legislator-list-item{height:60px;position:relative;overflow:hidden;font-weight:bold;padding:20px 10px 10px 70px !important;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
  
 .x-form-fieldset {margin: .1em 0 .1em;}
+
+
+.x-toolbar-dark {
+	border-bottom: 1px solid black;
+	padding: 10px;
+	height: 45px;
+	background: url(../images/toolbar.png) black repeat-x;
+	position: relative;
+	box-sizing: border-box;
+}
+
+
+.x-list-header {
+	background-color: #999;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #E6E6E6), color-stop(2%, #BFBFBF), color-stop(30%, #ADADAD), color-stop(65%, #999), color-stop(100%, gray));
+	background-image: linear-gradient(#E6E6E6,#BFBFBF 2%,#ADADAD 30%,#999 65%,gray);
+	color: #4D4D4D;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #666;
+	font-weight: bold;
+	font-size: 0.9em;
+	padding: 0.2em 1.02em;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
+	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
+}
+
+
+.xx-tabbar-dark {
+	border-bottom: 1px solid black;
+	background: url(../images/toolbar.png) black repeat-x;
+	position: relative;
+	box-sizing: border-box;
+}
+
+div .logData{
+	padding: .3em;	
+}
+
+
+.x-list .x-list-item {
+	position: relative;
+	color: #333;
+	padding: 0.2em 0.3em 0.2em 0.2em;
+	min-height: 2.6em;
+	display: -webkit-box;
+	display: box;
+	border-top: 1px solid #C8C8C8;
+}
+
+# last left

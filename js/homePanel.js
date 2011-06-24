@@ -17,14 +17,14 @@ HomePanel = Ext.extend(Ext.Panel,{
 					items : [ new Ext.Button({
 						ui : 'confirm',
 						text : 'Login',
-						width : 100,
+						width : 80,
 						pack : 'center',
 						handler : function() {
 							loginPanel.show();
 						}
 					}), new Ext.Button({
 						text : 'Register',
-						width : 100,
+						width : 80,
 						pack : 'center',
 						handler : function() {
 							registerPanel.show();

@@ -162,11 +162,13 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
                         text: 'Save',
                         ui: 'confirm',
                         scope:this,
+                        width:80,
                         handler: this.save
                     },
                     {
                         text: 'Reset',
                         scope: this,
+                        width:80,
                         handler: function() {
                         	this.reset();
                         }
@@ -256,7 +258,11 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			console.log('Loading meeting data');
 			meetingStore.loadAndFormat(data.returnVal.rows);
-	    	closePanel(this);
+	    	
+			closePanel(this);
+	    	
+			meetingListPanel.showMeeting(thisMeeting);
+			
 			//this.hide();
 	    	//meetingListPanel.show();
 	    	//meetingListPanel.listMode();
@@ -272,8 +278,10 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
+		
 	},
 
+	
 	goBack: function(){
 		MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingListDataLoad, this);
 	},

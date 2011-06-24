@@ -58,6 +58,7 @@ var timingStore={
 	evaluator : {red: 7, green: 2, yellow:5}	
 };
 
+//var serverUrl = 'http://10.0.0.8:8080';
 var serverUrl = 'http://localhost:8080';
 
 //var urlStore = mockUrls;
@@ -89,9 +90,9 @@ var meetingStore = new Ext.data.JsonStore({
 	loadAndFormat : function(records){
 		for(var i=0 ;i<records.length; i++){
 			if(records[i].meetingDate){
-				console.log(records[i].meetingDate);
-				var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
-				records[i].fMeetingDate = records[i].meetingDate; //.format('F j, Y, g:i a');
+				//var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
+				records[i].fMeetingDate = records[i].meetingDate;
+				//fDate.format('F j, Y, g:i a');
 			}
 		}
 		this.loadData(records);

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
     <title>Toolbars</title>
-	<link rel="stylesheet" href="js/ext/resources/css/sencha-touch.css" type="text/css">
+	<link rel="stylesheet" href="js/ext/resources/css/android.css" type="text/css">
 	<link rel="stylesheet" href="css/mobi.css" type="text/css">
 	<script type="text/javascript" src="js/ext/sencha-touch.js"></script>
 
@@ -48,16 +48,19 @@
 	<script type="text/javascript" src="js/service/ClubService.js"></script>
 	
 	
+	
 	<!-- Main layout -->
 	<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<div class="header" >{fMeetingDate}</div>
+	<div class="x-list-header" >{fMeetingDate}</div>
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+		<tr/>
+		<tr>
 			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
 		<tr>
@@ -68,7 +71,7 @@
 
 
 <div id="meeting-detail" class="x-hidden-display">
-	<div class="header" >{fMeetingDate}</div>
+	<div class="x-list-header" >{fMeetingDate}</div>
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
@@ -79,14 +82,14 @@
 		<tr>
 			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
 		</tr>
-		<tr><td colSpan="4" class="header" >Roles</td></tr>
+		<tr><td colSpan="4" class="x-list-header" >Roles</td></tr>
 		<tr>
 			<td class="highlight">Timer:</td>
-			<td colspan="3">{[UserService.getName(values.roles.grammarian.userId)]} </td>
+			<td colspan="3">{[UserService.getName(values.roles.timer.userId)]} </td>
 		</tr>
 		<tr>
 			<td class="highlight" >Grammarian:</td>
-			<td colspan="3">{[UserService.getName(values.roles.timer.userId)]} </td>
+			<td colspan="3">{[UserService.getName(values.roles.grammarian.userId)]} </td>
 		</tr>
 		<tr>
 			<td class="highlight" >Table Topics:</td>
@@ -96,7 +99,7 @@
 			<td class="highlight">General Evaluator:</td>
 			<td colspan="3">{[UserService.getName(values.roles.generalEvaluator.userId)]} </td>
 		</tr>
-		<tr><td colSpan="4" class="header" >Speech One</td></tr>
+		<tr><td colSpan="4" class="x-list-header" >Speech One</td></tr>
 		<tr>
 			<td class="highlight">Speaker:</td>
 			<td colspan="3">{[UserService.getName(values.roles.speaker1.userId)]} </td>
@@ -105,15 +108,16 @@
 			<td class="highlight">Evaluator:</td>
 			<td colspan="3">{[UserService.getName(values.roles.evaluator1.userId)]} </td>
 		</tr>
-		<tr><td colSpan="4" class="header" >Speech Two</td></tr>
+		<tr><td colSpan="4" class="x-list-header" >Speech Two</td></tr>
 		<tr><td class="highlight">Speaker:</td><td colspan="3">{[UserService.getName(values.roles.speaker2.userId)]} </td></tr>
 		<tr><td class="highlight">Evaluator:</td><td colspan="3">{[UserService.getName(values.roles.evaluator2.userId)]} </td></tr>
 	</table>
 </div>
 
 <div id="meeting-report" class="x-hidden-display">
-	<div class="header" >Grammarian Report</div>	
+	<div class="x-list-header" >Grammarian Report</div>	
 	<tpl for="gramLogs">
+	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td width="30%" class="highlight">Member:</td><td>{user}</td>
@@ -122,52 +126,70 @@
 				<td width="30%" class="highlight">AmCounts:</td><td>{amCountStr}</td>
 			<tr>
 	</table>
+	</div>
     </tpl>
-	<div class="header" >Timer Report</div>	
+	<div class="x-list-header" >Timer Report</div>	
 	<tpl for="timerLogs">
+	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td colSpan="4">{role}</td>
+				<td class="highlight">Role:</td><td colSpan="4">{role}</td>
 			</tr>
 			<tr>
-				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 			<tr>
 	</table>
+	</div>
     </tpl>
 </div>
 
 <div id="gram-log" class="x-hidden-display">
 	<tpl for="gramLogs">
-    <div class="header" >{fMeetingDate}</div>
+    <div class="x-list-header" >{fMeetingDate}</div>
+	<div class="logData">
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td width="30%" class="highlight"> Am Count:</td><td>{amCountStr}</td>
 			<tr>
-	</table>
+		</table>
+	</div>
     </tpl>
 </div>
 
 <div id="timer-log" class="x-hidden-display">
 	<tpl for="timerLogs">
-    <div class="header" >{fMeetingDate}</div>
-		<table style="width:100%;"   class="contentTable" >
-			<tr>
-				<td class="highlight">Role:</td><td>{role}</td><td class="highlight"> TimeSpent:</td><td style="background-color:{colorCode}">{[getMins(values.timeSpent)]}</td>
-			<tr>
+    <div class="x-list-header" >{fMeetingDate}</div>
+	<div class="logData">
+	<table style="width:100%;"   class="contentTable" >
+		<tr>
+			<td class="highlight">Role:</td><td colspan="5">{role}</td>
+		</tr>
+		<tr>
+			<td class="highlight">Limits:</td>
+			<td class="green">{[getMins(values.timeLimits.green)]}</td>
+			<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
+			<td class="red">{[getMins(values.timeLimits.red)]}</td>
+		</tr>
+		<tr>
+			<td class="highlight"> TimeSpent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+		</tr>
 	</table>
+	</div>
     </tpl>
 </div>
 
 <div id="meeting-log" class="x-hidden-display">
 	<tpl for="meetingLogs">
-		<div class="header" >{fMeetingDate}</div>
+		<div class="x-list-header" >{fMeetingDate}</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
 				<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+			<tr>
+			<tr>
 				<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+			</tr>
 			<tr>
-			<tr>
-				<td class="highlight" colSpan="2">Roles Played:</td><td>{rolesStr}</td>
+				<td class="highlight" >Roles Played:</td><td>{rolesStr}</td>
 			</tr>
 		</table>
 	</tpl>
@@ -181,9 +203,11 @@
 
 <div id="time-indicator" class="x-hidden-display">
 	<table class="contentTable" style="width: 100%">
-		<tr><td class="green">Green</td><td>{[getMins(values.green)]}</td>
-		<td class="yellow">Yellow</td><td>{[getMins(values.yellow)]}</td>
-		<td class="red">Red</td><td>{[getMins(values.red)]}</td>
+		<tr>
+		<td ><b>Limits:</b></td>
+		<td class="green">{[getMins(values.green)]}</td>
+		<td class="yellow">{[getMins(values.yellow)]}</td>
+		<td class="red">{[getMins(values.red)]}</td>
 		<td>
 			<div class=" x-button x-button-normal" style="margin-bottom: 0.5em; margin-left: 0.5em; ">
 				<span class="x-button-label" onclick="{panel}.editTimeLimit();">Edit</span>

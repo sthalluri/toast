@@ -49,12 +49,12 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		                text: 'Save',
 		                scope: this,
 		                ui  : 'confirm',
-		                width:100,
+	                    width:80,
 		                handler: this.save
 		            }, {
 		                text: 'Reset',
 		                scope: this,
-		                width:100,
+	                    width:80,
 		                handler: this.resetForm
 		            }]
 		        }
