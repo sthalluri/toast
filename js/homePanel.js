@@ -1,13 +1,16 @@
 HomePanel = Ext.extend(Ext.Panel,{
-	title : 'Home',
 	fullscreen : true,
-	layout : 'vbox',
-
+    layout : {
+		align:'stretch'
+	},
+	defaults:{
+		flex : 1
+	},
 	initComponent : function() {
 
 		this.items = [
 				{
-					html : '<div class="home"><br/><br/><h2>Welcome to ToastMasters</h2><br/><br/><br/></div>'
+					html : '<div class="c-toolbar-dark"><br/><br/><h2>Welcome to Toast App</h2><br/><br/><br/></div>'
 				}, {
 					layout : 'hbox',
 					defaults : {
@@ -17,7 +20,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 					items : [ new Ext.Button({
 						ui : 'confirm',
 						text : 'Login',
-						width : 80,
+						width : 80,	
 						pack : 'center',
 						handler : function() {
 							loginPanel.show();
@@ -32,12 +35,6 @@ HomePanel = Ext.extend(Ext.Panel,{
 					}) ]
 				} ];
 
-		this.dockedItems = [ {
-			title : 'ToastMasters',
-			xtype : 'toolbar',
-			dock : 'top',
-			items : []
-		} ];
 		HomePanel.superclass.initComponent.call(this);
 	}
 });
