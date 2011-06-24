@@ -5,8 +5,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	{
 
 		this.deleteButton = new Ext.Button({
+			iconMask:true,
 			id: 'delete',
-			text:'Delete',
+			iconCls:'delete',
 			ui:'decline',
 			scope:this,
 			handler:this.deleteConfirm
