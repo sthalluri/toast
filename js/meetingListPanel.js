@@ -103,6 +103,15 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	            dock: 'bottom'
 	   });
 
+		this.deleteButton = new Ext.Button({
+	        iconMask: true,
+	        ui: 'plain',
+	    	iconCls:'delete',
+	    	scope:this,
+	        handler: this.deleteConfirm
+	    });
+		
+
 	   this.mainToolbar = new Ext.Toolbar({
 	            title:'Meetings',
 	            dock: 'top',
@@ -116,6 +125,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	            items: [
 	                this.backButton,
 	                {xtype: 'spacer'},
+	                this.deleteButton,
 					{
 	                    iconMask: true,
 	                    ui: 'plain',
@@ -164,6 +174,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
 		Ext.getCmp('meetingListBackButton').hide();
+		this.deleteButton.hide();
 		this.mainToolbar.setTitle("Meetings");
 	},
 
@@ -171,6 +182,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').hide();
 		Ext.getCmp('meetingPanleEditIcon').show();
 		Ext.getCmp('meetingListBackButton').show();
+		this.deleteButton.show();
 		this.mainToolbar.setTitle("Meeting");
 	},
 
@@ -315,7 +327,29 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     
     showFilterBar: function(){
     	//this.filterToolBar.el.show();
-    }
+    },
    
+
+	onDelete:function(data){
+		if (data.success) {
+			meetingStore.loadAndFormat(data.returnVal.rows);
+			this.listMode();
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
+	deleteConfirm : function()
+	{
+		Ext.Msg.confirm("This will delete the meeting", "Do you want to continue?", this.deleteMeeting, this);
+	},
+
+	deleteMeeting: function(opt){
+		if(opt == "yes")
+		{
+	        MeetingService.deleteMeeting(this.activeMeeting.id, this.onDelete, this);
+		}
+	},
+
 
 });

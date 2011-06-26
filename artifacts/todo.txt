@@ -209,17 +209,22 @@ Club Member Edit
 
 My Log
 -Roles played not in format alignment
+-Time format not correct
+
 
 Nav Panel
-Logout option not working
-Time format not correct
-Delete meeting
-View my profile option
+-Delete meeting
 Icon next to the error
 
+Remember me not working & Logout option Logout option not working
+View my profile option
+Format the help tab
+
+Panel height messed up sometimes
+Back button handler for android
+Orientation problem not remembering
 
 Next Release
 Agenda Management, for multiple speeches
 Working with local datastore
-Remember me not working & Logout option
 Remember the app state

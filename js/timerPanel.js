@@ -226,12 +226,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;
-		if(!values.role || values.role =='0'){
-			this.updateMessage('Please select the role');
+		if(!values.role || values.role ==='0'){
+			this.updateMessage('Please select the Role');
 			return false;
 		}
-		if(!values.userId || values.userId =='none'){
-			this.updateMessage('Please select the user');
+		if(!values.userId || values.userId ==='none'){
+			this.updateMessage('Please select the Member');
 			return false;
 		}
 		return noErrors;

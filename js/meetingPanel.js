@@ -250,6 +250,9 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 				comp.setValue(pMeeting.roles.timer.userId);
 				}
 			}
+			if(comp.name == 'time'){
+				comp.setValue(pMeeting.meetingTime);
+			}
 		}
 		this.meeting = pMeeting;
 	},
@@ -296,25 +299,27 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		var values = this.getValues();
 		this.meeting.clubId = thisUser.defaultClubId;
 		this.meeting.location = values.location;
-		if(values.time){
-			var hours =  values.time.substring(0,2);
-			var mins =  parseInt(values.time.substring(3,5));
-			var am =  values.time.substring(6,8);
-			var iHours = 0;
-			
-			if(hours.substring(0,1)=="0"){
-				iHours = parseInt(hours.substring(1,2));
-			}else{
-				iHours = parseInt(hours.substring(1,2));
-			}			
-			if(am != "AM"){
-				iHours += 12;
-			}
-			
-			values.meetingDate.setHours(iHours);
-			values.meetingDate.setMinutes(parseInt(mins));
-		}
+		this.meeting.meetingTime = values.time;		
+//		if(values.time){
+//			var hours =  values.time.substring(0,2);
+//			var mins =  parseInt(values.time.substring(3,5));
+//			var am =  values.time.substring(6,8);
+//			var iHours = 0;
+//			
+//			if(hours.substring(0,1)=="0"){
+//				iHours = parseInt(hours.substring(1,2));
+//			}else{
+//				iHours = parseInt(hours.substring(1,2));
+//			}			
+//			if(am != "AM"){
+//				iHours += 12;
+//			}
+//			
+//			values.meetingDate.setHours(iHours);
+//			values.meetingDate.setMinutes(parseInt(mins));
+//		}
 		this.meeting.meetingDate = values.meetingDate;
+		this.meeting.meetingTime = values.time;
 		this.meeting.wordOfTheDay = values.wordOfTheDay;
 		this.meeting.themeOfTheDay = values.themeOfTheDay;
 		this.meeting.roles.speaker1.userId = values.speaker1;

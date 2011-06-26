@@ -93,6 +93,7 @@ Ext.regModel('Meeting', {
         {name: 'themeOfTheDay', type: 'string'},
         {name: 'inProgress'},
         {name: 'meetingDate',	type: 'date'},
+        {name: 'meetingTime'},
         {name: 'location'}
     ]
 });
@@ -106,7 +107,11 @@ var meetingStore = new Ext.data.JsonStore({
 		for(var i=0 ;i<records.length; i++){
 			if(records[i].meetingDate){
 				var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
-				records[i].fMeetingDate = fDate.format('F j, Y, g:i a');
+				if(records[i].meetingTime){
+					records[i].fMeetingDate = fDate.format('F j, Y')+' '+records[i].meetingTime;
+				}else{
+					records[i].fMeetingDate = fDate.format('F j, Y');
+				}
 			}
 		}
 		this.loadData(records);

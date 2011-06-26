@@ -37,6 +37,15 @@ MeetingServiceImpl = Ext.extend(Object, {
 		});
 	},
 
+	//Get the meetings by club id
+	deleteMeeting : function(meetingId, cb, scope) {
+	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
+		Ext.Ajax.request({
+			url : urlStore.meetingUrl + '/delete/' + meetingId,
+			success : this.onAjaxResponse
+		});
+	},
+
 	//Save the Table Topic question
 	saveTableTopics : function(cb, scope) {
 		console.log('Invoking the save table topics service');		

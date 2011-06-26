@@ -83,6 +83,10 @@
 		</tr>
 		<tr><td colSpan="4" class="x-list-header" >Roles</td></tr>
 		<tr>
+			<td class="highlight">Toastmaster:</td>
+			<td colspan="3">{[UserService.getName(values.roles.toastMaster.userId)]} </td>
+		</tr>
+		<tr>
 			<td class="highlight">Timer:</td>
 			<td colspan="3">{[UserService.getName(values.roles.timer.userId)]} </td>
 		</tr>
@@ -184,6 +188,15 @@
 		</table>
 	</div>
     </tpl>
+    <tpl if="gramLogs.length==0">
+		<div class="logData">
+		<table style="width:100%;"   class="contentTable" >
+				<tr>
+		    	<td>No Log Available</td>
+				<tr>
+		</table>
+		</div>
+    </tpl>
 </div>
 
 <div id="timer-log" class="x-hidden-display">
@@ -205,6 +218,15 @@
 		</tr>
 	</table>
 	</div>
+    </tpl>
+    <tpl if="timerLogs.length==0">
+		<div class="logData">
+		<table style="width:100%;"   class="contentTable" >
+				<tr>
+		    	<td>No Log Available</td>
+				<tr>
+		</table>
+		</div>
     </tpl>
 </div>
 

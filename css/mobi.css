@@ -295,7 +295,14 @@ div.notesIndex p
 }
 
 .legislator-tnail{width:40px;height:40px;background-position:center center;-webkit-border-radius:5px;overflow:hidden;position:absolute;left:10px;top:10px;-webkit-box-shadow:#ccc 0 1px 2px}
-.legislator-list-item{height:60px;position:relative;overflow:hidden;font-weight:bold;padding:20px 10px 10px 70px !important;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+
+.legislator-list-item{
+height:60px;
+position:relative;
+font-weight:bold;
+padding:20px 10px 10px 70px !important;
+text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+ 
  
 .x-form-fieldset {margin: .1em 0 .1em;}
 

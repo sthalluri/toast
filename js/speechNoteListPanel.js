@@ -64,9 +64,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			    text: 'Back',
                 ui: 'back',
 			    scope:this,
-			    handler: function() {
-                	closePanel(this);
-			    }
+			    handler: this.goBack
 			},
 			{xtype: 'spacer'},
 			this.deleteButton,
@@ -90,6 +88,10 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		}
 	},
 
+	goBack: function(){
+    	closePanel(this);
+	},
+	
 	
 	formatNotes: function(note){
 		
