@@ -7,15 +7,13 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 		this.spinners = new Array();
 		this.spinnerFiledSet = new Ext.form.FieldSet({
 				xtype : 'fieldset',
-				title : '<table width="100%"><tr><td >Counters</td>'+
+				title : '<table width="100%"><tr><td width="90%" >Counters</td>'+
 						'<td align="right" width="50px">'
-						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-						+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.addCustom();">Add</span>'
-						+ '</div></td>'+
+						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/add_black.png"  onclick="myGramPanel.addCustom();" />'
+						+ '</td>'+
 						'<td align="right" width="50px">'
-						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-						+ '<span class="x-button-label" style="font-size:.6em" onclick="myGramPanel.removeCustom();">Delete</span>'
-						+ '</div></td>'+
+						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/delete_black2.png"  onclick="myGramPanel.removeCustom();" />'
+						+ '</td>'+
 						'</tr></table>',
 				defaults : {
 					required : true,
@@ -28,14 +26,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 		this.items = [ {
 			xtype : 'fieldset',
 			title:'&nbsp;'
-		},this.spinnerFiledSet,{
-			layout : 'hbox',
-			defaults : {
-				xtype : 'button',
-				style : 'margin: .5em;'
-			},
-			items : [ ]
-		}];
+		},this.spinnerFiledSet];
 		
         this.listeners = {
             submit : function(loginForm, result){
@@ -50,7 +41,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Grammarian',
+                title:'Gram Log',
                 items: [
                     {
 					    text: 'Back',
@@ -181,6 +172,12 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
+			if(fillers.indexOf(custom)>=0){
+				myGramPanel.updateMessage('Filler already present');
+				return;
+			}else{
+				myGramPanel.updateMessage('');
+			}
 			fillers.push(custom);
 			var spinner = 			new Ext.form.Spinner({
 				xtype: 'spinnerfield',
@@ -198,7 +195,12 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onRemoveCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
-			console.log(custom);
+			if(fillers.indexOf(custom)<0){
+				myGramPanel.updateMessage('Filler not present');
+				return;
+			}else{
+				myGramPanel.updateMessage('');
+			}
 			fillers.remove(custom);			
 			for(var i=0; i<myGramPanel.spinners.length; i++){
 				var spinner = myGramPanel.spinners[i];

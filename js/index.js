@@ -79,6 +79,7 @@ Ext.setup({
         	layout: 'card',
         	title:'ToastMasters',
             fullscreen: true,
+            cardSwitchAnimation:'fade',
             items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel],
 			listeners : {
 				beforecardswitch : {fn: logSelected, scope: this}
@@ -168,3 +169,4 @@ function logSelected(comp, newCard, oldCard, index) {
 
 
 
+//<img width="30px" height="30px" src="js/ext/resources/themes/images/default/pictos/compose.png" onclick="{panel}.editTimeLimit();"/>

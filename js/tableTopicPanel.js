@@ -6,7 +6,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	initComponent : function() {
 
 	this.questionTmpl = new Ext.Template([
-	                                        '<div class="background"><div class="transbox"><p>{text}</p></div></div>',
+	                                        '<div class="background"><div class="notesIndex"><p>{cardIndex}</p></div><div class="transbox"><p>{text}</p></div></div>',
 	                                    ]);
 
 	this.questionTmpl.compile();
@@ -32,11 +32,35 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	    store: questionDataStore
 	};
 
+	this.deleteButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'delete',
+    	scope:this,
+        handler: this.deleteConfirm
+    });
+	
+	this.editButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'compose',
+    	scope:this,
+        handler: this.editQuestion
+    });
+
+	this.addButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'add',
+    	scope:this,
+        handler: this.newQuestion
+    });
+
     this.dockedItems = [
         {
             xtype: 'toolbar',
             dock: 'top',
-            title:'Table Topics',
+            title:'TableTopics',
             items: [
 				{
 				    text: 'Back',
@@ -47,33 +71,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    }
 				},
 				{xtype: 'spacer'},
-				{
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'delete',
-                	id: 'tableTopicDeleteIcon',
-                	scope:this,
-                    handler: this.deleteConfirm
-                },
-                {
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'compose',
-                	id:'tableTopicEditIcon',
-                	scope:this,
-                    handler: this.editQuestion
-                },
-                {
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'add',
-                	id:'tableTopicAddIcon',
-                	scope:this,
-                    handler: this.newQuestion
-                }
+				this.deleteButton,
+				this.editButton,
+				this.addButton
             ]
         }
 	   ];
+    this.editButton.hide();
+    this.deleteButton.hide();
 	
 	TableTopicPanel.superclass.initComponent.call(this);
 	},
@@ -95,7 +100,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			var rQuestions = new Array();
 			if(questions){
 				for(var i=0 ; i<questions.length; i++){
-					rQuestions[i] = {id:questions[i].id,text:questions[i].text};
+					rQuestions[i] = {id:questions[i].id,text:questions[i].text,cardIndex:i+1};
 				}
 			}
 			data.returnVal = rQuestions;
@@ -125,8 +130,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.remove(this.tblTopicCarouselPanel);
 		}
 		
-		items.push(new Ext.List(Ext.apply(this.questionBase, {
-		})));
+		items.push(new Ext.List(Ext.apply(this.questionBase, {})));
 
 		questionDataStore.each(function(rec){
 			var data = rec.data;
@@ -146,15 +150,16 @@ TableTopicPanel = Ext.extend( Ext.Panel,
         this.add(this.tblTopicCarouselPanel);
         this.cardChanged(null, null, null, this.activeIndex);
         this.doLayout();
-		Ext.getCmp('tableTopicAddIcon').show();
-        Ext.getCmp('tableTopicEditIcon').hide();
-        Ext.getCmp('tableTopicDeleteIcon').hide();
+		this.addButton.show();
+		this.editButton.hide();
+		this.deleteButton.hide();
 	},
 
 	updateCarousel: function(){
 		var i = 1;
 		questionDataStore.each(function(rec){
 			var data = rec.data;			
+			data.cardIndex = i;
 			var card = this.tblTopicCarouselPanel.items.get(i);
 			if(card){
 				card.el.dom.innerHTML = this.questionTmpl.apply(this.formatNotes(data));
@@ -179,24 +184,21 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	formatNotes: function(question){
-		var obj = new Object();
-		obj.id = question.id;
-		obj.text = question.text;
-		return obj;
+		return question;
 	},
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&questionDataStore.getAt(index-1)){
-			Ext.getCmp('tableTopicEditIcon').show();
-	        Ext.getCmp('tableTopicDeleteIcon').show();
-			Ext.getCmp('tableTopicAddIcon').hide();
+			this.addButton.hide();
+			this.editButton.show();
+			this.deleteButton.show();
 			this.activeIndex = index;
 			console.log(this.activeIndex);
 			this.activeQuestion = questionDataStore.getAt(index-1).data;
 		}else{
-			Ext.getCmp('tableTopicAddIcon').show();
-			Ext.getCmp('tableTopicEditIcon').hide();
-	        Ext.getCmp('tableTopicDeleteIcon').hide();
+			this.addButton.show();
+			this.editButton.hide();
+			this.deleteButton.hide();
 		}
 	},
 
@@ -248,7 +250,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {
-		Ext.getCmp('tableTopicEditIcon').show();
 		var carousel = this.parentPanel.tblTopicCarouselPanel;
 		this.parentPanel.activeIndex = index+1;
 		carousel.setActiveItem(carousel.items.get(index+1));

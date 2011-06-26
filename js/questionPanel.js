@@ -18,7 +18,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 
         this.items= [{
                 xtype: 'fieldset',
-    			title : '&nbsp;',
+    			title : 'Notes:',
                 defaults: {
                     required: true,
                     labelAlign: 'left',
@@ -32,7 +32,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Edit Meeting',
+                title:'TableTopic',
                 items: [
                     {
                         text: 'Back',
@@ -69,7 +69,7 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	updateMessage: function(msg){
 		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+			this.items.get(0).titleEl.setHTML('Notes:<div class="msg"><p >'+msg+'</p></div>');
 		}
 	},
 	loadQuestion: function(pQuestion){
@@ -105,17 +105,30 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 			this.updateMessage(data.errorMessage);
 		}
 	},
-	save : function(){
-		var values = this.getValues();
-		this.question.text = values.question;
-		for(var i=0 ; i<questionDataStore.data.length; i++){
-			var qData = questionDataStore.getAt(i).data;
-			if(qData && qData.id == this.question.id){
-				qData.text = values.question;
-			}
+	
+	validate: function(){
+		var values = this.getValues();  
+		var noErrors = true;
+		if(!values.question || trim(values.question) ==''){
+			this.updateMessage('Please enter a valid question');
+			return false;
 		}
-		//this.controller.saveTableTopics();
-        MeetingService.saveTableTopics(this.onSave, this);
+		return noErrors;
+	},
+
+	save : function(){
+		if(this.validate()){
+			var values = this.getValues();
+			this.question.text = values.question;
+			for(var i=0 ; i<questionDataStore.data.length; i++){
+				var qData = questionDataStore.getAt(i).data;
+				if(qData && qData.id == this.question.id){
+					qData.text = values.question;
+				}
+			}
+			//this.controller.saveTableTopics();
+	        MeetingService.saveTableTopics(this.onSave, this);
+		}
 	}
 });
 

@@ -100,8 +100,8 @@
 
 .imageRight {
     float: right;
-    vertical-align: middle;
-    width: .9em;
+    margin: 0.2em;
+    height: 1.5em;
 }
 
 .trainName {
@@ -270,7 +270,7 @@ div.transbox p
   }
 
 div.notesHeading p
-  {
+{
 	font-family: cursive;
 	font-style: normal;
 	font-variant: normal;
@@ -284,9 +284,17 @@ div.notesHeading p
 	text-transform: none;
 	text-align: center;
 	text-indent: 0ex;
-  }
+}
 
-.legislator-tnail{width:50px;height:50px;background-position:center center;-webkit-border-radius:5px;overflow:hidden;position:absolute;left:10px;top:10px;-webkit-box-shadow:#ccc 0 1px 2px}
+div.notesIndex p
+{
+	font-family: cursive;
+	font-weight: bold;
+	width: 20px;
+	background-color: orange;
+}
+
+.legislator-tnail{width:40px;height:40px;background-position:center center;-webkit-border-radius:5px;overflow:hidden;position:absolute;left:10px;top:10px;-webkit-box-shadow:#ccc 0 1px 2px}
 .legislator-list-item{height:60px;position:relative;overflow:hidden;font-weight:bold;padding:20px 10px 10px 70px !important;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
  
 .x-form-fieldset {margin: .1em 0 .1em;}
@@ -349,4 +357,8 @@ div .logData{
 	border-top: 1px solid #C8C8C8;
 }
 
-# last left
+.x-form .x-panel-body {
+	padding: .2em;
+	background-color: #eeeeee;
+}
+

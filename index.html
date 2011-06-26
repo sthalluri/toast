@@ -13,7 +13,6 @@
 
 	<!-- All the mock data-->
 	<script type="text/javascript" src="js/model/dataStore.js"></script>
-	<script type="text/javascript" src="js/model/mockData.js"></script>
 
 	<!-- All the panels -->
 	<script type="text/javascript" src="js/homePanel.js"></script>
@@ -58,13 +57,13 @@
 	<img class="imageLeft" src="js/ext/resources/themes/images/default/pictos/play_black1.png"/><div class="x-list-header" >{fMeetingDate}</div>
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
-			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
 		<tr/>
 		<tr>
-			<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+			<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
 		<tr>
-			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
+			<td class="highlight" width="40%">Location:</td><td colSpan="3">{[values.location? values.location:"Not Available"]}</td>
 		</tr>
 	</table>
 </div>
@@ -115,6 +114,7 @@
 </div>
 
 <div id="meeting-report" class="x-hidden-display">
+	<div class="x-list-header" >{fMeetingDate}</div>
 	<div class="x-list-header" >Grammarian Report</div>	
 	<tpl for="gramLogs">
 	<div class="logData">
@@ -128,18 +128,48 @@
 	</table>
 	</div>
     </tpl>
+    <tpl if="gramLogs.length==0">
+		<div class="logData">
+		<table style="width:100%;"   class="contentTable" >
+				<tr>
+		    	<td>No Log Available</td>
+				<tr>
+		</table>
+		</div>
+    </tpl>
 	<div class="x-list-header" >Timer Report</div>	
 	<tpl for="timerLogs">
 	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td class="highlight">Role:</td><td colSpan="4">{role}</td>
+				<td class="highlight">Role:</td><td colSpan="3">{role}</td>
 			</tr>
 			<tr>
-				<td width="30%" class="highlight">Member:</td><td>{user}</td><td class="highlight" >Time Spent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+				<td width="30%" class="highlight">Member:</td><td colspan="3">{user}</td>
 			<tr>
+			<tr>
+				<td class="highlight" >Time Spent:</td><td colspan="3" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+			</tr>
+			<tr>
+				<td class="highlight">Limits:</td>
+				<td class="green">{[getMins(values.timeLimits.green)]}</td>
+				<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
+				<td class="red">{[getMins(values.timeLimits.red)]}</td>
+			</tr>
+			<tr>
+				<td colspan="4"><hr/></td>
+			</tr>
 	</table>
 	</div>
+    </tpl>
+    <tpl if="timerLogs.length==0">
+		<div class="logData">
+		<table style="width:100%;"   class="contentTable" >
+				<tr>
+		    	<td>No Log Available</td>
+				<tr>
+		</table>
+		</div>
     </tpl>
 </div>
 
@@ -183,13 +213,13 @@
 		<div class="x-list-header" >{fMeetingDate}</div>
 		<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
+				<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
 			<tr>
 			<tr>
-				<td class="highlight">Word of the Day:</td><td>{wordOfTheDay}</td>
+				<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
 			</tr>
 			<tr>
-				<td class="highlight" >Roles Played:</td><td>{rolesStr}</td>
+				<td class="highlight" width="40%" >Roles Played:</td><td>{rolesStr}</td>
 			</tr>
 		</table>
 	</tpl>

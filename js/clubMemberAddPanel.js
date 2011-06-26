@@ -6,32 +6,28 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.deleteButton = new Ext.Button({
 			iconMask:true,
-			id: 'delete',
 			iconCls:'delete',
-			ui:'decline',
+			ui:'plain',
 			scope:this,
 			handler:this.deleteConfirm
 		});
 
 		this.editButton = new Ext.Button({
 			iconMask: true,
-			id:'edit',
 			iconCls: 'compose',
-			ui:'drastic',
+            ui: 'plain',
 			scope:this,
 			handler:this.editMember
 		});
 		
 		this.saveButton = new Ext.Button({
-			id:'save',
 			text:'Save',
-			ui:'action',
+            ui: 'confirm',
 			scope:this,
 			handler:this.saveClubMember
 		});
 		
 		this.cancelButton = new Ext.Button({
-			id:'cancel',
 			text:'Cancel',
 			ui:'drastic',
 			scope:this,
@@ -39,7 +35,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		});
 		
 		this.backButton = new Ext.Button({
-			id:'back',
 			text:'Back',
 			ui:'back',
 			scope:this,
@@ -48,7 +43,11 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.items = [{
 		    xtype:'fieldset',
-		    title:'Member Details',
+		    title:'&nbsp;',
+            defaults: {
+                labelAlign: 'left',
+                labelWidth: '35%'
+            },
 		    items:[
 		    {
 		    	id:'id',
@@ -104,12 +103,13 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		{
 			xtype:'toolbar',
 			dock:'top',
-			title:'Member Information',
+			title:'Member Info',
 			items:[
 			       this.backButton,
 			       {
 			    	   xtype:'spacer'
 			       },
+			       this.deleteButton,
 			       this.editButton
 			]
 		},
@@ -121,11 +121,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			    	   xtype:'spacer'
 			       },
 			       this.saveButton,
-			       this.cancelButton,
-			       {
-			    	   xtype:'spacer'
-			       },
-			       this.deleteButton
+			       this.cancelButton
 			]
 		}];
 		
@@ -175,7 +171,9 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 
 	editMember : function()
 	{
+		this.updateMessage('');
 		this.enable();
+		this.editButton.hide();
 		this.saveButton.show();
 		this.cancelButton.show();
 		this.deleteButton.show();
@@ -183,6 +181,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	
 	populateUserDetails : function(user)
 	{
+		this.updateMessage('');
 		this.setValues({
 			id:user.id,
 			fname: user.firstName,
@@ -222,7 +221,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	
 	updateMessage: function(msg)
 	{
-		this.items.get(0).titleEl.setHTML('Member Details'+'<div class="msg"><p >'+msg+'</p></div>');
+		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
 	
 	validate : function()

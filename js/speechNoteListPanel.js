@@ -6,7 +6,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([
-                             '<div class="background"><div class="notesHeading"><p>{heading}</p></div><div class="transbox"><p>{formatText}</p></div></div>',
+                             '<div class="background"><div class="notesIndex"><p>{cardIndex}</p></div><div class="notesHeading"><p>{heading}</p></div><div class="transbox"><p>{formatText}</p></div></div>',
                          ]);
 	this.speechNoteTmpl.compile();
 	
@@ -29,50 +29,56 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	    },
 	    store: speechNoteDataStore
 	};
-    
-    this.dockedItems = [
-        {
-            xtype: 'toolbar',
-            dock: 'top',
-            title:'Cards',
-            items: [
-				{
-				    text: 'Back',
-	                ui: 'back',
-				    scope:this,
-				    handler: function() {
-                    	closePanel(this);
-				    }
-				},
-				{xtype: 'spacer'},
-				{
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'delete',
-                	id: 'speechNoteDeleteIcon',
-                	scope:this,
-                    handler: this.deleteConfirm
-                },
-                {
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'compose',
-                	id: 'speechNoteEditIcon',
-                	scope:this,
-                    handler: this.editSpeechNote
-                },
-                {
-                    iconMask: true,
-                    ui: 'plain',
-                	iconCls:'add',
-                	id: 'speechNoteAddIcon',
-                	scope:this,
-                    handler: this.newSpeechNote
-                }
-            ]
-        }
-	   ];
+
+	this.deleteButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'delete',
+    	scope:this,
+        handler: this.deleteConfirm
+    });
 	
+	this.editButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'compose',
+    	scope:this,
+        handler: this.editSpeechNote
+    });
+
+	this.addButton = new Ext.Button({
+        iconMask: true,
+        ui: 'plain',
+    	iconCls:'add',
+    	scope:this,
+        handler: this.newSpeechNote
+    });
+
+    this.dockedItems = [
+    {
+        xtype: 'toolbar',
+        dock: 'top',
+        title:'Cards',
+        items: [
+			{
+			    text: 'Back',
+                ui: 'back',
+			    scope:this,
+			    handler: function() {
+                	closePanel(this);
+			    }
+			},
+			{xtype: 'spacer'},
+			this.deleteButton,
+			this.editButton,
+			this.addButton
+        ]
+    }
+   ];
+	
+    this.editButton.hide();
+    this.deleteButton.hide();
+    
     SpeechNoteListPanel.superclass.initComponent.call(this);
 	},
 	
@@ -105,8 +111,9 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		if(firstBreak<0){
 			obj.formatText = '';
 		}else{
-			obj.formatText = obj.text.substring(firstBreak);
+			obj.formatText = obj.text.substring(firstBreak+1);
 		}
+		obj.cardIndex = note.cardIndex;
 		obj.formatText = obj.formatText.replace(
 				// Replace out the new line character.
 				new RegExp( "\\n", "g" ), "<br/>" );
@@ -133,6 +140,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 					if(obj.heading.length > 20){
 						obj.heading = obj.text.substring(0, 20)+"..";
 					}
+					obj.cardIndex = i+1;
 					rSpeechNotes[i] = obj;
 				}
 			}
@@ -159,11 +167,14 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			this.remove(this.speechNoteTopicCarousel);
 		}
 		
-		items.push(new Ext.List(Ext.apply(this.base, {
-		})));
+		this.listPanel = new Ext.List(Ext.apply(this.base, {
+		}));
+		
+		items.push(this.listPanel);
 
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;
+			console.log(data);
             items.push({
                 html: this.speechNoteTmpl.apply(this.formatNotes(data))
             });
@@ -181,9 +192,9 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
         this.add(this.speechNoteTopicCarousel);
         this.cardChanged(null, null, null, this.activeIndex);
         this.doLayout();
-		Ext.getCmp('speechNoteAddIcon').show();
-        Ext.getCmp('speechNoteEditIcon').hide();
-        Ext.getCmp('speechNoteDeleteIcon').hide();
+        this.addButton.show();
+		this.editButton.hide();
+		this.deleteButton.hide();
 	},
 	
 	
@@ -191,6 +202,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		var i = 1;
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;			
+			console.log(data);
 			var card = this.speechNoteTopicCarousel.items.get(i);
 			if(card){
 				card.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(data));
@@ -205,7 +217,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	
 	listMode: function(){
 		//this.updateCarousel();
-		console.log(this.activeIndex);
 		var activeCard = this.speechNoteTopicCarousel.items.get(this.activeIndex);
 		if(activeCard && activeCard.el && activeCard.el.dom){
 			activeCard.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(speechNoteDataStore.getAt(this.activeIndex-1).data));
@@ -218,16 +229,16 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
 		if(index>0&&speechNoteDataStore.getAt(index-1)){
-			Ext.getCmp('speechNoteAddIcon').hide();
-			Ext.getCmp('speechNoteEditIcon').show();
-	        Ext.getCmp('speechNoteDeleteIcon').show();
+			this.addButton.hide();
+			this.editButton.show();
+			this.deleteButton.show();
 			this.activeIndex = index;
 			console.log(this.activeIndex);
 			this.activeSpeechNote = speechNoteDataStore.getAt(index-1).data;
 		}else{
-			Ext.getCmp('speechNoteAddIcon').show();
-			Ext.getCmp('speechNoteEditIcon').hide();
-	        Ext.getCmp('speechNoteDeleteIcon').hide();
+			this.addButton.show();
+			this.editButton.hide();
+			this.deleteButton.hide();
 		}
 	},
 

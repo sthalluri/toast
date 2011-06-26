@@ -1,3 +1,16 @@
+var mockUser={
+		'userId':'guest',
+		'name' : 'Alpha',
+		'password' : 'guest',
+		'email' : 'MockingBird@gamil.com',
+		'clubId' : '1234',
+		'clubPasscode' : 'Club Passcode',
+		'rememberMe' : 1,
+		'firstName':'Alpha',
+		'lastName':'User',
+		'confirmPassword':'secret'
+};
+
 var thisMeeting;
 var thisUser;
 
@@ -11,6 +24,7 @@ var userLog =[];
 var fillers= [];
 
 var timeOptions = [
+   {text: 'Select..',value: '00:00 AM'}, 
    {text: '04:00 AM',value: '04:00 AM'}, 
    {text: '04:30 AM',value: '04:30 AM'}, 
    {text: '05:00 AM',value: '05:00 AM'}, 
@@ -51,6 +65,7 @@ var timeOptions = [
    {text: '10:30 PM',value: '10:30 PM'}
 
 ];
+
 
 var timingStore={
 	speech : {red: 5, green: 2, yellow:1},	
@@ -201,7 +216,7 @@ var roleStore = new Ext.data.JsonStore({
 
 
 Ext.regModel('Question', {
-    fields: ['id', 'text']
+    fields: ['id', 'text', 'cardIndex']
 });
 
 var questionDataStore = new Ext.data.Store({
@@ -213,7 +228,7 @@ var questionDataStore = new Ext.data.Store({
 });
 
 Ext.regModel('SpeechNote', {
-    fields: ['id', 'text']
+    fields: ['id', 'text', 'cardIndex']
 });
 
 var speechNoteDataStore = new Ext.data.Store({
@@ -253,3 +268,97 @@ Ext.regModel('User', {
 });
 
 
+
+
+function getMeetingBareBones(){
+
+	var meeting = new Object({	
+		inProgress : false,
+		wordOfTheDay:'',
+		themeOfTheDay:'',
+		date:'',
+		roles : {
+			speaker1:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			speaker2:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			tableTopics:{
+				userId:'',
+				counts:{},
+				time:0
+			},	
+			toastMaster:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			generalEvaluator:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			evaluator1:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			evaluator2:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			grammarian:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			timer:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse1:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse2:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse3:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse4:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse5:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse6:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			ttResponse7:{
+				userId:'',
+				counts:{},
+				time:0
+			}
+	}
+	});
+	return meeting;
+}

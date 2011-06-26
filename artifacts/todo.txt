@@ -131,30 +131,95 @@ Messages not reset in most of the save panels
 Icons for the table topics and the speech cards
 Time and location for the meeting
 Adding new notes doesnt add a new panel well
-
-Format meeting report
-Format Work Log report
-Format agenda
-
 UI cleanup 
 	- Icons on the tops
 	- Better icons for the home page
-
-Messages and error handling
-Validations 
-	- duplicate counter
-	- Saving the same its saving multiple times on the meeting panel.
-Time format not correct
-
+Format meeting report
+Format Work Log report
+Format agenda
 Phonegap
 
+____________________________________________________________
 
--9th
-Working with local datastore
+UI
+-Show location as Not Available
+?Change the meeting header to show the date
+-Meeting Report give spacing when nothing is there or show, nothing logged
+-Report not refreshing
 
-Remember me not working
-Logout option
-Agenda Management, for multiple speeches
+Card Panel
+-give title for notes
+-Remove the extra section
+-Change heading
+?Back from the card panel taking to the meeting home. Should take to the card list
+-Reduce the gap between the heading and the section
+-Cards Panel, showing delete and edit on the first screen
+
+Table Topics
+-Heading is wrong for the card
+-Missing the notes field
+-See if you can add the card number on the top
+-Text box prompt not coming properly
+-Remove the extra spacing for the form panel if possible
+-Validation that it should not be empty
+
+Grammarian Panel
+?Drop down for the TT Response not sorted correct. Need to sort as the meeting goes
+-Counter Add and Delete buttons need to be changed
+-Missing validation. Member is mandatory before saving.
+-Should not add duplicate counter
+
+Timer Panel
+-Increase the size of the show card icon
+-Use an icon or something to do the edit of the timings
+?Remove extra spacing while showing the time
+-Validations missing on this panel
+?Change the color schema
+-Validation for the time edits
+
+My Grammarian Panel
+-Change the heading
+-Extra lines on the top
+-Should not add duplicate counter
+
+
+My Timer Panel
+-Validation for the time
+Need to add a spinner for the time
+
+Meeting Report
+-Show the timelimits
+-Show a message that there is not log when there is no data
+
+Meeting Edit Panel
+-Show the default value as 9:00AM
+-See a way to remove the extra line when the lable wraps
+?Create a separate section for the speeches
+-Saving the same its saving multiple times on the meeting panel.
+
+Club Member
+-Change the title
+-Remove the extra spacing at the bottom
+-Give a delete option on the view only screen
+
+Club Member Edit
+-Change the buttons at the bottom
+-Take out the delete from the top
+-Remove the delete button
+
+My Log
+-Roles played not in format alignment
+
+Nav Panel
+Logout option not working
+Time format not correct
 Delete meeting
-Editing time on the timerPanel
 View my profile option
+Icon next to the error
+
+
+Next Release
+Agenda Management, for multiple speeches
+Working with local datastore
+Remember me not working & Logout option
+Remember the app state

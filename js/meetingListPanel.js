@@ -31,12 +31,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    parentPanel:this,
 		    sorters: 'date',
 		    singleSelect:true,
-        	defaults:{
-        		flex : 1
-        	},
-            layout : {
-        		align:'stretch'
-        	},
 		    listeners: {
                 selectionchange: {fn: this.onSelect, scope: this}
             },
@@ -60,14 +54,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,
-	    	height:'95%',	
+	    	height:'100%',	
         	layout: 'card',
 	    	items:[
 	    	    new Ext.List(Ext.apply(this.logBase, {
 	               fullscreen: false
 	           	})),
-	           	this.meetingDetailTabPanel,
-	           	{html:'Sample text here'}
+	           	this.meetingDetailTabPanel
 	    	]
 	    });
 	
@@ -77,7 +70,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	   ];
 	   
 	   this.backButton = {
-               text: 'Meetings',
+               text: 'Back',
                ui: 'back',
                scope:this,
            	   id:'meetingListBackButton',
@@ -90,10 +83,27 @@ MeetingListPanel = Ext.extend(Ext.Panel,
    		    		this.listMode();
                	}
                }
-       	};
-	   this.dockedItems=[
-	        {
+       };
+	   
+	   this.filterButtons = [ {
+			xtype : 'segmentedbutton',
+			allowDepress : true,
+			items : [ {
+				text : 'Upcoming',
+				pressed : true
+			}, {
+				text : 'Show All',
+			} ]
+		} ];
+
+	   this.filterToolBar =	  new Ext.Toolbar({
 	            xtype: 'toolbar',
+	            ui: 'light',
+	            items: [{xtype: 'spacer'},this.filterButtons,{xtype: 'spacer'}],
+	            dock: 'bottom'
+	   });
+
+	   this.mainToolbar = new Ext.Toolbar({
 	            title:'Meetings',
 	            dock: 'top',
 	            defaults: {
@@ -128,7 +138,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                    handler: function() {
 	                    	homeTabPanel.hide();
 	        				showPanel(meetingPanel);
-
+	        				meetingPanel.reset();
+	        				meetingPanel.loadMeeting(getMeetingBareBones());
 	        				//meetingListPanel.hide();
 	                		//meetingPanel.reset();
 	                		//meetingPanel.show();
@@ -136,6 +147,11 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	                }
 	            ]
 	        }
+	   );	
+	   
+	   this.dockedItems=[
+	                     this.mainToolbar
+	                     //,this.filterToolBar
 	        ];
 	   //Ext.getCmp('meetingPanleEditIcon').hide();
 
@@ -148,12 +164,14 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
 		Ext.getCmp('meetingListBackButton').hide();
+		this.mainToolbar.setTitle("Meetings");
 	},
 
 	detailMode: function(){
 		Ext.getCmp('meetingPanleAddIcon').hide();
 		Ext.getCmp('meetingPanleEditIcon').show();
 		Ext.getCmp('meetingListBackButton').show();
+		this.mainToolbar.setTitle("Meeting");
 	},
 
 	onRefresh:function(){
@@ -225,6 +243,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 				timerLog.role = roleStore.getById(roles[j]).data.description;
 				timerLog.user = user.name;
 				timerLog.colorCode = this.getColorCode(role.timeSpent, role.timeLimits);
+				timerLog.timeLimits = role.timeLimits;
 				timerLogs.push(timerLog);
 			}
 		}
@@ -250,6 +269,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     		//Set the content for the meeting report tab
     		var wrapper = new Object();
     		wrapper.name = 'Grammarian Log';
+    		wrapper.fMeetingDate = meeting.fMeetingDate;
     		wrapper.gramLogs = this.getGramLog(meeting);
     		wrapper.timerLogs = this.getTimerLog(meeting);	
     		html = this.meetingReportTmpl.apply(wrapper);		    		
@@ -275,6 +295,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		
 		var tabPanel = carousel.items.get(1);
 		carousel.setActiveItem(tabPanel);
+		tabPanel.setActiveItem(tabPanel.items.get(0));
 		this.detailMode();
 	},
 	
@@ -286,6 +307,14 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     		thisMeeting = data;
     		this.showMeeting(data);
         }
+    },
+    
+    hideFilterBar: function(){
+    	//this.filterToolBar.el.hide();
+    },
+    
+    showFilterBar: function(){
+    	//this.filterToolBar.el.show();
     }
    
 

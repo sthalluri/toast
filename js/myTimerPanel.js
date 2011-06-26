@@ -207,6 +207,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 		}else{
 			this.updateColor("silverIndi");
 		}
+		this.timer.setValue(getMins(value));
 	},
 
 	updateColor: function(colourClass){

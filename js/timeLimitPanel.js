@@ -7,59 +7,80 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 
 	initComponent : function() {
 		
-		this.greenLimit= new Ext.form.Text({
-                name : 'green',
-                minValue: 0,
-                label: '<span class="green">Green</span>',
-                required:true
-			});
-		
+		this.greenMin= new Ext.form.Spinner({
+			label:'Minutes',
+		    minValue: 0,
+		    maxValue: 60
+		});
 
-		this.yellowLimit = new Ext.form.Text({
-			name : 'yellow',
-			minValue : 0,
-            label: '<span class="yellow">Yellow</span>',
-			required : true
+		this.greenSec = new Ext.form.Spinner({
+			label:'Seconds',
+		    minValue: 0,
+		    maxValue: 60,
+		    incrementValue: 15,
+		    cycle: true
 		});
-		
-		this.redLimit= new Ext.form.Text({
-            name : 'red',
-            minValue: 0,
-            label: '<span class="red">Red</span>',
-            required:true
+
+		this.yellowMin = new Ext.form.Spinner({
+			label:'Minutes',
+		    minValue: 0,
+		    maxValue: 60
 		});
-		
-		this.items = [{
-                xtype: 'fieldset',
-                title: 'Time Limits',
-                instructions: 'Please enter the information above.',
-                defaults: {
-                    required: true,
-                    labelAlign: 'left',
-                    labelWidth: '40%'
-                },
-                items: [
-                        this.greenLimit,
-                        this.yellowLimit,
-                        this.redLimit,				
-				{
-		            layout: 'hbox',
-		            defaults: {xtype: 'button',  style: 'margin: .5em;'},
-		            items: [{
-		                text: 'Save',
-		                scope: this,
-		                ui  : 'confirm',
-	                    width:80,
-		                handler: this.save
-		            }, {
-		                text: 'Reset',
-		                scope: this,
-	                    width:80,
-		                handler: this.resetForm
-		            }]
-		        }
-            	]
-            }
+
+		this.yellowSec = new Ext.form.Spinner({
+			label:'Seconds',
+		    minValue: 0,
+		    maxValue: 60,
+		    size:1
+		});
+
+		this.redMin = new Ext.form.Spinner({
+			label:'Minutes',
+		    minValue: 0,
+		    maxValue: 60
+		});
+
+		this.redSec = new Ext.form.Spinner({
+			label:'Seconds',
+		    minValue: 0,
+		    maxValue: 60,
+		    size:1
+		});
+				
+		this.items = [  
+		                {
+							html:'&nbsp;'
+						},    
+		                {
+        		            width:'100%',
+        					flex:1,
+        		            defaults: {style: 'margin: .2em;'},
+        		            items: [
+        		                {html:'<span class="green">Green</span>'},
+        		            	this.greenMin,
+        		            	this.greenSec
+        		            ]
+                        },
+                        {
+        		            width:'100%',
+        					flex:1,
+        		            defaults: {style: 'margin: .2em;'},
+        		            items: [
+        		                {html:'<span class="yellow">Yellow</span>'},
+        		            	this.yellowMin,
+        		            	this.yellowSec
+        		            ]
+                        },
+                        {
+        		            width:'100%',
+        					flex:1,
+        		            defaults: {style: 'margin: .2em;'},
+        		            items: [
+        		                {html:'<span class="red">Red</span>'},
+        		            	this.redMin,
+        		            	this.redSec
+        		            ]
+                        }
         ];
 
         this.dockedItems =[
@@ -79,6 +100,24 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 					},
 					{xtype: 'spacer'}
                 ]
+            },
+            {
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items : [ {
+					xtype : 'spacer'
+				},{
+	                text: 'Save',
+	                scope: this,
+	                ui  : 'confirm',
+                    width:80,
+	                handler: this.save
+	            }, {
+	                text: 'Reset',
+	                scope: this,
+                    width:80,
+	                handler: this.resetForm
+	            }]
             }
         ];
         
@@ -86,18 +125,50 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	
 	loadAndShow: function(parentPanel, pTimings){
+		this.updateMessage('&nbsp;');
 		this.parentPanel = parentPanel;
-		this.redLimit.setValue(getMins(pTimings.red));
-		this.greenLimit.setValue(getMins(pTimings.green));
-		this.yellowLimit.setValue(getMins(pTimings.yellow));
+		
+		var formatMins = Math.floor(pTimings.green/60);
+		var formatSecs = pTimings.green%60;
+		this.greenMin.setValue(formatMins);
+		this.greenSec.setValue(formatSecs);
+
+		formatMins = Math.floor(pTimings.yellow/60);
+		formatSecs = pTimings.yellow%60;
+		this.yellowMin.setValue(formatMins);
+		this.yellowSec.setValue(formatSecs);
+
+		formatMins = Math.floor(pTimings.red/60);
+		formatSecs = pTimings.red%60;
+		this.redMin.setValue(formatMins);
+		this.redSec.setValue(formatSecs);
+
 		this.show();
 	},
-	
+	updateMessage: function(msg){
+		if(this.items.get(0).el){
+			this.items.get(0).el.dom.innerHTML= '<div class="msg"><p >'+msg+'</p></div>';
+		}
+	},
+
 	save: function(){
 		var timings = new Object();
-		timings.red = getSecsFromStr(this.redLimit.getValue());
-		timings.yellow = getSecsFromStr(this.yellowLimit.getValue());
-		timings.green = getSecsFromStr(this.greenLimit.getValue());
+		var green = parseInt(this.greenMin.getValue())*60+parseInt(this.greenSec.getValue());
+		var yellow = parseInt(this.yellowMin.getValue())*60+parseInt(this.yellowSec.getValue());
+		var red = parseInt(this.redMin.getValue())*60+parseInt(this.redSec.getValue());
+
+		if(yellow < green){
+			this.updateMessage('TImeLimit for Yellow cant be less than for Green');
+			return;
+		}else if(red < yellow){
+			this.updateMessage('TImeLimit for Red cant be less than for Yellow');
+			return;
+		}
+
+		timings.green = green;
+		timings.yellow = yellow;
+		timings.red = red;
+		
 		this.parentPanel.updateTimeLimitSection(timings);
 	}
 });

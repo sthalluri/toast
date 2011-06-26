@@ -36,6 +36,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             this.list.getSelectionModel().deselectAll();
         }, this);
         
+        //{html: '<div class="x-list-header" >'+thisMeeting.fMeetingDate+'</div>'},
         this.items = [this.listpanel];
         
         MeetingActionPanel.superclass.initComponent.call(this);

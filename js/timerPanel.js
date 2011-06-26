@@ -106,7 +106,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                 {
                	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv"></div></td>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
 									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
 								'</tr>'+
 							'</table>'
@@ -149,17 +149,8 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 							this.stopButton
 					       ]
 
-				},
-				{
-					layout:'hbox',
-					flex:1,
-               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
-					items:[
-			                
-					       ]
-
 				}
-            	]
+				]
             }
         ];
     
@@ -235,7 +226,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;
-		if(!values.role || values.role =='none'){
+		if(!values.role || values.role =='0'){
 			this.updateMessage('Please select the role');
 			return false;
 		}
@@ -258,12 +249,14 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 	},
 
 	save: function(){
-		var values = this.getValues();        
-        var obj = thisMeeting.roles[values['role']];
-        obj.userId =  values['userId'];
-        obj.timeSpent = this.timerPanelClock.getSecs();
-        obj.timeLimits = this.timeLimits;
-        MeetingService.save(thisMeeting, this.onSave, this);
+		if(this.validate()){
+			var values = this.getValues();        
+	        var obj = thisMeeting.roles[values['role']];
+	        obj.userId =  values['userId'];
+	        obj.timeSpent = this.timerPanelClock.getSecs();
+	        obj.timeLimits = this.timeLimits;
+	        MeetingService.save(thisMeeting, this.onSave, this);
+		}
 	},
 
 	updateTime: function(){
@@ -319,6 +312,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		if(pTimings){
 			this.timeLimits = pTimings;
 		}
+		this.timeLimits.panel = "timerPanel";
 		Ext.getCmp('timeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
 		this.updateTime();
 	}

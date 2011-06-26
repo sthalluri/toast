@@ -6,7 +6,8 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 
 	initComponent : function() {
 
-		this.formFields = [ {
+		this.formFields = [ 
+		    {
 				xtype : 'textareafield',
 				name : 'speechNote',
 				useClearIcon : true,
@@ -18,13 +19,13 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 
         this.items= [{
                 xtype: 'fieldset',
-    			title : '&nbsp;',
+    			title : 'Notes:',
                 defaults: {
                     required: true,
                     labelAlign: 'left',
                     labelWidth: '40%'
                 },
-                items: this.formFields
+                items: [this.formFields]
             }
         ];
     
@@ -32,7 +33,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Edit Notes',
+                title:'Card Note',
                 items: [
                     {
                         text: 'Back',
@@ -68,7 +69,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 	},
 	updateMessage: function(msg){
 		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
+			this.items.get(0).titleEl.setHTML('Notes:<div class="msg"><p >'+msg+'</p></div>');
 		}
 	},
 	loadSpeechNote: function(pSpeechNote){
@@ -108,18 +109,30 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 			this.updateMessage(data.errorMessage);
 		}
 	},
-	
-	save : function(){
-		var values = this.getValues();
-		this.speechNote.text = values.speechNotes;
-		for(var i=0 ; i<speechNoteDataStore.data.length; i++){
-			var qData = speechNoteDataStore.getAt(i).data;
-			if(qData && qData.id == this.speechNote.id){
-				qData.text = values.speechNote;
-			}
+
+	validate: function(){
+		var values = this.getValues();  
+		var noErrors = true;
+		if(!values.speechNote || trim(values.speechNote) ==''){
+			this.updateMessage('Please enter a valid notes');
+			return false;
 		}
-		//this.controller.saveTableTopics();
-        MeetingService.saveSpeechNotes(this.onSave, this);
+		return noErrors;
+	},
+
+	save : function(){
+		if(this.validate()){
+			var values = this.getValues();
+			this.speechNote.text = values.speechNotes;
+			for(var i=0 ; i<speechNoteDataStore.data.length; i++){
+				var qData = speechNoteDataStore.getAt(i).data;
+				if(qData && qData.id == this.speechNote.id){
+					qData.text = values.speechNote;
+				}
+			}
+			//this.controller.saveTableTopics();
+	        MeetingService.saveSpeechNotes(this.onSave, this);
+		}
 	}
 });
 

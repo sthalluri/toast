@@ -44,9 +44,7 @@ function Clock (paramHandler, paramInterval) {
 			secs = paramSecs;
 		},
 		setSecsFromStr: function(timeStr){
-			var pSecs = parseInt(timeStr.substring(timeStr.indexOf(':')+1));
-			var pMin  = parseInt(timeStr.substring(0, timeStr.indexOf(':')));
-			secs = pMin*60+pSecs;
+			secs = getSecsFromStr(timeStr);
 			console.log(secs);
 		}
 	};
@@ -77,10 +75,19 @@ function increment ( )
 }
 
 function getSecsFromStr(timeStr){
-	var pSecs = parseInt(timeStr.substring(timeStr.indexOf(':')+1));
-	var pMin  = parseInt(timeStr.substring(0, timeStr.indexOf(':')));
-	var tSecs = pMin*60+pSecs;
-	return tSecs;
+	var pSecs = 0;
+	var pMin  = 0;
+	if(timeStr.indexOf(':')>0){
+		pSecs = parseInt(timeStr.substring(timeStr.indexOf(':')+1));
+		pMin  = parseInt(timeStr.substring(0, timeStr.indexOf(':')));
+		if(!pMin){
+			pMin = 0;
+		}
+		if(!pSecs){
+			pSecs = 0;
+		}
+	}
+	return pMin*60+pSecs;
 }
 
 function getMins (secs){
@@ -91,3 +98,4 @@ function getMins (secs){
 	}
 	return formatmins+':'+formatSecs;
 }
+

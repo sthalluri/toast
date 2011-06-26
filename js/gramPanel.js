@@ -13,6 +13,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			    valueField : 'id',
 			    displayField : 'name',
 			    store : memberStore,
+			    required : true,
 			    listeners:{
 			    	change: {fn: this.userUpdated, scope: this}
 			    }
@@ -112,18 +113,21 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.spinnerFieldSet = new Ext.form.FieldSet({
 				xtype : 'fieldset',
-				title : '<table width="100%"><tr><td >Counters</td>'+
+				title : '<table width="100%"><tr><td width="90%" >Counters</td>'+
 						'<td align="right" width="50px">'
-						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-						+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.addCustom();">Add</span>'
-						+ '</div></td>'+
+						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/add_black.png"  onclick="gramPanel.addCustom();" />'
+//						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+//						+ '<span class="x-button-label" style="font-size:0.8em" onclick="gramPanel.addCustom();">Add</span>'
+//						+ '</div>'
+						+ '</td>'+
 						'<td align="right" width="50px">'
-						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-						+ '<span class="x-button-label" style="font-size:.6em" onclick="gramPanel.removeCustom();">Delete</span>'
-						+ '</div></td>'+
+						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/delete_black2.png"  onclick="gramPanel.removeCustom();" />'
+//						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
+//						+ '<span class="x-button-label" style="font-size:0.8em" onclick="gramPanel.removeCustom();">Delete</span>'
+//						+ '</div></td>'+
+						+ '</td>'+
 						'</tr></table>',
 				defaults : {
-					required : true,
 					labelAlign : 'left',
 					labelWidth : '40%'
 				},
@@ -134,7 +138,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			xtype : 'fieldset',
 			title:'&nbsp;',
 			defaults : {
-				required : true,
 				labelAlign : 'left',
 				labelWidth : '30%'
 			},
@@ -142,6 +145,8 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			          this.userSelector]
 		},this.spinnerFieldSet];
 	},
+	
+	
 	
 	userUpdated:function(selector , value){
 		this.updateSpinners(value);
@@ -184,6 +189,10 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 
 	onCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
+			if(fillers.indexOf(custom)>=0){
+				gramPanel.updateMessage('Filler already present');
+				return;
+			}
 			fillers.push(custom);
 			var spinner = 			new Ext.form.Spinner({
 				xtype: 'spinnerfield',
@@ -195,7 +204,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			gramPanel.spinnerFieldSet.add(spinner);
 			gramPanel.spinners.push(spinner);
 			gramPanel.doLayout();
-			gramPanel.saveFillers();
+			gramPanel.saveFillers();				
 		}
 	},
 
@@ -220,6 +229,10 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	onRemoveCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
 			console.log(custom);
+			if(fillers.indexOf(custom)<0){
+				gramPanel.updateMessage('Filler not present');
+				return;
+			}
 			fillers.remove(custom);			
 			for(var i=0; i<gramPanel.spinners.length; i++){
 				var spinner = gramPanel.spinners[i];
@@ -232,29 +245,41 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 		}
 	},
 	
-	save:function(){
-        var values = this.getValues();        
-        var selectedUser = values['userId'];
-        var selectedRole = values['role'];
-        
-        var roleObj = thisMeeting.roles[selectedRole];
-        roleObj.userId = selectedUser;
-        
-        if(!thisMeeting.gramLog){
-        	thisMeeting.gramLog = new Object();
-        }
-        
-        if(!thisMeeting.gramLog[selectedUser]){
-        	thisMeeting.gramLog[selectedUser] = new Object();
-        }
-		
-        var countObj = thisMeeting.gramLog[selectedUser];
-        
-        for(var i=0; i<fillers.length;i++){
-			var filler = fillers[i];
-			countObj[filler] = values[filler+'Count'];
+	validate: function(){
+		var values = this.getValues();  
+		var noErrors = true;
+		if(!values.userId || values.userId =='none'){
+			this.updateMessage('Please select the user');
+			return false;
 		}
-        MeetingService.save(thisMeeting, this.onSave, this);
+		return noErrors;
+	},
+
+	save:function(){
+		if(this.validate()){
+	        var values = this.getValues();        
+	        var selectedUser = values['userId'];
+	        var selectedRole = values['role'];
+	        
+	        var roleObj = thisMeeting.roles[selectedRole];
+	        roleObj.userId = selectedUser;
+	        
+	        if(!thisMeeting.gramLog){
+	        	thisMeeting.gramLog = new Object();
+	        }
+	        
+	        if(!thisMeeting.gramLog[selectedUser]){
+	        	thisMeeting.gramLog[selectedUser] = new Object();
+	        }
+			
+	        var countObj = thisMeeting.gramLog[selectedUser];
+	        
+	        for(var i=0; i<fillers.length;i++){
+				var filler = fillers[i];
+				countObj[filler] = values[filler+'Count'];
+			}
+	        MeetingService.save(thisMeeting, this.onSave, this);
+		}
 	},
 	
 	resetForm:function(){
