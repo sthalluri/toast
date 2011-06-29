@@ -165,10 +165,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
                         text: 'Back',
 		                ui: 'back',
 		                scope:this,
-                        handler: function() {
-                        	this.updateMessage('');
-                        	closePanel(this);
-                        }
+                        handler: goBack
                     },
                     {xtype: 'spacer'}
                 ]
@@ -315,7 +312,12 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		this.timeLimits.panel = "timerPanel";
 		Ext.getCmp('timeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
 		this.updateTime();
-	}
+	},
+	
+	goBack: function() {
+    	this.updateMessage('');
+    	closePanel(this);
+    }
 });
 
 //Ext.getCmp('timeIndicator').el.dom.innerHTML='NEW'

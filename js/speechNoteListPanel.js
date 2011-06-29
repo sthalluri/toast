@@ -281,7 +281,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			this.activeSpeechNote = speechNote;
 		}
 		speechNotePanel.loadSpeechNote(this.activeSpeechNote);
-		speechNotePanel.show();
+		showPanel(speechNotePanel);
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {

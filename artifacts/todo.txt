@@ -214,16 +214,31 @@ My Log
 
 Nav Panel
 -Delete meeting
-Icon next to the error
+-Show todays date for the meeting date
+-meeting agenda and report not coming fro new meetings
+-Icon next to the error also increase font size
+-phone no validation take out.. jut keep it to numbers
+-Change panel from the help without back giving wierd feel
+
+
+-Back button handler for android
+-Flip the app doesnt show the same panel. Orientation problem
+-Panel height messed up sometimes
 
 Remember me not working & Logout option Logout option not working
 View my profile option
 Format the help tab
 
-Panel height messed up sometimes
-Back button handler for android
-Orientation problem not remembering
+Security for the app
+Wrap all the js files into one
+Https for the app
 
+Save on meeting show scroll to the top
+Select not very good
+better way to enter meeting time
+easy way to delete the counter
+
+Save message not shwoing up in timer panel and grammarian panel on ipad
 Next Release
 Agenda Management, for multiple speeches
 Working with local datastore

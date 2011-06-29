@@ -47,10 +47,7 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 					    text: 'Back',
 		                ui: 'back',
 		                scope:this,
-					    handler: function() {
-                        	this.updateMessage('');
-                        	closePanel(this);
-					    }
+					    handler: this.goBack
 					},
 					{xtype: 'spacer'}
                 ]
@@ -231,6 +228,10 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 
 	},
 
+	goBack: function(){
+    	this.updateMessage('');
+    	closePanel(this);
+	}
 
 });
 

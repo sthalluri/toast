@@ -93,10 +93,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 					    text: 'Back',
 		                ui: 'back',
 		                scope:this,
-					    handler: function() {
-					    	this.hide();
-					    	this.parentPanel.show();
-					    }
+					    handler: this.goBack
 					},
 					{xtype: 'spacer'}
                 ]
@@ -170,5 +167,10 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		timings.red = red;
 		
 		this.parentPanel.updateTimeLimitSection(timings);
-	}
+	},
+	
+	goBack: function() {
+    	this.hide();
+    	this.parentPanel.show();
+    }
 });

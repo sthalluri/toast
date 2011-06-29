@@ -156,10 +156,5 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			this.meetingLogPanel.el.dom.innerHTML = html;
 		}
 		console.log(html);
-	},
-	
-	onBack: function(){
-		this.hide();
-		navPanel.show();
 	}
 });

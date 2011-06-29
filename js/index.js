@@ -112,8 +112,13 @@ Ext.setup({
         	layout: 'card',
             iconCls:'home',
             fullscreen: true,
-            items: mainCardItems
-        });             
+            items: mainCardItems,
+			listeners : {
+				beforecardswitch : {fn: logMainSelected, scope: this}
+			}
+        });  
+        
+        document.addEventListener("backbutton", backKeyDown, true);
     }
 });
 
@@ -147,6 +152,16 @@ var timeLimitPanel;
 var clubMemberListPanel;
 var clubMemberAddPanel;
 
+function logSelected(comp, newCard, oldCard, index) {
+	if(index == 2){
+		myLogPanel.reload();
+	}
+	if(index != 3){
+		helpTabPanel.hide();
+	}
+	currentPanel = newCard;
+}
+
 function closePanel(panel){
 	mainCardPanel.setActiveItem(3);
 	meetingListPanel.meetingActionPanel.deselect();
@@ -160,13 +175,31 @@ function showPanel(showPanel){
 	}
 }
 
-function logSelected(comp, newCard, oldCard, index) {
-	if(index == 2){
-		myLogPanel.reload();
+var currentPanel;
+function logMainSelected(comp, newCard, oldCard, index) {
+	console.log('Panel changed to :'+index);
+	currentPanel = newCard;
+}
+
+function goBack(){
+	//Get the current
+	if(currentPanel&& currentPanel.goBack){
+		currentPanel.goBack();
+	// If the currentPanel is not defined then go to the meetingListPanel
+	}else{
+		if(meetingListPanel.viewMode && meetingListPanel.viewMode == "DETAIL"){
+			closePanel();
+			homeTabPanel.setActiveItem(0);
+			meetingListPanel.goBack();
+		}else{
+			navigator.device.exitApp();
+		}		
 	}
 }
 
-
-
+function backKeyDown() { 
+    //Ext.Msg.alert('Going back', 'Dong go!', Ext.emptyFn);
+    goBack();
+}
 
 //<img width="30px" height="30px" src="js/ext/resources/themes/images/default/pictos/compose.png" onclick="{panel}.editTimeLimit();"/>

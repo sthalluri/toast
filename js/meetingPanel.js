@@ -7,16 +7,21 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     
 	initComponent : function() {
 
-		this.formFields = [ {
+		
+		this.meetingDate = new  Ext.form.DatePicker({
 			xtype : 'datepickerfield',
 			name : 'meetingDate',
 			label : 'Date',
 			required: 'true',
+			minHeight: 200,
 			picker : {
 				 yearFrom: 2010,
 				 yearTo  : 2015
 			}		
-		},{
+		}
+		);
+
+		this.formFields = [ this.meetingDate,{
             xtype: 'selectfield',
             name: 'time',
             label: 'Time',
@@ -56,6 +61,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			label : 'Grammarian',
 			valueField : 'id',
 			displayField : 'name',
+			fullScreen: true,
 			store : memberStore
 		}, {
 			xtype : 'selectfield',
@@ -181,12 +187,13 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	updateMessage: function(msg){
 		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('Meeting Info<div class="msg"><p >'+msg+'</p></div>');
+			this.items.get(0).titleEl.setHTML('Meeting Info<div class="msg"><p>'+msg+'</p></div>');
 		}
 	},
 	loadMeeting: function(pMeeting){
 		
 		this.reset();
+		
 		this.updateMessage('');
 		for(var i=0; i< this.fields.items.length ; i++){
 			var comp = this.fields.items[i];

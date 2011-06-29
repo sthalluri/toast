@@ -91,7 +91,9 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 	    	speechNoteListPanel.onSpeechNotesLoad(data, true);
 	    	//speechNoteListPanel.updateCarousel();
 	    	//speechNoteListPanel.listMode();
-	    	speechNoteListPanel.show();
+	    	//speechNoteListPanel.show();
+			showPanel(speechNoteListPanel);
+
 	    	//speechNoteListPanel.showLastCard();
 		} else {
 			this.updateMessage(data.errorMessage);

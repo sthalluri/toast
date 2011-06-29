@@ -76,6 +76,8 @@ var timingStore={
 //var serverUrl = 'http://10.0.0.8:8080';
 var serverUrl = 'http://localhost:8080';
 
+//var serverUrl = 'http://ec2-50-19-142-85.compute-1.amazonaws.com';
+
 //var urlStore = mockUrls;
 var urlStore = {
 		userUrl 		: serverUrl+'/toastService/user',
@@ -281,6 +283,7 @@ function getMeetingBareBones(){
 		inProgress : false,
 		wordOfTheDay:'',
 		themeOfTheDay:'',
+		meetingDate: new Date(),
 		date:'',
 		roles : {
 			speaker1:{
