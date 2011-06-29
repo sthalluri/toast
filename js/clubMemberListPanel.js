@@ -24,7 +24,7 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
             {
 	    		homeTabPanel.hide();
 	    		showPanel(clubMemberAddPanel);
-            	clubMemberAddPanel.populateUserDetails(record.data);
+            	clubMemberAddPanel.populateUserDetails(record.data, "list");
             }
         }];
 	

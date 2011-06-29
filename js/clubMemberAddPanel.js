@@ -40,6 +40,13 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			scope:this,
 			handler:this.hideAddPanel
 		});
+		
+		this.changePasswordButton = new Ext.Button({
+			text:'Change Password',
+			ui:'drastic',
+			scope:this,
+			handler:this.showChangePasswordPanel
+		});
 
 		this.items = [{
 		    xtype:'fieldset',
@@ -117,6 +124,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			xtype:'toolbar',
 			dock:'bottom',
 			items:[
+			       this.changePasswordButton,
 			       {
 			    	   xtype:'spacer'
 			       },
@@ -131,8 +139,16 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	
 	hideAddPanel : function()
 	{
-		//Loading the club members
-		ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+		if(this.incomingReq == "list")
+		{
+			//Loading the club members
+			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+		}
+		else if(this.incomingReq == "profile")
+		{
+			this.hide();
+			navPanel.show();
+		}
 	},
 	
 	saveClubMember : function()
@@ -162,10 +178,21 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	{
 		if(data && data.success)
 		{
-			//Loading the club members
-			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-			this.hide();
-			clubMemberListPanel.show();
+			if(this.incomingReq == "list")
+			{
+				//Loading the club members
+				ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+				this.hide();
+				clubMemberListPanel.show();
+			}
+			else if(this.incomingReq == "profile")
+			{
+				this.disable();
+				this.editButton.show();
+				this.saveButton.hide();
+				this.cancelButton.hide();
+				this.updateMessage("Changes saved successfully.");
+			}
 		}
 	},
 
@@ -176,12 +203,21 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		this.editButton.hide();
 		this.saveButton.show();
 		this.cancelButton.show();
-		this.deleteButton.show();
+		if( this.incomingReq == "list" )
+		{
+			this.deleteButton.show();
+			this.changePasswordButton.hide();
+		}
+		else if( this.incomingReq == "profile" )
+		{
+			this.changePasswordButton.show();
+		}
 	},
 	
-	populateUserDetails : function(user)
+	populateUserDetails : function(user, incomingReq)
 	{
 		this.updateMessage('');
+		this.incomingReq = incomingReq;
 		this.setValues({
 			id:user.id,
 			fname: user.firstName,
@@ -195,6 +231,22 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		this.cancelButton.hide();
 		this.deleteButton.hide();
 		this.editButton.show();
+		if( incomingReq == "list" )
+		{
+			this.changePasswordButton.hide();
+		}
+		else if( incomingReq == "profile" )
+		{
+			this.changePasswordButton.show();
+		}
+	},
+	
+	showChangePasswordPanel : function()
+	{
+		this.hide();
+		changePasswordPanel.show();
+		changePasswordPanel.items.get(0).titleEl.setHTML("Change Password for user id: "+ thisUser.userId);
+		changePasswordPanel.title = changePasswordPanel.items.get(0).titleEl.getHTML();
 	},
 	
 	resetFields : function()

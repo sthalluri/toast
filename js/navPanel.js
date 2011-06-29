@@ -29,7 +29,7 @@ NavPanel = Ext.extend(Ext.Panel,
 				'</tr>'+
 				'<tr align ="center"><td height="30px"></td></tr>'+
 				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/user_list2.png" onclick="navPanel.viewMyClub()"/></td>'+
+				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/user_list2.png" onclick="navPanel.viewMyProfile()"/></td>'+
 				'<td width="20px"></td>'+
 				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/lock_open.png" onclick="navPanel.viewHelp()"/></td>'+
 				'</tr>'+
@@ -81,6 +81,13 @@ NavPanel = Ext.extend(Ext.Panel,
 
 	viewMyClub:function(){
         Ext.Msg.alert('Under Construction', '', Ext.emptyFn);
+	},
+	
+	viewMyProfile : function()
+	{
+		navPanel.hide();
+		clubMemberAddPanel.show();
+		clubMemberAddPanel.populateUserDetails(thisUser, "profile");
 	},
 	
 	onClubMemberLoad: function(data)

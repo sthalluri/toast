@@ -53,6 +53,7 @@ Ext.setup({
         });
         clubMemberListPanel = new ClubMemberListPanel();
         clubMemberAddPanel = new ClubMemberAddPanel();
+        changePasswordPanel = new ChangePasswordPanel();
         
         meetingPanel = new MeetingPanel({
         	meetingStore : meetingStore
@@ -104,7 +105,8 @@ Ext.setup({
                          speechNoteListPanel,
                          speechNotePanel,
                          helpTabPanel,
-                         clubMemberAddPanel
+                         clubMemberAddPanel,
+                         changePasswordPanel
                          ];
 
         mainCardPanel = new Ext.Panel({
@@ -146,6 +148,7 @@ var cardPanel;
 var timeLimitPanel;
 var clubMemberListPanel;
 var clubMemberAddPanel;
+var changePasswordPanel;
 
 function closePanel(panel){
 	mainCardPanel.setActiveItem(3);

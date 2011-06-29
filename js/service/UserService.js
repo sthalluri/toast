@@ -95,6 +95,23 @@ UserServiceImpl = Ext.extend(Object, {
 			params: {id: id},
 			success:this.onDelete
 		});
+	},
+	
+	savePassword : function(password, cb, scope)
+	{
+		this.onSavePassword = Ext.createDelegate(UserServiceImpl.prototype.onSavePassword, scope || window, [cb, scope], true);
+		thisUser.password = password;
+		Ext.Ajax.request({
+			url: urlStore.userUrl + '/create',
+			params: {json:Ext.encode(thisUser)},
+			success: this.onSavePassword
+		});
+	},
+	
+	onSavePassword : function(response, args, cb, scope)
+	{
+		var data = eval("(" + response.responseText + ")");
+		cb.call(scope || window, data);
 	}
 });
 
