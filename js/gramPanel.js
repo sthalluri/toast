@@ -32,7 +32,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
 						var obj = thisMeeting.roles[values['role']];
-						if(obj.userId && obj.userId!=''){
+						if(obj.userbaId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
 							this.parentForm.updateSpinners(obj.userId);
 						}else{
@@ -65,10 +65,7 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 					    text: 'Back',
 		                ui: 'back',
 		                scope:this,
-					    handler: function() {
-					    	this.updateMessage('');
-					    	closePanel(this);
-					    }
+					    handler: this.goBack
 					},
 					{xtype: 'spacer'}
                 ]
@@ -314,7 +311,12 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
-	}
+	},
+	
+	goBack: function() {
+    	this.updateMessage('');
+    	closePanel(this);
+    }
 
 });
 

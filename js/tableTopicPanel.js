@@ -66,9 +66,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				    text: 'Back',
 	                ui: 'back',
 				    scope:this,
-				    handler: function() {                    	
-				    	closePanel(this);
-				    }
+				    handler: this.goBack
 				},
 				{xtype: 'spacer'},
 				this.deleteButton,
@@ -83,6 +81,10 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	TableTopicPanel.superclass.initComponent.call(this);
 	},
 
+	goBack: function(){
+    	closePanel(this);
+	},
+	
 	loadAndShow: function(){
 		if(thisMeeting.roles.tableTopics){
 			var contentId = thisMeeting.roles.tableTopics.id;
@@ -246,7 +248,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.activeQuestion = question;
 		}
 		questionPanel.loadQuestion(this.activeQuestion);
-		questionPanel.show();
+		//questionPanel.show();
+		showPanel(questionPanel);
 	},
 	
 	updateDetailsPanel : function(record, btn, index) {

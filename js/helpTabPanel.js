@@ -12,14 +12,14 @@ HelpTabPanel = Ext.extend(Ext.TabPanel, {
 				text : 'Back',
 				scope : this,
 				ui : 'back',
-				handler: this.onBack
+				handler: this.goBack
 			} ]
 		} ];
 
 		HelpTabPanel.superclass.initComponent.call(this);
 	},
 	
-	onBack: function(){
+	goBack: function(){
 		this.hide();
 		navPanel.show();
 	}

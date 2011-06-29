@@ -92,7 +92,8 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 	    	this.hide();
 	    	tableTopicPanel.onTableTopicsLoad(data, true);
-	    	tableTopicPanel.show();
+	    	//tableTopicPanel.show();
+			showPanel(tableTopicPanel);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

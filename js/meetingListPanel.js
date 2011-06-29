@@ -74,15 +74,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
                ui: 'back',
                scope:this,
            	   id:'meetingListBackButton',
-               handler: function() {	
-               	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
-               		this.hide();
-                   	navPanel.show();
-               	}else{
-	            		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
-   		    		this.listMode();
-               	}
-               }
+               handler: this.goBack
        };
 	   
 	   this.filterButtons = [ {
@@ -176,6 +168,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingListBackButton').hide();
 		this.deleteButton.hide();
 		this.mainToolbar.setTitle("Meetings");
+		this.viewMode = "LIST";
 	},
 
 	detailMode: function(){
@@ -184,6 +177,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingListBackButton').show();
 		this.deleteButton.show();
 		this.mainToolbar.setTitle("Meeting");
+		this.viewMode = "DETAIL";
 	},
 
 	onRefresh:function(){
@@ -199,6 +193,16 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     	navPanel.show();
 	},
 
+	goBack: function(){
+       	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
+       		//this.hide();
+           	//navPanel.show();
+       	}else{
+        		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
+	    		this.listMode();
+       	}
+	},
+	
 	startMeeting : function(meetingId) {
 		for(var i=0 ; i<meetingStore.data.length; i++){
 			var meeting = meetingStore.getAt(i).data;
@@ -281,7 +285,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     		//Set the content for the meeting report tab
     		var wrapper = new Object();
     		wrapper.name = 'Grammarian Log';
-    		wrapper.fMeetingDate = meeting.fMeetingDate;
+    		if(meeting.fMeetingDate){
+        		wrapper.fMeetingDate = meeting.fMeetingDate;
+    		}
     		wrapper.gramLogs = this.getGramLog(meeting);
     		wrapper.timerLogs = this.getTimerLog(meeting);	
     		html = this.meetingReportTmpl.apply(wrapper);		    		

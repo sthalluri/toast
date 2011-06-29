@@ -31,14 +31,14 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			text:'Cancel',
 			ui:'drastic',
 			scope:this,
-			handler:this.hideAddPanel
+			handler:this.goBack
 		});
 		
 		this.backButton = new Ext.Button({
 			text:'Back',
 			ui:'back',
 			scope:this,
-			handler:this.hideAddPanel
+			handler:this.goBack
 		});
 		
 		this.changePasswordButton = new Ext.Button({
@@ -100,7 +100,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		    	id:'aboutme',
 		    	xtype:'textareafield',
 		    	name:'aboutme',
-		    	label:'About Me',
+		    	label:'About',
 		    }
 		    ]
 		}
@@ -137,7 +137,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		ClubMemberAddPanel.superclass.initComponent.call(this);
 	},
 	
-	hideAddPanel : function()
+	goBack : function()
 	{
 		if(this.incomingReq == "list")
 		{
@@ -308,7 +308,8 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	
 	validatePhone : function(phone)
 	{
-		if(phone.length == 10 && !window.isNaN(phone))
+		//phone.length == 10 && 
+		if(!window.isNaN(phone))
 		{
 			return true;
 		}
