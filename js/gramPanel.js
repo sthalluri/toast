@@ -1,6 +1,5 @@
 GramPanel = Ext.extend(Ext.form.FormPanel, 
 {
-    url   : 'postUser.php',
     standardSubmit : false,
     title: 'Gram',
 

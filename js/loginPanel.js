@@ -14,7 +14,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			items : [ {
 				xtype : 'textfield',
 				name : 'userId',
-				placeHolder: 'User ID',
+				placeHolder: 'Email ID',
 				useClearIcon : true,
 				autoCapitalize : false
 			}, {
@@ -146,7 +146,7 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		var formValues = this.getValues();
 		
 		if(!formValues.userId || formValues.length<5){
-			this.updateMessage('Enter a valid user ID');
+			this.updateMessage('Enter a valid Email ID');
 			return false;
 		}
 		

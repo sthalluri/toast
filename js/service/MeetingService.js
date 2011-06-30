@@ -8,7 +8,6 @@ MeetingServiceImpl = Ext.extend(Object, {
     
     //Get the list of meetings
 	getList : function(cb, scope) {
-		console.log('Invoking the check service');
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/list',			
@@ -29,7 +28,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 
 	//Save the meeting
 	save : function(meeting, cb, scope) {
-		console.log('Invoking the save service');
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/save',
@@ -53,7 +51,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 
 	//Save the Table Topic question
 	saveTableTopics : function(cb, scope) {
-		console.log('Invoking the save table topics service');		
 		var tableTopics = new Object();
 		tableTopics.meetingRoleId = questionDataStore.contentId;
 		var content = new Object();
@@ -66,7 +63,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 			content.questions[i]=question;
 		}
 		tableTopics.content = Ext.encode(content);
-		console.log(tableTopics);
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
@@ -80,7 +76,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 
 	//Save the Table Topic question
 	saveSpeechNotes : function(cb, scope) {
-		console.log('Invoking the save table topics service');		
 		var speechNotes = new Object();
 		speechNotes.meetingRoleId = speechNoteDataStore.contentId;
 		var content = new Object();
@@ -93,7 +88,6 @@ MeetingServiceImpl = Ext.extend(Object, {
 			content.speechNotes[i]=speechNote;
 		}
 		speechNotes.content = Ext.encode(content);
-		console.log(speechNotes);
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',

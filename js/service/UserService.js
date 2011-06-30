@@ -7,7 +7,6 @@ UserServiceImpl = Ext.extend(Object, {
     },
 
 	checkLogin : function(userId, password, cb, scope) {
-		console.log('Invoking the check service');
 		var authToken = {
 			userId : userId,
 			password : password
@@ -26,7 +25,6 @@ UserServiceImpl = Ext.extend(Object, {
 	},
 	
 	register : function(formValues, cb, scope) { 
-		console.log('Invoking the check service');
 		var user = {
 			userId : formValues.email,
 			password : hex_md5(formValues.password),

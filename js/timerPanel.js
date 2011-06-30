@@ -1,6 +1,5 @@
 TimerPanel = Ext.extend(Ext.form.FormPanel, 
 {
-	url   : 'postUser.php',
 	standardSubmit : false,
 	title: 'Tim',
 	initComponent : function() {

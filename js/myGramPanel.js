@@ -225,7 +225,6 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 		
 		//Loading the club members
 		ClubService.saveClubSettings(thisUser.defaultClubId, clubSettings, this.onSaveFillerss, this);
-
 	},
 
 	goBack: function(){

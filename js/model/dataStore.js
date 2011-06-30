@@ -1,5 +1,5 @@
 var mockUser={
-		'userId':'guest',
+		'userId':'guest@gmail.com',
 		'name' : 'Alpha',
 		'password' : 'guest',
 		'email' : 'MockingBird@gamil.com',
