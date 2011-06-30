@@ -11,7 +11,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 		    label: 'Member',
 		    valueField : 'id',
 		    displayField : 'name',
-		    store : memberStore
+		    store : memberDropDownStore
 		});
 
 		this.roleSelector = new Ext.form.Select({

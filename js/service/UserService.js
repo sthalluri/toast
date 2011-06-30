@@ -3,6 +3,7 @@ UserServiceImpl = Ext.extend(Object, {
 	onAjaxResponse: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
+		loadMask.hide();
     },
 
 	checkLogin : function(userId, password, cb, scope) {
@@ -21,13 +22,14 @@ UserServiceImpl = Ext.extend(Object, {
 			},
 			success: this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 	
 	register : function(formValues, cb, scope) { 
 		console.log('Invoking the check service');
 		var user = {
 			userId : formValues.email,
-			password : formValues.password,
+			password : hex_md5(formValues.password),
 			firstName : formValues.firstName,
 			lastName : formValues.lastName
 		};
@@ -39,6 +41,7 @@ UserServiceImpl = Ext.extend(Object, {
 			},
             success: this.onAjaxResponse
        });
+	   loadMask.show();
 	},
 	
 
@@ -48,12 +51,6 @@ UserServiceImpl = Ext.extend(Object, {
 		}else{
 			return 'Not Assigned';
 		}
-	},
-	
-	onCreate : function(response, args, cb, scope)
-	{
-		var data = eval("("+response.responseText+")");
-		cb.call(scope || window, data);
 	},
 	
 	createClubMember : function(formValues, cb, scope)
@@ -77,14 +74,9 @@ UserServiceImpl = Ext.extend(Object, {
 			params: {
 				json:Ext.encode(user)
 			},
-			success:this.onCreate
+			success:this.onAjaxResponse
 		});
-	},
-	
-	onDelete : function(response, args, cb, scope)
-	{
-		var data = eval("(" +response.responseText + ")");
-		cb.call(scope || window, data);
+		loadMask.show();
 	},
 	
 	deleteClubMember : function(id, cb, scope)
@@ -93,8 +85,9 @@ UserServiceImpl = Ext.extend(Object, {
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/delete',
 			params: {id: id},
-			success:this.onDelete
+			success:this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 	
 	savePassword : function(password, cb, scope)
@@ -104,14 +97,9 @@ UserServiceImpl = Ext.extend(Object, {
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/create',
 			params: {json:Ext.encode(thisUser)},
-			success: this.onSavePassword
+			success: this.onAjaxResponse
 		});
-	},
-	
-	onSavePassword : function(response, args, cb, scope)
-	{
-		var data = eval("(" + response.responseText + ")");
-		cb.call(scope || window, data);
+		loadMask.show();
 	}
 });
 

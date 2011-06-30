@@ -69,15 +69,6 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 			}]
 		} ];
 		
-		this.listeners = {
-			submit : function(loginForm, result) {
-				console.log('success', Ext.toArray(arguments));
-			},
-			exception : function(loginForm, result) {
-				console.log('failure', Ext.toArray(arguments));
-			}
-		};
-		
 		this.dockedItems = [ {
 			xtype : 'toolbar',
 			dock : 'bottom',
@@ -95,10 +86,11 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				text : 'Register',
 				ui : 'confirm',
 				scope: this,
+                width:80,
 				handler : this.register
 			}, {
 				text : 'Cancel',
-				ui : 'decline',
+                width:80,
 				scope: this,
 				handler : this.cancel
 			} ]
@@ -121,7 +113,9 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 		RegisterPanel.superclass.initComponent.call(this);	
 	},
 	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('Register'+'<div class="msg"><p >'+msg+'</p></div>');
+		if(this.items.get(0).titleEl){
+			this.items.get(0).titleEl.setHTML('Register'+'<div class="msg"><p >'+msg+'</p></div>');
+		}
 	},
 	onRegister:function(data){
     	if(data.success){
@@ -134,18 +128,18 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	register : function() {
 		if(this.validate()){
 			var formValues = this.getValues();
-			console.log(formValues);
 			UserService.register(formValues, this.onRegister, this);
 		}
 	},
 	validate: function(){
 		var formValues = this.getValues();
 		
-		if(!formValues.email || formValues.email<5){
-			this.updateMessage('Enter a valid email ID');
+		if(!formValues.email || !validator.validateEmail(formValues.email))
+		{
+			this.updateMessage('Enter a valid email.');
 			return false;
 		}
-		
+
 		if(!formValues.password || formValues.password<5){
 			this.updateMessage('Enter a valid password');
 			return false;
@@ -167,9 +161,14 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	registerSuccess:function() {
 		console.log('Came to the resgister success');
-		this.loggedIn = true;
 		this.hide();
-		navPanel.show();
+		showMeetingPanel();
+	},
+	
+	initScreen: function(){
+		this.reset();
+		this.updateMessage('');
+		this.show();
 	}
 });
 

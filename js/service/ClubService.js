@@ -3,6 +3,7 @@ ClubServiceImpl = Ext.extend(Object, {
 	onAjaxResponse: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
+		loadMask.hide();
     },
     
 
@@ -17,6 +18,7 @@ ClubServiceImpl = Ext.extend(Object, {
 				data.returnVal.rows.push(member);
 			}
 		}cb.call(scope || window, data);
+		loadMask.hide();
     },
     
     clubMembers : function(clubId, cb, scope) {
@@ -25,6 +27,7 @@ ClubServiceImpl = Ext.extend(Object, {
 			url : urlStore.clubUrl + '/get/'+clubId,
 			success: this.onClubMembers
 		});
+		loadMask.show();
 	},
 
     saveClubSettings: function(clubId, settings, cb, scope){
@@ -40,6 +43,7 @@ ClubServiceImpl = Ext.extend(Object, {
 			},
 			success: this.onAjaxResponse
 		});    	
+		loadMask.show();
     }
 });
 

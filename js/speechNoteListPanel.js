@@ -3,6 +3,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	title:'TbTopic',
 	fullscreen: true,
     layout: 'card',    
+    height:'100%',
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([

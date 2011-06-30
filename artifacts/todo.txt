@@ -224,16 +224,23 @@ Nav Panel
 -Back button handler for android
 -Flip the app doesnt show the same panel. Orientation problem
 -Panel height messed up sometimes
+-Remember me not working & Logout option Logout option not working
+-View my profile option
+-Save on meeting show scroll to the top
+-App loading icon
+-Check for user already present validation
+-Remove dummy user
 
-Remember me not working & Logout option Logout option not working
-View my profile option
+
 Format the help tab
+Format my profile tab
 
-Security for the app
+Card chopping off on the speech list
+Capitalize user first Name always
+
+Security for the app by userid
 Wrap all the js files into one
-Https for the app
 
-Save on meeting show scroll to the top
 Select not very good
 better way to enter meeting time
 easy way to delete the counter
@@ -243,3 +250,4 @@ Next Release
 Agenda Management, for multiple speeches
 Working with local datastore
 Remember the app state
+Https for the app

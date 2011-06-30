@@ -34,35 +34,35 @@ function initAddMeetingPanel(){
 				    label: 'Speech One',
 				    valueField : 'id',
 				    displayField : 'name',
-				    store : memberStore
+				    store : memberDropDownStore
 				}, {
 				    xtype: 'selectfield',
 				    name : 'speechTwo',
 				    label: 'Speech Two',
 				    valueField : 'id',
 				    displayField : 'name',
-				    store : memberStore
+				    store : memberDropDownStore
 				}, {
 				    xtype: 'selectfield',
 				    name : 'grammarian',
 				    label: 'Grammarian',
 				    valueField : 'id',
 				    displayField : 'name',
-				    store : memberStore
+				    store : memberDropDownStore
 				}, {
 				    xtype: 'selectfield',
 				    name : 'timer',
 				    label: 'Timer',
 				    valueField : 'id',
 				    displayField : 'name',
-				    store : memberStore
+				    store : memberDropDownStore
 				}, {
 				    xtype: 'selectfield',
 				    name : 'tableTopics',
 				    label: 'Table Topics',
 				    valueField : 'id',
 				    displayField : 'name',
-				    store : memberStore
+				    store : memberDropDownStore
 				}]
             }
         ],

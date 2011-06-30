@@ -12,7 +12,8 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			    label: 'Member',
 			    valueField : 'id',
 			    displayField : 'name',
-			    store : memberStore,
+			    store : memberDropDownStore,
+			    value:undefined,
 			    required : true,
 			    listeners:{
 			    	change: {fn: this.userUpdated, scope: this}

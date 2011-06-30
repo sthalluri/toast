@@ -142,11 +142,22 @@ var memberStore = new Ext.data.JsonStore({
 		return record.get('firstName')[0];
    },
    loadWithDefault: function(records){
-		memberStore.loadData(records);
-		var defaultSelect = { id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'};
-		this.insert(0,Ext.ModelMgr.create( defaultSelect, 'Member'));
+		this.loadData(records);
+		memberDropDownStore.loadWithDefault(records);
    }
 });
+
+var memberDropDownStore = new Ext.data.JsonStore({
+	   data : members,
+	   model : 'Member',
+	   autoLoad : false,
+	   autoDestroy : true,
+	   loadWithDefault: function(records){
+		   	this.loadData(records);
+			var defaultSelect = { id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'};
+			this.insert(0,Ext.ModelMgr.create( defaultSelect, 'Member'));
+	   }
+	});
 
 Ext.regModel('Role', {
     fields: [

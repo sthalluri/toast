@@ -101,7 +101,8 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		    	xtype:'textareafield',
 		    	name:'aboutme',
 		    	label:'About',
-		    }
+		    },
+		    this.changePasswordButton
 		    ]
 		}
 		];
@@ -124,7 +125,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			xtype:'toolbar',
 			dock:'bottom',
 			items:[
-			       this.changePasswordButton,
 			       {
 			    	   xtype:'spacer'
 			       },
@@ -245,7 +245,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	{
 		this.hide();
 		changePasswordPanel.show();
-		changePasswordPanel.items.get(0).titleEl.setHTML("Change Password for user id: "+ thisUser.userId);
 		changePasswordPanel.title = changePasswordPanel.items.get(0).titleEl.getHTML();
 	},
 	
@@ -284,14 +283,14 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			this.updateMessage("Fields can't be left empty.");
 			return false;
 		}
-		if(!formValues.email || !this.validateEmail(formValues.email))
+		if(!formValues.email || !validator.validateEmail(formValues.email))
 		{
 			this.updateMessage('Enter a valid email.');
 			return false;
 		}
 		if(formValues.phone)
 		{
-			if(!this.validatePhone(formValues.phone))
+			if(!validator.validatePhone(formValues.phone))
 			{
 				this.updateMessage('Enter a valid phone number');
 				return false;
@@ -300,19 +299,4 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		return true;
 	},
 	
-	validateEmail : function(email)
-	{
-		var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
-		return emailPattern.test(email);
-	},
-	
-	validatePhone : function(phone)
-	{
-		//phone.length == 10 && 
-		if(!window.isNaN(phone))
-		{
-			return true;
-		}
-		return false;
-	}
 } );

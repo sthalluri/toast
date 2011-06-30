@@ -1,10 +1,14 @@
 AppDB = Ext.extend(Object, {
 
-	/**
-	 * @constructor
-	 * @param {HTMLElement/Ext.Element/String/Object} config The parent element or configuration options.
-	 * @ptype fittoparent
-	 */
+	USERID: '1', 
+	PASSWD: '2',
+	LOGGEDIN: '3',
+	AUTH_TOKEN: '4',
+	AUTH_EXP_TIME: '5',
+	AUTH_INIT_TIME: '6',
+	CURR_MEETING: '7',
+	REMEMBER_ME: '8',
+
 	constructor : function(config) {
 		Ext.apply(this, config);
 	},
@@ -31,17 +35,31 @@ AppDB = Ext.extend(Object, {
 	runQuery : function(fn) {
 		db.transaction(fn, this.errorCB, this.successCB);
 	},
-
-	onDeviceReady : function() {
-		window.localStorage.setItem("key", "value");
-		var keyname = window.localStorage.key(i);
-		// keyname is now equal to "key"
-		var value = window.localStorage.getItem("key");
-		// value is now equal to "value"
-		window.localStorage.removeItem("key");
-		window.localStorage.setItem("key2", "value2");
+	
+	getValue: function(key){
+		return window.localStorage.getItem(key);
+	},
+	
+	setValue: function(key, value){
+		window.localStorage.setItem(key, value);
+	},
+	
+	removeValue: function(key){
+		window.localStorage.removeItem(key);
+	},
+	
+	removeAll: function(key){
 		window.localStorage.clear();
-		// localStorage is now empty
+	},
+	
+	toString: function(){
+		return objectToString(window.localStorage);
+	},
+	
+	resetLoginData: function(){
+		db.removeValue(db.USERID);
+		db.removeValue(db.PASSWD);
+		db.removeValue(db.REMEMBER_ME);
+        console.log("From the storage >"+ db.toString());
 	}
-
 });

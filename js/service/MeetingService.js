@@ -3,6 +3,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 	onAjaxResponse: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
+		loadMask.hide();
     },
     
     //Get the list of meetings
@@ -13,6 +14,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 			url : urlStore.meetingUrl+'/list',			
 			success: this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Get the meetings by club id
@@ -22,6 +24,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 			url : urlStore.meetingUrl + '/getByClubId/' + clubId,
 			success : this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Save the meeting
@@ -35,6 +38,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 			},
 			success : this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Get the meetings by club id
@@ -44,6 +48,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 			url : urlStore.meetingUrl + '/delete/' + meetingId,
 			success : this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Save the Table Topic question
@@ -70,6 +75,7 @@ MeetingServiceImpl = Ext.extend(Object, {
 			},
 			success : this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Save the Table Topic question
@@ -96,12 +102,14 @@ MeetingServiceImpl = Ext.extend(Object, {
 			},
 			success : this.onAjaxResponse
 		});
+		loadMask.show();
 	},
 
 	//Process the response to parse out the content
 	onGetContent: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
+		loadMask.hide();
     },
 
     
@@ -112,6 +120,7 @@ MeetingServiceImpl = Ext.extend(Object, {
  			url : urlStore.meetingUrl + '/getContent/'+contentId,
 			success: this.onGetContent
 		});
+		loadMask.show();
 	}
 });
 

@@ -32,6 +32,10 @@ Ext.setup({
     glossOnIcon: false,
     
     onReady: function() {
+        db = new AppDB();
+        db.init();
+        validator = new Validator();
+        
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
         registerPanel = new RegisterPanel();
@@ -69,6 +73,8 @@ Ext.setup({
         
         speechNoteListPanel = new SpeechNoteListPanel();
         
+        loadMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
+
         homeTabPanel = new Ext.TabPanel({
         	tabBar:{
         		dock:'bottom',
@@ -121,10 +127,14 @@ Ext.setup({
         });  
         
         document.addEventListener("backbutton", backKeyDown, true);
-        db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+        
+        if(db.getValue(db.REMEMBER_ME) > 0){
+        	loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
+        }
     }
 });
 
+var validator;
 var db;
 var homeTabPanel;
 var mainPanel;
@@ -166,7 +176,7 @@ function logSelected(comp, newCard, oldCard, index) {
 	currentPanel = newCard;
 }
 
-function closePanel(panel){
+function closePanel(){
 	mainCardPanel.setActiveItem(3);
 	meetingListPanel.meetingActionPanel.deselect();
 }
@@ -181,7 +191,7 @@ function showPanel(showPanel){
 
 var currentPanel;
 function logMainSelected(comp, newCard, oldCard, index) {
-	console.log('Panel changed to :'+index);
+	//console.log('Panel changed to :'+index);
 	currentPanel = newCard;
 }
 
@@ -207,3 +217,10 @@ function backKeyDown() {
 }
 
 //<img width="30px" height="30px" src="js/ext/resources/themes/images/default/pictos/compose.png" onclick="{panel}.editTimeLimit();"/>
+
+function showMeetingPanel(){
+	homePanel.hide();
+	meetingListPanel.listMode();
+	homeTabPanel.show();
+	homeTabPanel.setActiveItem(0);
+}

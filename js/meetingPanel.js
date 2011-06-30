@@ -54,7 +54,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			label : 'ToastMaster',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'grammarian',
@@ -62,56 +62,56 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			valueField : 'id',
 			displayField : 'name',
 			fullScreen: true,
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'timer',
 			label : 'Timer',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'tableTopics',
 			label : 'Table Topics',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'generalEvaluator',
 			label : 'Gen Evaluator',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'speaker1',
 			label : 'Speech1',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'evaluator1',
 			label : 'Speech1 Eval',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'speaker2',
 			label : 'Speech2',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'evaluator2',
 			label : 'Speech2 Eval',
 			valueField : 'id',
 			displayField : 'name',
-			store : memberStore
+			store : memberDropDownStore
 		}];
 	
         this.items= [{
@@ -284,6 +284,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			console.log(data);
 			this.meeting.id = data.returnVal.id;			
 			this.updateMessage(data.successMessage);
+	        this.scroller.scrollTo(0);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

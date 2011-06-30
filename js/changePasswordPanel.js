@@ -26,7 +26,7 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 		this.items = [
 		{
 			xtype: 'fieldset',
-			title: 'Change Password for user id:',
+			title: '&nbsp;',
 			defaults: {
 				labelAlign: 'left',
                 labelWidth: '35%'
@@ -41,22 +41,28 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 				id: 'oldPassword',
 				xtype: 'passwordfield',
 				name: 'oldPassword',
-				label: 'Old Password',
-				autoCapitalize: false
+				placeHolder: 'Password',
+				label: 'Old',
+				autoCapitalize: false,
+				required:true
 			},
 			{
 				id: 'newPassword',
 				xtype: 'passwordfield',
 				name: 'newPassword',
-				label: 'New Password',
-				autoCapitalize: false
+				placeHolder: 'Password',
+				label: 'New',
+				autoCapitalize: false,
+				required:true
 			},
 			{
 				id: 'reNewPassword',
 				xtype: 'passwordfield',
+				placeHolder: 'Password',
 				name: 'reNewPassword',
-				label: 'Re-enter New Password',
-				autoCapitalize: false
+				label: 'Confirm',
+				autoCapitalize: false,
+				required:true
 			}
 			]
 		}
@@ -93,14 +99,21 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 		var formValues = this.getValues();
 		if(this.validate())
 		{
-			UserService.savePassword(formValues.newPassword, this.onSavePassword, this);
+			UserService.savePassword(hex_md5(formValues.newPassword), this.onSavePassword, this);
 		}
 	},
 	
-	onSavePassword : function()
+	onSavePassword : function(data)
 	{
-		this.reset();
-		this.updateMessage("Password changed successfully");
+		if (data.success) {
+			this.reset();
+			if(db.getValue(db.REMEMBER_ME) > 0){
+				db.setValue(db.PASSWD, hex_md5(formValues.newPassword));
+	        }
+			this.updateMessage("Password changed successfully");
+		} else {
+			console.log('Unable to load the meetings ');
+		}
 	},
 	
 	validate : function()
@@ -111,7 +124,7 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 			this.updateMessage("Enter all the fields.");
 			return false;
 		}
-		if(formValues.oldPassword != thisUser.password)
+		if(hex_md5(formValues.oldPassword) != thisUser.password)
 		{
 			this.updateMessage("Old password didn't match the stored password. Enter correct password.");
 			return false;

@@ -30,7 +30,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 						width : 100,
 						pack : 'center',
 						handler : function() {
-							registerPanel.show();
+							registerPanel.initScreen();
 						}
 					}) ]
 				} ];

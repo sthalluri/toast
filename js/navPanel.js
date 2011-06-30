@@ -31,7 +31,7 @@ NavPanel = Ext.extend(Ext.Panel,
 				'<tr align ="center">'+
 				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/user_list2.png" onclick="navPanel.viewMyProfile()"/></td>'+
 				'<td width="20px"></td>'+
-				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/lock_open.png" onclick="navPanel.viewHelp()"/></td>'+
+				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/lock_open.png" onclick="navPanel.viewLogout()"/></td>'+
 				'</tr>'+
 				'<tr >'+
 				'<td >My Profile</td>'+
@@ -51,34 +51,11 @@ NavPanel = Ext.extend(Ext.Panel,
 		NavPanel.superclass.initComponent.call(this);
 	},
 
-	viewMeetings: function(){
-		navPanel.hide();
-		meetingListPanel.listMode();
-		meetingListPanel.show();
-	},
-
-	viewClubMembers: function(){
-		navPanel.hide();
-		//Loading the club members
-		ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-		clubMemberListPanel.show();
-	},
-	
-	viewRoles:function(){
-		navPanel.hide();
-		roleHelpPanel.show();
-	},
-	
 	viewHelp:function(){
 		navPanel.hide();
 		helpTabPanel.show();
 	},
 	
-	viewLog: function(){
-		navPanel.hide();
-		myLogPanel.show();
-	},
-
 	viewMyClub:function(){
         Ext.Msg.alert('Under Construction', 'Coming Soon!', Ext.emptyFn);
 	},
@@ -89,15 +66,12 @@ NavPanel = Ext.extend(Ext.Panel,
 		clubMemberAddPanel.show();
 		clubMemberAddPanel.populateUserDetails(thisUser, "profile");
 	},
-	
-	onClubMemberLoad: function(data)
-	{
-		if (data.success) {
-			console.log('Loading meeting data');
-			memberStore.loadWithDefault(data.returnVal.rows);
-		} else {
-			console.log('Unable to load the meetings ');
-		}
-	},
+
+	viewLogout: function(){
+		db.resetLoginData();
+		this.hide();
+		closePanel();
+		loginPanel.initScreen();
+	}
 
 });
