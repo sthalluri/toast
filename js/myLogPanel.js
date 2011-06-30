@@ -58,7 +58,6 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 	},
 	
 	reload: function(){
-		console.log('Came to refresh');
 		
 		var gramLogs = new Array();
 		var timerLogs = new Array();
@@ -155,6 +154,5 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		}else{
 			this.meetingLogPanel.el.dom.innerHTML = html;
 		}
-		console.log(html);
 	}
 });

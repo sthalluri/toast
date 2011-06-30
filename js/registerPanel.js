@@ -160,7 +160,6 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 		homePanel.show();
 	},
 	registerSuccess:function() {
-		console.log('Came to the resgister success');
 		this.hide();
 		showMeetingPanel();
 	},

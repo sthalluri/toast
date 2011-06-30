@@ -262,11 +262,11 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	onClubMemberLoad: function(data)
 	{
 		if (data.success) {
-			console.log('Loading meeting data');
 			memberStore.loadWithDefault(data.returnVal.rows);
 	    	closePanel(this);
 		} else {
-			console.log('Unable to load the meetings ');
+			//console.log('Unable to load the meetings ');
+			this.updateMessage("Unable to load the members.");
 		}
 	},
 	

@@ -134,15 +134,6 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
             }
         ];
         
-        this.listeners = {
-			submit : function(loginForm, result) {
-				console.log('success', Ext.toArray(arguments));
-			},
-			exception : function(loginForm, result) {
-				console.log('failure', Ext.toArray(arguments));
-			}
-		};
-    
         this.dockedItems = [
             {
                 xtype: 'toolbar',
@@ -266,7 +257,6 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 
 	onMeetingListDataLoad: function(data){
 		if (data.success) {
-			console.log('Loading meeting data');
 			meetingStore.loadAndFormat(data.returnVal.rows);
 			closePanel(this);
 			meetingListPanel.showMeeting(thisMeeting);
@@ -274,14 +264,12 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 	    	//meetingListPanel.show();
 	    	//meetingListPanel.listMode();
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage('Unable to load the data');
 		}
 	},
 
 	onSave: function(data){
-		console.log('From the save callback');
 		if (data.success) {
-			console.log(data);
 			this.meeting.id = data.returnVal.id;			
 			this.updateMessage(data.successMessage);
 	        this.scroller.scrollTo(0);
@@ -341,7 +329,6 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 		this.meeting.roles.timer.userId = values.timer;
 		
 		//this.controller.save(this.meeting);
-		console.log(this.meeting);
         MeetingService.save(this.meeting, this.onSave, this);
 	}
 });

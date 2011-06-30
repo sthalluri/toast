@@ -45,7 +45,6 @@ function Clock (paramHandler, paramInterval) {
 		},
 		setSecsFromStr: function(timeStr){
 			secs = getSecsFromStr(timeStr);
-			console.log(secs);
 		}
 	};
 };
@@ -53,10 +52,6 @@ function Clock (paramHandler, paramInterval) {
 function myalert(){
 
 }
-
-
-//var clock = new Clock(myalert);
-//clock.start();
 
 function startClock ( )
 {
@@ -71,7 +66,6 @@ function stopClock ( )
 function increment ( )
 {
 	secs+=1;
-	console.log(secs);
 }
 
 function getSecsFromStr(timeStr){

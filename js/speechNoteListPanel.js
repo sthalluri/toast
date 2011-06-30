@@ -177,7 +177,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;
-			console.log(data);
             items.push({
                 html: this.speechNoteTmpl.apply(this.formatNotes(data))
             });
@@ -205,7 +204,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		var i = 1;
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;			
-			console.log(data);
 			var card = this.speechNoteTopicCarousel.items.get(i);
 			if(card){
 				card.el.dom.innerHTML = this.speechNoteTmpl.apply(this.formatNotes(data));
@@ -236,7 +234,6 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			this.editButton.show();
 			this.deleteButton.show();
 			this.activeIndex = index;
-			console.log(this.activeIndex);
 			this.activeSpeechNote = speechNoteDataStore.getAt(index-1).data;
 		}else{
 			this.addButton.show();

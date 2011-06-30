@@ -46,15 +46,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.loadItems();
 
-        this.listeners = {
-            submit : function(loginForm, result){
-                console.log('success', Ext.toArray(arguments));
-            },
-            exception : function(loginForm, result){
-                console.log('failure', Ext.toArray(arguments));
-            }
-        };
-    
         this.dockedItems =[
             {
                 xtype: 'toolbar',
@@ -96,32 +87,14 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	loadItems: function(){
 		this.spinners = new Array();
 		
-//		for(var i=0; i<fillers.length;i++){
-//			var filler = fillers[i];
-//			var spinner = new Ext.form.Spinner({
-//					xtype: 'spinnerfield',
-//	                minValue: 0,
-//	                name : filler+'Count',
-//	                label: filler,
-//	                required:false
-//				});
-//			this.spinners[this.spinners.length]=spinner;
-//		}
-
 		this.spinnerFieldSet = new Ext.form.FieldSet({
 				xtype : 'fieldset',
 				title : '<table width="100%"><tr><td width="90%" >Counters</td>'+
 						'<td align="right" width="50px">'
 						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/add_black.png"  onclick="gramPanel.addCustom();" />'
-//						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-//						+ '<span class="x-button-label" style="font-size:0.8em" onclick="gramPanel.addCustom();">Add</span>'
-//						+ '</div>'
 						+ '</td>'+
 						'<td align="right" width="50px">'
 						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/delete_black2.png"  onclick="gramPanel.removeCustom();" />'
-//						+ '<div class=" x-button x-button-normal" style="margin-bottom: 0.2em; margin-left: 0.2em; ">'
-//						+ '<span class="x-button-label" style="font-size:0.8em" onclick="gramPanel.removeCustom();">Delete</span>'
-//						+ '</div></td>'+
 						+ '</td>'+
 						'</tr></table>',
 				defaults : {
@@ -208,9 +181,9 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onSaveFillerss: function(data){
 		if (data.success) {
-			console.log('Saved fillers succesfully');
+			this.updateMessage("Saved filler successfully.");
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage("Unable to save the filler.");
 		}
 	},
 
@@ -225,7 +198,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onRemoveCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
-			console.log(custom);
 			if(fillers.indexOf(custom)<0){
 				gramPanel.updateMessage('Filler not present');
 				return;
@@ -234,7 +206,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			for(var i=0; i<gramPanel.spinners.length; i++){
 				var spinner = gramPanel.spinners[i];
 				if(spinner.name == custom+'Count'){
-					console.log(spinner.name);
 					gramPanel.spinnerFieldSet.remove(spinner);					
 				}
 			}
@@ -300,14 +271,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			}
 		}
 	},	
-	
-	logReport:function(){
-		for(var i=1; i<roles.length; i++){
-			var role = roles[i];
-	        var obj = thisMeeting.roles[role.role];
-	        console.log(objectToString(obj));
-		}
-	},
 	
 	updateMessage: function(msg){
 		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');

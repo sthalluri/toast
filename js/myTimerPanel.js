@@ -19,7 +19,6 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 			    listeners:{
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
-						console.log(values);
 						var role = values['role'];
 						var obj = thisMeeting.roles[role];
 						if (obj && obj.timeLimits && obj.timeLimits.red > 0) {

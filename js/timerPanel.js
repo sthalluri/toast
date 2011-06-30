@@ -25,7 +25,6 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			    listeners:{
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
-						console.log(values);
 						var role = values['role'];
 						var obj = thisMeeting.roles[role];
 						if (obj && obj.timeLimits && obj.timeLimits.red > 0) {
@@ -276,17 +275,6 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 			colorDiv.className= colourClass;
 			this.timeLimits.className = colourClass;
 			cardPanel.updateColor(colourClass);
-			console.log('Changing to yellow');
-		}
-	},
-
-	logReport:function(){
-		for(var i=1; i<roles.length; i++){
-			var role = roles[i];
-	        var obj = thisMeeting.roles[role.role];
-	        if(obj){
-		        console.log(role.role+'->'+obj.timeSpent);
-	        }
 		}
 	},
 

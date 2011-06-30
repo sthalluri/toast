@@ -106,7 +106,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 				}
 			}
 			data.returnVal = rQuestions;
-			console.log(data.returnVal);
 			if(data.returnVal.length>0){
 				questionDataStore.loadData(data.returnVal);
 			}else{
@@ -176,8 +175,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	
 	listMode: function(){
 		//this.updateCarousel();
-		console.log(this.activeIndex );
-		console.log(this.activeIndex);
 		var activeCard = this.tblTopicCarouselPanel.items.get(this.activeIndex);
 		if(activeCard.el && activeCard.el.dom){
 			activeCard.el.dom.innerHTML = this.questionTmpl.apply(this.formatNotes(questionDataStore.getAt(this.activeIndex-1).data));
@@ -195,7 +192,6 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.editButton.show();
 			this.deleteButton.show();
 			this.activeIndex = index;
-			console.log(this.activeIndex);
 			this.activeQuestion = questionDataStore.getAt(index-1).data;
 		}else{
 			this.addButton.show();

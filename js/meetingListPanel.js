@@ -179,14 +179,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.mainToolbar.setTitle("Meeting");
 		this.viewMode = "DETAIL";
 	},
-
-	onRefresh:function(){
-		console.log('From the callback');
-	},
-	
-	refresh : function(){
-        MeetingService.save(this.onRefresh, this);
-	},
 	
 	goHome: function(){
     	this.hide();
@@ -320,8 +312,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     onSelect: function(sel, records){
         if (records[0] !== undefined) {
         	var data = records[0].data;
-        	console.log(data);
-    		//var meeting = this.parentPanel.meetingStore.getAt(index).data;
     		thisMeeting = data;
     		this.showMeeting(data);
         }

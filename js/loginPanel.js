@@ -84,7 +84,6 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 				db.setValue(db.USERID, formValues.userId);
 				db.setValue(db.PASSWD, hex_md5(formValues.password));
 				db.setValue(db.REMEMBER_ME, 1);
-		        console.log("From the storage >"+ db.toString());				
 			}else{
 				db.resetLoginData();
 			}
@@ -98,28 +97,25 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 	
 	onMeetingDataLoad: function(data){
 		if (data.success) {
-			console.log('Loading meeting data');
 			meetingStore.loadAndFormat(data.returnVal.rows);
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage('Unable to load the data');
 		}
 	},
 
 	onClubMemberLoad: function(data){
 		if (data.success) {
-			console.log('Loading meeting data');
 			if(data.returnVal.clubSettings && data.returnVal.clubSettings.fillers){
 				fillers = data.returnVal.clubSettings.fillers;
 			}
 			//gramPanel.loadItems();
 			memberStore.loadWithDefault(data.returnVal.rows);
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage('Unable to load the data');
 		}
 	},
 
 	onCheckLogin:function(data){
-		console.log('Came to the callback and its :'+data);
 		if (data.success) {
 			this.loggedIn = true;
 			thisUser = data.returnVal;

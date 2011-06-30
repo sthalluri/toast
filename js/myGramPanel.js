@@ -28,15 +28,6 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 			title:'&nbsp;'
 		},this.spinnerFiledSet];
 		
-        this.listeners = {
-            submit : function(loginForm, result){
-                console.log('success', Ext.toArray(arguments));
-            },
-            exception : function(loginForm, result){
-                console.log('failure', Ext.toArray(arguments));
-            }
-        };
-    
         this.dockedItems =[
             {
                 xtype: 'toolbar',
@@ -202,7 +193,6 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 			for(var i=0; i<myGramPanel.spinners.length; i++){
 				var spinner = myGramPanel.spinners[i];
 				if(spinner.name == custom+'Count'){
-					console.log(spinner.name);
 					myGramPanel.spinnerFiledSet.remove(spinner);					
 				}
 			}
@@ -213,9 +203,9 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 
 	onSaveFillerss: function(data){
 		if (data.success) {
-			console.log('Saved fillers succesfully');
+			this.updateMessage('Saved fillers successfully.');
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage('Unable to save the data.');
 		}
 	},
 
