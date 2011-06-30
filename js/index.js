@@ -121,10 +121,11 @@ Ext.setup({
         });  
         
         document.addEventListener("backbutton", backKeyDown, true);
+        db = window.openDatabase("test", "1.0", "Test DB", 1000000);
     }
 });
 
-
+var db;
 var homeTabPanel;
 var mainPanel;
 var loginPanel;
