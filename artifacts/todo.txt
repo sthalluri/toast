@@ -238,7 +238,6 @@ Card chopping off on the speech list
 
 Capitalize user first Name always
 After save loosing the user id and password
-Dont show all the passwords from the all the members
 
 Security for the app by userid
 Wrap all the js files into one

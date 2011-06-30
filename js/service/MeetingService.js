@@ -1,17 +1,12 @@
-MeetingServiceImpl = Ext.extend(Object, {
+MeetingServiceImpl = Ext.extend(Service, {
 	
-	onAjaxResponse: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
-		loadMask.hide();
-    },
-    
     //Get the list of meetings
 	getList : function(cb, scope) {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/list',			
-			success: this.onAjaxResponse
+			success: this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -21,7 +16,8 @@ MeetingServiceImpl = Ext.extend(Object, {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.meetingUrl + '/getByClubId/' + clubId,
-			success : this.onAjaxResponse
+			success : this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -34,7 +30,8 @@ MeetingServiceImpl = Ext.extend(Object, {
 			params : {
 				json : Ext.encode(meeting)
 			},
-			success : this.onAjaxResponse
+			success : this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -44,7 +41,8 @@ MeetingServiceImpl = Ext.extend(Object, {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.meetingUrl + '/delete/' + meetingId,
-			success : this.onAjaxResponse
+			success : this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -69,7 +67,8 @@ MeetingServiceImpl = Ext.extend(Object, {
 			params : {
 				json : Ext.encode(tableTopics)
 			},
-			success : this.onAjaxResponse
+			success : this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -94,16 +93,17 @@ MeetingServiceImpl = Ext.extend(Object, {
 			params : {
 				json : Ext.encode(speechNotes)
 			},
-			success : this.onAjaxResponse
+			success : this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
 
 	//Process the response to parse out the content
 	onGetContent: function(response, args, cb, scope) {
+		loadMask.hide();
 		var data = eval("(" + response.responseText + ")");
         cb.call(scope || window, data);
-		loadMask.hide();
     },
 
     
@@ -112,7 +112,8 @@ MeetingServiceImpl = Ext.extend(Object, {
 	    this.onGetContent = Ext.createDelegate(MeetingServiceImpl.prototype.onGetContent, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
  			url : urlStore.meetingUrl + '/getContent/'+contentId,
-			success: this.onGetContent
+			success : this.onGetContent,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	}

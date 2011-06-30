@@ -1,12 +1,6 @@
-UserServiceImpl = Ext.extend(Object, {
+UserServiceImpl = Ext.extend(Service, {
 
-	onAjaxResponse: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
-		loadMask.hide();
-    },
-
-	checkLogin : function(userId, password, cb, scope) {
+   checkLogin : function(userId, password, cb, scope) {
 		var authToken = {
 			userId : userId,
 			password : password
@@ -16,10 +10,12 @@ UserServiceImpl = Ext.extend(Object, {
 
 		Ext.Ajax.request({
 			url : urlStore.userUrl + '/checkLogin',
+			timeout : 20,
 			params : {
 				json : Ext.encode(authToken)
 			},
-			success: this.onAjaxResponse
+			success: this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -37,7 +33,8 @@ UserServiceImpl = Ext.extend(Object, {
 			params : {
 				json:Ext.encode(user)
 			},
-            success: this.onAjaxResponse
+            success: this.onAjaxResponse,
+			failure: this.onAjaxResponse
        });
 	   loadMask.show();
 	},
@@ -72,7 +69,8 @@ UserServiceImpl = Ext.extend(Object, {
 			params: {
 				json:Ext.encode(user)
 			},
-			success:this.onAjaxResponse
+			success:this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	},
@@ -95,7 +93,8 @@ UserServiceImpl = Ext.extend(Object, {
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/create',
 			params: {json:Ext.encode(thisUser)},
-			success: this.onAjaxResponse
+			success: this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});
 		loadMask.show();
 	}

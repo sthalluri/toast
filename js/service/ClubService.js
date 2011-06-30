@@ -1,11 +1,4 @@
-ClubServiceImpl = Ext.extend(Object, {
-
-	onAjaxResponse: function(response, args, cb, scope) {
-		var data = eval("(" + response.responseText + ")");
-        cb.call(scope || window, data);
-		loadMask.hide();
-    },
-    
+ClubServiceImpl = Ext.extend(Service, {
 
 	onClubMembers: function(response, args, cb, scope) {
 		var data = eval("(" + response.responseText + ")");
@@ -22,12 +15,13 @@ ClubServiceImpl = Ext.extend(Object, {
     },
     
     clubMembers : function(clubId, cb, scope) {
+		loadMask.show();
 	    this.onClubMembers = Ext.createDelegate(ClubServiceImpl.prototype.onClubMembers, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.clubUrl + '/get/'+clubId,
-			success: this.onClubMembers
+			success: this.onClubMembers,
+			failure: this.onAjaxResponse
 		});
-		loadMask.show();
 	},
 
     saveClubSettings: function(clubId, settings, cb, scope){
@@ -41,7 +35,8 @@ ClubServiceImpl = Ext.extend(Object, {
 			params : {
 				json : Ext.encode(club)
 			},
-			success: this.onAjaxResponse
+			success: this.onAjaxResponse,
+			failure: this.onAjaxResponse
 		});    	
 		loadMask.show();
     }
