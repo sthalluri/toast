@@ -112,7 +112,7 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 	        }
 			this.updateMessage("Password changed successfully");
 		} else {
-			console.log('Unable to load the meetings ');
+			this.updateMessage("Unable to save the password");
 		}
 	},
 	

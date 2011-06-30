@@ -60,6 +60,5 @@ AppDB = Ext.extend(Object, {
 		db.removeValue(db.USERID);
 		db.removeValue(db.PASSWD);
 		db.removeValue(db.REMEMBER_ME);
-        console.log("From the storage >"+ db.toString());
 	}
 });

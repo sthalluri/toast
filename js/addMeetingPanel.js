@@ -66,15 +66,7 @@ function initAddMeetingPanel(){
 				}]
             }
         ],
-        listeners : {
-            submit : function(loginForm, result){
-                console.log('success', Ext.toArray(arguments));
-            },
-            exception : function(loginForm, result){
-                console.log('failure', Ext.toArray(arguments));
-            }
-        },
-    
+        
         dockedItems: [
             {
                 xtype: 'toolbar',

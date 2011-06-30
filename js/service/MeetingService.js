@@ -1,5 +1,6 @@
 MeetingServiceImpl = Ext.extend(Service, {
 	
+	
     //Get the list of meetings
 	getList : function(cb, scope) {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
