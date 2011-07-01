@@ -1,7 +1,8 @@
-MyGramPanel = Ext.extend(Ext.form.FormPanel, 
+MyGramPanel = Ext.extend(BaseFormPanel, 
 {
     standardSubmit : false,
     title: 'Gram',
+	scroll: 'vertical',
 	initComponent : function() {
 		
 		this.spinners = new Array();
@@ -20,19 +21,21 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 					labelAlign : 'left',
 					labelWidth : '40%'
 				},
-				items : [ this.spinners ]
+				items : [ this.spinners ],
+				instructions : '<b>Log your counts for this meeting.</b>',
 			});
 		
-		this.items = [ {
-			xtype : 'fieldset',
-			title:'&nbsp;'
-		},this.spinnerFiledSet];
+		console.log("This message"+this.meesage);
+		
+		this.items = [ 
+		               this.getMessageComp(),
+		               this.spinnerFiledSet];
 		
         this.dockedItems =[
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Gram Log',
+                title:'Gram Report',
                 items: [
                     {
 					    text: 'Back',
@@ -144,10 +147,6 @@ MyGramPanel = Ext.extend(Ext.form.FormPanel,
 		}
     	this.loadSpinners();
 		this.load();
-	},
-	
-	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
 	
 	addCustom: function(){

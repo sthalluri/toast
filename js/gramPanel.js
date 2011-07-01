@@ -1,7 +1,8 @@
-GramPanel = Ext.extend(Ext.form.FormPanel, 
+GramPanel = Ext.extend(BaseFormPanel, 
 {
     standardSubmit : false,
     title: 'Gram',
+    scroll: 'vertical',
 
 	initComponent : function() {
         
@@ -104,9 +105,9 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 				items : [ this.spinners ]
 			});
 		
-		this.items = [ {
+		this.items = [this.getMessageComp(),
+		              {
 			xtype : 'fieldset',
-			title:'&nbsp;',
 			defaults : {
 				labelAlign : 'left',
 				labelWidth : '30%'
@@ -271,10 +272,6 @@ GramPanel = Ext.extend(Ext.form.FormPanel,
 			}
 		}
 	},	
-	
-	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
-	},
 	
 	goBack: function() {
     	this.updateMessage('');

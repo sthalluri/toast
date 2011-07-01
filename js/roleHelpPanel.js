@@ -28,22 +28,7 @@ RoleHelpPanel = Ext.extend(Ext.Panel, {
             	'<p>The General Evaluator conducts the evaluation segment of the meeting. In addition, the General Evaluator assesses the effectiveness of the overall meeting.</p>'+
             	'</div>'}
         ];
-
-//		this.dockedItems = [ {
-//			xtype : 'toolbar',
-//			dock : 'top',
-//			title : 'Roles Help',
-//			items : [ {
-//				text : 'Back',
-//				scope : this,
-//				ui : 'back',
-//				handler : function() {
-//					this.hide();
-//					navPanel.show();
-//				}
-//			} ]
-//		} ];
-
+        
         RoleHelpPanel.superclass.initComponent.call(this);
     }
 });

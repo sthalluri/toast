@@ -1,7 +1,8 @@
-TimerPanel = Ext.extend(Ext.form.FormPanel, 
+TimerPanel = Ext.extend(BaseFormPanel, 
 {
 	standardSubmit : false,
 	title: 'Tim',
+	scroll: 'vertical',
 	initComponent : function() {
 
 		this.userSelector =	new Ext.form.Select({
@@ -88,7 +89,6 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
-             title:' ',
              defaults: {
                  required: true,
                  labelAlign: 'left',
@@ -129,7 +129,8 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
             handler: this.stopTimer
         });
 
-        this.items= [this.formFields,
+        this.items= [this.getMessageComp(),
+                     this.formFields,
 	        {
             xtype: 'fieldset',
             defaults: {
@@ -214,10 +215,7 @@ TimerPanel = Ext.extend(Ext.form.FormPanel,
         this.updateTimeLimitSection();
 		this.reset();
 	},
-	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
-	},
-
+	
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;

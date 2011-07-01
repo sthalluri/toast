@@ -1,4 +1,4 @@
-ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
+ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 {
     title: 'Club Member',
 	initComponent : function()
@@ -48,9 +48,8 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 			handler:this.showChangePasswordPanel
 		});
 
-		this.items = [{
+		this.items = [this.getMessageComp(),{
 		    xtype:'fieldset',
-		    title:'&nbsp;',
             defaults: {
                 labelAlign: 'left',
                 labelWidth: '35%'
@@ -245,7 +244,6 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 	{
 		this.hide();
 		changePasswordPanel.show();
-		changePasswordPanel.title = changePasswordPanel.items.get(0).titleEl.getHTML();
 	},
 	
 	resetFields : function()
@@ -264,15 +262,11 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		if (data.success) {
 			memberStore.loadWithDefault(data.returnVal.rows);
 	    	closePanel(this);
+	    	this.updateMessage("Unable to load the members.");
 		} else {
 			//console.log('Unable to load the meetings ');
 			this.updateMessage("Unable to load the members.");
 		}
-	},
-	
-	updateMessage: function(msg)
-	{
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
 	},
 	
 	validate : function()
@@ -280,7 +274,7 @@ ClubMemberAddPanel = Ext.extend(Ext.form.FormPanel,
 		var formValues = this.getValues();
 		if(!formValues.fname || !formValues.lname)
 		{
-			this.updateMessage("Fields can't be left empty.");
+			this.updateMessage("Enter valid First and Last name.");
 			return false;
 		}
 		if(!formValues.email || !validator.validateEmail(formValues.email))

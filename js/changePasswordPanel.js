@@ -1,4 +1,4 @@
-ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
+ChangePasswordPanel = Ext.extend(BaseFormPanel,
 {
 	initComponent: function()
 	{
@@ -23,10 +23,10 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 			handler:this.hideChangePasswordPanel
 		});
 		
-		this.items = [
+		this.items = [this.getMessageComp(),
 		{
 			xtype: 'fieldset',
-			title: '&nbsp;',
+			title: 'Change Your Password',
 			defaults: {
 				labelAlign: 'left',
                 labelWidth: '35%'
@@ -71,7 +71,7 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 		{
 			xtype: 'toolbar',
 			dock: 'top',
-			title: 'Change Password',
+			title: 'Password',
 			items: [
 			        this.backButton,
 			        {
@@ -136,11 +136,6 @@ ChangePasswordPanel = Ext.extend(Ext.form.FormPanel,
 		}
 		
 		return true;
-	},
-	
-	updateMessage : function(msg)
-	{
-		this.items.get(0).titleEl.setHTML(this.title + '<div class="msg"><p>' + msg + '</p></div>');
 	},
 	
 	hideChangePasswordPanel : function()

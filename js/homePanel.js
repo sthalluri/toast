@@ -8,6 +8,25 @@ HomePanel = Ext.extend(Ext.Panel,{
 	},
 	initComponent : function() {
 
+		this.registerButton = new Ext.Button({
+			text : 'Register',
+			width : 100,
+			pack : 'center',
+			handler : function() {
+				registerPanel.initScreen();
+			}
+		}) ;
+		
+		this.loginButton = new Ext.Button({
+			ui : 'confirm',
+			text : 'Login',
+			width : 100,	
+			pack : 'center',
+			handler : function() {
+				loginPanel.show();
+			}
+		});
+		
 		this.items = [
 				{
 					html : '<div class="c-toolbar-dark"><br/><br/><h2>Welcome to Toast App</h2><br/><br/><br/></div>'
@@ -17,24 +36,20 @@ HomePanel = Ext.extend(Ext.Panel,{
 						xtype : 'button',
 						style : 'margin: .5em;'
 					},
-					items : [ new Ext.Button({
-						ui : 'confirm',
-						text : 'Login',
-						width : 100,	
-						pack : 'center',
-						handler : function() {
-							loginPanel.show();
-						}
-					}), new Ext.Button({
-						text : 'Register',
-						width : 100,
-						pack : 'center',
-						handler : function() {
-							registerPanel.initScreen();
-						}
-					}) ]
+					items : [ this.loginButton, this.registerButton]
 				} ];
-
+		
+		this.loginButton.hide();
+		this.registerButton.hide();
+		
 		HomePanel.superclass.initComponent.call(this);
-	}
+	},
+	
+
+	showButtons:function(){
+		this.loginButton.show();
+		this.registerButton.show();
+	},
+
+	
 });

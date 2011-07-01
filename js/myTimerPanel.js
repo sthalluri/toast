@@ -1,10 +1,9 @@
-MyTimerPanel = Ext.extend(Ext.form.FormPanel, 
+MyTimerPanel = Ext.extend(BaseFormPanel, 
 {
 	scroll: 'vertical',
 	url   : 'postUser.php',
 	standardSubmit : false,
 	type : 'myTimerPanel',
-	title: 'My Timer Log',	
 	fullscreen:true,
 	initComponent : function() {
 		this.roleSelector = new Ext.form.Select({
@@ -79,7 +78,6 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
-             title:' ',
              defaults: {
                  required: true,
                  labelAlign: 'left',
@@ -99,24 +97,18 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 							'</table>'
                },
 				this.timer
-			]
+			],
+			instructions : '<b>Log your time reports for this meeting.</b>',
 		});
 
-        this.items= [this.formFields,
-	        {
-            xtype: 'fieldset',
-            defaults: {
-                required: true,
-                labelAlign: 'left',
-                labelWidth: '10%'
-            },
-            items: []
-            }
+        this.items= [
+                     this.getMessageComp(),
+                     this.formFields
         ];
         
         this.dockedItems= [
             {
-            	title: 'Timer',
+            	title: 'Timer Report',
                 xtype: 'toolbar',
                 dock: 'top',
                 items: [
@@ -155,10 +147,7 @@ MyTimerPanel = Ext.extend(Ext.form.FormPanel,
 	resetTimer: function(){
 		this.reset();
 	},
-	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('<div class="msg"><p >'+msg+'</p></div>');
-	},
-
+	
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;

@@ -130,6 +130,8 @@ Ext.setup({
         
         if(db.getValue(db.REMEMBER_ME) > 0){
         	loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
+        }else{
+        	homePanel.showButtons();
         }
     }
 });
@@ -224,3 +226,4 @@ function showMeetingPanel(){
 	homeTabPanel.show();
 	homeTabPanel.setActiveItem(0);
 }
+

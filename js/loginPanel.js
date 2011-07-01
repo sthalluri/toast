@@ -1,7 +1,6 @@
-LoginPanel = Ext.extend(Ext.form.FormPanel, 
-{
-	width: 300,
-	loggedIn:false,	
+LoginPanel = Ext.extend(Ext.form.FormPanel, {
+	width : 300,
+	loggedIn : false,
 	initComponent : function() {
 		this.items = [ {
 			xtype : 'fieldset',
@@ -14,11 +13,11 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			items : [ {
 				xtype : 'textfield',
 				name : 'userId',
-				placeHolder: 'Email ID',
+				placeHolder : 'Email ID',
 				useClearIcon : true,
 				autoCapitalize : false
 			}, {
-				placeHolder: 'Password',
+				placeHolder : 'Password',
 				xtype : 'passwordfield',
 				name : 'password',
 				useClearIcon : false
@@ -28,17 +27,16 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 				label : 'Remember Me'
 			} ]
 		} ];
-	
-		
+
 		this.dockedItems = [ {
 			xtype : 'toolbar',
 			dock : 'bottom',
 			items : [ {
 				text : 'Guest',
 				ui : 'round',
-				scope: this,
+				scope : this,
 				handler : function() {
-					this.user = Ext.ModelMgr.create( mockUser, 'User');
+					this.user = Ext.ModelMgr.create(mockUser, 'User');
 					loginPanel.loadModel(this.user);
 				}
 			}, {
@@ -46,56 +44,54 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 			}, {
 				text : 'Login',
 				ui : 'confirm',
-				scope: this,
-                width:80,
+				scope : this,
+				width : 80,
 				handler : this.login
 			}, {
 				text : 'Cancel',
-				scope: this,
-                width:80,
+				scope : this,
+				width : 80,
 				handler : this.cancel
 			} ]
 		} ];
-	
+
 		// Base config options
 		Ext.apply(this, {
 			scroll : 'vertical',
 			standardSubmit : false,
 			title : 'Login',
-			autoRender: true,
-		    floating: true,
-		    modal: true,
-		    centered: true,
-		    hideOnMaskTap: false
+			autoRender : true,
+			floating : true,
+			modal : true,
+			centered : true,
+			hideOnMaskTap : false
 		});
 
-		LoginPanel.superclass.initComponent.call(this);	
+		LoginPanel.superclass.initComponent.call(this);
 	},
-	updateMessage: function(msg){
-		this.items.get(0).titleEl.setHTML('Login'+'<div class="msg"><p >'+msg+'</p></div>');
+	updateMessage : function(msg) {
+		this.items.get(0).titleEl.setHTML('Login' + '<div class="msg"><p >' + msg + '</p></div>');
 	},
-	
-	login : function() 
-	{
-		if(this.validate())
-		{
+
+	login : function() {
+		if (this.validate()) {
 			var formValues = this.getValues();
-	        if(formValues.rememberMe > 0){
+			if (formValues.rememberMe > 0) {
 				db.setValue(db.USERID, formValues.userId);
 				db.setValue(db.PASSWD, hex_md5(formValues.password));
 				db.setValue(db.REMEMBER_ME, 1);
-			}else{
+			} else {
 				db.resetLoginData();
 			}
 			this.loadData(formValues.userId, hex_md5(formValues.password));
 		}
 	},
 	
-	loadData: function(userId, password){
+	loadData : function(userId, password) {
 		UserService.checkLogin(userId, password, this.onCheckLogin, this);
 	},
-	
-	onMeetingDataLoad: function(data){
+
+	onMeetingDataLoad : function(data) {
 		if (data.success) {
 			meetingStore.loadAndFormat(data.returnVal.rows);
 		} else {
@@ -103,74 +99,74 @@ LoginPanel = Ext.extend(Ext.form.FormPanel,
 		}
 	},
 
-	onClubMemberLoad: function(data){
+	onClubMemberLoad : function(data) {
 		if (data.success) {
-			if(data.returnVal.clubSettings && data.returnVal.clubSettings.fillers){
+			if (data.returnVal.clubSettings && data.returnVal.clubSettings.fillers) {
 				fillers = data.returnVal.clubSettings.fillers;
 			}
-			//gramPanel.loadItems();
+			// gramPanel.loadItems();
 			memberStore.loadWithDefault(data.returnVal.rows);
 		} else {
 			this.updateMessage('Unable to load the data');
 		}
 	},
 
-	onCheckLogin:function(data){
+	onCheckLogin : function(data) {
 		if (data.success) {
 			this.loggedIn = true;
 			thisUser = data.returnVal;
 			this.hide();
 			showMeetingPanel();
-			
+
 			loadMask.show();
-			//Loading all the datastores
+			// Loading all the datastores
 			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingDataLoad, this);
-			
+
 			loadMask.show();
-			//Loading the club members
+			// Loading the club members
 			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-			
-			//memberStore.reload(thisUser.defaultClubId);
+
+			// memberStore.reload(thisUser.defaultClubId);
 			roleStore.reload();
+			
+			homePanel.showButtons();
 		} else {
 			showPanel(this);
 			this.updateMessage(data.errorMessage);
-		}    	
+		}
 	},
-	
-	validate: function(){
+
+	validate : function() {
 		var formValues = this.getValues();
-		
-		if(!formValues.userId || formValues.length<5){
+
+		if (!formValues.userId || formValues.length < 5) {
 			this.updateMessage('Enter a valid Email ID');
 			return false;
 		}
-		
-		if(!formValues.password || formValues.password<5){
+
+		if (!formValues.password || formValues.password < 5) {
 			this.updateMessage('Enter a valid password');
 			return false;
 		}
 		return true;
 	},
-	
-	cancel:function() {
+
+	cancel : function() {
 		this.updateMessage('');
 		this.reset();
 		this.hide();
 		showPanel(homePanel);
 	},
-	
-	logSuccess:function() {
+
+	logSuccess : function() {
 		this.loggedIn = true;
 		this.hide();
 		navPanel.show();
 	},
-	
-	initScreen: function(){
+
+	initScreen : function() {
 		loginPanel.show();
 		loginPanel.updateMessage('');
 		loginPanel.reset();
 	}
 });
-
-		

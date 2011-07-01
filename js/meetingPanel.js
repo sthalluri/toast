@@ -1,4 +1,4 @@
-MeetingPanel = Ext.extend(Ext.form.FormPanel, 
+MeetingPanel = Ext.extend(BaseFormPanel, 
 {	
     scroll: 'vertical',
     standardSubmit : false,
@@ -30,7 +30,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			xtype : 'textfield',
 			name : 'wordOfTheDay',
 			id : 'wordOfTheDay',
-			label : 'Word of the Day',
+			label : 'Word(WOTD)',
 			useClearIcon : true,
 			autoCapitalize : false
 		}, {
@@ -114,7 +114,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
 			store : memberDropDownStore
 		}];
 	
-        this.items= [{
+        this.items= [this.getMessageComp(),{
                 xtype: 'fieldset',
     			title : 'Meeting Info',
                 defaults: {
@@ -176,11 +176,7 @@ MeetingPanel = Ext.extend(Ext.form.FormPanel,
     
  	   MeetingListPanel.superclass.initComponent.call(this);	
 	},
-	updateMessage: function(msg){
-		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('Meeting Info<div class="msg"><p>'+msg+'</p></div>');
-		}
-	},
+	
 	loadMeeting: function(pMeeting){
 		
 		this.reset();

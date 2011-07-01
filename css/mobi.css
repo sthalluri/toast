@@ -60,7 +60,7 @@
 
 .msg p{
     color: #AA2200;
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: normal;
     padding: 0.4em 0.8em;  
 }
@@ -358,7 +358,7 @@ div .logData{
 .x-list .x-list-item {
 	position: relative;
 	color: #333;
-	padding: 0.2em 0.3em 0.2em 0.2em;
+	padding: 0.1em 0.1em 0.1em 0.2em;
 	min-height: 2.6em;
 	display: -webkit-box;
 	display: box;
@@ -368,5 +368,21 @@ div .logData{
 .x-form .x-panel-body {
 	padding: .2em;
 	background-color: #eeeeee;
+}
+
+
+
+.x-tabbar.x-docked-bottom .x-tab {
+	display: -webkit-box;
+	display: box;
+	-webkit-box-direction: reverse;
+	box-direction: reverse;
+	-webkit-box-orient: vertical;
+	box-orient: vertical;
+	-webkit-border-radius: 0.25em;
+	border-radius: 0.25em;
+	margin: .0em;
+	min-width: 3.3em;
+	position: relative;
 }
 

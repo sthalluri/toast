@@ -72,6 +72,7 @@ NavPanel = Ext.extend(Ext.Panel,
 		this.hide();
 		closePanel();
 		loginPanel.initScreen();
+		homePanel.showButtons();
 	}
 
 });

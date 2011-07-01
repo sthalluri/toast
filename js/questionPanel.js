@@ -1,4 +1,4 @@
-QuestionPanel = Ext.extend(Ext.form.FormPanel, 
+QuestionPanel = Ext.extend(BaseFormPanel, 
 {	
     scroll: 'vertical',
     standardSubmit : false,
@@ -16,7 +16,8 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
 			}
 		];
 
-        this.items= [{
+        this.items= [
+                     this.getMessageComp(),{
                 xtype: 'fieldset',
     			title : 'Notes:',
                 defaults: {
@@ -66,11 +67,6 @@ QuestionPanel = Ext.extend(Ext.form.FormPanel,
         ];
     
         QuestionPanel.superclass.initComponent.call(this);	
-	},
-	updateMessage: function(msg){
-		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('Notes:<div class="msg"><p >'+msg+'</p></div>');
-		}
 	},
 	loadQuestion: function(pQuestion){
 		this.updateMessage('');

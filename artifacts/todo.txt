@@ -231,13 +231,19 @@ Nav Panel
 -Check for user already present validation
 -Remove dummy user
 
+-Some text to differentiate my log and my tier reports
+-Make Gram and Timer panels scrollable
 
+Dont show any blank screens... show some text instead
 Format the help tab
 Format my profile tab
 Card chopping off on the speech list
 
 Capitalize user first Name always
 After save loosing the user id and password
+Meeting with this day and time alrady exists
+
+Should get the help pages from the web
 
 Security for the app by userid
 Wrap all the js files into one
@@ -252,3 +258,4 @@ Agenda Management, for multiple speeches
 Working with local datastore
 Remember the app state
 Https for the app
+Hide login and register if its loading initially

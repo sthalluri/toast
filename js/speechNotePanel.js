@@ -1,4 +1,4 @@
-SpeechNotePanel = Ext.extend(Ext.form.FormPanel, 
+SpeechNotePanel = Ext.extend(BaseFormPanel, 
 {	
     scroll: 'vertical',
     standardSubmit : false,
@@ -17,7 +17,7 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
 			}
 		];
 
-        this.items= [{
+        this.items= [this.getMessageComp(),{
                 xtype: 'fieldset',
     			title : 'Notes:',
                 defaults: {
@@ -66,11 +66,6 @@ SpeechNotePanel = Ext.extend(Ext.form.FormPanel,
         ];
     
         SpeechNotePanel.superclass.initComponent.call(this);	
-	},
-	updateMessage: function(msg){
-		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('Notes:<div class="msg"><p >'+msg+'</p></div>');
-		}
 	},
 	loadSpeechNote: function(pSpeechNote){
 		this.updateMessage('');
