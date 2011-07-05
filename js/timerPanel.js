@@ -286,8 +286,10 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	editTimeLimit:function(){
-		this.hide();
-		timeLimitPanel.loadAndShow(this, this.timeLimits);
+		if(this.validate()){		
+			this.hide();
+			timeLimitPanel.loadAndShow(this, this.timeLimits);
+		}
 	},
 
 	updateTimeLimitSection:function(pTimings){

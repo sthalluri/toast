@@ -91,6 +91,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			var contentId = thisMeeting.roles.tableTopics.id;
 			questionDataStore.contentId = contentId;
 			MeetingService.getContent(contentId, this.onTableTopicsLoad, this);
+		}else{
+			MeetingService.getContent(0, this.onTableTopicsLoad, this);
 		}
 	},
 	
@@ -115,7 +117,9 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		}else{
 			questionDataStore.rowId = null;
 			data.returnval = new Array();
+			questionDataStore.removeAll();
 		}
+		
 		if(!this.carouselInit){
 			this.initCarousel();
 			this.carouselInit = true;
@@ -167,6 +171,16 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 
 	updateCarousel: function(){
 		var i = 1;
+
+		if(this.tblTopicCarouselPanel.items.length > 1){
+			for(var j =1 ; j<this.tblTopicCarouselPanel.items.length; j++){
+				this.tblTopicCarouselPanel.remove(this.tblTopicCarouselPanel.items.get(j));
+			}
+	        this.addButton.show();
+			this.editButton.hide();
+			this.deleteButton.hide();
+		}
+
 		questionDataStore.each(function(rec){
 			var data = rec.data;			
 			data.cardIndex = i;

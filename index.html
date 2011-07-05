@@ -65,7 +65,9 @@
 
 <div id="meeting-list" class="x-hidden-display">
 	<img class="imageLeft" src="images/chevron_circle.png"/><div class="x-list-header" >{fMeetingDate}</div>
-	<table style="width:100%;"   class="contentTable" >
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
 		<tr/>
@@ -76,79 +78,99 @@
 			<td class="highlight" width="40%">Location:</td><td colSpan="3">{[values.location? values.location:"Not Available"]}</td>
 		</tr>
 	</table>
+	</div>
+	</div>
 </div>
 
 
 <div id="meeting-detail" class="x-hidden-display">
 	<div class="x-list-header" >{fMeetingDate}</div>
-	<table style="width:100%;"   class="contentTable" >
-		<tr>
-			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
-		<tr>
-		<tr>
-			<td class="highlight" width="35%">Word of the Day:</td><td colSpan="3">{wordOfTheDay}</td>
-		</tr>
-		<tr>
-			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
-		</tr>
-		<tr><td colSpan="4" class="x-list-header" >Roles</td></tr>
-		<tr>
-			<td class="highlight">Toastmaster:</td>
-			<td colspan="3">{[UserService.getName(values.roles.toastMaster.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight">Timer:</td>
-			<td colspan="3">{[UserService.getName(values.roles.timer.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight" >Grammarian:</td>
-			<td colspan="3">{[UserService.getName(values.roles.grammarian.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight" >Table Topics:</td>
-			<td colspan="3">{[UserService.getName(values.roles.tableTopics.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight">General Evaluator:</td>
-			<td colspan="3">{[UserService.getName(values.roles.generalEvaluator.userId)]} </td>
-		</tr>
-		<tr><td colSpan="4" class="x-list-header" >Speech One</td></tr>
-		<tr>
-			<td class="highlight">Speaker:</td>
-			<td colspan="3">{[UserService.getName(values.roles.speaker1.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight">Evaluator:</td>
-			<td colspan="3">{[UserService.getName(values.roles.evaluator1.userId)]} </td>
-		</tr>
-		<tr><td colSpan="4" class="x-list-header" >Speech Two</td></tr>
-		<tr><td class="highlight">Speaker:</td><td colspan="3">{[UserService.getName(values.roles.speaker2.userId)]} </td></tr>
-		<tr><td class="highlight">Evaluator:</td><td colspan="3">{[UserService.getName(values.roles.evaluator2.userId)]} </td></tr>
-		<tr><td colSpan="4" class="x-list-header" >Speech Three</td></tr>
-		<tr>
-			<td class="highlight">Speaker:</td>
-			<td colspan="3">{[UserService.getName(values.roles.speaker3.userId)]} </td>
-		</tr>
-		<tr>
-			<td class="highlight">Evaluator:</td>
-			<td colspan="3">{[UserService.getName(values.roles.evaluator3.userId)]} </td>
-		</tr>
-	</table>
+	
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Theme</span></div>
+			<div class="c-text">{themeOfTheDay}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Word of the Day</span></div>
+			<div class="c-text">{wordOfTheDay}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Location</span></div>
+			<div class="c-text">{location}</div>
+		</div>
+	</div>
+	<div class="x-panel-body " >
+		<div class="x-list-header" >Roles</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Toastmaster</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.toastMaster.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Timer</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.timer.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Grammarian</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.grammarian.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Table Topics</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.tableTopics.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>General Evaluator</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.generalEvaluator.userId)]}</div>
+		</div>
+	</div>
+	<div class="x-panel-body " >
+		<div class="x-list-header" >Speech One</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Speaker</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.speaker1.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Evaluator</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.evaluator1.userId)]}</div>
+		</div>
+	</div>
+	<div class="x-panel-body " >
+		<div class="x-list-header" >Speech Two</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Speaker</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.speaker2.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Evaluator</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.evaluator2.userId)]}</div>
+		</div>
+	</div>
+	<div class="x-panel-body " >
+		<div class="x-list-header" >Speech Three</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Speaker</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.speaker3.userId)]}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Evaluator</span></div>
+			<div class="c-text">{[UserService.getName(values.roles.evaluator3.userId)]}</div>
+		</div>
+	</div>
+	</div>
 </div>
 
 <div id="meeting-report" class="x-hidden-display">
 	<div class="x-list-header" >{fMeetingDate}</div>
 	<div class="x-list-header" >Grammarian Report</div>	
 	<tpl for="gramLogs">
-	<div class="logData">
-	<table style="width:100%;"   class="contentTable" >
-			<tr>
-				<td width="30%" class="highlight">Member:</td><td>{user}</td>
-			</tr>
-			<tr>
-				<td width="30%" class="highlight">AmCounts:</td><td>{amCountStr}</td>
-			<tr>
-	</table>
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Am Count</span></div>
+			<div class="c-text">{amCountStr}</div>
+		</div>
+	</div>
 	</div>
     </tpl>
     <tpl if="gramLogs.length==0">
@@ -162,27 +184,29 @@
     </tpl>
 	<div class="x-list-header" >Timer Report</div>	
 	<tpl for="timerLogs">
-	<div class="logData">
-	<table style="width:100%;"   class="contentTable" >
-			<tr>
-				<td class="highlight" width="30%">Role:</td><td colSpan="3">{role}</td>
-			</tr>
-			<tr>
-				<td width="30%" class="highlight">Member:</td><td colspan="3">{user}</td>
-			<tr>
-			<tr>
-				<td class="highlight" width="30%">Time Spent:</td><td colspan="3" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
-			</tr>
-			<tr>
-				<td class="highlight" width="30%">Limits:</td>
-				<td class="green">{[getMins(values.timeLimits.green)]}</td>
-				<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
-				<td class="red">{[getMins(values.timeLimits.red)]}</td>
-			</tr>
-			<tr>
-				<td colspan="4"><hr/></td>
-			</tr>
-	</table>
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Role</span></div>
+			<div class="c-text">{role}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Limits</span></div>
+			<div class="c-text">
+			<table>
+				<tr>
+				<td class="green" width="50px">{[getMins(values.timeLimits.green)]}</td>
+				<td class="yellow" width="50px">{[getMins(values.timeLimits.yellow)]}</td>
+				<td class="red" width="50px">{[getMins(values.timeLimits.red)]}</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>TimeSpent</span></div>
+			<div class="c-text">{[getMins(values.timeSpent)]}</div>
+		</div>
+	</div>
 	</div>
     </tpl>
     <tpl if="timerLogs.length==0">
@@ -199,12 +223,13 @@
 <div id="gram-log" class="x-hidden-display">
 	<tpl for="gramLogs">
     <div class="x-list-header" >{fMeetingDate}</div>
-	<div class="logData">
-		<table style="width:100%;"   class="contentTable" >
-			<tr>
-				<td width="30%" class="highlight"> Am Count:</td><td>{amCountStr}</td>
-			<tr>
-		</table>
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Am Count</span></div>
+			<div class="c-text">{amCountStr}</div>
+		</div>
+	</div>
 	</div>
     </tpl>
     <tpl if="gramLogs.length==0">
@@ -221,21 +246,29 @@
 <div id="timer-log" class="x-hidden-display">
 	<tpl for="timerLogs">
     <div class="x-list-header" >{fMeetingDate}</div>
-	<div class="logData">
-	<table style="width:100%;"   class="contentTable" >
-		<tr>
-			<td class="highlight" width="30%" >Role:</td><td colspan="5">{role}</td>
-		</tr>
-		<tr>
-			<td class="highlight" width="30%" >Limits:</td>
-			<td class="green">{[getMins(values.timeLimits.green)]}</td>
-			<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
-			<td class="red">{[getMins(values.timeLimits.red)]}</td>
-		</tr>
-		<tr>
-			<td class="highlight" width="30%" > TimeSpent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
-		</tr>
-	</table>
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Role</span></div>
+			<div class="c-text">{role}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Limits</span></div>
+			<div class="c-text">
+			<table>
+				<tr>
+				<td class="green" width="50px">{[getMins(values.timeLimits.green)]}</td>
+				<td class="yellow" width="50px">{[getMins(values.timeLimits.yellow)]}</td>
+				<td class="red" width="50px">{[getMins(values.timeLimits.red)]}</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>TimeSpent</span></div>
+			<div class="c-text">{[getMins(values.timeSpent)]}</div>
+		</div>
+	</div>
 	</div>
     </tpl>
     <tpl if="timerLogs.length==0">
@@ -251,18 +284,23 @@
 
 <div id="meeting-log" class="x-hidden-display">
 	<tpl for="meetingLogs">
-		<div class="x-list-header" >{fMeetingDate}</div>
-		<table style="width:100%;"   class="contentTable" >
-			<tr>
-				<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
-			<tr>
-			<tr>
-				<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
-			</tr>
-			<tr>
-				<td class="highlight" width="40%" >Roles Played:</td><td>{rolesStr}</td>
-			</tr>
-		</table>
+	<div class="x-list-header" >{fMeetingDate}</div>
+	<div class=" x-panel x-form-fieldset">
+	<div class="x-panel-body " >
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Theme</span></div>
+			<div class="c-text">{themeOfTheDay}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Word of the Day</span></div>
+			<div class="c-text">{wordOfTheDay}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Roles Played</span></div>
+			<div class="c-text">{rolesStr}</div>
+		</div>
+	</div>
+	</div>
 	</tpl>
 </div>
 
@@ -286,7 +324,7 @@
 		</td>
 		<tr>
 	</table>
-</div>						
+</div>
 
 </body>
 </html>

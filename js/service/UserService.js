@@ -63,7 +63,7 @@ UserServiceImpl = Ext.extend(Service, {
 		{
 			user.id = formValues.id;
 		}
-		this.onCreate = Ext.createDelegate(UserServiceImpl.prototype.onCreate, scope || window, [cb, scope], true);
+		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/create',
 			params: {
@@ -77,7 +77,7 @@ UserServiceImpl = Ext.extend(Service, {
 	
 	deleteClubMember : function(id, cb, scope)
 	{
-		this.onDelete = Ext.createDelegate(UserServiceImpl.prototype.onDelete, scope || window, [cb, scope], true);
+		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/delete',
 			params: {id: id},
@@ -88,7 +88,7 @@ UserServiceImpl = Ext.extend(Service, {
 	
 	savePassword : function(password, cb, scope)
 	{
-		this.onSavePassword = Ext.createDelegate(UserServiceImpl.prototype.onSavePassword, scope || window, [cb, scope], true);
+		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		thisUser.password = password;
 		Ext.Ajax.request({
 			url: urlStore.userUrl + '/create',

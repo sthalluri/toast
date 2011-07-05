@@ -1,282 +1,32 @@
-UI	
-
-- Home Page
-Better Icon for the home page
-Icon for the app
-
-- Login Screen
-EmailID validation
-Password length validations
-
-- Main Screen
-Club View Roles and About to one panel
-Instead of view roles, give my profile
-My Club UI is incomplete
-
-- Meeting List
-Better view for each meeting
-Hightlight the current ones
-
-- Meeting Details
-Format view for the meeting details
-
-- My Log
-Format view for the log
-
-- Members
-Add a new Registered member.
-Add a new non Registered member.
-
-- UI Cleanup
-Font sizes and layouts
-
-- Tabletopics Notes
-View cleanup
-
-- Speaker Notes
-View cleanup
-
-- Functional
-
-Remember Me Not working
-Generate meeting agenda
-
-Tabletopics content save
-Speaker content save
-
-User Save saving it multiple times
-After Save on meeting and questions should go back to the list probably
-Can remove the detail page for the question
-Roles need to change based on the grammer and timer screens
-
-Alerts/Announcements section for the club
-
-Cleanup
-
-- Enable and disable the panels
-
-
-Club Features
-
-Add simple postings to the club
-Manage club roles
-Request user to sign in
-Forgot password
-Manage profile, picture and other info
-Give a logout option
-
-
-
-Golu feedback
-
-Home Page
-- Home page icon not good
-
-Login Screen
-- Resize the login screen to a managable size
-
-Main Screen
-- Think of a way to hightlight the current meeting
-
-MeetingList screen
-- Fix the hightlighting
-- Spacing and what to show on the metings screen
--* Word of the day hightligt 
-
-Action Panle
-
-Play the Role
-Grammarian
-Timer
-TableTopics
-Toastmaster
-Speaker
-
-Add My Report
-Grammarian Report
-Timer Report
-
-
-My Log page formatting
-
-
-_______________
-
-For final wrap up 
-
-- 6/5
-Speaker Notes
-Making all actions for a meeting work
-Working on iphone mobile
-Working on android mobile
-*Managing contacts
-*My Club Info
-
--6th-9th
-HTML panel doesn't scroll
-
-Set meeting type and timer settings
-Timer full screen functionality
-Timer work for individual log
-Speech text to format
-Questions formatting
-Move gram log to the meeting level
-Add custom counter
-Save fillers in the backend
-Filter Roles based on the screens
-Sort meeting data based on the date
-Re-factor homelayout via tabs
-List selection not working properly
-Messages not reset in most of the save panels
-Icons for the table topics and the speech cards
-Time and location for the meeting
-Adding new notes doesnt add a new panel well
-UI cleanup 
-	- Icons on the tops
-	- Better icons for the home page
-Format meeting report
-Format Work Log report
-Format agenda
-Phonegap
-
-____________________________________________________________
-
-UI
--Show location as Not Available
-?Change the meeting header to show the date
--Meeting Report give spacing when nothing is there or show, nothing logged
--Report not refreshing
-
-Card Panel
--give title for notes
--Remove the extra section
--Change heading
-?Back from the card panel taking to the meeting home. Should take to the card list
--Reduce the gap between the heading and the section
--Cards Panel, showing delete and edit on the first screen
-
-Table Topics
--Heading is wrong for the card
--Missing the notes field
--See if you can add the card number on the top
--Text box prompt not coming properly
--Remove the extra spacing for the form panel if possible
--Validation that it should not be empty
-
-Grammarian Panel
-?Drop down for the TT Response not sorted correct. Need to sort as the meeting goes
--Counter Add and Delete buttons need to be changed
--Missing validation. Member is mandatory before saving.
--Should not add duplicate counter
-
-Timer Panel
--Increase the size of the show card icon
--Use an icon or something to do the edit of the timings
-?Remove extra spacing while showing the time
--Validations missing on this panel
-?Change the color schema
--Validation for the time edits
-
-My Grammarian Panel
--Change the heading
--Extra lines on the top
--Should not add duplicate counter
-
-
-My Timer Panel
--Validation for the time
-Need to add a spinner for the time
-
-Meeting Report
--Show the timelimits
--Show a message that there is not log when there is no data
-
-Meeting Edit Panel
--Show the default value as 9:00AM
--See a way to remove the extra line when the lable wraps
-?Create a separate section for the speeches
--Saving the same its saving multiple times on the meeting panel.
-
-Club Member
--Change the title
--Remove the extra spacing at the bottom
--Give a delete option on the view only screen
-
-Club Member Edit
--Change the buttons at the bottom
--Take out the delete from the top
--Remove the delete button
-
-My Log
--Roles played not in format alignment
--Time format not correct
-
-
-Nav Panel
--Delete meeting
--Show todays date for the meeting date
--meeting agenda and report not coming fro new meetings
--Icon next to the error also increase font size
--phone no validation take out.. jut keep it to numbers
--Change panel from the help without back giving wierd feel
-
-
--Back button handler for android
--Flip the app doesnt show the same panel. Orientation problem
--Panel height messed up sometimes
--Remember me not working & Logout option Logout option not working
--View my profile option
--Save on meeting show scroll to the top
--App loading icon
--Check for user already present validation
--Remove dummy user
-
--Some text to differentiate my log and my tier reports
--Make Gram and Timer panels scrollable
--Timer panel need formatting
--NAAN for the timelimit sometimes
--spacing next to the conter label on the reprots and mylog
--Dont show any blank screens... show some text instead
-
--sort contact in the proper order
--Agenda for the meeting keep the text to the left
--Card chopping off on the speech list
-
-Problem with the content storage
-Timelimits not showing hte confirmation message
-onselect for the tabletopic and the questions
 Meeting date not coming up
 Meeting with this day and time alrady exists
-Cancel on the user edit screen not working propertly
-Club member remove the edit only screen
-Android transitions pretty bad
-Chopping off the agenda at the bottom
 
 Format the help tab or Should get the help pages from the web
 Format my profile tab
 Capitalize user first Name always
 After save loosing the user id and password
-
 basic speech settings
-show meeting date on the meeting action panel also
+
+Security for the app by userid,Simple authentication required, session id not working from iphone
+Wrap all the js files into one
+Https for the app
+
+onselect for the tabletopic and the questions
+________________________________________________________________
 
 iphone
 iphone highlighting the timer after selecting the member
 cant see the start and stop.. need to redue the timer size
 way to refresh the app.. if its launched after long time
 
-Security for the app by userid,Simple authentication required, session id not working from iphone
-Wrap all the js files into one
-
 Select not very good
 better way to enter meeting time
 easy way to delete the counter
 Not showing the second speech only on ipad simulator
+show meeting date on the meeting action panel also
 
-Save message not shwoing up in timer panel and grammarian panel on ipad
 Next Release
 Agenda Management, for multiple speeches
 Working with local datastore
-Remember the app state
-Https for the app
-Hide login and register if its loading initially
+Android transitions pretty bad
+Back from the card panel taking to the meeting home. Should take to the card list

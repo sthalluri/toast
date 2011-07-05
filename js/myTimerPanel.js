@@ -155,10 +155,6 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 			this.updateMessage('Please select the role');
 			return false;
 		}
-		if(!values.userId || values.userId =='none'){
-			this.updateMessage('Please select the user');
-			return false;
-		}
 		return noErrors;
 	},
 
@@ -175,7 +171,8 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 		var values = this.getValues();        
         var obj = thisMeeting.roles[values['role']];
         obj.userId =  thisUser.id;
-        obj.timeSpent = getSecsFromStr(values.timer); 
+        obj.timeSpent = getSecsFromStr(values.timer);
+        obj.timeLimits = this.timeLimits;
         MeetingService.save(thisMeeting, this.onSave, this);
 	},
 
@@ -204,14 +201,17 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	editTimeLimit:function(){
-		this.hide();
-		timeLimitPanel.loadAndShow(this, this.timeLimits);
+		if(this.validate()){
+			this.hide();
+			timeLimitPanel.loadAndShow(this, this.timeLimits);
+		}
 	},
 
 	updateTimeLimitSection:function(pTimings){
 		if(pTimings){
 			this.timeLimits = pTimings;
 		}
+		this.timeLimits.panel = "myTimerPanel";
 		Ext.getCmp('pTimeIndicator').el.dom.innerHTML= this.timeIndicatorTmpl.apply(this.timeLimits);
 		this.updateTime();
 	},

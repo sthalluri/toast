@@ -1,4 +1,4 @@
-TimeLimitPanel = Ext.extend(Ext.form.FormPanel, 
+TimeLimitPanel = Ext.extend(BaseFormPanel, 
 {
     scroll: 'vertical',
     standardSubmit : false,
@@ -48,9 +48,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		});
 				
 		this.items = [  
-		                {
-							html:'&nbsp;'
-						},    
+		                this.getMessageComp(),    
 		                {
         		            width:'100%',
         					flex:1,
@@ -142,12 +140,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 
 		this.show();
 	},
-	updateMessage: function(msg){
-		if(this.items.get(0).el){
-			this.items.get(0).el.dom.innerHTML= '<div class="msg"><p >'+msg+'</p></div>';
-		}
-	},
-
+	
 	save: function(){
 		var timings = new Object();
 		var green = parseInt(this.greenMin.getValue())*60+parseInt(this.greenSec.getValue());
@@ -165,7 +158,7 @@ TimeLimitPanel = Ext.extend(Ext.form.FormPanel,
 		timings.green = green;
 		timings.yellow = yellow;
 		timings.red = red;
-		
+		this.updateMessage('Saved successfully.');
 		this.parentPanel.updateTimeLimitSection(timings);
 	},
 	

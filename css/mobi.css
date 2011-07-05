@@ -108,7 +108,7 @@
 .greenIndi{background-color:green;font-size: 1em;vertical-align:text-top;}
 .silverIndi{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 
-table.contentTable{font-size:.7em; cellpadding:.2em;padding:.2em}
+table.contentTable{font-size:.8em; cellpadding:.2em;padding:.2em}
 
 table.contentTable td
 {
@@ -231,14 +231,6 @@ div .logData{
     width: 4em;
 }
 
-.x-toolbar-dark {
-	border-bottom: 1px solid black;
-	padding: 10px;
-	height: 45px;
-	background: url(../images/toolbar10.jpg) black repeat-x;
-	box-sizing: border-box;
-}
-
 .x-list-header {
 	background-color: #999;
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #E6E6E6), color-stop(2%, #BFBFBF), color-stop(30%, #ADADAD), color-stop(65%, #999), color-stop(100%, gray));
@@ -269,6 +261,11 @@ div .logData{
 	background-color: #eeeeee;
 }
 
+.x-toolbar-dark {
+	background: url(../images/toolbar10.jpg) black repeat-x;
+}
+
+
 .x-toolbar.x-docked-bottom {
 	border-top: .1em solid;
 	background-color: #24364c;
@@ -286,7 +283,13 @@ div .logData{
 	font-weight:normal;
 }
 
-.x-form-fieldset-title {
-	font-size: 0.9em;
-	color: olive;	
+.c-text{
+	font-size: 0.8em;
+	font-weight: normal;
+	margin-top: 0.7em;
+	margin-left: 0.5em;
+}
+
+.x-field {
+	min-height: 2em;
 }

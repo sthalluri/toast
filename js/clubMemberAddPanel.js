@@ -28,10 +28,10 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		});
 		
 		this.cancelButton = new Ext.Button({
-			text:'Cancel',
+			text:'Reset',
 			ui:'drastic',
 			scope:this,
-			handler:this.goBack
+			handler:this.resetForm
 		});
 		
 		this.backButton = new Ext.Button({
@@ -135,7 +135,12 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		
 		ClubMemberAddPanel.superclass.initComponent.call(this);
 	},
-	
+
+	resetForm : function()
+	{
+		this.reset();
+	},
+
 	goBack : function()
 	{
 		if(this.incomingReq == "list")
@@ -143,7 +148,8 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			//Loading the club members
 			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
 		}
-		else if(this.incomingReq == "profile")
+		else 
+			//if(this.incomingReq == "profile")
 		{
 			this.hide();
 			navPanel.show();
@@ -180,16 +186,20 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			if(this.incomingReq == "list")
 			{
 				//Loading the club members
-				ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-				this.hide();
-				clubMemberListPanel.show();
+				//ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+				//this.hide();
+				//clubMemberListPanel.show();
+				this.updateMessage("Changes saved successfully.");
 			}
 			else if(this.incomingReq == "profile")
 			{
-				this.disable();
-				this.editButton.show();
-				this.saveButton.hide();
-				this.cancelButton.hide();
+				//this.disable();
+				//this.editButton.show();
+				//this.saveButton.hide();
+				//this.cancelButton.hide();
+				this.updateMessage("Changes saved successfully.");
+			}else 
+			{
 				this.updateMessage("Changes saved successfully.");
 			}
 		}
@@ -225,11 +235,11 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			phone: user.phone,
 			aboutme: user.aboutMe
 		});
-		this.disable();
-		this.saveButton.hide();
-		this.cancelButton.hide();
-		this.deleteButton.hide();
-		this.editButton.show();
+		//this.disable();
+		//this.saveButton.hide();
+		//this.cancelButton.hide();
+		//this.deleteButton.hide();
+		this.editButton.hide();
 		if( incomingReq == "list" )
 		{
 			this.changePasswordButton.hide();
@@ -262,9 +272,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		if (data.success) {
 			memberStore.loadWithDefault(data.returnVal.rows);
 	    	closePanel(this);
-	    	this.updateMessage("Unable to load the members.");
 		} else {
-			//console.log('Unable to load the meetings ');
 			this.updateMessage("Unable to load the members.");
 		}
 	},
@@ -277,7 +285,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			this.updateMessage("Enter valid First and Last name.");
 			return false;
 		}
-		if(!formValues.email || !validator.validateEmail(formValues.email))
+		if(formValues.email && !validator.validateEmail(formValues.email))
 		{
 			this.updateMessage('Enter a valid email.');
 			return false;
