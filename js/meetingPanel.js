@@ -46,7 +46,7 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 			useClearIcon : true,
 			autoCapitalize : false
 		}
-	];
+		];
 		
 		this.roleFields = [ {
 			xtype : 'selectfield',
@@ -84,36 +84,56 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 			valueField : 'id',
 			displayField : 'name',
 			store : memberDropDownStore
-		}, {
+		}];
+		
+		this.speech1Fields = [{
 			xtype : 'selectfield',
 			name : 'speaker1',
-			label : 'Speech1',
+			label : 'Speaker',
 			valueField : 'id',
 			displayField : 'name',
 			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'evaluator1',
-			label : 'Speech1 Eval',
+			label : 'Evaluator',
 			valueField : 'id',
 			displayField : 'name',
 			store : memberDropDownStore
-		}, {
+		}];
+		
+		this.speech2Fields = [{
 			xtype : 'selectfield',
 			name : 'speaker2',
-			label : 'Speech2',
+			label : 'Speaker',
 			valueField : 'id',
 			displayField : 'name',
 			store : memberDropDownStore
 		}, {
 			xtype : 'selectfield',
 			name : 'evaluator2',
-			label : 'Speech2 Eval',
+			label : 'Evaluator',
 			valueField : 'id',
 			displayField : 'name',
 			store : memberDropDownStore
 		}];
-	
+
+		this.speech3Fields = [{
+			xtype : 'selectfield',
+			name : 'speaker3',
+			label : 'Speaker',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberDropDownStore
+		}, {
+			xtype : 'selectfield',
+			name : 'evaluator3',
+			label : 'Evaluator',
+			valueField : 'id',
+			displayField : 'name',
+			store : memberDropDownStore
+		}];
+
         this.items= [this.getMessageComp(),{
                 xtype: 'fieldset',
     			title : 'Meeting Info',
@@ -131,6 +151,33 @@ MeetingPanel = Ext.extend(BaseFormPanel,
                     labelWidth: '40%'
                 },
                 items: this.roleFields
+            },
+            {
+                xtype: 'fieldset',
+    			title : 'Speech One',
+                defaults: {
+                    labelAlign: 'left',
+                    labelWidth: '40%'
+                },
+                items: this.speech1Fields
+            },
+            {
+                xtype: 'fieldset',
+    			title : 'Speech Two',
+                defaults: {
+                    labelAlign: 'left',
+                    labelWidth: '40%'
+                },
+                items: this.speech2Fields
+            },
+            {
+                xtype: 'fieldset',
+    			title : 'Speech Three',
+                defaults: {
+                    labelAlign: 'left',
+                    labelWidth: '40%'
+                },
+                items: this.speech3Fields
             }
         ];
         
@@ -209,6 +256,11 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 					comp.setValue(pMeeting.roles.speaker2.userId);
 				}
 			}
+			if(comp.name == 'speaker3'){
+				if(pMeeting.roles.speaker3){
+					comp.setValue(pMeeting.roles.speaker3.userId);
+				}
+			}
 			if(comp.name == 'tableTopics'){
 				if(pMeeting.roles.speaker2){
 				comp.setValue(pMeeting.roles.tableTopics.userId);
@@ -225,23 +277,28 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 				}
 			}
 			if(comp.name == 'evaluator1'){
-				if(pMeeting.roles.speaker2){
+				if(pMeeting.roles.evaluator1){
 				comp.setValue(pMeeting.roles.evaluator1.userId);
 				}
 			}
 			if(comp.name == 'evaluator2'){
-				if(pMeeting.roles.speaker2){
-				comp.setValue(pMeeting.roles.evaluator2.userId);
+				if(pMeeting.roles.evaluator2){
+					comp.setValue(pMeeting.roles.evaluator2.userId);
+				}
+			}
+			if(comp.name == 'evaluator3'){
+				if(pMeeting.roles.evaluator3){
+					comp.setValue(pMeeting.roles.evaluator3.userId);
 				}
 			}
 			if(comp.name == 'grammarian'){
 				if(pMeeting.roles.speaker2){
-				comp.setValue(pMeeting.roles.grammarian.userId);
+					comp.setValue(pMeeting.roles.grammarian.userId);
 				}
 			}
 			if(comp.name == 'timer'){
 				if(pMeeting.roles.speaker2){
-				comp.setValue(pMeeting.roles.timer.userId);
+					comp.setValue(pMeeting.roles.timer.userId);
 				}
 			}
 			if(comp.name == 'time'){
@@ -316,11 +373,13 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		this.meeting.themeOfTheDay = values.themeOfTheDay;
 		this.meeting.roles.speaker1.userId = values.speaker1;
 		this.meeting.roles.speaker2.userId = values.speaker2;
+		this.meeting.roles.speaker3.userId = values.speaker3;
 		this.meeting.roles.tableTopics.userId = values.tableTopics;
 		this.meeting.roles.toastMaster.userId = values.toastMaster;
 		this.meeting.roles.generalEvaluator.userId = values.generalEvaluator;
 		this.meeting.roles.evaluator1.userId = values.evaluator1;
 		this.meeting.roles.evaluator2.userId = values.evaluator2;
+		this.meeting.roles.evaluator3.userId = values.evaluator2;
 		this.meeting.roles.grammarian.userId = values.grammarian;
 		this.meeting.roles.timer.userId = values.timer;
 		

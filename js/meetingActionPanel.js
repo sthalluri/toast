@@ -3,7 +3,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
     title : 'Actions',
     initComponent: function(){
         this.list = new Ext.List({
-            itemTpl: '<div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}"/>&nbsp;&nbsp;{title}</div>',
+            itemTpl: '<table width="100%"><tr><td><div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}"/>&nbsp;&nbsp;{title}</div></td><td align="right"></td></tr></table>',
             ui: 'round',
             grouped: true,
             indexBar: false,
@@ -26,9 +26,14 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             title: 'About'
         });
         
+//        this.meetingHeader = new Ext.Component({
+//			xtype : 'component',
+//			html : ''
+//		});
+//        this.meetingHeader,	
+        
         this.listpanel = new Ext.Panel({
-            items: this.list,
-            layout: 'fit'
+            items: [this.list]
         });
         
         this.listpanel.on('activate', function(){

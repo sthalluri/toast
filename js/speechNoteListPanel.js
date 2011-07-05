@@ -3,7 +3,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	title:'TbTopic',
 	fullscreen: true,
     layout: 'card',    
-    height:'100%',
+    height:'90%',
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([
@@ -153,15 +153,15 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			}else{
 				speechNoteDataStore.removeAll();
 			}
-			if(!this.carouselInit){
-				this.initCarousel();
-				this.carouselInit = true;
-			}else{
-				this.updateCarousel();
-			}
-			this.show();
-			this.speechNoteTopicCarousel.doLayout();
 		}
+		if(!this.carouselInit){
+			this.initCarousel();
+			this.carouselInit = true;
+		}else{
+			this.updateCarousel();
+		}
+		this.show();
+		this.speechNoteTopicCarousel.doLayout();
 	},
 	
 	initCarousel: function(){
@@ -173,7 +173,11 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		this.listPanel = new Ext.List(Ext.apply(this.base, {
 		}));
 		
-		items.push(this.listPanel);
+		var pan =  new Ext.Panel({
+		    fullscreen: true,
+		    items: [this.listPanel,{html:'<div class="x-form-fieldset-instructions" id="ext-gen1359"><b>Add a card using the \'+\' button </b></div>'}]
+		});		
+		items.push(pan);
 
 		speechNoteDataStore.each(function(rec){
 			var data = rec.data;

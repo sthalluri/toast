@@ -105,7 +105,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
                	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
 									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
-									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/card2.png" onclick="timerPanel.showCard();"/></td>'+
+									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/resize.png" onclick="timerPanel.showCard();"/></td>'+
 								'</tr>'+
 							'</table>'
                 },

@@ -3,6 +3,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	title:'TbTopic',
 	fullscreen: true,
     layout: 'card',    
+    height:'100%',
 	initComponent : function() {
 
 	this.questionTmpl = new Ext.Template([
@@ -131,7 +132,15 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.remove(this.tblTopicCarouselPanel);
 		}
 		
-		items.push(new Ext.List(Ext.apply(this.questionBase, {})));
+		//items.push(new Ext.List(Ext.apply(this.questionBase, {})));
+
+		this.listPanel = new Ext.List(Ext.apply(this.questionBase, {}));
+
+		var pan =  new Ext.Panel({
+		    fullscreen: true,
+		    items: [this.listPanel,{html:'<div class="x-form-fieldset-instructions" id="ext-gen1359"><b>Add a question using the \'+\' button </b></div>'}]
+		});		
+		items.push(pan);
 
 		questionDataStore.each(function(rec){
 			var data = rec.data;

@@ -233,24 +233,45 @@ Nav Panel
 
 -Some text to differentiate my log and my tier reports
 -Make Gram and Timer panels scrollable
+-Timer panel need formatting
+-NAAN for the timelimit sometimes
+-spacing next to the conter label on the reprots and mylog
+-Dont show any blank screens... show some text instead
 
-Dont show any blank screens... show some text instead
-Format the help tab
+-sort contact in the proper order
+-Agenda for the meeting keep the text to the left
+-Card chopping off on the speech list
+
+Problem with the content storage
+Timelimits not showing hte confirmation message
+onselect for the tabletopic and the questions
+Meeting date not coming up
+Meeting with this day and time alrady exists
+Cancel on the user edit screen not working propertly
+Club member remove the edit only screen
+Android transitions pretty bad
+Chopping off the agenda at the bottom
+
+Format the help tab or Should get the help pages from the web
 Format my profile tab
-Card chopping off on the speech list
-
 Capitalize user first Name always
 After save loosing the user id and password
-Meeting with this day and time alrady exists
 
-Should get the help pages from the web
+basic speech settings
+show meeting date on the meeting action panel also
 
-Security for the app by userid
+iphone
+iphone highlighting the timer after selecting the member
+cant see the start and stop.. need to redue the timer size
+way to refresh the app.. if its launched after long time
+
+Security for the app by userid,Simple authentication required, session id not working from iphone
 Wrap all the js files into one
 
 Select not very good
 better way to enter meeting time
 easy way to delete the counter
+Not showing the second speech only on ipad simulator
 
 Save message not shwoing up in timer panel and grammarian panel on ipad
 Next Release

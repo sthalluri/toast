@@ -38,13 +38,18 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		};
 	
 		this.meetingActionPanel = new MeetingActionPanel();
-		this.meetingPanel = new Ext.Panel({html:'Loading..', title:'Agenda',scroll: 'vertical'});
-		this.meetingReportPanel = new Ext.Panel({html:'Loading..', title:'Report',scroll: 'vertical'});
+		this.meetingPanel = new Ext.Panel({html:'Loading..', title:'Agenda',scroll: 'vertical', height:'100%'});
+		this.meetingReportPanel = new Ext.Panel({html:'Loading..', title:'Report',scroll: 'vertical', height:'100%'});
 
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			scroll: 'vertical',
-			cls: 'legislator-tabs',
 			fullscreen : false,
+			defaults:{
+				flex : 1
+			},
+		    layout : {
+				align:'stretch'
+			},
 			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ],
 			listeners : {
 				beforecardswitch : {fn: this.meetingPanelChanged, scope: this}
@@ -217,7 +222,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 			for ( var p in amCount) {
 				if (amCount[p] > 0) {
 					if (gramLog.amCountStr == 'None') {
-						gramLog.amCountStr = p + ':'
+						gramLog.amCountStr = p + ':&nbsp;'
 								+ amCount[p];
 					} else {
 						gramLog.amCountStr += ',&nbsp;' + p

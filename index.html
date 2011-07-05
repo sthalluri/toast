@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
     <title>ToastApp</title>
 	<script type="text/javascript" src="js/ext/sencha-touch.js"></script>
-	<link rel="stylesheet" href="js/ext/resources/css/android.css" type="text/css">
+	<link rel="stylesheet" href="js/ext/resources/css/sencha-touch.css" type="text/css">
 	<link rel="stylesheet" href="css/mobi.css" type="text/css">
 	<!-- 
 	<script type="text/javascript" charset="utf-8" src="js/phonegap.0.9.5.1.js"></script>
@@ -64,7 +64,7 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<img class="imageLeft" src="js/ext/resources/themes/images/default/pictos/play_black1.png"/><div class="x-list-header" >{fMeetingDate}</div>
+	<img class="imageLeft" src="images/chevron_circle.png"/><div class="x-list-header" >{fMeetingDate}</div>
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
@@ -86,7 +86,7 @@
 			<td class="highlight">Theme:</td><td>{themeOfTheDay}</td>
 		<tr>
 		<tr>
-			<td class="highlight">Word of the Day:</td><td colSpan="3">{wordOfTheDay}</td>
+			<td class="highlight" width="35%">Word of the Day:</td><td colSpan="3">{wordOfTheDay}</td>
 		</tr>
 		<tr>
 			<td class="highlight">Location:</td><td colSpan="3">{location}</td>
@@ -124,6 +124,15 @@
 		<tr><td colSpan="4" class="x-list-header" >Speech Two</td></tr>
 		<tr><td class="highlight">Speaker:</td><td colspan="3">{[UserService.getName(values.roles.speaker2.userId)]} </td></tr>
 		<tr><td class="highlight">Evaluator:</td><td colspan="3">{[UserService.getName(values.roles.evaluator2.userId)]} </td></tr>
+		<tr><td colSpan="4" class="x-list-header" >Speech Three</td></tr>
+		<tr>
+			<td class="highlight">Speaker:</td>
+			<td colspan="3">{[UserService.getName(values.roles.speaker3.userId)]} </td>
+		</tr>
+		<tr>
+			<td class="highlight">Evaluator:</td>
+			<td colspan="3">{[UserService.getName(values.roles.evaluator3.userId)]} </td>
+		</tr>
 	</table>
 </div>
 
@@ -156,16 +165,16 @@
 	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 			<tr>
-				<td class="highlight">Role:</td><td colSpan="3">{role}</td>
+				<td class="highlight" width="30%">Role:</td><td colSpan="3">{role}</td>
 			</tr>
 			<tr>
 				<td width="30%" class="highlight">Member:</td><td colspan="3">{user}</td>
 			<tr>
 			<tr>
-				<td class="highlight" >Time Spent:</td><td colspan="3" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+				<td class="highlight" width="30%">Time Spent:</td><td colspan="3" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 			</tr>
 			<tr>
-				<td class="highlight">Limits:</td>
+				<td class="highlight" width="30%">Limits:</td>
 				<td class="green">{[getMins(values.timeLimits.green)]}</td>
 				<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
 				<td class="red">{[getMins(values.timeLimits.red)]}</td>
@@ -215,16 +224,16 @@
 	<div class="logData">
 	<table style="width:100%;"   class="contentTable" >
 		<tr>
-			<td class="highlight">Role:</td><td colspan="5">{role}</td>
+			<td class="highlight" width="30%" >Role:</td><td colspan="5">{role}</td>
 		</tr>
 		<tr>
-			<td class="highlight">Limits:</td>
+			<td class="highlight" width="30%" >Limits:</td>
 			<td class="green">{[getMins(values.timeLimits.green)]}</td>
 			<td class="yellow">{[getMins(values.timeLimits.yellow)]}</td>
 			<td class="red">{[getMins(values.timeLimits.red)]}</td>
 		</tr>
 		<tr>
-			<td class="highlight"> TimeSpent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
+			<td class="highlight" width="30%" > TimeSpent:</td><td style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</td>
 		</tr>
 	</table>
 	</div>

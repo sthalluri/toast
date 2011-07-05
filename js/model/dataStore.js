@@ -144,7 +144,17 @@ var memberStore = new Ext.data.JsonStore({
    loadWithDefault: function(records){
 		this.loadData(records);
 		memberDropDownStore.loadWithDefault(records);
-   }
+   },
+   sorters: [
+             {
+                 property : 'firstName',
+                 direction: 'ASC'
+             },
+             {
+                 property : 'lastName',
+                 direction: 'ASC'
+             }
+         ]
 });
 
 var memberDropDownStore = new Ext.data.JsonStore({
@@ -307,6 +317,11 @@ function getMeetingBareBones(){
 				counts:{},
 				time:0
 			},
+			speaker3:{
+				userId:'',
+				counts:{},
+				time:0
+			},
 			tableTopics:{
 				userId:'',
 				counts:{},
@@ -328,6 +343,11 @@ function getMeetingBareBones(){
 				time:0
 			},
 			evaluator2:{
+				userId:'',
+				counts:{},
+				time:0
+			},
+			evaluator3:{
 				userId:'',
 				counts:{},
 				time:0

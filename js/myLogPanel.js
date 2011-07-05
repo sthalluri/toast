@@ -89,7 +89,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 					for ( var p in amCount) {
 						if (amCount[p] > 0) {
 							if (gramLog.amCountStr == 'None') {
-								gramLog.amCountStr = p + ':'
+								gramLog.amCountStr = p + ':&nbsp;'
 										+ amCount[p];
 							} else {
 								gramLog.amCountStr += ',&nbsp;' + p
@@ -109,6 +109,11 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 					timerLog.timeSpent = role.timeSpent;
 					if(role.timeLimits){
 						timerLog.timeLimits = role.timeLimits;
+					}else{
+						timerLog.timeLimits = new Object();
+						timerLog.timeLimits.red = 0;
+						timerLog.timeLimits.yellow = 0;
+						timerLog.timeLimits.green = 0;
 					}
 					timerLog.role = roleStore.getById(roles[j]).data.description;
 					timerLogs.push(timerLog);

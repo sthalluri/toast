@@ -1,39 +1,5 @@
-.firstTimeToolbar .x-toolbar-title {
-    background-color: #1F489E;
-    color: white;
-}
-.twitterHelpToolbar .x-toolbar-title {
-    background-color: #1F489E;
-    color: white;
-}
-
-
-.firstTimeUser {
-
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-	margin: 0 0 0 0;
-
-}
-
-.firstTimeUser .welcome {
-
-    font-size: 1.2em;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-	line-height: normal;
-
-}
-
-.plusIcon {
-    -webkit-background-size: contain;
-    background: url("'../../images/plus_icon.png'") no-repeat;
-    height: 40px;
-    margin-top: -12px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 12px;
-    width: 40px;
+.body{
+	font-size: 0.2em
 }
 
 .home{
@@ -83,38 +49,22 @@
     padding: 0 1em 0 1em;
 }
 
-.tmcButton {
-    font-size: .99em;
-}
-
-.trainRow {
-
-    line-height: 2em;
-
-}
-
 .imageLeft {
     float: left;
     margin: 0.2em;
     height: 1.2em;
 }
 
+.actionImageGo{
+    float: right;
+    margin: 0.2em;
+    height: 1.2em;		
+}
+
 .imageRight {
     float: right;
     margin: 0.2em;
     height: 1.5em;
-}
-
-.trainName {
-
-}
-
-.trainBackButton {
-    margin-top: 0;
-    margin-right: 0;
-    margin-left: 0.5em;
-    margin-bottom: 0;
-    height: 2.2em;
 }
 
 .reportButton {
@@ -141,60 +91,13 @@
 }
 
 .helpbox {
-
     width: 90%;
     margin: auto;
-
-}
-
-/**** Speech Bubble Icons *****/
-.spch-bub-inside,
-.spch-bub-outside {
-    position: relative;
-    float: right;
-}
-
-.spch-bub-inside-severe,
-.spch-bub-outside-severe {
-    position: relative;
-    float: right;
-}
-
-.spch-bub-inside-medium,
-.spch-bub-outside-medium {
-    position: relative;
-    float: right;
-}
-
-a.spch-bub-inside,
-a.spch-bub-outside {
-    color: #00F;
-    text-decoration: none;
-
-}
-
-a.spch-bub-inside-severe,
-a.spch-bub-outside-severe {
-    color: #FF0000;
-    text-decoration: none;
-
-}
-
-a.spch-bub-inside-medium,
-a.spch-bub-outside-medium {
-    color: #FF9900;
-    text-decoration: none;
-
-}
-.x-form-fieldset .x-field.x-label-align-left label {
-    left: 0px;
-    text-align: right;
-    width: 4em;
 }
 
 .header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:#883120;font-size: 1em;vertical-align:text-top;font-weight:bold;}
+.highlight{color:#707000;font-size: 1em;vertical-align:text-top;font-weight:bold;}
 
 .red{color:red;font-size: 1em;font-weight:bold;}
 .yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
@@ -205,8 +108,7 @@ a.spch-bub-outside-medium {
 .greenIndi{background-color:green;font-size: 1em;vertical-align:text-top;}
 .silverIndi{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 
-
-table.contentTable{font-size:.8em; cellpadding:.2em;padding:.2em}
+table.contentTable{font-size:.7em; cellpadding:.2em;padding:.2em}
 
 table.contentTable td
 {
@@ -215,47 +117,46 @@ table.contentTable td
     text-align: left;    
 }
 
-
-
-.x-tabbar.x-docked-top .x-tab {
-margin: .4em .2em;
-padding: 0.4em 0.8em;
-height: 1.8em;
--webkit-border-radius: 0.1em;
-border-radius: 0.1em;
+td.label{
+	font-size: 0.8em;
+	text-align: center;
+	padding: 0.5em;
 }
 
 .notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/stickyBig.jpg'}
 
-
+div.page{
+	padding-top:0.2em;	
+	font-size: 0.9em;
+}
 
 div.background
-  {
-  width:'100%';
-  height:380px;
-  padding:10px;
-  background:url(../images/stickyBig.jpg)  no-repeat ;
-  background-size: 100%;
-  /*border:2px solid black;*/
-  }
+{
+	width:'100%';
+	height:380px;
+	padding:10px;
+	background:url(../images/stickyBig.jpg)  no-repeat ;
+	background-size: 100%;
+	/*border:2px solid black;*/
+}
   
 div.transbox
-  {
-  width:'95%';
-  height:360px;
-  padding:10px;
-  /*
-  background-color:#ffffff;
-  border:1px solid black;
-  */
-  /* for IE */
-  filter:alpha(opacity=60);
-  /* CSS3 standard */
-  opacity:0.6;
-  }
+{
+	width:'95%';
+	height:360px;
+	padding:10px;
+	/*
+	background-color:#ffffff;
+	border:1px solid black;
+	*/
+	/* for IE */
+	filter:alpha(opacity=60);
+	/* CSS3 standard */
+	opacity:0.6;
+}
 
 div.transbox p
-  {
+{
 	font-family: cursive;
 	font-style: normal;
 	font-variant: normal;
@@ -268,7 +169,7 @@ div.transbox p
 	text-transform: none;
 	text-align: left;
 	text-indent: 0ex;
-  }
+}
 
 div.notesHeading p
 {
@@ -304,18 +205,6 @@ font-weight:bold;
 padding:20px 10px 10px 70px !important;
 text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
  
- 
-.x-form-fieldset {margin: .1em 0 .1em;}
-
-
-.x-toolbar-dark {
-	border-bottom: 1px solid black;
-	padding: 10px;
-	height: 45px;
-	background: url(../images/toolbar.png) black repeat-x;
-	box-sizing: border-box;
-}
-
 .c-toolbar-dark {
 	height: 250px;
 	width:100%;
@@ -325,6 +214,29 @@ text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 	color: white;
 	text-align:center;
 	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
+}
+div .logData{
+	padding: .3em;	
+}
+
+.input {
+	font-size: 0.9em;
+}
+
+.x-form-fieldset {margin: .1em 0 .1em;}
+
+.x-form-fieldset .x-field.x-label-align-left label {
+    left: 0px;
+    text-align: right;
+    width: 4em;
+}
+
+.x-toolbar-dark {
+	border-bottom: 1px solid black;
+	padding: 10px;
+	height: 45px;
+	background: url(../images/toolbar10.jpg) black repeat-x;
+	box-sizing: border-box;
 }
 
 .x-list-header {
@@ -342,19 +254,6 @@ text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
 }
 
-
-.xx-tabbar-dark {
-	border-bottom: 1px solid black;
-	background: url(../images/toolbar.png) black repeat-x;
-	position: relative;
-	box-sizing: border-box;
-}
-
-div .logData{
-	padding: .3em;	
-}
-
-
 .x-list .x-list-item {
 	position: relative;
 	color: #333;
@@ -370,19 +269,24 @@ div .logData{
 	background-color: #eeeeee;
 }
 
-
-
-.x-tabbar.x-docked-bottom .x-tab {
-	display: -webkit-box;
-	display: box;
-	-webkit-box-direction: reverse;
-	box-direction: reverse;
-	-webkit-box-orient: vertical;
-	box-orient: vertical;
-	-webkit-border-radius: 0.25em;
-	border-radius: 0.25em;
-	margin: .0em;
-	min-width: 3.3em;
-	position: relative;
+.x-toolbar.x-docked-bottom {
+	border-top: .1em solid;
+	background-color: #24364c;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a81af), color-stop(2%, #304864), color-stop(100%, #192533));
+	background-image: linear-gradient(#5a81af,#304864 2%,#192533);
+	border-color: black;
 }
 
+.x-tabbar.x-docked-bottom .x-tab {
+	margin: .05em;
+}
+
+.x-form-label {
+	font-size: 0.9em;
+	font-weight:normal;
+}
+
+.x-form-fieldset-title {
+	font-size: 0.9em;
+	color: olive;	
+}

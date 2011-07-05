@@ -23,9 +23,9 @@ NavPanel = Ext.extend(Ext.Panel,
 				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/help_black.png" onclick="navPanel.viewHelp()"/></td>'+
 				'</tr>'+
 				'<tr >'+
-				'<td >Club Board</td>'+
+				'<td class="label">Club Board</td>'+
 				'<td width="20px"></td>'+
-				'<td align ="center">About</td>'+
+				'<td class="label">About</td>'+
 				'</tr>'+
 				'<tr align ="center"><td height="30px"></td></tr>'+
 				'<tr align ="center">'+
@@ -34,9 +34,9 @@ NavPanel = Ext.extend(Ext.Panel,
 				'<td><img width="40px" height="40px" src="js/ext/resources/themes/images/default/pictos/lock_open.png" onclick="navPanel.viewLogout()"/></td>'+
 				'</tr>'+
 				'<tr >'+
-				'<td >My Profile</td>'+
+				'<td class="label">My Profile</td>'+
 				'<td width="20px"></td>'+
-				'<td align ="center">Logout</td>'+
+				'<td class="label">Logout</td>'+
 				'</tr>'+
 				'</table><br/>'
 		} ];
