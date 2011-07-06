@@ -201,9 +201,11 @@ div.notesIndex p
 .legislator-list-item{
 height:60px;
 position:relative;
-font-weight:bold;
-padding:20px 10px 10px 70px !important;
-text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
+font-weight:normal;
+padding:7px 7px 7px 70px !important;
+text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
+font-size: 0.8em
+}
  
 .c-toolbar-dark {
 	height: 250px;

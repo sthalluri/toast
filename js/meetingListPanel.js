@@ -38,8 +38,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		};
 	
 		this.meetingActionPanel = new MeetingActionPanel();
-		this.meetingPanel = new Ext.Panel({html:'Loading..', title:'Agenda',scroll: 'vertical', height:'100%'});
-		this.meetingReportPanel = new Ext.Panel({html:'Loading..', title:'Report',scroll: 'vertical', height:'100%'});
+		this.meetingPanel = new Ext.Panel({xtype:'component', flex:1, xtype:'component',html:'Loading..', title:'Agenda',scroll: 'vertical', height:'100%'});
+		this.meetingReportPanel = new Ext.Panel({xtype:'component', html:'Loading..', title:'Report',scroll: 'vertical', height:'100%'});
 
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			scroll: 'vertical',
@@ -48,7 +48,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 				flex : 1
 			},
 		    layout : {
-				align:'stretch'
+		    	type: 'vbox',
+		        align: 'left'
 			},
 			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ],
 			listeners : {

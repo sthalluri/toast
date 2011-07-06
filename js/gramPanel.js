@@ -33,7 +33,7 @@ GramPanel = Ext.extend(BaseFormPanel,
 		            change : function(selector, value){
 						var values = this.parentForm.getValues();
 						var obj = thisMeeting.roles[values['role']];
-						if(obj.userbaId && obj.userId!=''){
+						if(obj.userId && obj.userId!=''){
 							this.parentForm.userSelector.setValue(obj.userId);
 							this.parentForm.updateSpinners(obj.userId);
 						}else{
@@ -51,7 +51,7 @@ GramPanel = Ext.extend(BaseFormPanel,
             {
                 xtype: 'toolbar',
                 dock: 'top',
-                title:'Grammarian',
+                title:'ahCounter',
                 items: [
                     {
 					    text: 'Back',
