@@ -1,22 +1,4 @@
-Meeting date not coming up
-Meeting with this day and time alrady exists
-
-After adding a new user not able to use him without refresh
-Delete user not delete all the content for that user causing issues
-Ability to change the time is not working on the timerpanel
-
-Format the help tab or Should get the help pages from the web
-Format my profile tab
-Capitalize user first Name always
-After save loosing the user id and password
-basic speech settings
-basic club settings
-
-Security for the app by userid,Simple authentication required, session id not working from iphone
 Wrap all the js files into one
-Https for the app
-
-onselect for the tabletopic and the questions
 ________________________________________________________________
 
 iphone

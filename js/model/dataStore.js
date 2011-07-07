@@ -154,7 +154,16 @@ var memberStore = new Ext.data.JsonStore({
                  property : 'lastName',
                  direction: 'ASC'
              }
-         ]
+         ],
+   getMember: function(id){
+		var data = null;
+		this.each(function(rec){
+			if(rec.data.id === id){
+				data = rec.data;
+			}
+        }, this); 
+		return data;
+   }
 });
 
 var memberDropDownStore = new Ext.data.JsonStore({

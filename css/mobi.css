@@ -196,15 +196,35 @@ div.notesIndex p
 	background-color: orange;
 }
 
-.legislator-tnail{width:40px;height:40px;background-position:center center;-webkit-border-radius:5px;overflow:hidden;position:absolute;left:10px;top:10px;-webkit-box-shadow:#ccc 0 1px 2px}
+.legislator-tnail{
+	width:40px;height:40px;
+	background-position:center center;
+	-webkit-border-radius:5px;
+	overflow:hidden;
+	position:absolute;
+	left:10px;
+	top:10px;
+	-webkit-box-shadow:#ccc 0 1px 2px
+}
+
+.legislator-arrow{
+	position:absolute;
+	background-position:center center;
+	overflow:hidden;
+	right:10px;
+	top:20px;
+	width:35px;
+	height:25px;
+	padding: 2px;
+}
 
 .legislator-list-item{
-height:60px;
-position:relative;
-font-weight:normal;
-padding:7px 7px 7px 70px !important;
-text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
-font-size: 0.8em
+	height:60px;
+	position:relative;
+	font-weight:normal;
+	padding:7px 40px 7px 70px !important;
+	text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
+	font-size: 0.8em
 }
  
 .c-toolbar-dark {

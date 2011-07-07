@@ -3,7 +3,7 @@ HelpPanel = Ext.extend(Ext.Panel, {
     iconCls: 'info',
     tabId: 'help',
     scroll: 'vertical',
-    title:'ToastMasters',
+    title:'ToastApp',
 
     initComponent: function () {
 

@@ -36,33 +36,19 @@ QuestionPanel = Ext.extend(BaseFormPanel,
                 title:'TableTopic',
                 items: [
                     {
-                        text: 'Back',
+                        text: 'Cancel',
                         ui: 'back',
                         scope:this,
                         handler: this.goBack
-                    }
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
+                    },{
 						xtype : 'spacer'
 					}, new Ext.Button({
-		                text: 'Save',
+		                text: 'Done',
 						scope: this,
-	                    width:80,
 		                ui : 'confirm',
 		                handler: this.save
-		            }), 
-					new Ext.Button({
-		                text: 'Reset',
-						scope: this,
-	                    width:80,
-		                handler: function(){
-		                	this.reset();
-		                }
-		            })]
+		            })
+                ]
             }
         ];
     
@@ -90,6 +76,7 @@ QuestionPanel = Ext.extend(BaseFormPanel,
 	    	tableTopicPanel.onTableTopicsLoad(data, true);
 	    	//tableTopicPanel.show();
 			showPanel(tableTopicPanel);
+			tableTopicPanel.showActiveCard();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
@@ -97,7 +84,8 @@ QuestionPanel = Ext.extend(BaseFormPanel,
 
 	onSave:function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			this.goBack();
+			//this.updateMessage(data.successMessage);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

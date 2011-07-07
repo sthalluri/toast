@@ -42,7 +42,11 @@ UserServiceImpl = Ext.extend(Service, {
 
 	getName: function(userId){
 		if(userId){
-			return memberStore.getById(userId).data.name;
+			if(memberStore.getMember(userId)){
+				return memberStore.getMember(userId).name;
+			}else{
+				return 'Not Available';
+			}
 		}else{
 			return 'Not Assigned';
 		}

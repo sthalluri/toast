@@ -2,7 +2,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 	iconCls:'bookmarks',
     tabId: 'myLog',
     scroll: 'vertical',
-    title:'My Log',
+    title:'My Reports',
 	cls: 'legislator-tabs',
 	initComponent : function() {
 		
@@ -24,19 +24,19 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 
 		this.gramLogPanel = new Ext.Panel({
 			html : 'Loading..',
-			title : 'Gram Log',
+			title : 'Grammarian',
 			scroll : 'vertical'
 		});
 		
 		this.timerLogPanel = new Ext.Panel({
 			html : 'Loading..',
-			title : 'Timer Log',
+			title : 'Timer',
 			scroll : 'vertical'
 		});
 
 		this.meetingLogPanel = new Ext.Panel({
 			html : 'Loading..',
-			title : 'Roles Log',
+			title : 'Roles',
 			scroll : 'vertical'
 		});
 
@@ -44,7 +44,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 
 		this.dockedItems = [ {
 			xtype : 'toolbar',
-			title : 'My Log',
+			title : 'My Reports',
 			dock : 'top',
 			defaults : {
 				iconMask : true,
@@ -133,7 +133,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		
 		var wrapper = new Object();
 		wrapper.gramLogs = gramLogs;
-		wrapper.name = 'Grammarian Log';
+		wrapper.name = 'Grammarian Report';
 		
 		var html = this.gramLogTmpl.apply(wrapper);
 		if(!this.gramLogPanel.el){
@@ -142,7 +142,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			this.gramLogPanel.el.dom.innerHTML = html;
 		}
 
-		wrapper.name = 'Timer Log';
+		wrapper.name = 'Timer Report';
 		wrapper.timerLogs = timerLogs;
 		html = this.timerLogTmpl.apply(wrapper);
 		if(!this.timerLogPanel.el){

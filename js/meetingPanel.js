@@ -188,34 +188,18 @@ MeetingPanel = Ext.extend(BaseFormPanel,
                 title:'Agenda',
                 items: [
                     {
-                        text: 'Back',
+                        text: 'Cancel',
                         ui: 'back',
                         scope:this,
                         handler: this.goBack
-                    }
-                ]
-            },            
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items: [
-					{
+                    },{
 						xtype : 'spacer'
 					},
                     {
-                        text: 'Save',
+                        text: 'Done',
                         ui: 'confirm',
                         scope:this,
-                        width:80,
                         handler: this.save
-                    },
-                    {
-                        text: 'Reset',
-                        scope: this,
-                        width:80,
-                        handler: function() {
-                        	this.reset();
-                        }
                     }
                 ]
             }
@@ -323,9 +307,10 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 
 	onSave: function(data){
 		if (data.success) {
-			this.meeting.id = data.returnVal.id;			
-			this.updateMessage(data.successMessage);
-	        this.scroller.scrollTo(0);
+			this.meeting.id = data.returnVal.id;
+			this.goBack();
+			//this.updateMessage(data.successMessage);
+	        //this.scroller.scrollTo(0);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

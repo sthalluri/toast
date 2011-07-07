@@ -42,7 +42,7 @@ NavPanel = Ext.extend(Ext.Panel,
 		} ];
 		
 		this.dockedItems = [ {
-			title : 'ToastMaster',
+			title : 'ToastApp',
 			xtype : 'toolbar',
 			dock : 'top',
 			items : []

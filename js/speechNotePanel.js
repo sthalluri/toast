@@ -36,34 +36,21 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
                 title:'Card Note',
                 items: [
                     {
-                        text: 'Back',
+                        text: 'Cancel',
                         ui: 'back',
                         scope:this,
                         handler: this.goBack
-                    }
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
+                    },{
 						xtype : 'spacer'
 					}, new Ext.Button({
-						text : 'Save',
+						text : 'Done',
 						scope : this,
 						ui : 'confirm',
-	                    width:80,
 						handler : this.save
-					}), new Ext.Button({
-						text : 'Reset',
-						scope : this,
-	                    width:80,
-						handler : function() {
-							this.reset();
-						}
-					}) ]
+					})
+                ]
             }
-        ];
+            ];
     
         SpeechNotePanel.superclass.initComponent.call(this);	
 	},
@@ -88,8 +75,7 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
 	    	//speechNoteListPanel.listMode();
 	    	//speechNoteListPanel.show();
 			showPanel(speechNoteListPanel);
-
-	    	//speechNoteListPanel.showLastCard();
+	    	speechNoteListPanel.showActiveCard();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
@@ -101,7 +87,8 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
 	
 	onSave:function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			this.goBack();
+			//this.updateMessage(data.successMessage);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

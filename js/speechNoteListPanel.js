@@ -16,18 +16,13 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	    itemTpl: 	'<div class="legislator-list-item">'+
 	    			'<div class="legislator-tnail" style="background-image: url(./images/stickyBig.jpg)"></div>'+
 	    			'{heading}'+
-	    			'</div>',
-	    selModel: {
-	        mode: 'SINGLE',
-	        allowDeselect: true
-	    },
+	    			'<div class="legislator-arrow" style="background-image: url(./images/chevron_circle.png)">&nbsp;</div></div>',
 	    grouped: false,
 	    indexBar: false,
 	    parentPanel:this,	   
-	    onItemDisclosure: {
-	        scope: this,
-	        handler: this.updateDetailsPanel
-	    },
+	    listeners: {
+            selectionchange: {fn: this.updateDetailsPanel, scope: this}
+        },
 	    store: speechNoteDataStore
 	};
 
@@ -92,7 +87,12 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	},
 
 	goBack: function(){
-    	closePanel(this);
+		if(this.speechNoteTopicCarousel.getActiveIndex() > 0){
+			this.activeIndex = 0;
+			this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(0));
+		}else{
+	    	closePanel(this);
+		}
 	},
 	
 	
@@ -303,17 +303,26 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		showPanel(speechNotePanel);
 	},
 	
-	updateDetailsPanel : function(record, btn, index) {
-		var carousel = this.parentPanel.speechNoteTopicCarousel;
-		this.parentPanel.activeIndex = index+1;
-		carousel.setActiveItem(carousel.items.get(index+1));
+	updateDetailsPanel : function(sel, records){
+		if(records[0]!==undefined ){
+			var carousel = this.speechNoteTopicCarousel;
+			this.activeIndex = records[0].data.cardIndex;
+			carousel.setActiveItem(carousel.items.get(this.activeIndex));
+			this.listPanel.deselect(this.activeIndex-1);
+		}
     },
     
     showLastCard: function(){
 		this.activeIndex = this.speechNoteTopicCarousel.items.length;
 		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(this.activeIndex));
     	this.cardChanged(null, null, null, this.activeIndex);
+    },
+    
+    showActiveCard: function(){
+		this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(this.activeIndex));
+    	this.cardChanged(null, null, null, this.activeIndex);
     }
+
 });
 
 

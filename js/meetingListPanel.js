@@ -216,7 +216,10 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	getGramLog : function(meeting) {
 		var gramLogs = new Array();
 		for ( var userId in meeting.gramLog) {
-			var user = memberStore.getById(parseInt(userId)).data;
+			var user = memberStore.getMember(parseInt(userId));
+			if(!user){
+				continue;
+			}
 			var amCount = meeting.gramLog[userId];
 			var gramLog = new Object();
 			gramLog.amCountStr = 'None';
@@ -250,8 +253,10 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		for ( var j = 1; j < roles.length; j++) {
 			var role = meetingRoles[roles[j]];
 			if (role && role.timeSpent && role.userId) {
-				var user = memberStore
-						.getById(parseInt(role.userId)).data;
+				var user = memberStore.getMember(parseInt(role.userId));
+				if(!user){
+					continue;
+				}
 				var timerLog = new Object();
 				timerLog.timeSpent = role.timeSpent;
 				timerLog.role = roleStore.getById(roles[j]).data.description;

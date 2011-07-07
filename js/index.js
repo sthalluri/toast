@@ -84,7 +84,6 @@ Ext.setup({
         		}
         	},
         	layout: 'card',
-        	title:'ToastMasters',
             fullscreen: true,
             cardSwitchAnimation:'fade',
             items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel],
@@ -116,7 +115,6 @@ Ext.setup({
                          ];
 
         mainCardPanel = new Ext.Panel({
-        	title:'ToastMasters',
         	layout: 'card',
             iconCls:'home',
             fullscreen: true,

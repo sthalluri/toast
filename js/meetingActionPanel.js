@@ -55,6 +55,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             	gramPanel.loadSpinners();
         	}else if("Timer"==data.name){
 				showPanel(timerPanel);
+				timerPanel.resetTimer();
 			}else if("TableTopics"==data.name){
 				showPanel(tableTopicPanel);
 				tableTopicPanel.loadAndShow();
@@ -66,6 +67,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
 				myGramPanel.refresh();
 			}else if("MyTimer"==data.name){
 				showPanel(myTimerPanel);
+				myTimerPanel.resetTimer();
 			}
         }
     },

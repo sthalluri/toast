@@ -59,26 +59,13 @@ GramPanel = Ext.extend(BaseFormPanel,
 		                scope:this,
 					    handler: this.goBack
 					},
-					{xtype: 'spacer'}
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
-						xtype : 'spacer'
-					}, {
-						text : 'Save',
+					{xtype: 'spacer'}, {
+						text : 'Done',
 						scope : this,
 						ui : 'confirm',
-						width : 80,
 						handler : this.save
-					}, {
-						text : 'Reset',
-						scope : this,
-						width : 80,
-						handler : this.resetForm
-					}]
+					}
+                ]
             }
         ];
         
@@ -102,7 +89,8 @@ GramPanel = Ext.extend(BaseFormPanel,
 					labelAlign : 'left',
 					labelWidth : '40%'
 				},
-				items : [ this.spinners ]
+				items : [ this.spinners ],
+				instructions:'*Click <b>Done</b> before selecting next role.'
 			});
 		
 		this.items = [this.getMessageComp(),
@@ -125,7 +113,7 @@ GramPanel = Ext.extend(BaseFormPanel,
 	
 	onSave: function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			this.updateMessage(data.successMessage+" Select the next role to report.");
 	        this.reset();        
 		} else {
 			this.updateMessage(data.errorMessage);

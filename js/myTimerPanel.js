@@ -113,45 +113,27 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
                 dock: 'top',
                 items: [
                     {
-                        text: 'Back',
+                        text: 'Cancel',
 		                ui: 'back',
 		                scope:this,
                         handler: this.goBack
                     },
-                    {xtype: 'spacer'}
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
-						xtype : 'spacer'
-					}, new Ext.Button({
-	                    text: 'Save',
+                    {xtype: 'spacer'}, new Ext.Button({
+	                    text: 'Done',
 						scope: this,
                         ui: 'confirm',
-	                    width:80,
 		                handler: this.save
-	                }),
-	                new Ext.Button({
-	                    text: 'Reset',
-						scope: this,
-	                    width:80,
-		                handler: this.resetTimer
-	                })]
+	                })
+                ]
             }
         ];
         MyTimerPanel.superclass.initComponent.call(this);
 	},
 
-	resetTimer: function(){
-		this.reset();
-	},
-	
 	validate: function(){
 		var values = this.getValues();  
 		var noErrors = true;
-		if(!values.role || values.role =='none'){
+		if(!values.role || values.role ==='0'){
 			this.updateMessage('Please select the role');
 			return false;
 		}
@@ -160,20 +142,23 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 
 	onSave: function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			//this.updateMessage(data.successMessage);
 	        this.reset();
+	        this.goBack();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
 	},
 
 	save: function(){
-		var values = this.getValues();        
-        var obj = thisMeeting.roles[values['role']];
-        obj.userId =  thisUser.id;
-        obj.timeSpent = getSecsFromStr(values.timer);
-        obj.timeLimits = this.timeLimits;
-        MeetingService.save(thisMeeting, this.onSave, this);
+		if(this.validate()){
+			var values = this.getValues();        
+	        var obj = thisMeeting.roles[values['role']];
+	        obj.userId =  thisUser.id;
+	        obj.timeSpent = getSecsFromStr(values.timer);
+	        obj.timeLimits = this.timeLimits;
+	        MeetingService.save(thisMeeting, this.onSave, this);
+		}
 	},
 
 
@@ -219,7 +204,14 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 	goBack: function() {
     	this.updateMessage('');
     	closePanel(this);
-    }
+    },
+    
+	resetTimer: function(){
+		this.reset();
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+        this.updateTimeLimitSection();
+	}
+
 });
 
 

@@ -149,7 +149,8 @@ TimerPanel = Ext.extend(BaseFormPanel,
 					       ]
 
 				}
-				]
+				],
+			instructions:'*Click <b>Done</b> before selecting next role.'
             }
         ];
     
@@ -166,26 +167,14 @@ TimerPanel = Ext.extend(BaseFormPanel,
 		                scope:this,
                         handler: goBack
                     },
-                    {xtype: 'spacer'}
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
-						xtype : 'spacer'
-					},new Ext.Button({
-	                    text: 'Save',
+                    {xtype: 'spacer'},
+                    new Ext.Button({
+	                    text: 'Done',
 						scope: this,
 						ui : 'confirm',
-	                    width:80,
 		                handler: this.save
-	                }),new Ext.Button({
-	                    text: 'Reset',
-						scope: this,
-	                    width:80,
-		                handler: this.resetTimer
-	                })]
+	                })
+                ]
             }
         ];
         
@@ -232,7 +221,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 
 	onSave: function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			this.updateMessage(data.successMessage+" Select the next role to report.");
 	        this.timerPanelClock.reset();
 	        this.updateTime();
 	        this.reset();

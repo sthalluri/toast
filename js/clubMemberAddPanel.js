@@ -151,8 +151,9 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		else 
 			//if(this.incomingReq == "profile")
 		{
-			this.hide();
-			navPanel.show();
+			//this.hide();
+			//navPanel.show();
+	    	closePanel();
 		}
 	},
 	

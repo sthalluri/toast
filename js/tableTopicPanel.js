@@ -16,8 +16,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	this.questionBase = {
 	    itemTpl: 	'<div class="legislator-list-item">'+
 					'<div class="legislator-tnail" style="background-image: url(./images/Stickysmall.png)"></div>'+
-					'{text}'+
-					'</div>',
+					'{heading}'+
+					'<div class="legislator-arrow" style="background-image: url(./images/chevron_circle.png)">&nbsp;</div></div>',
 	    selModel: {
 	        mode: 'SINGLE',
 	        allowDeselect: true
@@ -26,10 +26,9 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	    indexBar: false,
 	    parentPanel:this,	   
 	    id:'tableTopicListPanel',
-	    onItemDisclosure: {
-	        scope: this,
-	        handler: this.updateDetailsPanel
-	    },
+	    listeners: {
+            selectionchange: {fn: this.updateDetailsPanel, scope: this}
+        },
 	    store: questionDataStore
 	};
 
@@ -83,9 +82,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 
 	goBack: function(){
-    	closePanel(this);
+		if(this.tblTopicCarouselPanel.getActiveIndex() > 0){
+			this.activeIndex = 0;
+			this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+		}else{
+	    	closePanel(this);
+		}
 	},
-	
+
 	loadAndShow: function(){
 		if(thisMeeting.roles.tableTopics){
 			var contentId = thisMeeting.roles.tableTopics.id;
@@ -105,7 +109,12 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			var rQuestions = new Array();
 			if(questions){
 				for(var i=0 ; i<questions.length; i++){
-					rQuestions[i] = {id:questions[i].id,text:questions[i].text,cardIndex:i+1};
+					if(questions[i].text && questions[i].text.length>20){
+						questions[i].heading = questions[i].text.substring(0, 20)+'..';
+					}else{
+						questions[i].heading = questions[i].text;
+					}
+					rQuestions[i] = {id:questions[i].id,text:questions[i].text,cardIndex:i+1, heading:questions[i].heading};
 				}
 			}
 			data.returnVal = rQuestions;
@@ -206,6 +215,11 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	formatNotes: function(question){
+		if(question && question.text && question.text.length>20){
+			question.heading = question.text.substring(0, 20)+'..';
+		}else{
+			question.heading = question.text;
+		}
 		return question;
 	},
 	
@@ -271,10 +285,17 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		showPanel(questionPanel);
 	},
 	
-	updateDetailsPanel : function(record, btn, index) {
-		var carousel = this.parentPanel.tblTopicCarouselPanel;
-		this.parentPanel.activeIndex = index+1;
-		carousel.setActiveItem(carousel.items.get(index+1));
+	updateDetailsPanel : function(sel, records){
+		if(records[0]!==undefined ){
+			var carousel = this.tblTopicCarouselPanel;
+			this.activeIndex = records[0].data.cardIndex;
+			carousel.setActiveItem(carousel.items.get(this.activeIndex));
+			this.listPanel.deselect(this.activeIndex-1);
+		}
+    },
+    
+    showActiveCard: function(){
+		this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(this.activeIndex));
     }
 });
 

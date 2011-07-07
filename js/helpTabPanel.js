@@ -7,7 +7,7 @@ HelpTabPanel = Ext.extend(Ext.TabPanel, {
 		this.dockedItems = [ {
 			xtype : 'toolbar',
 			dock : 'top',
-			title : 'ToastMasters',
+			title : 'About',
 			items : [ {
 				text : 'Back',
 				scope : this,

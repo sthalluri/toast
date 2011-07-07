@@ -38,31 +38,18 @@ MyGramPanel = Ext.extend(BaseFormPanel,
                 title:'Gram Report',
                 items: [
                     {
-					    text: 'Back',
+					    text: 'Cancel',
 		                ui: 'back',
 		                scope:this,
 					    handler: this.goBack
 					},
-					{xtype: 'spacer'}
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
-						xtype : 'spacer'
-					}, {
-						text : 'Save',
+					{xtype: 'spacer'}, {
+						text : 'Done',
 						scope : this,
 						ui : 'confirm',
-						width : 80,
 						handler : this.save
-					}, {
-						text : 'Reset',
-						scope : this,
-						width : 80,
-						handler : this.resetForm
-					}]
+					}
+                ]
             }
         ];
         
@@ -88,7 +75,8 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 
 	onSave: function(data){
 		if (data.success) {
-			this.updateMessage(data.successMessage);
+			this.goBack();
+			//this.updateMessage(data.successMessage);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
