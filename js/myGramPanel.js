@@ -25,8 +25,6 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 				instructions : '<b>Log your counts for this meeting.</b>',
 			});
 		
-		console.log("This message"+this.meesage);
-		
 		this.items = [ 
 		               this.getMessageComp(),
 		               this.spinnerFiledSet];

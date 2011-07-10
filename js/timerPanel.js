@@ -48,13 +48,15 @@ TimerPanel = Ext.extend(BaseFormPanel,
 							if(!obj.timeSpent){
 								obj.timeSpent = 0;
 							}
-							this.parentForm.clockField.reset();
+							//this.parentForm.clockField.reset();
+							this.parentForm.updateDivTime('0:00');
 							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 						}else{
 							this.parentForm.timerPanelClock.setSecs(0);
-							this.parentForm.updateColor('silverIndi');
+							this.parentForm.updateColor('greenIndi');
 							this.parentForm.userSelector.reset();
-							this.parentForm.clockField.reset();
+							//this.parentForm.clockField.reset();
+							this.parentForm.updateDivTime('0:00');
 						}
 						this.parentForm.updateTimeLimitSection();
 						this.parentForm.updateMessage('');
@@ -64,28 +66,29 @@ TimerPanel = Ext.extend(BaseFormPanel,
 
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
 		this.timeLimits.panel = "timerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
-		this.clockField = new Ext.form.TextArea({
-                xtype : 'textareafield',
-                id : 'clock',
-                name  : 'timer',
-                value : '0:00',
-                maxLength : 6,
-                height:10,
-                maxRows : 1,
-			     parentForm: this,
-                style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
-			     scope: this,
-			     listeners:{
-			    		change : function(selector, value){
-			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
-	    					this.parentForm.updateTime();
-			    		}
-			    	}
-				});
+//		this.clockField = new Ext.form.Text({
+//                xtype : 'textareafield',
+//                id : 'clock',
+//                name  : 'timer',
+//                value : '0:00',
+//                maxLength : 6,
+//                height:10,
+//                maxRows : 1,
+//			    parentForm: this,
+//			    //disabled:true,
+//                style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
+//			    scope: this,
+//			    listeners:{
+//			    		change : function(selector, value){
+//			    			this.parentForm.timerPanelClock.setSecsFromStr(value);
+//	    					this.parentForm.updateTime();
+//			    		}
+//			    	}
+//				});
 
 		this.formFields = new Ext.form.FieldSet({
 			 xtype: 'fieldset',
@@ -104,12 +107,14 @@ TimerPanel = Ext.extend(BaseFormPanel,
                 {
                	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
-									'<td style="text-align: right" ><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/resize.png" onclick="timerPanel.showCard();"/></td>'+
+									'<td width="100%"><div class="greenIndi"  style="height: 20px;"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
+									'<td style="text-align: right;"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/resize.png" onclick="timerPanel.showCard();"/></td>'+
 								'</tr>'+
+								'<tr><td style="text-align: center; font-size:50pt; font-weight:normal" ><div id="timerPanelTimeDiv">0:00</div></td></tr>'+
 							'</table>'
-                },
-				this.clockField
+                }
+//				,
+//				this.clockField
 			]
 		});
 
@@ -129,16 +134,15 @@ TimerPanel = Ext.extend(BaseFormPanel,
             handler: this.stopTimer
         });
 
+		this.editTimeButton = new Ext.Button({
+			scope: this,
+            text: 'Edit Time',
+            width:100,
+            handler: this.editTime
+        });
+
         this.items= [this.getMessageComp(),
                      this.formFields,
-	        {
-            xtype: 'fieldset',
-            defaults: {
-                required: true,
-                labelAlign: 'left',
-                labelWidth: '10%'
-            },
-            items: [        	
 				{
 					layout:'hbox',
 					flex:1,
@@ -148,12 +152,20 @@ TimerPanel = Ext.extend(BaseFormPanel,
 							this.stopButton
 					       ]
 
+				},
+				{
+					layout:'hbox',
+					flex:1,
+               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+					items:[
+							this.editTimeButton
+					       ]
+
 				}
-				],
-			instructions:'*Click <b>Done</b> before selecting next role.'
-            }
         ];
     
+		this.instructions= '*Click <b>Done</b> before selecting next role.';
+
     
         this.dockedItems= [
             {
@@ -199,7 +211,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	resetTimer: function(){
-		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
 		this.timerPanelClock.reset();
         this.updateTimeLimitSection();
 		this.reset();
@@ -242,8 +254,10 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	updateTime: function(){
-		var clock = this.formFields.items.getByKey('clock');
-		clock.setValue(this.timerPanelClock.getMins());
+		
+//		var clock = this.formFields.items.getByKey('clock');
+//		clock.setValue(this.timerPanelClock.getMins());		
+		this.updateDivTime(this.timerPanelClock.getMins());
 		var value = this.timerPanelClock.getSecs();
 		if(value > this.timeLimits.red){
 			this.updateColor("redIndi");
@@ -252,10 +266,14 @@ TimerPanel = Ext.extend(BaseFormPanel,
 		}else if(value > this.timeLimits.green){
 			this.updateColor("greenIndi");
 		}else{
-			this.updateColor("silverIndi");
+			this.updateColor("greenIndi");
 		}
 	},
 
+	updateDivTime: function(time){
+		document.getElementById("timerPanelTimeDiv").innerHTML =time; 
+	},
+	
 	updateColor: function(colourClass){
 		var colorDiv = document.getElementById('timeColorDiv');
 		if(colorDiv.className != colourClass){
@@ -281,6 +299,13 @@ TimerPanel = Ext.extend(BaseFormPanel,
 		}
 	},
 
+	editTime:function(){
+		if(this.validate()){		
+			this.hide();
+			timeEditPanel.showTimeEdit(this, this.timerPanelClock.getSecs());
+		}
+	},
+
 	updateTimeLimitSection:function(pTimings){
 		if(pTimings){
 			this.timeLimits = pTimings;
@@ -293,6 +318,11 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	goBack: function() {
     	this.updateMessage('');
     	closePanel(this);
+    },
+    
+    updateFromTimeEdit: function(time){
+        this.timerPanelClock.setSecsFromStr(time);
+        this.updateTime();
     }
 });
 

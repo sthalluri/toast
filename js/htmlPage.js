@@ -23,7 +23,7 @@ HtmlPage = Ext.extend(Ext.Panel, {
         this.dockedItems = toolbarBase;
         
         Ext.Ajax.request({
-            url: this.url,
+            url: serverUrl+this.url,
             success: function(rs){
                 this.update(rs.responseText);
             },

@@ -151,7 +151,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 
 		var pan =  new Ext.Panel({
 		    fullscreen: true,
-		    items: [this.listPanel,{html:'<div class="x-form-fieldset-instructions" id="ext-gen1359"><b>Add a question using the \'+\' button </b></div>'}]
+		    items: [this.listPanel,{html:'<div class="x-form-fieldset-instructions" ><b>Add a question using the \'+\' button </b></div>'}]
 		});		
 		items.push(pan);
 

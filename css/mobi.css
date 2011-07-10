@@ -95,9 +95,11 @@
     margin: auto;
 }
 
+/* Light grey color:#707000*/
+
 .header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
 .content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:#707000;font-size: 1em;vertical-align:text-top;font-weight:bold;}
+.highlight{color:menutext;font-size: 1em;vertical-align:text-top;font-weight:normal;}
 
 .red{color:red;font-size: 1em;font-weight:bold;}
 .yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
@@ -114,7 +116,7 @@ table.contentTable td
 {
     margin:10px;
     padding:.3em;
-    text-align: left;    
+    text-align: left; 
 }
 
 td.label{
@@ -245,27 +247,48 @@ div .logData{
 	font-size: 0.9em;
 }
 
-.x-form-fieldset {margin: .1em 0 .1em;}
-
-.x-form-fieldset .x-field.x-label-align-left label {
-    left: 0px;
-    text-align: right;
-    width: 4em;
+.c-text{
+	font-size: 0.8em;
+	font-weight: normal;
+	margin-top: 0.7em;
+	margin-left: 0.5em;
 }
 
-.x-list-header {
-	background-color: #999;
+.c-field {
+	min-height: 1.6em;
+}
+
+/*
+To get rid of the grey color take out the following
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #E6E6E6), color-stop(2%, #BFBFBF), color-stop(30%, #ADADAD), color-stop(65%, #999), color-stop(100%, gray));
 	background-image: linear-gradient(#E6E6E6,#BFBFBF 2%,#ADADAD 30%,#999 65%,gray);
 	color: #4D4D4D;
+
+*/
+
+.grey-list-header {
+	background-image: linear-gradient(#E6E6E6,#BFBFBF 2%,#ADADAD 30%,#999 65%,gray);
+	color: #4D4D4D;
+	background-color: #999;
 	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
-	border-top: 1px solid #999;
+	border-top: 0px solid #999;
 	border-bottom: 1px solid #666;
 	font-weight: bold;
-	font-size: 0.9em;
-	padding: 0.2em 1.02em;
+	font-size: 0.8em;
+	padding: 0.3em 1.02em;
 	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
+}
+
+
+/*Customization of ext fields*/
+
+/* top right bottom left*/
+.x-form-fieldset {margin: 0.2em 0.1em 0.5em 0.1em;}
+
+.x-list-header {
+	border-left: 1px solid #666;
+	border-right: 1px solid #666;
 }
 
 .x-list .x-list-item {
@@ -305,13 +328,14 @@ div .logData{
 	font-weight:normal;
 }
 
-.c-text{
-	font-size: 0.8em;
-	font-weight: normal;
-	margin-top: 0.7em;
-	margin-left: 0.5em;
-}
-
+/*This has the effect on the timer section for the text box..need to get rid of this*/
 .x-field {
 	min-height: 2em;
+}
+
+
+.x-form-fieldset-title {
+	margin: 0.5em 0.5em 0.2em 0.5em;
+	font-weight: bold;
+	font-size: 0.8em;
 }

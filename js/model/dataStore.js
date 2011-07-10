@@ -11,6 +11,23 @@ var mockUser={
 		'confirmPassword':'secret'
 };
 
+var aboutPages = [ {
+	title : 'Overview',
+	card : {
+		xtype : 'htmlpage',
+		url : '/toast/help/overview.html'
+	},
+	image : 'js/ext/resources/themes/images/default/pictos/arrow_right.png'
+}, {
+	title : 'Roles',
+	card : {
+		xtype : 'htmlpage',
+		url : '/toast/help/roles.html'
+	},
+	image : 'js/ext/resources/themes/images/default/pictos/arrow_right.png'
+} ];
+
+
 var thisMeeting;
 var thisUser;
 
@@ -25,10 +42,6 @@ var fillers= [];
 
 var timeOptions = [
    {text: 'Select..',value: '00:00 AM'}, 
-   {text: '04:00 AM',value: '04:00 AM'}, 
-   {text: '04:30 AM',value: '04:30 AM'}, 
-   {text: '05:00 AM',value: '05:00 AM'}, 
-   {text: '05:30 AM',value: '05:30 AM'}, 
    {text: '06:00 AM',value: '06:00 AM'}, 
    {text: '06:30 AM',value: '06:30 AM'}, 
    {text: '07:00 AM',value: '07:00 AM'}, 
@@ -68,15 +81,15 @@ var timeOptions = [
 
 
 var timingStore={
-	speech : {red: 5, green: 2, yellow:1},	
-	ttResponse : {red: 6, green: 2, yellow:4}	,
-	evaluator : {red: 7, green: 2, yellow:5}	
+	speech : {green: 60*4, yellow:60*5,red: 60*6},	
+	ttResponse : {green: 1*60, yellow:1.5*60, red: 2*60},
+	evaluator : {green: 2*60, yellow: 2.5*60, red:3*60}	
 };
 
 //var serverUrl = 'http://10.0.0.8:8080';
-	var serverUrl = 'http://localhost:8080';
+var serverUrl = 'http://localhost:8080';
 
-//var serverUrl = 'http://ec2-50-19-142-85.compute-1.amazonaws.com';
+//var serverUrl = 'http://ec2-75-101-247-165.compute-1.amazonaws.com';
 
 //var urlStore = mockUrls;
 var urlStore = {
@@ -94,7 +107,7 @@ Ext.regModel('Meeting', {
         {name: 'wordOfTheDay',  type: 'string'},
         {name: 'themeOfTheDay', type: 'string'},
         {name: 'inProgress'},
-        {name: 'meetingDate',	type: 'date'},
+        {name: 'meetingDate',	type: 'date', dateFormat: 'Y-m-d\\TH:i:s.u\\Z'},
         {name: 'meetingTime'},
         {name: 'location'}
     ]

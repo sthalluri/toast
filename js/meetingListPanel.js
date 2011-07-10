@@ -3,7 +3,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	iconCls:'time',
     tabId: 'meetingList',
     title:'Meetings',
-    fullScreen:true,
+    fullScreen:false,
 	defaults:{
 		flex : 1
 	},
@@ -38,8 +38,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		};
 	
 		this.meetingActionPanel = new MeetingActionPanel();
-		this.meetingPanel = new Ext.Panel({xtype:'component', flex:1, xtype:'component',html:'Loading..', title:'Agenda',scroll: 'vertical', height:'100%'});
-		this.meetingReportPanel = new Ext.Panel({xtype:'component', html:'Loading..', title:'Report',scroll: 'vertical', height:'100%'});
+		this.meetingPanel = new Ext.Panel({xtype:'component', id:'agendaPanel', fullScreen:false,html:'Loading..', title:'Agenda',scroll: 'vertical'});
+		this.meetingReportPanel = new Ext.Panel({xtype:'component', html:'Loading..', title:'Report',scroll: 'vertical'});
 
 		this.meetingDetailTabPanel = new Ext.TabPanel({
 			scroll: 'vertical',
@@ -76,7 +76,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	   ];
 	   
 	   this.backButton = {
-               text: 'Back',
+               text: 'Show All',
                ui: 'back',
                scope:this,
            	   id:'meetingListBackButton',
@@ -97,18 +97,10 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	   this.filterToolBar =	  new Ext.Toolbar({
 	            xtype: 'toolbar',
 	            ui: 'light',
+	            cls: 'grey-list-header',
 	            items: [{xtype: 'spacer'},this.filterButtons,{xtype: 'spacer'}],
 	            dock: 'bottom'
 	   });
-
-		this.deleteButton = new Ext.Button({
-	        iconMask: true,
-	        ui: 'plain',
-	    	iconCls:'delete',
-	    	scope:this,
-	        handler: this.deleteConfirm
-	    });
-		
 
 	   this.mainToolbar = new Ext.Toolbar({
 	            title:'Meetings',
@@ -123,7 +115,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	            items: [
 	                this.backButton,
 	                {xtype: 'spacer'},
-	                this.deleteButton,
+	                //this.deleteButton,
 					{
 	                    iconMask: true,
 	                    ui: 'plain',
@@ -172,7 +164,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
 		Ext.getCmp('meetingListBackButton').hide();
-		this.deleteButton.hide();
+		//this.deleteButton.hide();
 		this.mainToolbar.setTitle("Meetings");
 		this.viewMode = "LIST";
 	},
@@ -181,7 +173,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').hide();
 		Ext.getCmp('meetingPanleEditIcon').show();
 		Ext.getCmp('meetingListBackButton').show();
-		this.deleteButton.show();
+		//this.deleteButton.show();
 		this.mainToolbar.setTitle("Meeting");
 		this.viewMode = "DETAIL";
 	},
@@ -283,7 +275,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	
 	meetingPanelChanged: function(comp, newCard, oldCard, index) {
 		var meeting = this.activeMeeting;
-
 		if(index == 2){
     		//Set the content for the meeting report tab
     		var wrapper = new Object();
@@ -294,8 +285,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     		wrapper.gramLogs = this.getGramLog(meeting);
     		wrapper.timerLogs = this.getTimerLog(meeting);	
     		html = this.meetingReportTmpl.apply(wrapper);		    		
-    		if(this.meetingReportPanel.el){
-    			this.meetingReportPanel.el.dom.innerHTML = html;
+    		var htmlEl = this.meetingReportPanel.el;
+    		if(htmlEl && htmlEl.dom.childNodes[0]&& htmlEl.dom.childNodes[0].childNodes[0]){
+    			this.meetingReportPanel.el.dom.childNodes[0].childNodes[0].innerHTML = html;
     		}else{
 	    		this.meetingReportPanel.html = html;
     		}
@@ -306,10 +298,13 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	showMeeting: function(meeting){
 		var carousel = this.meetingCarousel;
 		this.activeMeeting = meeting;		    		
+
+
 		//Set the content for the agenda tab
-		var html = this.meetingTmpl.apply(meeting);		    		
-		if(this.meetingPanel.el){
-    		this.meetingPanel.el.dom.innerHTML = html;
+		var html = this.meetingTmpl.apply(meeting);
+		var htmlEl = this.meetingPanel.el;
+		if(htmlEl && htmlEl.dom.childNodes[0]&& htmlEl.dom.childNodes[0].childNodes[0]){
+    		this.meetingPanel.el.dom.childNodes[0].childNodes[0].innerHTML = html;
 		}else{
     		this.meetingPanel.html = html;
 		}
@@ -318,6 +313,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		carousel.setActiveItem(tabPanel);
 		tabPanel.setActiveItem(tabPanel.items.get(0));
 		this.detailMode();
+		
+		//Set the header for the action panel
+		this.meetingActionPanel.updateMettingHeader(meeting);
 	},
 	
     onSelect: function(sel, records){
@@ -334,29 +332,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     
     showFilterBar: function(){
     	//this.filterToolBar.el.show();
-    },
-   
-
-	onDelete:function(data){
-		if (data.success) {
-			meetingStore.loadAndFormat(data.returnVal.rows);
-			this.listMode();
-		} else {
-			this.updateMessage(data.errorMessage);
-		}
-	},
-
-	deleteConfirm : function()
-	{
-		Ext.Msg.confirm("This will delete the meeting", "Do you want to continue?", this.deleteMeeting, this);
-	},
-
-	deleteMeeting: function(opt){
-		if(opt == "yes")
-		{
-	        MeetingService.deleteMeeting(this.activeMeeting.id, this.onDelete, this);
-		}
-	},
-
+    }
 
 });

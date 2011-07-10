@@ -21,6 +21,13 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		}
 		);
 
+		this.deleteButton = new Ext.Button({
+	    	scope:this,
+			text:'Delete',
+			ui:'decline',
+	        handler: this.deleteConfirm
+	    });
+		
 		this.formFields = [ this.meetingDate,{
             xtype: 'selectfield',
             name: 'time',
@@ -178,7 +185,8 @@ MeetingPanel = Ext.extend(BaseFormPanel,
                     labelWidth: '40%'
                 },
                 items: this.speech3Fields
-            }
+            },
+            this.deleteButton
         ];
         
         this.dockedItems = [
@@ -296,7 +304,11 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		if (data.success) {
 			meetingStore.loadAndFormat(data.returnVal.rows);
 			closePanel(this);
-			meetingListPanel.showMeeting(thisMeeting);
+			if(thisMeeting){
+				meetingListPanel.showMeeting(thisMeeting);
+			}else{
+		    	meetingListPanel.listMode();
+			}
 			//this.hide();
 	    	//meetingListPanel.show();
 	    	//meetingListPanel.listMode();
@@ -370,5 +382,29 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		
 		//this.controller.save(this.meeting);
         MeetingService.save(this.meeting, this.onSave, this);
+	},
+	
+	onDelete:function(data){
+		if (data.success) {
+			thisMeeting = null;
+			this.goBack();
+		} else {
+			this.updateMessage(data.errorMessage);
+		}
+	},
+
+	deleteConfirm : function()
+	{
+		Ext.Msg.confirm("This will delete the meeting", "Do you want to continue?", this.deleteMeeting, this);
+	},
+
+	deleteMeeting: function(opt){
+		if(opt == "yes")
+		{
+	        MeetingService.deleteMeeting(this.meeting.id, this.onDelete, this);
+		}
 	}
+
+
+
 });

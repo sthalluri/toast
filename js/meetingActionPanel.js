@@ -1,12 +1,16 @@
 MeetingActionPanel = Ext.extend(Ext.Panel, {
     layout: 'card',
     title : 'Actions',
-    initComponent: function(){
+	height:'100%',	
+	scroll: 'vertical',
+	initComponent: function(){
         this.list = new Ext.List({
             itemTpl: '<table width="100%"><tr><td><div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}"/>&nbsp;&nbsp;{title}</div></td><td align="right"></td></tr></table>',
             ui: 'round',
             grouped: true,
             indexBar: false,
+        	scroll: 'vertical',
+        	height: '100%',
             store: new Ext.data.Store({
                 fields: ['name', 'card'],
                 getGroupString : function(record) {
@@ -25,15 +29,18 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             },
             title: 'About'
         });
-        
-//        this.meetingHeader = new Ext.Component({
-//			xtype : 'component',
-//			html : ''
-//		});
-//        this.meetingHeader,	
+
+        this.message = new Ext.Component({
+            cls: 'grey-list-header',
+			xtype : 'component',
+			html : 'Test'
+		});
         
         this.listpanel = new Ext.Panel({
-            items: [this.list]
+        	height: '100%',
+        	items: [
+                    this.message,
+        	        this.list]
         });
         
         this.listpanel.on('activate', function(){
@@ -41,7 +48,8 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
         }, this);
         
         //{html: '<div class="x-list-header" >'+thisMeeting.fMeetingDate+'</div>'},
-        this.items = [this.listpanel];
+        this.items = [
+                      this.listpanel];
         
         MeetingActionPanel.superclass.initComponent.call(this);
     },
@@ -74,8 +82,18 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
     
     deselect: function(){
     	this.list.deselect(this.list.getSelectedRecords());
-    }
-
+    },
+    
+	updateMettingHeader: function(meeting){
+		if(this.message.el){
+			this.message.el.setHTML('<table width="100%"><tr><td><div><p>'+meeting.fMeetingDate+'</p></div></td>'+
+//					'<td align="right">'+
+//					'<div class=" x-button x-button-normal" style="margin-bottom: 0.5em; margin-left: 0.5em; ">'+
+//					'<span class="x-button-label" onclick="{panel}.editTimeLimit();">Change</span>'+
+//					'</div></td>'+
+					'</tr></table>');
+		}
+	}
 });
 
 Ext.reg('meetingActionPanel', MeetingActionPanel);

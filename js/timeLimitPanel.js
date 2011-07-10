@@ -31,6 +31,7 @@ TimeLimitPanel = Ext.extend(BaseFormPanel,
 			label:'Seconds',
 		    minValue: 0,
 		    maxValue: 60,
+		    incrementValue: 15,
 		    size:1
 		});
 
@@ -44,8 +45,23 @@ TimeLimitPanel = Ext.extend(BaseFormPanel,
 			label:'Seconds',
 		    minValue: 0,
 		    maxValue: 60,
+		    incrementValue: 15,
 		    size:1
 		});
+		
+		this.addMinButton = new Ext.Button({
+	    	scope:this,
+			text:'+1 Min',
+			width: 40,
+	        handler: this.addMin
+	    });
+
+		this.subMinButton = new Ext.Button({
+	    	scope:this,
+			text:'-1 Min',
+			width: 40,
+	        handler: this.subMin
+	    });
 				
 		this.items = [  
 		                this.getMessageComp(),    
@@ -78,7 +94,17 @@ TimeLimitPanel = Ext.extend(BaseFormPanel,
         		            	this.redMin,
         		            	this.redSec
         		            ]
-                        }
+                        },
+        				{
+        					layout:'hbox',
+        					flex:1,
+                       	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+        					items:[
+        							this.addMinButton,
+        							this.subMinButton
+        					       ]
+
+        				}
         ];
 
         this.dockedItems =[
@@ -93,26 +119,13 @@ TimeLimitPanel = Ext.extend(BaseFormPanel,
 		                scope:this,
 					    handler: this.goBack
 					},
-					{xtype: 'spacer'}
+					{xtype: 'spacer'},{
+		                text: 'Done',
+		                scope: this,
+		                ui  : 'confirm',
+		                handler: this.save
+		            }
                 ]
-            },
-            {
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items : [ {
-					xtype : 'spacer'
-				},{
-	                text: 'Save',
-	                scope: this,
-	                ui  : 'confirm',
-                    width:80,
-	                handler: this.save
-	            }, {
-	                text: 'Reset',
-	                scope: this,
-                    width:80,
-	                handler: this.resetForm
-	            }]
             }
         ];
         
@@ -158,10 +171,30 @@ TimeLimitPanel = Ext.extend(BaseFormPanel,
 		timings.green = green;
 		timings.yellow = yellow;
 		timings.red = red;
-		this.updateMessage('Saved successfully.');
+		
+		//this.updateMessage('Saved successfully.');
 		this.parentPanel.updateTimeLimitSection(timings);
+		this.goBack();
 	},
 	
+	addMin: function(){
+		this.greenMin.setValue(parseInt(this.greenMin.getValue())+1);
+		this.yellowMin.setValue(parseInt(this.yellowMin.getValue())+1);
+		this.redMin.setValue(parseInt(this.redMin.getValue())+1);
+	},
+
+	subMin: function(){
+		if(this.greenMin.getValue()>0){
+			this.greenMin.setValue(parseInt(this.greenMin.getValue())-1);
+		}
+		if(this.yellowMin.getValue()>0){
+			this.yellowMin.setValue(parseInt(this.yellowMin.getValue())-1);
+		}
+		if(this.redMin.getValue()>0){
+			this.redMin.setValue(parseInt(this.redMin.getValue())-1);
+		}
+	},
+
 	goBack: function() {
     	this.hide();
     	this.parentPanel.show();

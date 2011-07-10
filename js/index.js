@@ -62,14 +62,25 @@ Ext.setup({
         meetingPanel = new MeetingPanel({
         	meetingStore : meetingStore
         });
-                
-        //roleListPanel = new RoleListPanel();        
-        helpPanel = new HelpPanel();
-        roleHelpPanel = new RoleHelpPanel();
+
         questionPanel = new QuestionPanel();
-        helpTabPanel = new HelpTabPanel();
+
+        //roleListPanel = new RoleListPanel();        
+        //helpPanel = new HelpPanel();
+        //roleHelpPanel = new RoleHelpPanel();
+        
+        helpTabPanel =  new AboutList({
+                title: 'About',
+                xtype: 'aboutlist',
+                iconCls: 'info',
+                pages: aboutPages
+            });
+        
+        	//new HelpTabPanel();
+        
         cardPanel = new CardPanel();
         timeLimitPanel = new TimeLimitPanel();
+        timeEditPanel = new TimeEditPanel();
         
         speechNoteListPanel = new SpeechNoteListPanel();
         
@@ -111,7 +122,8 @@ Ext.setup({
                          speechNotePanel,
                          helpTabPanel,
                          clubMemberAddPanel,
-                         changePasswordPanel
+                         changePasswordPanel,
+                         timeEditPanel
                          ];
 
         mainCardPanel = new Ext.Panel({
@@ -224,4 +236,3 @@ function showMeetingPanel(){
 	homeTabPanel.show();
 	homeTabPanel.setActiveItem(0);
 }
-

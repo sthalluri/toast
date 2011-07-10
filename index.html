@@ -25,12 +25,15 @@
 	<script type="text/javascript" src="js/baseFormPanel.js"></script>
 	
 	<script type="text/javascript" src="js/homePanel.js"></script>
+	<script type="text/javascript" src="js/htmlPage.js"></script>
+	<script type="text/javascript" src="js/aboutList.js"></script>
 	<script type="text/javascript" src="js/loginPanel.js"></script>
 	<script type="text/javascript" src="js/registerPanel.js"></script>
 	<script type="text/javascript" src="js/navPanel.js"></script>
 	<script type="text/javascript" src="js/gramPanel.js"></script>
 	<script type="text/javascript" src="js/myGramPanel.js"></script>
 	<script type="text/javascript" src="js/myTimerPanel.js"></script>
+	<script type="text/javascript" src="js/timeEditPanel.js"></script>
 	<script type="text/javascript" src="js/timerPanel.js"></script>
 	<script type="text/javascript" src="js/tableTopicPanel.js"></script>
 	<script type="text/javascript" src="js/speechNoteListPanel.js"></script>
@@ -42,9 +45,11 @@
     <script type="text/javascript" src="js/clubMemberAddPanel.js"></script>
     <script type="text/javascript" src="js/changePasswordPanel.js"></script>
     <script type="text/javascript" src="js/questionPanel.js"></script>
+	<!-- 
 	<script type="text/javascript" src="js/helpPanel.js"></script>
 	<script type="text/javascript" src="js/roleHelpPanel.js"></script>
 	<script type="text/javascript" src="js/helpTabPanel.js"></script>
+	 -->
 	<script type="text/javascript" src="js/cardPanel.js"></script>
 	<script type="text/javascript" src="js/timeLimitPanel.js"></script>
 
@@ -64,14 +69,14 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<img class="imageLeft" src="images/chevron_circle.png"/><div class="x-list-header" >{fMeetingDate}</div>
+	<img class="imageLeft" src="images/chevron_circle.png"/><div class="grey-list-header" >{fMeetingDate}</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
 		<table style="width:100%;"   class="contentTable" >
 		<tr>
 			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
 		<tr/>
-		<tr>
+		<tr >
 			<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
 		<tr>
 		<tr>
@@ -82,12 +87,11 @@
 	</div>
 </div>
 
-
 <div id="meeting-detail" class="x-hidden-display">
-	<div class="x-list-header" >{fMeetingDate}</div>
-	
+	<div class="grey-list-header" >{fMeetingDate}</div>
+	<div class="x-list-header" >Meeting Info</div>
 	<div class=" x-panel x-form-fieldset">
-	<div class="x-panel-body " >
+	<div class="x-panel-body" >
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 40%; "><span>Theme</span></div>
 			<div class="c-text">{themeOfTheDay}</div>
@@ -101,8 +105,11 @@
 			<div class="c-text">{location}</div>
 		</div>
 	</div>
+	</div>
+	
+	<div class="x-list-header" >Roles</div>
+	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<div class="x-list-header" >Roles</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 40%; "><span>Toastmaster</span></div>
 			<div class="c-text">{[UserService.getName(values.roles.toastMaster.userId)]}</div>
@@ -124,8 +131,10 @@
 			<div class="c-text">{[UserService.getName(values.roles.generalEvaluator.userId)]}</div>
 		</div>
 	</div>
+	</div>
+	<div class="x-list-header" >Speech One</div>
+	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<div class="x-list-header" >Speech One</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 40%; "><span>Speaker</span></div>
 			<div class="c-text">{[UserService.getName(values.roles.speaker1.userId)]}</div>
@@ -135,8 +144,10 @@
 			<div class="c-text">{[UserService.getName(values.roles.evaluator1.userId)]}</div>
 		</div>
 	</div>
+	</div>
+	<div class="x-list-header" >Speech Two</div>
+	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<div class="x-list-header" >Speech Two</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 40%; "><span>Speaker</span></div>
 			<div class="c-text">{[UserService.getName(values.roles.speaker2.userId)]}</div>
@@ -146,8 +157,10 @@
 			<div class="c-text">{[UserService.getName(values.roles.evaluator2.userId)]}</div>
 		</div>
 	</div>
+	</div>
+	<div class="x-list-header" >Speech Three</div>
+	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<div class="x-list-header" >Speech Three</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 40%; "><span>Speaker</span></div>
 			<div class="c-text">{[UserService.getName(values.roles.speaker3.userId)]}</div>
@@ -161,7 +174,7 @@
 </div>
 
 <div id="meeting-report" class="x-hidden-display">
-	<div class="x-list-header" >{fMeetingDate}</div>
+	<div class="grey-list-header" >{fMeetingDate}</div>
 	<div class="x-list-header" >Grammarian Report</div>	
 	<tpl for="gramLogs">
 	<div class=" x-panel x-form-fieldset">
@@ -211,8 +224,8 @@
 			</div>
 		</div>
 		<div class=" x-field x-portrait x-label-align-left">
-			<div class="x-form-label" style="width: 30%; "><span>TimeSpent</span></div>
-			<div class="c-text" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</div>
+			<div class="x-form-label" style="width: 30%; "><span>Time Spent</span></div>
+			<div class="c-text {colorCode}" style="font-weight:bold;"><p>{[getMins(values.timeSpent)]}</p></div>
 		</div>
 	</div>
 	</div>
@@ -230,7 +243,7 @@
 
 <div id="gram-log" class="x-hidden-display">
 	<tpl for="gramLogs">
-    <div class="x-list-header" >{fMeetingDate}</div>
+    <div class="grey-list-header" >{fMeetingDate}</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
 		<div class=" x-field x-portrait x-label-align-left">
@@ -253,7 +266,7 @@
 
 <div id="timer-log" class="x-hidden-display">
 	<tpl for="timerLogs">
-    <div class="x-list-header" >{fMeetingDate}</div>
+    <div class="grey-list-header" >{fMeetingDate}</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
 		<div class=" x-field x-portrait x-label-align-left">
@@ -274,7 +287,7 @@
 		</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 30%; "><span>TimeSpent</span></div>
-			<div class="c-text" style="font-weight:bold; color:{colorCode}">{[getMins(values.timeSpent)]}</div>
+			<div class="c-text {colorCode}" style="font-weight:bold;">{[getMins(values.timeSpent)]}</div>
 		</div>
 	</div>
 	</div>
@@ -292,7 +305,7 @@
 
 <div id="meeting-log" class="x-hidden-display">
 	<tpl for="meetingLogs">
-	<div class="x-list-header" >{fMeetingDate}</div>
+	<div class="grey-list-header" >{fMeetingDate}</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
 		<div class=" x-field x-portrait x-label-align-left">
@@ -319,6 +332,7 @@
 </div>
 
 <div id="time-indicator" class="x-hidden-display">
+	<div class="x-panel-body " >
 	<table class="contentTable" style="width: 100%">
 		<tr>
 		<td ><b>Limits:</b></td>
@@ -328,10 +342,11 @@
 		<td>
 			<div class=" x-button x-button-normal" style="margin-bottom: 0.5em; margin-left: 0.5em; ">
 				<span class="x-button-label" onclick="{panel}.editTimeLimit();">Edit</span>
-			</div>		
+			</div>
 		</td>
 		<tr>
 	</table>
+	</div>
 </div>
 
 </body>

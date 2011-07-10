@@ -40,9 +40,12 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 							if(!obj.timeSpent){
 								obj.timeSpent = 0;
 							}
-							this.parentForm.timer.setValue(getMins(obj.timeSpent));
+							this.parentForm.minSpinner.setValue(Math.floor(obj.timeSpent/60));
+							this.parentForm.secSpinner.setValue(obj.timeSpent%60);
+							//this.parentForm.timer.setValue(getMins(obj.timeSpent));
 						}else{
-							this.parentForm.timer.setValue(getMins(0));
+							this.parentForm.minSpinner.setValue(0);
+							this.parentForm.secSpinner.setValue(0);
 						}
 						this.parentForm.updateTimeLimitSection();
 						this.parentForm.updateMessage('');
@@ -53,24 +56,58 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
 		this.timeLimits.panel = "myTimerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
-		this.timer = new Ext.form.TextArea({
-			xtype : 'textareafield',
-			id : 'pClock',
-			name : 'timer',
-			value : '0:00',
-			maxLength : 6,
-			id : 'myTimer',
-			height : 50,
-			maxRows : 1,
-			parentForm : this,
-			style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
-			scope : this,
+//		this.timer = new Ext.form.TextArea({
+//			xtype : 'textareafield',
+//			id : 'pClock',
+//			name : 'timer',
+//			value : '0:00',
+//			maxLength : 6,
+//			id : 'myTimer',
+//			height : 50,
+//			maxRows : 1,
+//			parentForm : this,
+//			style : 'font-weight:bold;font-size:40pt;color:#00008b;text-align:center;',
+//			scope : this,
+//			listeners : {
+//				change : function(selector, value) {
+//					this.parentForm.updateTime();
+//				}
+//			}
+//		});
+
+		this.minSpinner= new Ext.form.Spinner({
+			label:'Minutes',
+		    minValue: 0,
+		    maxValue: 60,
+		    parentForm: this,
+		    scope: this,
 			listeners : {
 				change : function(selector, value) {
+					this.parentForm.updateTime();
+				},
+				spin : function(selector, value) {
+					this.parentForm.updateTime();
+				}
+			}
+		});
+
+		this.secSpinner = new Ext.form.Spinner({
+			label:'Seconds',
+		    minValue: 0,
+		    maxValue: 60,
+		    incrementValue: 1,
+		    cycle: true,
+		    parentForm: this,
+		    scope: this,
+			listeners : {
+				change : function(selector, value) {
+					this.parentForm.updateTime();
+				},
+				spin : function(selector, value) {
 					this.parentForm.updateTime();
 				}
 			}
@@ -88,22 +125,36 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
  				{
 					id: 'pTimeIndicator',
 					html:indicatorHtml
-				},
-                {
-               	 html:'	<table class="contentTable" style="width: 100%">'+
+				}
+			]
+		});
+
+		this.formSpinnerFields = new Ext.form.FieldSet({
+			xtype: 'fieldset',
+			title:'Time Spent',
+            defaults: {
+                required: true,
+                labelAlign: 'left',
+                labelWidth: '30%'
+            },
+            items: [
+               {
+              	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
+									'<td width="100%"><div class="greenIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
 								'</tr>'+
 							'</table>'
                },
-				this.timer
+               this.minSpinner,
+			   this.secSpinner
 			],
 			instructions : '<b>Log your time reports for this meeting.</b>',
 		});
 
         this.items= [
                      this.getMessageComp(),
-                     this.formFields
+                     this.formFields,
+                     this.formSpinnerFields
         ];
         
         this.dockedItems= [
@@ -155,7 +206,8 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 			var values = this.getValues();        
 	        var obj = thisMeeting.roles[values['role']];
 	        obj.userId =  thisUser.id;
-	        obj.timeSpent = getSecsFromStr(values.timer);
+	        obj.timeSpent = this.minSpinner.getValue()*60+this.secSpinner.getValue();
+	        	//getSecsFromStr(values.timer);
 	        obj.timeLimits = this.timeLimits;
 	        MeetingService.save(thisMeeting, this.onSave, this);
 		}
@@ -163,8 +215,10 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 
 
 	updateTime: function(){
-		var values = this.getValues();        
-		var value = getSecsFromStr(values.timer);
+		//var values = this.getValues();        		
+		//getSecsFromStr(values.timer);
+		
+		var value = this.minSpinner.getValue()*60 +this.secSpinner.getValue(); 
 		if(value > this.timeLimits.red){
 			this.updateColor("redIndi");
 		}else if(value > this.timeLimits.yellow){
@@ -172,9 +226,8 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 		}else if(value > this.timeLimits.green){
 			this.updateColor("greenIndi");
 		}else{
-			this.updateColor("silverIndi");
+			this.updateColor("greenIndi");
 		}
-		this.timer.setValue(getMins(value));
 	},
 
 	updateColor: function(colourClass){
@@ -208,7 +261,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
     
 	resetTimer: function(){
 		this.reset();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
         this.updateTimeLimitSection();
 	}
 
