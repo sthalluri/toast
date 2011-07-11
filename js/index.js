@@ -175,7 +175,6 @@ var speechNotePanel;
 var cardPanel;
 var timeLimitPanel;
 var clubMemberListPanel;
-var clubMemberAddPanel;
 var changePasswordPanel;
 
 function logSelected(comp, newCard, oldCard, index) {

@@ -5,10 +5,10 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	{
 
 		this.deleteButton = new Ext.Button({
-			iconMask:true,
-			iconCls:'delete',
-			ui:'plain',
+			text:'Delete',
+			ui:'drastic',
 			scope:this,
+			width:'90%',
 			handler:this.deleteConfirm
 		});
 
@@ -21,21 +21,14 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		});
 		
 		this.saveButton = new Ext.Button({
-			text:'Save',
+			text:'Done',
             ui: 'confirm',
 			scope:this,
 			handler:this.saveClubMember
 		});
 		
-		this.cancelButton = new Ext.Button({
-			text:'Reset',
-			ui:'drastic',
-			scope:this,
-			handler:this.resetForm
-		});
-		
 		this.backButton = new Ext.Button({
-			text:'Back',
+			text:'Cancel',
 			ui:'back',
 			scope:this,
 			handler:this.goBack
@@ -45,10 +38,11 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			text:'Change Password',
 			ui:'drastic',
 			scope:this,
+			width:'90%',
 			handler:this.showChangePasswordPanel
 		});
 
-		this.items = [this.getMessageComp(),{
+		this.formFields = new Ext.form.FieldSet({
 		    xtype:'fieldset',
             defaults: {
                 labelAlign: 'left',
@@ -56,30 +50,32 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
             },
 		    items:[
 		    {
-		    	id:'id',
 		    	xtype:'hiddenfield',
 		    	name:'id'
 		    },
 		    {
-		    	id:'fname',
 		    	xtype:'textfield',
 		    	name:'fname',
 		    	label:'First Name',
 		    	placeHolder:'First Name',
 		    	useClearIcon:true,
-		    	autoCapitalize:false
+		    	autoCapitalize:false,
+				listeners : {
+					change : this.capitalize
+				}
 		    },
 		    {
-		    	id:'lname',
 		    	xtype:'textfield',
 		    	name:'lname',
 		    	label:'Last Name',
 		    	placeHolder:'Last Name',
 		    	useClearIcon:true,
-		    	autoCapitalize:false
+		    	autoCapitalize:false,
+				listeners : {
+					change : this.capitalize
+				}
 		    },
 		    {
-		    	id:'email',
 		    	xtype:'textfield',
 		    	name:'email',
 		    	label:'Email',
@@ -88,7 +84,6 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		    	autoCapitalize:false
 		    },
 		    {
-		    	id:'phone',
 		    	xtype:'textfield',
 		    	name:'phone',
 		    	label:'Phone',
@@ -96,39 +91,33 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		    	userClearIcon:true
 		    },
 		    {
-		    	id:'aboutme',
 		    	xtype:'textareafield',
 		    	name:'aboutme',
 		    	label:'About',
-		    },
-		    this.changePasswordButton
+		    }
 		    ]
-		}
+		});
+		
+		this.items = [this.getMessageComp(),this.formFields,
+		              {
+							layout:'vbox',
+							flex:1,
+				       	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+							items:[this.changePasswordButton,this.deleteButton]
+						}
 		];
 		
 		this.dockedItems = [
 		{
 			xtype:'toolbar',
 			dock:'top',
-			title:'Member Info',
+			title:'Member',
 			items:[
 			       this.backButton,
 			       {
 			    	   xtype:'spacer'
 			       },
-			       this.deleteButton,
-			       this.editButton
-			]
-		},
-		{
-			xtype:'toolbar',
-			dock:'bottom',
-			items:[
-			       {
-			    	   xtype:'spacer'
-			       },
-			       this.saveButton,
-			       this.cancelButton
+			       this.saveButton
 			]
 		}];
 		
@@ -136,6 +125,10 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		ClubMemberAddPanel.superclass.initComponent.call(this);
 	},
 
+	capitalize: function(field, value){
+			this.setValue(Ext.util.Format.capitalize(value));
+	},
+	
 	resetForm : function()
 	{
 		this.reset();
@@ -143,25 +136,30 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 
 	goBack : function()
 	{
-		if(this.incomingReq == "list")
+    	closePanel();
+
+    	if(this.incomingReq == "list")
 		{
+	    	//closePanel(this);
 			//Loading the club members
-			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+			//ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
 		}
 		else 
 			//if(this.incomingReq == "profile")
 		{
-			//this.hide();
-			//navPanel.show();
-	    	closePanel();
 		}
+    	//closePanel();
 	},
 	
 	saveClubMember : function()
 	{
-		var formValues = this.getValues();
 		if(this.validate())
 		{
+			var formValues = this.getValues();
+			formValues.userId = this.user.userId;
+			if(this.user.id === thisUser.id){
+				formValues.password = thisUser.password;
+			}
 			UserService.createClubMember(formValues, this.onOperation, this);
 		}
 	},
@@ -184,25 +182,12 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	{
 		if(data && data.success)
 		{
-			if(this.incomingReq == "list")
-			{
-				//Loading the club members
-				//ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
-				//this.hide();
-				//clubMemberListPanel.show();
-				this.updateMessage("Changes saved successfully.");
-			}
-			else if(this.incomingReq == "profile")
-			{
-				//this.disable();
-				//this.editButton.show();
-				//this.saveButton.hide();
-				//this.cancelButton.hide();
-				this.updateMessage("Changes saved successfully.");
-			}else 
-			{
-				this.updateMessage("Changes saved successfully.");
-			}
+			this.updateMessage("Changes saved successfully.");
+			
+			//Loading the club members
+			ClubService.clubMembers(thisUser.defaultClubId, this.onClubMemberLoad, this);
+		}else{
+			this.updateMessage(data.errorMessage);
 		}
 	},
 
@@ -212,7 +197,6 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		this.enable();
 		this.editButton.hide();
 		this.saveButton.show();
-		this.cancelButton.show();
 		if( this.incomingReq == "list" )
 		{
 			this.deleteButton.show();
@@ -228,25 +212,26 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	{
 		this.updateMessage('');
 		this.incomingReq = incomingReq;
+		this.user = user;
 		this.setValues({
 			id:user.id,
+			userId: user.userId,
 			fname: user.firstName,
 			lname: user.lastName,
 			email: user.email,
 			phone: user.phone,
 			aboutme: user.aboutMe
 		});
+		
 		//this.disable();
 		//this.saveButton.hide();
-		//this.cancelButton.hide();
 		//this.deleteButton.hide();
 		this.editButton.hide();
-		if( incomingReq == "list" )
-		{
+		if(user.id && user.id !== thisUser.id){
+			this.deleteButton.show();
 			this.changePasswordButton.hide();
-		}
-		else if( incomingReq == "profile" )
-		{
+		}else{
+			this.deleteButton.hide();
 			this.changePasswordButton.show();
 		}
 	},
@@ -265,14 +250,13 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		this.deleteButton.hide();
 		this.editButton.hide();
 		this.saveButton.show();
-		this.cancelButton.show();
 	},
 	
 	onClubMemberLoad: function(data)
 	{
 		if (data.success) {
 			memberStore.loadWithDefault(data.returnVal.rows);
-	    	closePanel(this);
+	    	this.goBack();
 		} else {
 			this.updateMessage("Unable to load the members.");
 		}

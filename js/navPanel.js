@@ -62,9 +62,9 @@ NavPanel = Ext.extend(Ext.Panel,
 	
 	viewMyProfile : function()
 	{
-		navPanel.hide();
-		clubMemberAddPanel.show();
 		clubMemberAddPanel.populateUserDetails(thisUser, "profile");
+    	homeTabPanel.hide();
+		showPanel(clubMemberAddPanel);
 	},
 
 	viewLogout: function(){

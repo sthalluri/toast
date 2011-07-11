@@ -3,24 +3,17 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 	initComponent: function()
 	{
 		this.saveButton = new Ext.Button({
-			text:'Save',
+			text:'Done',
             ui: 'confirm',
 			scope:this,
 			handler:this.savePassword
 		});
 		
-		this.cancelButton = new Ext.Button({
-			text:'Cancel',
-			ui:'drastic',
-			scope:this,
-			handler:this.hideChangePasswordPanel
-		});
-		
 		this.backButton = new Ext.Button({
-			text:'Back',
+			text:'Cancel',
 			ui:'back',
 			scope:this,
-			handler:this.hideChangePasswordPanel
+			handler:this.goBack
 		});
 		
 		this.items = [this.getMessageComp(),
@@ -76,18 +69,8 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 			        this.backButton,
 			        {
 			        	xtype: 'spacer'
-			        }
-			]
-		},
-		{
-			xtype: 'toolbar',
-			dock: 'bottom',
-			items: [
-			        {
-			        	xtype: 'spacer'
 			        },
 			        this.saveButton,
-			        this.cancelButton,
 			]
 		}];
 		
@@ -108,8 +91,9 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 		if (data.success) {
 			this.reset();
 			if(db.getValue(db.REMEMBER_ME) > 0){
-				db.setValue(db.PASSWD, hex_md5(formValues.newPassword));
+				db.setValue(db.PASSWD, thisUser.password);
 	        }
+			this.goBack();
 			this.updateMessage("Password changed successfully");
 		} else {
 			this.updateMessage("Unable to save the password");
@@ -138,7 +122,7 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 		return true;
 	},
 	
-	hideChangePasswordPanel : function()
+	goBack : function()
 	{
 		this.hide();
 		clubMemberAddPanel.show();
