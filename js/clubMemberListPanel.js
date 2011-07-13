@@ -12,6 +12,7 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
             itemTpl: '<div id="{id}" class="contact"><img class="imageLeft" src="js/ext/resources/themes/images/default/pictos/user.png"/>&nbsp;&nbsp;&nbsp;<strong>{firstName}</strong> {lastName}</div>',
             grouped: true,
             indexBar: false,
+            ui:'light',
             onItemDisclosure: function(record, btn, index)
             {
 	    		homeTabPanel.hide();

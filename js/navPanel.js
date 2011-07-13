@@ -57,7 +57,9 @@ NavPanel = Ext.extend(Ext.Panel,
 	},
 	
 	viewMyClub:function(){
-        Ext.Msg.alert('Under Construction', 'Coming Soon!', Ext.emptyFn);
+        //Ext.Msg.alert('Under Construction', 'Coming Soon!', Ext.emptyFn);		
+		homeTabPanel.hide();		
+		showPanel(nervousTestPanel);
 	},
 	
 	viewMyProfile : function()

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Acceleration Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // The watch id references the current `watchAcceleration`
+    var watchID = null;
+
+    // Wait for PhoneGap to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+        startWatch();
+    }
+
+    // Start watching the acceleration
+    //
+    function startWatch() {
+
+        // Update acceleration every 3 seconds
+        var options = { frequency: 400 };
+
+        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    }
+
+    // Stop watching the acceleration
+    //
+    function stopWatch() {
+        if (watchID) {
+            navigator.accelerometer.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+
+    var count =0;
+    
+    var lastX = null;
+    var lastY, lastZ;
+
+    function onSuccess(a) {
+        
+        if (lastX !== null) {  // not first time
+            var deltaX = Math.abs(a.x - lastX);
+            var deltaY = Math.abs(a.y - lastY);
+            var deltaZ = Math.abs(a.z - lastZ);
+            
+            var changes = 0;
+            if (deltaX > 1) changes++;
+            if (deltaY > 1) changes++;
+            if (deltaZ > 1) changes++;
+            
+            if (changes >= 1) {
+                shakerEvent();
+            }
+        }
+        lastX = a.x;
+        lastY = a.y;
+        lastZ = a.z;
+    }
+    
+    function shakerEvent(){
+    	var element = document.getElementById('accelerometer');
+    	element.innerHTML = count++;
+    }
+    
+
+    // onError: Failed to get the acceleration
+    //
+    function onError() {
+        alert('onError!');
+    }
+
+    </script>
+  </head>
+  <body>
+    <div id="accelerometer">Waiting for accelerometer...</div>
+  </body>
+</html>

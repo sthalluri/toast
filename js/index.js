@@ -1,5 +1,6 @@
 /*
 mainCardPanel
+
 	|_ homePanel
 	|_ loginPanel
 	|_ navPanel
@@ -22,6 +23,7 @@ mainCardPanel
 	|_ speechNoteListPanel
 	|_ speechNotePanel
 	|_ helpTabPanel
+	|_ nervousTestPanel
 	|_ clubMemberAddPanel
  */
 
@@ -76,7 +78,7 @@ Ext.setup({
                 pages: aboutPages
             });
         
-        	//new HelpTabPanel();
+        nervousTestPanel = new NervousTestPanel();
         
         cardPanel = new CardPanel();
         timeLimitPanel = new TimeLimitPanel();
@@ -97,6 +99,7 @@ Ext.setup({
         	layout: 'card',
             fullscreen: true,
             cardSwitchAnimation:'fade',
+            ui:'light',
             items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel],
 			listeners : {
 				beforecardswitch : {fn: logSelected, scope: this}
@@ -121,6 +124,7 @@ Ext.setup({
                          speechNoteListPanel,
                          speechNotePanel,
                          helpTabPanel,
+                         nervousTestPanel ,
                          clubMemberAddPanel,
                          changePasswordPanel,
                          timeEditPanel
@@ -176,6 +180,7 @@ var cardPanel;
 var timeLimitPanel;
 var clubMemberListPanel;
 var changePasswordPanel;
+var nervousTestPanel ;
 
 function logSelected(comp, newCard, oldCard, index) {
 	if(index == 2){

@@ -1,164 +1,238 @@
-.body{
+.body {
 	font-size: 0.2em
 }
 
-.home{
-	height:200px
+.home {
+	height: 200px
 }
 
 .home h2 {
-    color: #071F52;
-    font-size: 1.3em;
-    font-weight: bold;
-    text-align: center;
-    margin: 1.7em 0 .2em 0;
-    text-shadow: 0em .2em .2em #FFFFFF;
+	color: #071F52;
+	font-size: 1.3em;
+	font-weight: bold;
+	text-align: center;
+	margin: 1.7em 0 .2em 0;
+	text-shadow: 0em .2em .2em #FFFFFF;
 }
 
 .home p {
-    color: #071F52;
-    font-size: 0.6em;
-    font-weight: normal;
-    text-align: left;
-    margin: .5em 0 .2em 0;
-    padding: 0 1em 0 1em;
+	color: #071F52;
+	font-size: 0.6em;
+	font-weight: normal;
+	text-align: left;
+	margin: .5em 0 .2em 0;
+	padding: 0 1em 0 1em;
 }
 
-.msg p{
-    color: #AA2200;
-    font-size: 0.7em;
-    font-weight: normal;
-    padding: 0.4em 0.8em;  
+.msg p {
+	color: #AA2200;
+	font-size: 0.7em;
+	font-weight: normal;
+	padding: 0.4em 0.8em;
 }
 
 .helpbox h2 {
-    color: #071F52;
-    font-size: 1.3em;
-    font-weight: bold;
-    text-align: center;
-    margin: 1.7em 0 .2em 0;
-    text-shadow: 0em .2em .2em #FFFFFF;
+	color: #071F52;
+	font-size: 1.3em;
+	font-weight: bold;
+	text-align: center;
+	margin: 1.7em 0 .2em 0;
+	text-shadow: 0em .2em .2em #FFFFFF;
 }
 
 .helpbox p {
-    color: #071F52;
-    font-size: 0.8em;
-    font-weight: normal;
-    text-align: left;
-    margin: .5em 0 .2em 0;
-    padding: 0 1em 0 1em;
+	color: #071F52;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: left;
+	margin: .5em 0 .2em 0;
+	padding: 0 1em 0 1em;
 }
 
 .imageLeft {
-    float: left;
-    margin: 0.2em;
-    height: 1.2em;
+	float: left;
+	margin: 0.2em;
+	height: 1.2em;
 }
 
-.actionImageGo{
-    float: right;
-    margin: 0.2em;
-    height: 1.2em;		
+.actionImageGo {
+	float: right;
+	margin: 0.2em;
+	height: 1.2em;
 }
 
 .imageRight {
-    float: right;
-    margin: 0.2em;
-    height: 1.5em;
+	float: right;
+	margin: 0.2em;
+	height: 1.5em;
 }
 
 .reportButton {
-    height: 2em;
-    margin-right: .5em;
+	height: 2em;
+	margin-right: .5em;
+}
+
+.timeDiv {
+	text-align: center;
+	font-size: 80pt;
+	font-weight: normal;
+	padding: 10px;
 }
 
 .loading {
-    background: rgba(0, 0, 0, 0.3) url(../../images/loading.gif) center center no-repeat;
-    display: block;
-    width: 10em;
-    height: 10em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -5em;
-    margin-top: -5em;
-    -webkit-border-radius: .5em;
-    color: #fff;
-    text-shadow: #000 0 1px 1px;
-    text-align: center;
-    padding-top: 8em;
-    font-weight: bold
+	background: rgba(0, 0, 0, 0.3) url(../../images/loading.gif) center no-repeat;
+	display: block;
+	width: 10em;
+	height: 10em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -5em;
+	margin-top: -5em;
+	-webkit-border-radius: .5em;
+	color: #fff;
+	text-shadow: #000 0 1px 1px;
+	text-align: center;
+	padding-top: 8em;
+	font-weight: bold
 }
 
 .helpbox {
-    width: 90%;
-    margin: auto;
+	width: 90%;
+	margin: auto;
 }
 
 /* Light grey color:#707000*/
-
-.header{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
-.content{padding: .5em 0 .2em 0;font-size: .9em; }
-.highlight{color:menutext;font-size: 1em;vertical-align:text-top;font-weight:normal;}
-
-.red{color:red;font-size: 1em;font-weight:bold;}
-.yellow{color:#CCCC00;font-size: 1em;font-weight:bold;}
-.green{color:green;font-size: 1em;font-weight:bold;}
-
-.redIndi{background-color:red;font-size: 1em;vertical-align:text-top;}
-.yellowIndi{background-color:#CCCC00;font-size: 1em;vertical-align:text-top;}
-.greenIndi{background-color:green;font-size: 1em;vertical-align:text-top;}
-.silverIndi{background-color:#bababa; padding:.3em; font-weight:bold; font-size: 1em;  position:relative;overflow:hidden;text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0}
-
-table.contentTable{font-size:.8em; cellpadding:.2em;padding:.2em}
-
-table.contentTable td
-{
-    margin:10px;
-    padding:.3em;
-    text-align: left; 
+.header {
+	background-color: #bababa;
+	padding: .3em;
+	font-weight: bold;
+	font-size: 1em;
+	position: relative;
+	overflow: hidden;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0
 }
 
-td.label{
+.content {
+	padding: .5em 0 .2em 0;
+	font-size: .9em;
+}
+
+.nContent {
+	padding: 1em;
+	font-size: .9em;
+}
+
+.highlight {
+	color: menutext;
+	font-size: 1em;
+	vertical-align: text-top;
+	font-weight: normal;
+}
+
+.red {
+	color: red;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.yellow {
+	color: #CCCC00;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.green {
+	color: green;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.redIndi {
+	background-color: red;
+	font-size: 1em;
+	vertical-align: text-top;
+}
+
+.yellowIndi {
+	background-color: #CCCC00;
+	font-size: 1em;
+	vertical-align: text-top;
+}
+
+.greenIndi {
+	background-color: green;
+	font-size: 1em;
+	vertical-align: text-top;
+}
+
+.silverIndi {
+	background-color: #bababa;
+	padding: .3em;
+	font-weight: bold;
+	font-size: 1em;
+	position: relative;
+	overflow: hidden;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0
+}
+
+table.contentTable {
+	font-size: .8em;
+	cellpadding: .2em;
+	padding: .2em
+}
+
+table.contentTable td {
+	margin: 10px;
+	padding: .3em;
+	text-align: left;
+}
+
+td.label {
 	font-size: 0.8em;
 	text-align: center;
 	padding: 0.5em;
 }
 
-.notes {width:380px; height:400px;border-width:2px; border-color:black; padding: 0.4em 0.8em; background-color:yellow; background-image:'../images/stickyBig.jpg'}
+.notes {
+	width: 380px;
+	height: 400px;
+	border-width: 2px;
+	border-color: black;
+	padding: 0.4em 0.8em;
+	background-color: yellow;
+	background-image: '../images/stickyBig.jpg'
+}
 
-div.page{
-	padding-top:0.2em;	
+div.page {
+	padding-top: 0.2em;
 	font-size: 0.9em;
 }
 
-div.background
-{
-	width:'100%';
-	height:380px;
-	padding:10px;
-	background:url(../images/stickyBig.jpg)  no-repeat ;
+div.background {
+	width: '100%';
+	height: 380px;
+	padding: 10px;
+	background: url(../images/stickyBig.jpg) no-repeat;
 	background-size: 100%;
 	/*border:2px solid black;*/
 }
-  
-div.transbox
-{
-	width:'95%';
-	height:360px;
-	padding:10px;
+
+div.transbox {
+	width: '95%';
+	height: 360px;
+	padding: 10px;
 	/*
 	background-color:#ffffff;
 	border:1px solid black;
 	*/
 	/* for IE */
-	filter:alpha(opacity=60);
+	filter: alpha(opacity = 60);
 	/* CSS3 standard */
-	opacity:0.6;
+	opacity: 0.6;
 }
 
-div.transbox p
-{
+div.transbox p {
 	font-family: cursive;
 	font-style: normal;
 	font-variant: normal;
@@ -173,14 +247,13 @@ div.transbox p
 	text-indent: 0ex;
 }
 
-div.notesHeading p
-{
+div.notesHeading p {
 	font-family: cursive;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: bold;
 	font-size: x-large;
-	color:green;
+	color: green;
 	line-height: 1.2em;
 	word-spacing: normal;
 	letter-spacing: 0.1ex;
@@ -190,76 +263,76 @@ div.notesHeading p
 	text-indent: 0ex;
 }
 
-div.notesIndex p
-{
+div.notesIndex p {
 	font-family: cursive;
 	font-weight: bold;
 	width: 20px;
 	background-color: orange;
 }
 
-.legislator-tnail{
-	width:40px;height:40px;
-	background-position:center center;
-	-webkit-border-radius:5px;
-	overflow:hidden;
-	position:absolute;
-	left:10px;
-	top:10px;
-	-webkit-box-shadow:#ccc 0 1px 2px
+.legislator-tnail {
+	width: 40px;
+	height: 40px;
+	background-position: center center;
+	-webkit-border-radius: 5px;
+	overflow: hidden;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	-webkit-box-shadow: #ccc 0 1px 2px
 }
 
-.legislator-arrow{
-	position:absolute;
-	background-position:center center;
-	overflow:hidden;
-	right:10px;
-	top:20px;
-	width:35px;
-	height:25px;
+.legislator-arrow {
+	position: absolute;
+	background-position: center center;
+	overflow: hidden;
+	right: 10px;
+	top: 20px;
+	width: 35px;
+	height: 25px;
 	padding: 2px;
 }
 
-.legislator-list-item{
-	height:60px;
-	position:relative;
-	font-weight:normal;
-	padding:7px 40px 7px 70px !important;
-	text-shadow:rgba(255, 255, 255, 0.25) 0 0.08em 0;
+.legislator-list-item {
+	height: 60px;
+	position: relative;
+	font-weight: normal;
+	padding: 7px 40px 7px 70px !important;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 	font-size: 0.8em
 }
- 
+
 .c-toolbar-dark {
 	height: 250px;
-	width:100%;
+	width: 100%;
 	background: url(../images/toolbar2.jpg) no-repeat;
 	background-size: 100%;
 	font-size: 1.4em;
 	color: white;
-	text-align:center;
+	text-align: center;
 	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
 }
 
 .home-panel {
 	height: '50%';
-	width:100%;
+	width: 100%;
 	background: url(../images/toolbar13.jpg) no-repeat;
 	background-size: 100%;
 	font-size: 1.4em;
 	color: white;
-	text-align:center;
+	text-align: center;
 	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
 }
 
-div .logData{
-	padding: .3em;	
+div .logData {
+	padding: .3em;
 }
 
 .input {
 	font-size: 0.9em;
 }
 
-.c-text{
+.c-text {
 	font-size: 0.8em;
 	font-weight: normal;
 	margin-top: 0.7em;
@@ -277,11 +350,10 @@ To get rid of the grey color take out the following
 	color: #4D4D4D;
 
 */
-
 .grey-list-header {
-	background-image: linear-gradient(#E6E6E6,#BFBFBF 2%,#ADADAD 30%,#999 65%,gray);
-	color: #4D4D4D;
-	background-color: #999;
+	background-image: linear-gradient(#E6E6E6, #BFBFBF 2%, #ADADAD 30%, #999 65%, gray);
+	color: #ffffff;
+	background-color: #6B8E23;
 	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 	border-top: 0px solid #999;
 	border-bottom: 1px solid #666;
@@ -292,12 +364,35 @@ To get rid of the grey color take out the following
 	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
 }
 
+.lgrey-list-header {
+	background-image: linear-gradient(#E6E6E6, #BFBFBF 2%, #ADADAD 30%, #999 65%, gray);
+	color: #ffffff;
+	background-color: #8B8878;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
+	border-top: 0px solid #999;
+	border-bottom: 1px solid #666;
+	font-weight: bold;
+	font-size: 0.8em;
+	padding: 0.3em 1.02em;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
+	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
+}
 
 /*Customization of ext fields*/
 
 /* top right bottom left*/
-.x-form-fieldset {margin: 0.2em 0.1em 0.5em 0.1em;}
+.x-form-fieldset {
+	margin: 0.2em 0.1em 0.5em 0.1em;
+}
 
+/*
+	nice green
+	background-color: #77AA44;
+	background-image: none;
+	orange
+	background-color: #FF9933;
+
+*/
 .x-list-header {
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
@@ -305,7 +400,7 @@ To get rid of the grey color take out the following
 
 .x-list .x-list-item {
 	position: relative;
-	color: #333;
+	color: #CC6633;
 	padding: 0.1em 0.1em 0.1em 0.2em;
 	min-height: 2.6em;
 	display: -webkit-box;
@@ -322,12 +417,12 @@ To get rid of the grey color take out the following
 	background: url(../images/toolbar13.jpg) black repeat-x;
 }
 
-
 .x-toolbar.x-docked-bottom {
 	border-top: .1em solid;
 	background-color: #24364c;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a81af), color-stop(2%, #304864), color-stop(100%, #192533));
-	background-image: linear-gradient(#5a81af,#304864 2%,#192533);
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a81af),
+		color-stop(2%, #304864), color-stop(100%, #192533) );
+	background-image: linear-gradient(#5a81af, #304864 2%, #192533);
 	border-color: black;
 }
 
@@ -337,14 +432,13 @@ To get rid of the grey color take out the following
 
 .x-form-label {
 	font-size: 0.9em;
-	font-weight:normal;
+	font-weight: normal;
 }
 
 /*This has the effect on the timer section for the text box..need to get rid of this*/
 .x-field {
 	min-height: 2em;
 }
-
 
 .x-form-fieldset-title {
 	margin: 0.5em 0.5em 0.2em 0.5em;
