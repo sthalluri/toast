@@ -53,7 +53,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 							this.parentForm.timerPanelClock.setSecs(obj.timeSpent);
 						}else{
 							this.parentForm.timerPanelClock.setSecs(0);
-							this.parentForm.updateColor('greenIndi');
+							this.parentForm.updateColor('silverIndi');
 							this.parentForm.userSelector.reset();
 							//this.parentForm.clockField.reset();
 							this.parentForm.updateDivTime('0:00');
@@ -66,7 +66,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		this.timeLimits.panel = "timerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
@@ -107,7 +107,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
                 {
                	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="greenIndi"  style="height: 20px;"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
+									'<td width="100%"><div class="silverIndi"  style="height: 20px;"  id="timeColorDiv" onclick="timerPanel.showCard();"></div></td>'+
 									'<td style="text-align: right;"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/resize.png" onclick="timerPanel.showCard();"/></td>'+
 								'</tr>'+
 								'<tr><td style="text-align: center; font-size:50pt; font-weight:normal" ><div id="timerPanelTimeDiv">0:00</div></td></tr>'+
@@ -211,7 +211,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	resetTimer: function(){
-		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		this.timerPanelClock.reset();
         this.updateTimeLimitSection();
 		this.reset();
@@ -266,7 +266,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 		}else if(value > this.timeLimits.green){
 			this.updateColor("greenIndi");
 		}else{
-			this.updateColor("greenIndi");
+			this.updateColor("silverIndi");
 		}
 	},
 

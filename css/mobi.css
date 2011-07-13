@@ -239,6 +239,18 @@ div.notesIndex p
 	text-align:center;
 	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
 }
+
+.home-panel {
+	height: '50%';
+	width:100%;
+	background: url(../images/toolbar13.jpg) no-repeat;
+	background-size: 100%;
+	font-size: 1.4em;
+	color: white;
+	text-align:center;
+	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
+}
+
 div .logData{
 	padding: .3em;	
 }
@@ -307,7 +319,7 @@ To get rid of the grey color take out the following
 }
 
 .x-toolbar-dark {
-	background: url(../images/toolbar10.jpg) black repeat-x;
+	background: url(../images/toolbar13.jpg) black repeat-x;
 }
 
 

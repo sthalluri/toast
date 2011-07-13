@@ -51,6 +51,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    	type: 'vbox',
 		        align: 'left'
 			},
+			ui:'light',
 			items : [ this.meetingActionPanel, this.meetingPanel, this.meetingReportPanel ],
 			listeners : {
 				beforecardswitch : {fn: this.meetingPanelChanged, scope: this}
@@ -71,7 +72,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    });
 	
 	   this.items=[
-	         //   this.getHeaderConfig('Meeting'),
 	        	this.meetingCarousel
 	   ];
 	   

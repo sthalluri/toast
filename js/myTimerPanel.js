@@ -56,7 +56,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 
 		this.timeIndicatorTmpl = Ext.XTemplate.from('time-indicator');
 		this.timeIndicatorTmpl.compile();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
 		this.timeLimits.panel = "myTimerPanel";
 		var indicatorHtml = this.timeIndicatorTmpl.apply(this.timeLimits);
 
@@ -141,7 +141,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
                {
               	 html:'	<table class="contentTable" style="width: 100%">'+
 								'<tr>'+
-									'<td width="100%"><div class="greenIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
+									'<td width="100%"><div class="silverIndi" style="height: 20px"  id="ptimeColorDiv"></div></td>'+
 								'</tr>'+
 							'</table>'
                },
@@ -226,7 +226,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 		}else if(value > this.timeLimits.green){
 			this.updateColor("greenIndi");
 		}else{
-			this.updateColor("greenIndi");
+			this.updateColor("silverIndi");
 		}
 	},
 
@@ -261,7 +261,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
     
 	resetTimer: function(){
 		this.reset();
-		this.timeLimits = {red:0, yellow:0, green:0, className:'greenIndi'};
+		this.timeLimits = {red:0, yellow:0, green:0, className:'silverIndi'};
         this.updateTimeLimitSection();
 	}
 

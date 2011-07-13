@@ -4,6 +4,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
     scroll: 'vertical',
     title:'My Reports',
 	cls: 'legislator-tabs',
+	ui:'light',
 	initComponent : function() {
 		
 		// Meeting Detail Template

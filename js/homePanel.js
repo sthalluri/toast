@@ -10,8 +10,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 
 		this.registerButton = new Ext.Button({
 			text : 'Register',
-			width : 100,
-			pack : 'center',
+			width : 150,
 			handler : function() {
 				registerPanel.initScreen();
 			}
@@ -20,8 +19,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 		this.loginButton = new Ext.Button({
 			ui : 'confirm',
 			text : 'Login',
-			width : 100,	
-			pack : 'center',
+			width : 150,	
 			handler : function() {
 				loginPanel.show();
 			}
@@ -29,11 +27,11 @@ HomePanel = Ext.extend(Ext.Panel,{
 		
 		this.items = [
 				{
-					html : '<div class="c-toolbar-dark"><br/><br/><h2>Welcome to Toast App</h2><br/><br/><br/></div>'
+					html : '<div class="home-panel"><br/><br/><h2>Welcome to Toast App</h2><br/><br/><br/></div>'
 				}, {
 					layout : 'hbox',
 					defaults : {
-						xtype : 'button',
+						flex : 1,
 						style : 'margin: .5em;'
 					},
 					items : [ this.loginButton, this.registerButton]
