@@ -627,6 +627,7 @@ h6 {
 	color: #3c4005;
 }
 
+
 .list-1.subp li {
 	background: url(../images/line_hor2.gif) 0 0 repeat-x;
 }
@@ -681,15 +682,16 @@ h6 {
 }
 
 .list-3 li,.list-4 li {
-	line-height: 18px;
-	padding-left: 13px;
-	background: url(../images/list3_marker.gif) 2px 5px no-repeat;
+	line-height: 41px;
+	background: url(../images/line_hor.gif) 0 0 repeat-x;
 	margin-bottom: 8px;
 }
 
 .list-3 li a,.list-4 li a {
+	font-size: 13px;
+	text-transform: uppercase;
+	font-weight: bold;
 	display: inline-block;
-	text-decoration: none;
 }
 
 .list-3 li a:hover,.list-4 li a:hover {
