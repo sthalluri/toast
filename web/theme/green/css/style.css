@@ -15,12 +15,11 @@ html {
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 100%;
+	font-size: 12px;
 	color: #666;
 	min-width: 100%;
 	background: url(../images/bg.jpg) center 0 no-repeat #649938;
-	font-size: 0.75em;
-	line-height: 1.6666em;
+	line-height: .9em;
 }
 
 .bg {
@@ -96,7 +95,7 @@ a:hover {
 }
 
 .p2 {
-	margin-bottom: 21px;
+	margin-bottom: 31px;
 }
 
 .p3 {
@@ -251,16 +250,17 @@ header .inner .padding {
 	width:100%
 	float: left;
 	overflow: hidden;
-	padding-bottom: 10px;
-	border-bottom: solid  1px #f3db3b;
+	padding-bottom: 20px;
+	border-bottom: solid  2px #f3db3b;
+	background: url(../images/grey.jpg) repeat top center;
+	background-size: 70%;
+	
 }
 
 .menu_panel ul li {
 	float: left;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
-	background: url(../images/link_panel.gif) right 0 no-repeat;
+	padding: 1.2em;
+	padding: 10px;
 }
 
 .menu_panel li.last {
@@ -270,9 +270,10 @@ header .inner .padding {
 
 .menu_panel li a {
 	color: green;
-	font-size: 13px;
-	font-weight: bold;
+	font-size: 1.1em;
+	font-weight: normal;
 	font-family: Arial, Helvetica, sans-serif;
+	text-shadow: 0.1em 0.1em .2em #bbbbbb;
 	text-decoration: none;
 }
 
