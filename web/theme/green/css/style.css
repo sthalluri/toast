@@ -250,17 +250,16 @@ header .inner .padding {
 	width:100%
 	float: left;
 	overflow: hidden;
-	padding-bottom: 20px;
+	padding-bottom: 2px;
 	border-bottom: solid  2px #f3db3b;
-	background: url(../images/grey.jpg) repeat top center;
+	background: url(../images/grey.jpg) repeat top center ;
 	background-size: 70%;
 	
 }
 
 .menu_panel ul li {
 	float: left;
-	padding: 1.2em;
-	padding: 10px;
+	padding: 0.6em;
 }
 
 .menu_panel li.last {
@@ -682,16 +681,18 @@ h6 {
 }
 
 .list-3 li,.list-4 li {
-	line-height: 41px;
+	line-height: 20px;
 	background: url(../images/line_hor.gif) 0 0 repeat-x;
 	margin-bottom: 8px;
 }
 
 .list-3 li a,.list-4 li a {
-	font-size: 13px;
+	font-size: 0.9em;
 	text-transform: uppercase;
-	font-weight: bold;
+	font-weight: normal;
 	display: inline-block;
+	text-decoration: none;
+	
 }
 
 .list-3 li a:hover,.list-4 li a:hover {
@@ -1046,7 +1047,7 @@ footer span {
 /*Commented
 #page1 header {height:586px;} */
 #page1 #content .inner {
-	padding-top: 33px;
+	padding-top: 20px;
 }
 
 #page3 #content .inner {

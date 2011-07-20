@@ -77,6 +77,12 @@
 	font-size: 80pt;
 	font-weight: normal;
 	padding: 10px;
+	margin: 10px;
+}
+
+.nImg{
+	border: 1px solid; 
+	padding:1px;
 }
 
 .loading {

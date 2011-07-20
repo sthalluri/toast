@@ -27,7 +27,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 		
 		this.items = [
 				{
-					html : '<div class="home-panel"><br/><br/><h2>Welcome to Toast App</h2><br/><br/><br/></div>'
+					html : '<div class="home-panel"><br/><br/><h2>Toast Buddy</h2><br/><br/><br/></div>'
 				}, {
 					layout : 'hbox',
 					defaults : {

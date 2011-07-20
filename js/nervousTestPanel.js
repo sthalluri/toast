@@ -11,11 +11,13 @@ NervousTestPanel = Ext.extend(Ext.Panel,
             handler: this.startWatch
 		});
 		
+		this.defaultMsg = '<div class="helpbox"><h2 >Test your Nervousness</h2></div><div class="timeDiv"><img class="nImg" width="200" height="250"  src="images/nervous_speaker.jpg"/></div>';
+		
 		this.message = new Ext.Component({
 			xtype : 'component',
 			width: '100%',
-			height: 300,
-			html : '<br/><br/><div class="timeDiv">0</div>'
+			height: 350,
+			html : this.defaultMsg
 		});
 
 		this.items = [ this.message, {
@@ -59,11 +61,10 @@ NervousTestPanel = Ext.extend(Ext.Panel,
         var options = { frequency: 200 };
         if(navigator.accelerometer){
             this.watchID = navigator.accelerometer.watchAcceleration(nervousTestPanel.onSuccessFn, nervousTestPanel.onErrorFn, options);
-            alert('Started accel');
         }
         this.timer.start();
         this.testSec = 0;
-        //this.startButton.disable();
+        this.startButton.disable();
     },
 	
     // Stop watching the acceleration
@@ -72,9 +73,8 @@ NervousTestPanel = Ext.extend(Ext.Panel,
             navigator.accelerometer.clearWatch(this.watchID);
             watchID = null;
             this.timer.stop();
-            //this.startButton.enable();
         }
-        
+        this.startButton.enable();        
     },
 	
     onSuccessFn:function(a){
@@ -113,7 +113,6 @@ NervousTestPanel = Ext.extend(Ext.Panel,
     
     shakerEvent: function (){
     	this.count++;
-    	this.updateMessage('<div class="msg"><p >'+this.count+':'+this.testSec+'</p></div>');
     },
     
 	timerEvent: function(){
@@ -122,21 +121,26 @@ NervousTestPanel = Ext.extend(Ext.Panel,
 	
 	updateTime: function(){
 		this.testSec++;
-		if(this.testSec > 5){
+		if(this.testSec > 10){
 			this.stopWatch();
 			this.timer.stop();
-			if(this.count> 2){
-	        	this.updateMessage('<p class="nContent">You are Shaky</p><br/>');
+			if(this.count> 5){
+	        	this.updateMessage('<div class="helpbox"><h2 >You are Nervous</h2></div><div class="timeDiv"><img width="200" height="250" src="images/nervousPodium.jpg"/><h2 >You shaked'+this.count+'</h2></div>');
 	        }else{
-	        	this.updateMessage('<p class="nContent">You are Confident</p>');
+	        	this.updateMessage('<div class="helpbox"><h2 >Your are Confident</h2></div><div class="timeDiv"><img width="200" height="250" src="images/confident.jpg"/></div>');
 	        }
 		}else{
 			var timerMsg = '<div class="timeDiv">'+this.testSec+'</div>';
-        	this.updateMessage('<p class="nContent">Hold the phone in your hand steady.<br/>Test in Progress..</p><br/><br/>'+timerMsg);			
+        	this.updateMessage('<div class="helpbox"><h2 >Hold the phone steady</h2></div>'+timerMsg);			
 		}
 		
 	},
 
+	resetTimer: function(){
+		this.stopWatch();
+		this.updateMessage(this.defaultMsg);
+	},
+	
     goBack:function() {
     	this.stopWatch();
 		closePanel();
