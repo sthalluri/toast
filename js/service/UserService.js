@@ -72,7 +72,7 @@ UserServiceImpl = Ext.extend(Service, {
 		}
 		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
-			url: urlStore.userUrl + '/create',
+			url: urlStore.userUrl + '/create'+'?accessKey='+thisUser.accessKey,
 			params: {
 				json:Ext.encode(user)
 			},
@@ -86,7 +86,7 @@ UserServiceImpl = Ext.extend(Service, {
 	{
 		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
-			url: urlStore.userUrl + '/delete',
+			url: urlStore.userUrl + '/delete'+'?accessKey='+thisUser.accessKey,
 			params: {id: id},
 			success:this.onAjaxResponse
 		});
@@ -98,7 +98,7 @@ UserServiceImpl = Ext.extend(Service, {
 		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		thisUser.password = password;
 		Ext.Ajax.request({
-			url: urlStore.userUrl + '/create',
+			url: urlStore.userUrl + '/create'+'?accessKey='+thisUser.accessKey,
 			params: {json:Ext.encode(thisUser)},
 			success: this.onAjaxResponse,
 			failure: this.onAjaxResponse

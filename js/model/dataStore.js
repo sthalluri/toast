@@ -40,8 +40,13 @@ var notes = [];
 var userLog =[];
 var fillers= [];
 
+var nerveSetting ={
+		limit : 3,
+		timeLimit: 1
+};
+
 var timeOptions = [
-   {text: 'Select..',value: '00:00 AM'}, 
+   {text: 'Select..',value: ''}, 
    {text: '06:00 AM',value: '06:00 AM'}, 
    {text: '06:30 AM',value: '06:30 AM'}, 
    {text: '07:00 AM',value: '07:00 AM'}, 
@@ -86,7 +91,7 @@ var timingStore={
 	evaluator : {green: 2*60, yellow: 2.5*60, red:3*60}	
 };
 
-//var serverUrl = 'http://10.0.0.8:8080';
+//var serverUrl = 'http://10.0.0.4:8080';
 var serverUrl = 'http://localhost:8080';
 
 //var serverUrl = 'http://ec2-75-101-247-165.compute-1.amazonaws.com';
@@ -242,6 +247,9 @@ var roleStore = new Ext.data.JsonStore({
    reload : function() {
 		Ext.Ajax.request({
 			url : urlStore.clubUrl + '/clubRoleList',
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success : function(response, opts) {
 				var data = eval("(" + response.responseText + ")");
 				if (data.success) {
@@ -306,14 +314,15 @@ var myLogDataStore = new Ext.data.Store({
 Ext.regModel('User', {
 	idProperty: 'id',
     fields: [
-        {name: 'id',     type: 'int'},
-        {name: 'userId',     type: 'string'},
-        {name: 'firstName',     type: 'string'},
-        {name: 'lastName',     type: 'string'},
-        {name: 'phone',     type: 'string'},
-        {name: 'email',    type: 'string'},
-        {name: 'aboutMe',	type: 'string'},
-        {name: 'defaultClubId',      type: 'string'}
+        {name: 'id',     		type: 'int'},
+        {name: 'userId',     	type: 'string'},
+        {name: 'firstName',    	type: 'string'},
+        {name: 'lastName',     	type: 'string'},
+        {name: 'phone',     	type: 'string'},
+        {name: 'email',    		type: 'string'},
+        {name: 'aboutMe',		type: 'string'},
+        {name: 'accessKey',		type: 'string'},
+        {name: 'defaultClubId', type: 'string'}
     ]
 });
 

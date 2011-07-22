@@ -38,5 +38,10 @@ HelpPanel = Ext.extend(Ext.Panel, {
 //		} ];
 
         HelpPanel.superclass.initComponent.call(this);
-    }
+    },
+	
+	goBack: function(){
+		this.hide();
+		navPanel.show();
+	}
 });

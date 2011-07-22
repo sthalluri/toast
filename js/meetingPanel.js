@@ -294,7 +294,9 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 				}
 			}
 			if(comp.name == 'time'){
-				comp.setValue(pMeeting.meetingTime);
+				if(pMeeting.meetingTime && pMeeting.meetingTime !== ''){
+					comp.setValue(pMeeting.meetingTime);
+				}
 			}
 		}
 		this.meeting = pMeeting;
@@ -338,14 +340,43 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		}
 	},
 	
+	validate: function(){
+		var values = this.getValues();  
+		var meetingDate = values.meetingDate;
+		var meetingTime = values.time;
+		var noErrors = true;
+		
+		var fMeetingDate = "";
+		if(meetingDate){
+			fMeetingDate = meetingDate.format('F j, Y');
+			if(meetingTime&& meetingTime !== ''){
+				fMeetingDate = meetingDate.format('F j, Y')+' '+meetingTime;
+			}
+		}
+
+		meetingStore.each(function(rec){
+			var data = rec.data;
+			if(data.fMeetingDate === fMeetingDate){
+				this.updateMessage('A meeting with this date and time already exists');
+				noErrors = false;
+				return false;
+			}
+        }, this); 
+		return noErrors;
+	},
+
 	save : function(){
+		if(!this.validate()){
+			return false;
+		}
+		
 		if(!this.meeting){
 			this.meeting = getMeetingBareBones();
 		}
 		var values = this.getValues();
 		this.meeting.clubId = thisUser.defaultClubId;
 		this.meeting.location = values.location;
-		this.meeting.meetingTime = values.time;		
+		this.meeting.meetingTime = values.time;
 //		if(values.time){
 //			var hours =  values.time.substring(0,2);
 //			var mins =  parseInt(values.time.substring(3,5));
@@ -365,7 +396,6 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 //			values.meetingDate.setMinutes(parseInt(mins));
 //		}
 		this.meeting.meetingDate = values.meetingDate;
-		this.meeting.meetingTime = values.time;
 		this.meeting.wordOfTheDay = values.wordOfTheDay;
 		this.meeting.themeOfTheDay = values.themeOfTheDay;
 		this.meeting.roles.speaker1.userId = values.speaker1;

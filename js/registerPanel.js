@@ -5,7 +5,6 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	initComponent : function() {
 		this.items = [ {
 			xtype : 'fieldset',
-			title : 'Register',
 			instructions : '<b>Please enter the information above.</b>',
 			defaults : {
 				required : true,
@@ -66,34 +65,35 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				useClearIcon : true,
 				autoCapitalize : false,
 				required:false
-			}]
+			},
+			{
+				layout:'hbox',
+				flex:1,
+           	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+				items:[
+						{
+							text : 'Register',
+							ui : 'confirm',
+							scope: this,
+						    width:80,
+							handler : this.register
+						}, {
+							text : 'Cancel',
+						    width:80,
+							scope: this,
+							handler : this.cancel
+						} 				       
+			       ]
+			}
+			
+			]
 		} ];
 		
 		this.dockedItems = [ {
 			xtype : 'toolbar',
-			dock : 'bottom',
-			items : [ {
-				text : 'Guest',
-				ui : 'round',
-				scope: this,
-				handler : function() {
-					this.user = Ext.ModelMgr.create( mockUser, 'User');
-					registerPanel.loadModel(this.user);
-				}
-			}, {
-				xtype : 'spacer'
-			}, {
-				text : 'Register',
-				ui : 'confirm',
-				scope: this,
-                width:80,
-				handler : this.register
-			}, {
-				text : 'Cancel',
-                width:80,
-				scope: this,
-				handler : this.cancel
-			} ]
+			title:'Register',
+			dock : 'top',
+			items : [ ]
 		} ];
 	
 		// Base config options

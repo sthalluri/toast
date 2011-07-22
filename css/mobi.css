@@ -49,6 +49,15 @@
 	padding: 0 1em 0 1em;
 }
 
+.helpbox h3 {
+	color: #071F52;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	margin: .5em 0 .2em 0;
+	padding: 0 1em 0 1em;
+}
+
 .imageLeft {
 	float: left;
 	margin: 0.2em;
@@ -64,7 +73,7 @@
 .imageRight {
 	float: right;
 	margin: 0.2em;
-	height: 1.5em;
+	height: 2em;
 }
 
 .reportButton {
@@ -134,6 +143,11 @@
 	font-size: 1em;
 	vertical-align: text-top;
 	font-weight: normal;
+}
+
+.contact{
+	padding-top: 5px;
+	padding-right: 5px;
 }
 
 .red {
@@ -216,16 +230,16 @@ div.page {
 }
 
 div.background {
-	width: '100%';
-	height: 380px;
+	width: 100%;
+	height: 100%;
 	padding: 10px;
 	background: url(../images/stickyBig.jpg) no-repeat;
-	background-size: 100%;
+	background-size: 98%;
 	/*border:2px solid black;*/
 }
 
 div.transbox {
-	width: '95%';
+	width: 95%;
 	height: 360px;
 	padding: 10px;
 	/*
@@ -406,12 +420,8 @@ To get rid of the grey color take out the following
 
 .x-list .x-list-item {
 	position: relative;
-	color: #CC6633;
 	padding: 0.1em 0.1em 0.1em 0.2em;
 	min-height: 2.6em;
-	display: -webkit-box;
-	display: box;
-	border-top: 1px solid #C8C8C8;
 }
 
 .x-form .x-panel-body {
@@ -425,11 +435,6 @@ To get rid of the grey color take out the following
 
 .x-toolbar.x-docked-bottom {
 	border-top: .1em solid;
-	background-color: #24364c;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a81af),
-		color-stop(2%, #304864), color-stop(100%, #192533) );
-	background-image: linear-gradient(#5a81af, #304864 2%, #192533);
-	border-color: black;
 }
 
 .x-tabbar.x-docked-bottom .x-tab {
@@ -451,3 +456,41 @@ To get rid of the grey color take out the following
 	font-weight: bold;
 	font-size: 0.8em;
 }
+
+.x-button .x-button-back{
+	background-color: green;
+}
+
+
+.x-toolbar-dark .x-button, 
+.x-toolbar-dark .x-button.x-button-back::after, 
+.x-toolbar-dark .x-button.x-button-forward::after, 
+.x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, 
+.x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, 
+.x-toolbar-dark .x-field-select .x-input-text, 
+.x-toolbar-dark .x-field-select .x-input-text.x-button-back::after, 
+.x-toolbar-dark .x-field-select .x-input-text.x-button-forward::after, 
+.x-toolbar .x-toolbar-dark .x-field-select .x-input-text, 
+.x-toolbar .x-toolbar-dark .x-field-select .x-input-text.x-button-back::after, 
+.x-toolbar .x-toolbar-dark .x-field-select .x-input-text.x-button-forward::after, 
+.x-toolbar-dark .x-field-select::before, .x-toolbar-dark .x-field-select::before.x-button-back::after, 
+.x-toolbar-dark .x-field-select::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select::before, 
+.x-toolbar .x-toolbar-dark .x-field-select::before.x-button-back::after, 
+.x-toolbar .x-toolbar-dark .x-field-select::before.x-button-forward::after {
+	background-color: #404040;
+}
+	
+/*
+Use this to change the color of the confirm button
+
+.x-button.x-button-confirm, 
+.x-toolbar .x-button.x-button-confirm, 
+.x-button.x-button-confirm-round, 
+.x-toolbar .x-button.x-button-confirm-round, 
+.x-button.x-button-confirm-small, 
+.x-toolbar .x-button.x-button-confirm-small {
+	border: 0.1em solid #404040;
+	border-top-color: #374e02;
+}
+
+*/

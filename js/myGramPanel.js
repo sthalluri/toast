@@ -17,7 +17,7 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 						+ '</td>'+
 						'</tr></table>',
 				defaults : {
-					required : true,
+					required : false,
 					labelAlign : 'left',
 					labelWidth : '40%'
 				},
@@ -136,7 +136,7 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 	},
 	
 	addCustom: function(){
-        Ext.Msg.prompt(null, "Counter Name", this.onCustom);
+        this.msgPrompt = Ext.Msg.prompt(null, "Counter Name", this.onCustom);
 	},
 	
 	removeCustom: function(){
@@ -162,26 +162,36 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 			myGramPanel.spinnerFiledSet.add(spinner);
 			myGramPanel.spinners.push(spinner);
 			myGramPanel.doLayout();
-			gramPanel.saveFillers();
+			myGramPanel.saveFillers();
 		}
 	},
 	
 	onRemoveCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
-			if(fillers.indexOf(custom)<0){
+			var removed = false;
+			for(var i=0; i<myGramPanel.spinners.length; i++){
+				var spinner = myGramPanel.spinners[i];
+				if(spinner.name.toLowerCase() === (custom+'Count').toLowerCase()){
+					myGramPanel.spinnerFiledSet.remove(spinner);					
+					removed = true;
+				}
+			}
+			
+			for(var i=0; i<fillers.length; i++){
+				var filler = fillers[i];
+				if(filler.toLowerCase() === (custom).toLowerCase()){
+					fillers.remove(filler);
+				}
+			}
+
+			if(!removed){
 				myGramPanel.updateMessage('Filler not present');
 				return;
 			}else{
 				myGramPanel.updateMessage('');
 			}
-			fillers.remove(custom);			
-			for(var i=0; i<myGramPanel.spinners.length; i++){
-				var spinner = myGramPanel.spinners[i];
-				if(spinner.name == custom+'Count'){
-					myGramPanel.spinnerFiledSet.remove(spinner);					
-				}
-			}
-			gramPanel.saveFillers();
+
+			myGramPanel.saveFillers();
 		}
 	},
 	
@@ -204,6 +214,9 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 
 	goBack: function(){
     	this.updateMessage('');
+    	if(this.msgPrompt){
+    		this.msgPrompt.hide();
+    	}
     	closePanel(this);
 	}
 

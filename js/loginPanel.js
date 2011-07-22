@@ -1,10 +1,9 @@
 LoginPanel = Ext.extend(Ext.form.FormPanel, {
-	width : 300,
 	loggedIn : false,
+    scroll: 'vertical',
 	initComponent : function() {
 		this.items = [ {
 			xtype : 'fieldset',
-			title : 'Login',
 			defaults : {
 				required : true,
 				labelAlign : 'left',
@@ -25,12 +24,36 @@ LoginPanel = Ext.extend(Ext.form.FormPanel, {
 				xtype : 'togglefield',
 				name : 'rememberMe',
 				label : 'Remember Me'
-			} ]
+			},
+			
+			{
+				layout:'hbox',
+				flex:1,
+           	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+				items:[
+					{
+						text : 'Login',
+						ui : 'confirm',
+						scope : this,
+						width : 80,
+						handler : this.login
+					}, {
+						text : 'Cancel',
+						scope : this,
+						width : 80,
+						handler : this.cancel
+					} 				       
+				]
+
+			}
+
+			]
 		} ];
 
 		this.dockedItems = [ {
 			xtype : 'toolbar',
-			dock : 'bottom',
+			title:'Login',
+			dock : 'top',
 			items : [ {
 				text : 'Guest',
 				ui : 'round',
@@ -41,17 +64,6 @@ LoginPanel = Ext.extend(Ext.form.FormPanel, {
 				}
 			}, {
 				xtype : 'spacer'
-			}, {
-				text : 'Login',
-				ui : 'confirm',
-				scope : this,
-				width : 80,
-				handler : this.login
-			}, {
-				text : 'Cancel',
-				scope : this,
-				width : 80,
-				handler : this.cancel
 			} ]
 		} ];
 

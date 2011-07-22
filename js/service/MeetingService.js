@@ -6,6 +6,9 @@ MeetingServiceImpl = Ext.extend(Service, {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/list',			
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success: this.onAjaxResponse,
 			failure: this.onAjaxResponse
 		});
@@ -17,6 +20,9 @@ MeetingServiceImpl = Ext.extend(Service, {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.meetingUrl + '/getByClubId/' + clubId,
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success : this.onAjaxResponse,
 			failure: this.onAjaxResponse
 		});
@@ -29,7 +35,8 @@ MeetingServiceImpl = Ext.extend(Service, {
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/save',
 			params : {
-				json : Ext.encode(meeting)
+				json : Ext.encode(meeting),
+				accessKey: thisUser.accessKey
 			},
 			success : this.onAjaxResponse,
 			failure: this.onAjaxResponse
@@ -42,6 +49,9 @@ MeetingServiceImpl = Ext.extend(Service, {
 	    this.onAjaxResponse = Ext.createDelegate(MeetingServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.meetingUrl + '/delete/' + meetingId,
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success : this.onAjaxResponse,
 			failure: this.onAjaxResponse
 		});
@@ -66,7 +76,8 @@ MeetingServiceImpl = Ext.extend(Service, {
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
 			params : {
-				json : Ext.encode(tableTopics)
+				json : Ext.encode(tableTopics),
+				accessKey: thisUser.accessKey
 			},
 			success : this.onAjaxResponse,
 			failure: this.onAjaxResponse
@@ -92,7 +103,8 @@ MeetingServiceImpl = Ext.extend(Service, {
 		Ext.Ajax.request( {
 			url : urlStore.meetingUrl+'/saveContent',
 			params : {
-				json : Ext.encode(speechNotes)
+				json : Ext.encode(speechNotes),
+				accessKey: thisUser.accessKey
 			},
 			success : this.onAjaxResponse,
 			failure: this.onAjaxResponse
@@ -113,6 +125,9 @@ MeetingServiceImpl = Ext.extend(Service, {
 	    this.onGetContent = Ext.createDelegate(MeetingServiceImpl.prototype.onGetContent, scope || window, [cb, scope], true);
 		Ext.Ajax.request( {
  			url : urlStore.meetingUrl + '/getContent/'+contentId,
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success : this.onGetContent,
 			failure: this.onAjaxResponse
 		});

@@ -28,8 +28,8 @@ mainCardPanel
  */
 
 Ext.setup({
-    tabletStartupScreen: 'tablet_startup.png',
-    phoneStartupScreen: 'phone_startup.png',
+    tabletStartupScreen: 'imaages/toolbar10.jpg',
+    phoneStartupScreen: 'imaages/toolbar10.jpg',
     icon: 'icon.png',
     glossOnIcon: false,
     
@@ -207,7 +207,7 @@ function showPanel(showPanel){
 
 var currentPanel;
 function logMainSelected(comp, newCard, oldCard, index) {
-	//console.log('Panel changed to :'+index);
+	console.log('Panel changed to :'+index);
 	currentPanel = newCard;
 }
 

@@ -122,11 +122,11 @@ GramPanel = Ext.extend(BaseFormPanel,
 
 	
 	addCustom: function(){
-            Ext.Msg.prompt(null, "Counter Name", this.onCustom);
+            this.msgPrompt = Ext.Msg.prompt(null, "Enter new Counter Name", this.onCustom);
 	},
 
 	removeCustom: function(){
-        Ext.Msg.prompt(null, "Enter Counter to Delete", this.onRemoveCustom);
+        Ext.Msg.prompt(null, "Enter Counter Name to Delete", this.onRemoveCustom);
 	},
 
 	loadSpinners: function(){
@@ -187,17 +187,27 @@ GramPanel = Ext.extend(BaseFormPanel,
 	
 	onRemoveCustom: function(confirmation, custom){
 		if(confirmation=='ok'){
-			if(fillers.indexOf(custom)<0){
+			var removed = false;
+			for(var i=0; i<gramPanel.spinners.length; i++){
+				var spinner = gramPanel.spinners[i];
+				if(spinner.name.toLowerCase() === (custom+'Count').toLowerCase()){
+					gramPanel.spinnerFieldSet.remove(spinner);					
+					removed = true;
+				}
+			}
+
+			for(var i=0; i<fillers.length; i++){
+				var filler = fillers[i];
+				if(filler.toLowerCase() === (custom).toLowerCase()){
+					fillers.remove(filler);			
+				}
+			}
+
+			if(!removed){
 				gramPanel.updateMessage('Filler not present');
 				return;
 			}
-			fillers.remove(custom);			
-			for(var i=0; i<gramPanel.spinners.length; i++){
-				var spinner = gramPanel.spinners[i];
-				if(spinner.name == custom+'Count'){
-					gramPanel.spinnerFieldSet.remove(spinner);					
-				}
-			}
+			
 			gramPanel.saveFillers();
 		}
 	},
@@ -263,6 +273,9 @@ GramPanel = Ext.extend(BaseFormPanel,
 	
 	goBack: function() {
     	this.updateMessage('');
+    	if(this.msgPrompt){
+        	this.msgPrompt.hide();
+    	}
     	closePanel(this);
     }
 

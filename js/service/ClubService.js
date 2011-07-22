@@ -19,6 +19,9 @@ ClubServiceImpl = Ext.extend(Service, {
 	    this.onClubMembers = Ext.createDelegate(ClubServiceImpl.prototype.onClubMembers, scope || window, [cb, scope], true);
 		Ext.Ajax.request({
 			url : urlStore.clubUrl + '/get/'+clubId,
+			params : {
+				accessKey: thisUser.accessKey
+			},
 			success: this.onClubMembers,
 			failure: this.onAjaxResponse
 		});
@@ -33,7 +36,8 @@ ClubServiceImpl = Ext.extend(Service, {
 		Ext.Ajax.request({
 			url : urlStore.clubUrl + '/saveSettings',
 			params : {
-				json : Ext.encode(club)
+				json : Ext.encode(club),
+				accessKey: thisUser.accessKey
 			},
 			success: this.onAjaxResponse,
 			failure: this.onAjaxResponse

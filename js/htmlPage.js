@@ -30,7 +30,11 @@ HtmlPage = Ext.extend(Ext.Panel, {
             scope: this
         });
         HtmlPage.superclass.initComponent.call(this);
-    }
+    },
+	
+	goBack: function(){
+        this.ownerCt.setActiveItem(this.prevCard, { type: 'slide', reverse: true });
+	}
 });
 
 Ext.reg('htmlpage', HtmlPage);

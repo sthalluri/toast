@@ -19,7 +19,7 @@
                             <h6 style="font-size: 15px; color:gray;">This is a mobile version of the 
                             app which helps you to play a role like timer, grammarian during the meeting and 
                             help you organize your speech notes, table topics and plan better for your meetings and more.. </h6>
-                            <a href="#" class="link-1">Learn More</a>
+                            <a href="mobile.jsp" class="link-1">Learn More</a>
                         </div>
                         <div class="grid_3">
                         	<h4 style="color: olive;">Web Buddy</h4>
@@ -31,7 +31,7 @@
                             	lets you access from anywhere using the browser and let you do stuff 
                             	where mobile phone is not easy to type or you do not have a smart phone.
                             </h6>
-                            <a href="#" class="link-1">Learn More</a>
+                            <a href="webbuddy.jsp" class="link-1">Learn More</a>
                         </div>
                     </div>
                 </div>

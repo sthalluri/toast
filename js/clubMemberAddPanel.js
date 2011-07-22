@@ -238,8 +238,9 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	
 	showChangePasswordPanel : function()
 	{
-		this.hide();
-		changePasswordPanel.show();
+		showPanel(changePasswordPanel);
+//		this.hide();
+//		changePasswordPanel.show();
 	},
 	
 	resetFields : function()

@@ -124,7 +124,6 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 	
 	goBack : function()
 	{
-		this.hide();
-		clubMemberAddPanel.show();
+		showPanel(clubMemberAddPanel);
 	}
 });

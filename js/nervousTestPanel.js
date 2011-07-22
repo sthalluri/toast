@@ -8,7 +8,7 @@ NervousTestPanel = Ext.extend(Ext.Panel,
 			ui : 'confirm',
 			scope: this,
 		    text: 'Start Test',
-            handler: this.startWatch
+            handler: this.promptMessage
 		});
 		
 		this.defaultMsg = '<div class="helpbox"><h2 >Test your Nervousness</h2></div><div class="timeDiv"><img class="nImg" width="200" height="250"  src="images/nervous_speaker.jpg"/></div>';
@@ -56,14 +56,24 @@ NervousTestPanel = Ext.extend(Ext.Panel,
 		NervousTestPanel.superclass.initComponent.call(this);	
 	},
 	
+	promptMessage: function(){
+        Ext.Msg.alert(null, 'Hold the phone steady for '+ nerveSetting.timeLimit+' Seconds', this.pStartWatch);		
+	},
+
+	pStartWatch: function(){
+		nervousTestPanel.startWatch();
+	},
+	
 	startWatch: function() {
         // Update acceleration every 3 seconds
         var options = { frequency: 200 };
+        
         if(navigator.accelerometer){
             this.watchID = navigator.accelerometer.watchAcceleration(nervousTestPanel.onSuccessFn, nervousTestPanel.onErrorFn, options);
         }
         this.timer.start();
         this.testSec = 0;
+        this.count = 0;
         this.startButton.disable();
     },
 	
@@ -121,13 +131,13 @@ NervousTestPanel = Ext.extend(Ext.Panel,
 	
 	updateTime: function(){
 		this.testSec++;
-		if(this.testSec > 10){
+		if(this.testSec > nerveSetting.timeLimit){
 			this.stopWatch();
 			this.timer.stop();
-			if(this.count> 5){
-	        	this.updateMessage('<div class="helpbox"><h2 >You are Nervous</h2></div><div class="timeDiv"><img width="200" height="250" src="images/nervousPodium.jpg"/><h2 >You shaked'+this.count+'</h2></div>');
+			if(this.count> nerveSetting.limit){
+	        	this.updateMessage('<div class="helpbox"><h2 >You are Nervous</h2><h3>You shook the phone '+this.count+' times</h3></div><div class="timeDiv"><img width="200" height="250" src="images/nervousPodium.jpg"/><h2 ></div>');
 	        }else{
-	        	this.updateMessage('<div class="helpbox"><h2 >Your are Confident</h2></div><div class="timeDiv"><img width="200" height="250" src="images/confident.jpg"/></div>');
+	        	this.updateMessage('<div class="helpbox"><h2 >Your are Confident</h2><h3>You shook the phone '+this.count+' times</h3></div><div class="timeDiv"><img width="200" height="250" src="images/confident.jpg"/></div>');
 	        }
 		}else{
 			var timerMsg = '<div class="timeDiv">'+this.testSec+'</div>';

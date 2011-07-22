@@ -10,7 +10,7 @@ QuestionPanel = Ext.extend(BaseFormPanel,
 				xtype : 'textareafield',
 				name : 'question',
 				useClearIcon : true,
-				height : 250,
+				height : 300,
 				maxRows : 10,
 				autoCapitalize : false
 			}
