@@ -1,9 +1,9 @@
-RegisterPanel = Ext.extend(Ext.form.FormPanel, 
+RegisterPanel = Ext.extend(BaseFormPanel, 
 {
 	loggedIn:false,
 	
 	initComponent : function() {
-		this.items = [ {
+		this.items = [ this.getMessageComp(),{
 			xtype : 'fieldset',
 			instructions : '<b>Please enter the information above.</b>',
 			defaults : {
@@ -11,26 +11,7 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				labelAlign : 'left',
 				labelWidth : '40%'
 			},
-			items : [ {
-				xtype : 'textfield',
-				name : 'email',
-				label : 'Email ID',
-				placeHolder: 'Email ID',
-				useClearIcon : true,
-				autoCapitalize : false
-			},{
-				xtype : 'passwordfield',
-				name : 'password',
-				label : 'Password',
-				placeHolder: 'Password',
-				useClearIcon : false
-			},{
-				xtype : 'passwordfield',
-				name : 'confirmPassword',
-				placeHolder: 'Password',
-				label : 'Confirm',
-				useClearIcon : false
-			},
+			items : [ 
 			/*
 			{
 				xtype : 'textfield',
@@ -56,7 +37,10 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				placeHolder: 'First Name',
 				useClearIcon : true,
 				autoCapitalize : false,
-				required:false
+				required:true,
+				listeners : {
+					change : this.capitalize
+				}
 			},{
 				xtype : 'textfield',
 				name : 'lastName',
@@ -64,7 +48,29 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 				placeHolder: 'Last Name',
 				useClearIcon : true,
 				autoCapitalize : false,
-				required:false
+				required:true,
+				listeners : {
+					change : this.capitalize
+				}
+			},{
+				xtype : 'textfield',
+				name : 'email',
+				label : 'Email ID',
+				placeHolder: 'Email ID',
+				useClearIcon : true,
+				autoCapitalize : false
+			},{
+				xtype : 'passwordfield',
+				name : 'password',
+				label : 'Password',
+				placeHolder: 'Password',
+				useClearIcon : false
+			},{
+				xtype : 'passwordfield',
+				name : 'confirmPassword',
+				placeHolder: 'Password',
+				label : 'Confirm',
+				useClearIcon : false
 			},
 			{
 				layout:'hbox',
@@ -112,15 +118,10 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 		
 		RegisterPanel.superclass.initComponent.call(this);	
 	},
-	updateMessage: function(msg){
-		if(this.items.get(0).titleEl){
-			this.items.get(0).titleEl.setHTML('Register'+'<div class="msg"><p >'+msg+'</p></div>');
-		}
-	},
 	onRegister:function(data){
     	if(data.success){
-    		this.registerSuccess();
     		thisUser = data.returnVal;
+    		this.registerSuccess();
     	}else{
 			this.updateMessage(data.errorMessage);
     	}
@@ -134,14 +135,24 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	validate: function(){
 		var formValues = this.getValues();
 		
+		if(!formValues.firstName || formValues.firstName.length<2){
+			this.updateMessage('Enter your First Name');
+			return false;
+		}
+
+		if(!formValues.lastName){
+			this.updateMessage('Enter your Last Name');
+			return false;
+		}
+
 		if(!formValues.email || !validator.validateEmail(formValues.email))
 		{
 			this.updateMessage('Enter a valid email.');
 			return false;
 		}
 
-		if(!formValues.password || formValues.password<5){
-			this.updateMessage('Enter a valid password');
+		if(!formValues.password || formValues.password.length<4){
+			this.updateMessage('Enter valid password, atleast 4 Char long');
 			return false;
 		}
 
@@ -153,6 +164,9 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 
 		return true;
 	},
+	capitalize: function(field, value){
+		this.setValue(Ext.util.Format.capitalize(value));
+	},
 	cancel:function() {
 		this.updateMessage('');
 		this.reset();
@@ -161,7 +175,9 @@ RegisterPanel = Ext.extend(Ext.form.FormPanel,
 	},
 	registerSuccess:function() {
 		this.hide();
-		showMeetingPanel();
+		this.updateMessage('Confirm your password');
+		//showMeetingPanel();
+		loginPanel.loginWithUser(thisUser.userId, this.getValues().password);
 	},
 	
 	initScreen: function(){

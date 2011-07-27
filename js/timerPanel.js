@@ -177,7 +177,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
                         text: 'Back',
 		                ui: 'back',
 		                scope:this,
-                        handler: goBack
+                        handler: this.goBack
                     },
                     {xtype: 'spacer'},
                     new Ext.Button({
@@ -197,6 +197,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 
 	startTimer: function(){
 		if(this.validate()){
+			acquire();
 			this.startButton.disabled = true;
 			this.stopButton.disabled = false;
 			this.updateMessage('');
@@ -205,6 +206,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	stopTimer: function(){
+		release();
 		this.startButton.disabled = false;
 		this.stopButton.disabled = true;
 		this.timerPanelClock.stop();
@@ -316,6 +318,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 	
 	goBack: function() {
+		release();
     	this.updateMessage('');
     	closePanel(this);
     },

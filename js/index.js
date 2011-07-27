@@ -28,8 +28,8 @@ mainCardPanel
  */
 
 Ext.setup({
-    tabletStartupScreen: 'imaages/toolbar10.jpg',
-    phoneStartupScreen: 'imaages/toolbar10.jpg',
+    tabletStartupScreen: 'icon.png',
+    phoneStartupScreen: 'icon.png',
     icon: 'icon.png',
     glossOnIcon: false,
     
@@ -207,7 +207,7 @@ function showPanel(showPanel){
 
 var currentPanel;
 function logMainSelected(comp, newCard, oldCard, index) {
-	console.log('Panel changed to :'+index);
+	//console.log('Panel changed to :'+index);
 	currentPanel = newCard;
 }
 
@@ -239,4 +239,23 @@ function showMeetingPanel(){
 	meetingListPanel.listMode();
 	homeTabPanel.show();
 	homeTabPanel.setActiveItem(0);
+}
+
+
+function acquire(){
+	if(window.plugins && window.plugins.awake){
+    	window.plugins.awake.acquire("acquire",
+			    function(r){},
+			    function(e){}
+		);
+	}
+}
+
+function release(){
+	if(window.plugins && window.plugins.awake){
+    	window.plugins.awake.release("release",
+			    function(r){},
+			    function(e){}
+		);
+	}
 }

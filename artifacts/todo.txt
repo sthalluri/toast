@@ -1,4 +1,7 @@
 Wrap all the js files into one
+Create an icon for the home page, launch icon and screensplash
+
+
 ________________________________________________________________
 
 iphone

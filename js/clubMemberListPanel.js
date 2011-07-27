@@ -15,21 +15,22 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
             ui:'light',
             onItemDisclosure: function(record, btn, index)
             {
-	    		homeTabPanel.hide();
-	    		showPanel(clubMemberAddPanel);
-            	clubMemberAddPanel.populateUserDetails(record.data, "list");
+            	clubMemberListPanel.onSelect(null, record.data);
+            },
+		    listeners: {
+                selectionchange: {fn: this.onSelectionchange, scope: this}
             }
         };
+        
+        this.listPanel =	    	    new Ext.List(Ext.apply(this.logBase, {
+            fullscreen: false
+       	}));
 
 	    this.memberPanel = new Ext.Panel({
 	    	activeItem:0,
 	    	height:'100%',	
         	layout: 'card',
-	    	items:[
-	    	    new Ext.List(Ext.apply(this.logBase, {
-	               fullscreen: false
-	           	}))
-	    	]
+	    	items:[this.listPanel]
 	    });
 
 	   this.items=[
@@ -59,4 +60,17 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 
         ClubMemberListPanel.superclass.initComponent.call(this);	
 	},
+
+	onSelectionchange: function(sel, record){
+    	if(record[0]){
+    		this.onSelect(sel, record[0].data );
+    	}
+    },
+    
+    onSelect: function(sel, record){
+    		homeTabPanel.hide();
+    		showPanel(clubMemberAddPanel);
+        	clubMemberAddPanel.populateUserDetails(record, "list");
+        	this.listPanel.getSelectionModel().deselectAll();
+	}
 });

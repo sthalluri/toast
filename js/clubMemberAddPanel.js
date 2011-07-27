@@ -121,6 +121,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			]
 		}];
 		
+		this.changePasswordButton.hide();
 		
 		ClubMemberAddPanel.superclass.initComponent.call(this);
 	},
@@ -150,15 +151,18 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		}
     	//closePanel();
 	},
-	
+
 	saveClubMember : function()
 	{
 		if(this.validate())
 		{
 			var formValues = this.getValues();
-			formValues.userId = this.user.userId;
-			if(this.user.id === thisUser.id){
+			if(this.user){
+				formValues.userId = this.user.userId;
+			}
+			if(formValues.id === thisUser.id+''){
 				formValues.password = thisUser.password;
+				//formValues.accessKey = this.user.accessKey;
 			}
 			UserService.createClubMember(formValues, this.onOperation, this);
 		}
@@ -166,7 +170,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	
 	deleteConfirm : function()
 	{
-		Ext.Msg.confirm("Confirm delete user", "Deleting this user will disable the user and won't be accessible anymore. If you want to delete the user permanently then contact the Sysadmin. Do you want to continue?", this.deleteMember, this);
+		Ext.Msg.confirm("Confirm delete user", "Deleting this user will disable the user and won't be accessible anymore. Do you want to continue?", this.deleteMember, this);
 	},
 	
 	deleteMember : function(opt)
@@ -227,7 +231,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		//this.saveButton.hide();
 		//this.deleteButton.hide();
 		this.editButton.hide();
-		if(user.id && user.id !== thisUser.id){
+		if(user.id && user.id != '' && user.id !== thisUser.id){
 			this.deleteButton.show();
 			this.changePasswordButton.hide();
 		}else{
@@ -238,6 +242,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	
 	showChangePasswordPanel : function()
 	{
+		changePasswordPanel.clear();
 		showPanel(changePasswordPanel);
 //		this.hide();
 //		changePasswordPanel.show();
@@ -251,6 +256,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		this.deleteButton.hide();
 		this.editButton.hide();
 		this.saveButton.show();
+		this.changePasswordButton.hide();
 	},
 	
 	onClubMemberLoad: function(data)

@@ -71,3 +71,4 @@ Ext.util.Format.capitalize = (function(){
         return v.replace(re, fn);
     };
 })();
+

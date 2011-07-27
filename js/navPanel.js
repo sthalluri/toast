@@ -82,6 +82,7 @@ NavPanel = Ext.extend(Ext.Panel,
 
 	viewLogout: function(){
 		db.resetLoginData();
+		truncateData();
 		this.hide();
 		closePanel();
 		loginPanel.initScreen();

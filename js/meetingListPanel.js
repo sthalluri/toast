@@ -215,8 +215,15 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 			var amCount = meeting.gramLog[userId];
 			var gramLog = new Object();
 			gramLog.amCountStr = 'None';
+			var breakLength = 0;
 			for ( var p in amCount) {
 				if (amCount[p] > 0) {
+					if(breakLength > 50){
+						gramLog.amCountStr += '<br/>';
+						breakLength = 0;
+					}else{
+						breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
+					}
 					if (gramLog.amCountStr == 'None') {
 						gramLog.amCountStr = p + ':&nbsp;'
 								+ amCount[p];

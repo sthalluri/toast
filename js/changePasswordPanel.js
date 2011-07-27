@@ -118,8 +118,15 @@ ChangePasswordPanel = Ext.extend(BaseFormPanel,
 			this.updateMessage("Values of New password and Re-enter new password don't match. Please enter again.");
 			return false;
 		}
-		
+		if(formValues.newPassword.length < 4){
+			this.updateMessage("Please make sure new password is atleast 4 character long.");
+			return false;
+		}
 		return true;
+	},
+	
+	clear: function(){
+		this.updateMessage('');
 	},
 	
 	goBack : function()

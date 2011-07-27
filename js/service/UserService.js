@@ -64,6 +64,7 @@ UserServiceImpl = Ext.extend(Service, {
 			userId: formValues.userId,
 			password: formValues.password,
 			defaultClubId: thisUser.defaultClubId,
+			accessKey: formValues.accessKey,
 			isEnabled: 'Y'
 		};
 		if(formValues.id)

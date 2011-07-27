@@ -7,7 +7,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	initComponent : function() {
 
 	this.questionTmpl = new Ext.Template([
-	                                        '<div class="background"><div class="notesIndex"><p>{cardIndex}</p></div><div class="transbox"><p>{text}</p></div></div>',
+	                                        '<div class="background"><div class="notesIndex"><p>{cardIndex}</p></div><div class="transbox"><p>{formatText}</p></div></div>',
 	                                    ]);
 
 	this.questionTmpl.compile();
@@ -215,12 +215,21 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 	},
 	
 	formatNotes: function(question){
+		var obj = new Object();
+		obj.id = question.id;
+		obj.text = question.text;
+		obj.formatText = obj.text.replace(
+				// Replace out the new line character.
+				new RegExp( "\\n", "g" ), "<br/>" );
+
 		if(question && question.text && question.text.length>20){
-			question.heading = question.text.substring(0, 20)+'..';
+			obj.heading = question.text.substring(0, 20)+'..';
 		}else{
-			question.heading = question.text;
+			obj.heading = question.text;
 		}
-		return question;
+		
+		obj.cardIndex = question.cardIndex;
+		return obj;
 	},
 	
 	cardChanged:function(firstCard, newCard, oldCard, index, newIndex){
@@ -242,6 +251,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 			this.tblTopicCarouselPanel.remove(this.tblTopicCarouselPanel.items.get(this.activeIndex));
 			this.activeIndex = 1;
 			this.tblTopicCarouselPanel.setActiveItem(this.tblTopicCarouselPanel.items.get(0));
+			this.loadAndShow();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
@@ -276,9 +286,14 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		tableTopicPanel.hide();
 		if(!this.activeQuestion){
 			var question = new Object();
-			question.id = questionDataStore.data.length;
+			if(questionDataStore.data.length >=1){
+				question.id = questionDataStore.last().data.id+1;
+			}else{
+				question.id = 0;
+			}		
 			questionDataStore.add(question);
 			this.activeQuestion = question;
+			this.activeIndex = 0;
 		}
 		questionPanel.loadQuestion(this.activeQuestion);
 		//questionPanel.show();

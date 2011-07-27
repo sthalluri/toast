@@ -81,6 +81,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			meetingLog.rolesStr = 'None';
 			meetingLog.fMeetingDate = meeting.fMeetingDate;
 			var gramLog = new Object();
+			var breakLength = 0;
 			
 			for ( var userId in meeting.gramLog) {
 				if(userId == thisUser.id){
@@ -89,12 +90,17 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 					gramLog.fMeetingDate = meeting.fMeetingDate;
 					for ( var p in amCount) {
 						if (amCount[p] > 0) {
+							if(breakLength > 50){
+								gramLog.amCountStr += '<br/>';
+								breakLength = 0;
+							}else{
+								breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
+							}
+							
 							if (gramLog.amCountStr == 'None') {
-								gramLog.amCountStr = p + ':&nbsp;'
-										+ amCount[p];
+								gramLog.amCountStr = p+':&nbsp;'+amCount[p];
 							} else {
-								gramLog.amCountStr += ',&nbsp;' + p
-										+ ':' + amCount[p];
+								gramLog.amCountStr += ',&nbsp;'+p+ ':' + amCount[p];
 							}
 						}
 					}

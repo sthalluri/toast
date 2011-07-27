@@ -39,13 +39,19 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 			id : 'wordOfTheDay',
 			label : 'Word(WOTD)',
 			useClearIcon : true,
-			autoCapitalize : false
+			autoCapitalize : false,
+			listeners : {
+				change : this.capitalize
+			}
 		}, {
 			xtype : 'textfield',
 			name : 'themeOfTheDay',
 			label : 'Theme',
 			useClearIcon : true,
-			autoCapitalize : false
+			autoCapitalize : false,
+			listeners : {
+				change : this.capitalize
+			}
 		}, {
 			xtype : 'textfield',
 			name : 'location',
@@ -216,6 +222,10 @@ MeetingPanel = Ext.extend(BaseFormPanel,
  	   MeetingListPanel.superclass.initComponent.call(this);	
 	},
 	
+	capitalize: function(field, value){
+		this.setValue(Ext.util.Format.capitalize(value));
+	},
+
 	loadMeeting: function(pMeeting){
 		
 		this.reset();
@@ -341,7 +351,7 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 	},
 	
 	validate: function(){
-		var values = this.getValues();  
+		var values = this.getValues();
 		var meetingDate = values.meetingDate;
 		var meetingTime = values.time;
 		var noErrors = true;
@@ -356,7 +366,7 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 
 		meetingStore.each(function(rec){
 			var data = rec.data;
-			if(data.fMeetingDate === fMeetingDate){
+			if(data.id !== this.meeting.id && data.fMeetingDate === fMeetingDate){
 				this.updateMessage('A meeting with this date and time already exists');
 				noErrors = false;
 				return false;

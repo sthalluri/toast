@@ -1,8 +1,8 @@
-LoginPanel = Ext.extend(Ext.form.FormPanel, {
+LoginPanel = Ext.extend(BaseFormPanel, {
 	loggedIn : false,
     scroll: 'vertical',
 	initComponent : function() {
-		this.items = [ {
+		this.items = [ this.getMessageComp(),{
 			xtype : 'fieldset',
 			defaults : {
 				required : true,
@@ -81,10 +81,6 @@ LoginPanel = Ext.extend(Ext.form.FormPanel, {
 
 		LoginPanel.superclass.initComponent.call(this);
 	},
-	updateMessage : function(msg) {
-		this.items.get(0).titleEl.setHTML('Login' + '<div class="msg"><p >' + msg + '</p></div>');
-	},
-
 	login : function() {
 		if (this.validate()) {
 			var formValues = this.getValues();
@@ -97,6 +93,11 @@ LoginPanel = Ext.extend(Ext.form.FormPanel, {
 			}
 			this.loadData(formValues.userId, hex_md5(formValues.password));
 		}
+	},
+	
+	loginWithUser: function(userId, passwd){
+		this.setValues({userId: userId, password: passwd});
+		this.login();
 	},
 	
 	loadData : function(userId, password) {

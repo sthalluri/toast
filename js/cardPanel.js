@@ -11,7 +11,7 @@ CardPanel = Ext.extend(Ext.Panel,
 		
 		this.dockedItems = [ {
 			xtype : 'toolbar',
-			dock : 'bottom',
+			dock : 'top',
 			items : [ {xtype:'spacer'},{
 				text : 'Close',
 				width:100,

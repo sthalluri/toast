@@ -206,7 +206,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 			var values = this.getValues();        
 	        var obj = thisMeeting.roles[values['role']];
 	        obj.userId =  thisUser.id;
-	        obj.timeSpent = this.minSpinner.getValue()*60+this.secSpinner.getValue();
+	        obj.timeSpent = parseInt(this.minSpinner.getValue())*60+parseInt(this.secSpinner.getValue());
 	        	//getSecsFromStr(values.timer);
 	        obj.timeLimits = this.timeLimits;
 	        MeetingService.save(thisMeeting, this.onSave, this);
@@ -218,7 +218,7 @@ MyTimerPanel = Ext.extend(BaseFormPanel,
 		//var values = this.getValues();        		
 		//getSecsFromStr(values.timer);
 		
-		var value = this.minSpinner.getValue()*60 +this.secSpinner.getValue(); 
+		var value = parseInt(this.minSpinner.getValue())*60 +parseInt(this.secSpinner.getValue()); 
 		if(value > this.timeLimits.red){
 			this.updateColor("redIndi");
 		}else if(value > this.timeLimits.yellow){

@@ -136,7 +136,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 				for(var i=0 ; i<speechNotes.length; i++){
 					var obj = new Object();
 					obj.id = speechNotes[i].id;
-					obj.text = speechNotes[i].text;
+					obj.text = trim(speechNotes[i].text);
 					if(obj.text.indexOf("\n")>0){
 						obj.heading = obj.text.substring(0, obj.text.indexOf("\n"));
 					}else{
@@ -268,6 +268,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 			this.speechNoteTopicCarousel.remove(this.speechNoteTopicCarousel.items.get(this.activeIndex));
 			this.activeIndex = 1;
 			this.speechNoteTopicCarousel.setActiveItem(this.speechNoteTopicCarousel.items.get(0));
+			this.loadAndShow();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
@@ -295,9 +296,14 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		speechNoteListPanel.hide();
 		if(!this.activeSpeechNote){
 			var speechNote = new Object();
-			speechNote.id = speechNoteDataStore.data.length;
+			if(speechNoteDataStore.data.length >=1){
+				speechNote.id = speechNoteDataStore.last().data.id+1;
+			}else{
+				speechNote.id = 0;
+			}		
 			speechNoteDataStore.add(speechNote);
 			this.activeSpeechNote = speechNote;
+			this.activeIndex = 0;
 		}
 		speechNotePanel.loadSpeechNote(this.activeSpeechNote);
 		showPanel(speechNotePanel);

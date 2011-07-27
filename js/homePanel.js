@@ -37,8 +37,8 @@ HomePanel = Ext.extend(Ext.Panel,{
 					items : [ this.loginButton, this.registerButton]
 				} ];
 		
-		this.loginButton.hide();
-		this.registerButton.hide();
+		//this.loginButton.hide();
+		//this.registerButton.hide();
 		
 		HomePanel.superclass.initComponent.call(this);
 	},

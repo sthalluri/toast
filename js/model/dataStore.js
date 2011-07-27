@@ -42,7 +42,7 @@ var fillers= [];
 
 var nerveSetting ={
 		limit : 3,
-		timeLimit: 1
+		timeLimit: 6
 };
 
 var timeOptions = [
@@ -180,6 +180,9 @@ var memberStore = new Ext.data.JsonStore({
 				data = rec.data;
 			}
         }, this); 
+		if(data ==null){
+			data = new Object({id:'',firstName:'Not', lastName:'Available', name:'Not Available'});
+		}
 		return data;
    }
 });
@@ -286,6 +289,7 @@ var questionDataStore = new Ext.data.Store({
 });
 
 Ext.regModel('SpeechNote', {
+	idProperty: 'id',
     fields: ['id', 'text', 'cardIndex']
 });
 
@@ -431,4 +435,17 @@ function getMeetingBareBones(){
 	}
 	});
 	return meeting;
+}
+
+
+function truncateData() {
+	meetingStore.removeAll();
+	memberStore.removeAll();
+	memberDropDownStore.removeAll();
+	timerRoleStore.removeAll();
+	gramRoleStore.removeAll();
+	roleStore.removeAll();
+	questionDataStore.removeAll();
+	speechNoteDataStore.removeAll();
+	myLogDataStore.removeAll();
 }
