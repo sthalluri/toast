@@ -90,18 +90,17 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 					gramLog.fMeetingDate = meeting.fMeetingDate;
 					for ( var p in amCount) {
 						if (amCount[p] > 0) {
-							if(breakLength > 50){
-								gramLog.amCountStr += '<br/>';
-								breakLength = 0;
-							}else{
-								breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
-							}
-							
 							if (gramLog.amCountStr == 'None') {
 								gramLog.amCountStr = p+':&nbsp;'+amCount[p];
 							} else {
 								gramLog.amCountStr += ',&nbsp;'+p+ ':' + amCount[p];
 							}
+							if(breakLength > 30){
+								gramLog.amCountStr += '<br/>';
+								breakLength = 0;
+							}else{
+								breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
+							}							
 						}
 					}
 					gramLogs.push(gramLog);
@@ -122,16 +121,16 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 						timerLog.timeLimits.yellow = 0;
 						timerLog.timeLimits.green = 0;
 					}
-					timerLog.role = roleStore.getById(roles[j]).data.description;
+					timerLog.role = roleStore.getRole(roles[j]).description;
 					timerLogs.push(timerLog);
 					timerLog.fMeetingDate = meeting.fMeetingDate;
 					timerLog.colorCode = meetingListPanel.getColorCode(role.timeSpent, role.timeLimits);
 				}
 				if(role && role.userId == thisUser.id){ 
 					if(meetingLog.rolesStr == 'None'){
-						meetingLog.rolesStr = roleStore.getById(roles[j]).data.description;
+						meetingLog.rolesStr = roleStore.getRole(roles[j]).description;
 					}else{
-						meetingLog.rolesStr += ',<br/>'+roleStore.getById(roles[j]).data.description;
+						meetingLog.rolesStr += ',<br/>'+roleStore.getRole(roles[j]).description;
 					}
 				}
 			}

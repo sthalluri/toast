@@ -19,7 +19,7 @@ QuestionPanel = Ext.extend(BaseFormPanel,
         this.items= [
                      this.getMessageComp(),{
                 xtype: 'fieldset',
-    			title : 'Question:',
+    			title : 'Edit Question:',
                 defaults: {
                     required: true,
                     labelAlign: 'left',

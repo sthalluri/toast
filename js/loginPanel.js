@@ -1,6 +1,4 @@
 LoginPanel = Ext.extend(BaseFormPanel, {
-	loggedIn : false,
-    scroll: 'vertical',
 	initComponent : function() {
 		this.items = [ this.getMessageComp(),{
 			xtype : 'fieldset',
@@ -50,11 +48,7 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 			]
 		} ];
 
-		this.dockedItems = [ {
-			xtype : 'toolbar',
-			title:'Login',
-			dock : 'top',
-			items : [ {
+		this.guestButton = new Ext.Button({
 				text : 'Guest',
 				ui : 'round',
 				scope : this,
@@ -62,23 +56,26 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 					this.user = Ext.ModelMgr.create(mockUser, 'User');
 					loginPanel.loadModel(this.user);
 				}
-			}, {
+			});
+		
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			title:'Login',
+			dock : 'top',
+			items : [ this.guestButton, {
 				xtype : 'spacer'
 			} ]
 		} ];
 
 		// Base config options
 		Ext.apply(this, {
-			scroll : 'vertical',
 			standardSubmit : false,
-			title : 'Login',
-			autoRender : true,
-			floating : true,
-			modal : true,
-			centered : true,
-			hideOnMaskTap : false
+			title : 'Login'
 		});
 
+		if(!showGuestButton){
+			this.guestButton.hide();
+		}
 		LoginPanel.superclass.initComponent.call(this);
 	},
 	login : function() {
@@ -130,7 +127,13 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 			thisUser = data.returnVal;
 			this.hide();
 			showMeetingPanel();
-
+			
+			console.log('->'+data.successMessage);
+			if(data.successMessage){
+			    Ext.Msg.alert('Notice', data.successMessage+'<br/><br/>', this.emptyFn);
+				//alert(data.successMessage);
+			}
+			
 			loadMask.show();
 			// Loading all the datastores
 			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingDataLoad, this);
@@ -149,6 +152,10 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 		}
 	},
 
+	emptyFn: function(){
+		
+	},
+	
 	validate : function() {
 		var formValues = this.getValues();
 

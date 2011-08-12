@@ -57,7 +57,7 @@ NervousTestPanel = Ext.extend(Ext.Panel,
 	},
 	
 	promptMessage: function(){
-        Ext.Msg.alert(null, 'Hold the phone steady for '+ nerveSetting.timeLimit+' Seconds', this.pStartWatch);		
+        Ext.Msg.alert('Start Test', 'Hold the phone steady for <br/> '+ nerveSetting.timeLimit+' Seconds'+'<br/>', this.pStartWatch);		
 	},
 
 	pStartWatch: function(){

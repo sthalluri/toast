@@ -6,6 +6,19 @@
 	height: 200px
 }
 
+
+.heading {
+	font-family: tahoma;
+	padding: 10;
+	color: white;
+	font-variant: small-caps;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-shadow: 0.2em 0.2em .2em #333333;
+	font-size: 45;
+	font-weight: bold
+}
+
+
 .home h2 {
 	color: #071F52;
 	font-size: 1.3em;
@@ -344,6 +357,16 @@ div.notesIndex p {
 	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
 }
 
+.link-panel {
+	height: '50%';
+	width: 100%;
+	background-size: 100%;
+	font-size: 0.8em;
+	color: olive;
+	text-align: center;
+	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
+}
+
 div .logData {
 	padding: .3em;
 }
@@ -430,7 +453,7 @@ To get rid of the grey color take out the following
 }
 
 .x-toolbar-dark {
-	background: url(../images/toolbar13.jpg) black repeat-x;
+	background: url(../images/toolbarCustom.png) black repeat-x;
 }
 
 .x-toolbar.x-docked-bottom {

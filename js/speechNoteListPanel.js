@@ -3,7 +3,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	title:'TbTopic',
 	fullscreen: true,
     layout: 'card',    
-    height:'90%',
+    height:'100%',
 	initComponent : function() {
 
 	this.speechNoteTmpl = new Ext.Template([
@@ -14,12 +14,12 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	this.activeIndex =1;
 	this.base = {
 	    itemTpl: 	'<div class="legislator-list-item">'+
-	    			'<div class="legislator-tnail" style="background-image: url(./images/stickyBig.jpg)"></div>'+
+	    			'<div class="legislator-tnail" style="background-image: url(./images/Stickysmall.png)"></div>'+
 	    			'{heading}'+
 	    			'<div class="legislator-arrow" style="background-image: url(./images/chevron_circle.png)">&nbsp;</div></div>',
 	    grouped: false,
 	    indexBar: false,
-	    parentPanel:this,	   
+	    parentPanel:this,
 	    listeners: {
             selectionchange: {fn: this.updateDetailsPanel, scope: this}
         },

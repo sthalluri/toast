@@ -27,7 +27,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 		
 		this.items = [
 				{
-					html : '<div class="home-panel"><br/><br/><h2>Toast Buddy</h2><br/><br/><br/></div>'
+					html : '<div class="home-panel"><br/><br/><img width="100" height="100" src="images/toastbuddy256.png"/><p class="heading">ToastBuddy</p><br/><br/><br/></div>'
 				}, {
 					layout : 'hbox',
 					defaults : {
@@ -35,7 +35,10 @@ HomePanel = Ext.extend(Ext.Panel,{
 						style : 'margin: .5em;'
 					},
 					items : [ this.loginButton, this.registerButton]
-				} ];
+				},
+				{
+					html : '<div class="link-panel"><br/><br/><br/>Visit us at <a href="http://www.toastbuddy.com">ToastBuddy.com</a></p><br/><br/><br/></div>'
+				},];
 		
 		//this.loginButton.hide();
 		//this.registerButton.hide();

@@ -17,14 +17,14 @@ var aboutPages = [ {
 		xtype : 'htmlpage',
 		url : '/toast/help/overview.html'
 	},
-	image : 'js/ext/resources/themes/images/default/pictos/arrow_right.png'
+	image : 'images/pictos/arrow_right.png'
 }, {
 	title : 'Roles',
 	card : {
 		xtype : 'htmlpage',
 		url : '/toast/help/roles.html'
 	},
-	image : 'js/ext/resources/themes/images/default/pictos/arrow_right.png'
+	image : 'images/pictos/arrow_right.png'
 } ];
 
 
@@ -91,10 +91,6 @@ var timingStore={
 	evaluator : {green: 2*60, yellow: 2.5*60, red:3*60}	
 };
 
-//var serverUrl = 'http://10.0.0.4:8080';
-var serverUrl = 'http://localhost:8080';
-
-//var serverUrl = 'http://ec2-75-101-247-165.compute-1.amazonaws.com';
 
 //var urlStore = mockUrls;
 var urlStore = {
@@ -139,6 +135,7 @@ var meetingStore = new Ext.data.JsonStore({
 });
 
 Ext.regModel('Member', {
+	idProperty: 'id',
     fields: [
         {name: 'id',    type: 'int'},
         {name: 'userId',    type: 'string'},
@@ -200,6 +197,7 @@ var memberDropDownStore = new Ext.data.JsonStore({
 	});
 
 Ext.regModel('Role', {
+	idProperty: 'id',
     fields: [
         {name: 'id',     		type: 'string'},
         {name: 'description',   type: 'string'},
@@ -271,12 +269,25 @@ var roleStore = new Ext.data.JsonStore({
 				}
 			}
 		});
+   },
+   
+   getRole: function(id){
+	   var data = null;
+	   this.each(function(rec){
+			if(rec.data.id === id){
+				data = rec.data;
+				return data;
+			}
+	   }, this);
+	   return data;
    }
+   
 });
 
 
 
 Ext.regModel('Question', {
+	idProperty: 'id',
     fields: ['id', 'text', 'cardIndex']
 });
 
@@ -301,19 +312,6 @@ var speechNoteDataStore = new Ext.data.Store({
     autoDestroy : true
 });
 
-Ext.regModel('MyLogModel', {
-    fields: ['date', 'topic']
-});
-
-var myLogDataStore = new Ext.data.Store({
-    model: 'MyLogModel',
-    sorters: 'highlight',
-
-    getGroupString : function(record) {
-        return record.get('highlight')[0];
-    },
-    data: userLog
-});
 
 Ext.regModel('User', {
 	idProperty: 'id',
@@ -442,10 +440,9 @@ function truncateData() {
 	meetingStore.removeAll();
 	memberStore.removeAll();
 	memberDropDownStore.removeAll();
+	roleStore.removeAll();
 	timerRoleStore.removeAll();
 	gramRoleStore.removeAll();
-	roleStore.removeAll();
 	questionDataStore.removeAll();
 	speechNoteDataStore.removeAll();
-	myLogDataStore.removeAll();
 }

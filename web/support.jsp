@@ -18,15 +18,17 @@
                         </div>
                         <div class="grid_3" style="width: 70%">
                         	<h4 style="color: olive;">Customer Service</h4>
-                        	<form class="subscribe-form">
+                        	<h6 style="color: red;font-size: 1em"><%if(request.getAttribute("msg")!=null){out.println(request.getAttribute("msg"));}%></h6>
+                        	<form class="subscribe-form"  action="/toast/web/submit.jsp" >
                         		<table width="100%">
-                        			<tr><td>First Name:</td><td><input type="text"/></td></tr>
-                        			<tr><td>Last  Name:</td><td><input type="text"/></td></tr>
-                        			<tr><td>Short Message:</td><td><input type="text"/></td></tr>
-                        			<tr><td>Problem:</td><td><textarea rows="5" cols="50"></textarea></td></tr>
+                        			<tr><td>First Name:</td><td><input name="firstName" id="firstName" type="text"/></td></tr>
+                        			<tr><td>Last  Name:</td><td><input name="lastName" id="lastName" type="text"/></td></tr>
+                        			<tr><td>Email (*):</td><td><input name="email" id="email" type="text"/></td></tr>
+                        			<tr><td>Short Message:</td><td><input name="shortMessage" size="50" id="shortMessage" type="text"/></td></tr>
+                        			<tr><td>Problem(*):</td><td><textarea name="problem" rows="5" cols="50"></textarea></td></tr>
+                        			<tr><td colspan="2" ><input class="button2" type="submit" value="Submit"/></td></tr>
                         		</table>
                         	</form>
-                            <a href="#" class="link-1">Submit</a>
                         </div>
                     </div>
                 </div>

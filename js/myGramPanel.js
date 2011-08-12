@@ -10,10 +10,10 @@ MyGramPanel = Ext.extend(BaseFormPanel,
 				xtype : 'fieldset',
 				title : '<table width="100%"><tr><td width="90%" >Counters</td>'+
 						'<td align="right" width="50px">'
-						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/add_black.png"  onclick="myGramPanel.addCustom();" />'
+						+ '<img class="imageRight" src="images/pictos/add_black.png"  onclick="myGramPanel.addCustom();" />'
 						+ '</td>'+
 						'<td align="right" width="50px">'
-						+ '<img class="imageRight" src="js/ext/resources/themes/images/default/pictos/delete_black2.png"  onclick="myGramPanel.removeCustom();" />'
+						+ '<img class="imageRight" src="images/pictos/delete_black2.png"  onclick="myGramPanel.removeCustom();" />'
 						+ '</td>'+
 						'</tr></table>',
 				defaults : {

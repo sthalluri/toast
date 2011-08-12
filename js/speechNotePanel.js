@@ -19,7 +19,7 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
 
         this.items= [this.getMessageComp(),{
                 xtype: 'fieldset',
-    			title : 'Notes:',
+    			title : 'Edit Notes:',
                 defaults: {
                     required: true,
                     labelAlign: 'left',

@@ -1,7 +1,5 @@
 RegisterPanel = Ext.extend(BaseFormPanel, 
 {
-	loggedIn:false,
-	
 	initComponent : function() {
 		this.items = [ this.getMessageComp(),{
 			xtype : 'fieldset',
@@ -105,15 +103,8 @@ RegisterPanel = Ext.extend(BaseFormPanel,
 		// Base config options
 		Ext.apply(this, {
 			scroll : 'vertical',
-			url : 'mockResponse/loginSuccess.jsp',
 			standardSubmit : false,
-			title : 'Register',
-			autoRender: true,
-		    floating: true,
-		    modal: true,
-		    centered: true,
-		    hideOnMaskTap: false,
-		    height: 385
+			title : 'Register'
 		});
 		
 		RegisterPanel.superclass.initComponent.call(this);	

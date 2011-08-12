@@ -12,19 +12,14 @@
                         <div class="grid_3" style="width: 100px">
 	                        <div class="padding-right">
 	                            <ul class="list-3" style="color: black">
-	                                <li class="first" style="color: black"><a href="http://www.google.com">About</a></li>
-	                                <li><a href="#">Features</a></li>
-	                                <li><a href="#">Platforms</a></li>
+	                                <li class="first" style="color: black"><a  href="#about">About</a></li>
 	                            </ul>
 	                        </div>
                         </div>
                         <div class="grid_3" style="width: 70%">
                         	<h4 style="color: olive;">Web Buddy</h4>
-                            <figure class="p2"><img width="150px" height="150px"  src="./theme/green/images/mobile.jpg" alt=""></figure>
-                            <h6 style="font-size: 15px; color:gray;">This is a mobile version of the 
-                            app which helps you to play a role like timer, grammarian during the meeting and 
-                            help you organize your speech notes, table topics and plan better for your meetings and more.. </h6>
-                            <a href="#" class="link-1">Learn More</a>
+                            <h6 style="font-size: 15px; color:gray;">Coming Soon!! This is a web version which lets you access the application from the brownser and manage meetings, view logs, prepare
+                            cards and do more with the comfort of a keyboard. </h6>
                         </div>
                     </div>
                 </div>

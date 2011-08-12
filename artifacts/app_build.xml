@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="YUI Compressor" default="purge-src" basedir="../.">
+
+	<target name="clean" depends="-load.properties">
+		<delete dir="${build.dir}" quiet="true"/>
+	</target>
+
+	<target name="-load.properties">
+		<property file="artifacts/app.properties"/>
+	</target>
+
+	<target name="-init" depends="-load.properties">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<!-- invoke compressor -->
+ 	<target name="minify" depends="-init">
+		<!--${libs} is path to the downloaded jars -->
+		<property
+	       name="yui-compressor.jar"
+	       location="${file.reference.yuicompressor.jar}" />
+		<property
+	       name="yui-compressor-ant-task.jar"
+	       location="${file.reference.yui-compressor-ant-task.jar}" />
+	
+		<path id="task.classpath">
+			<pathelement location="${yui-compressor.jar}" />
+			<pathelement location="${yui-compressor-ant-task.jar}" />
+		</path>
+	
+		<!-- yui-compressor task definition -->
+        <taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+           <classpath refid="task.classpath" />
+        </taskdef>
+
+ 	    <delete dir="${build.dir}/js/global.js" />
+        <delete dir="${build.dir}/js/global-min.js" />
+
+	    <!-- concatenation of javascript -->
+	    <echo message="Building global javascript" />
+	    <concat destfile="${build.dir}/js/global.js" force="no">
+	       <!-- explicitly order js concat because ordering matters here -->
+
+		    <fileset dir="${src.dir}" includes="util.js" />
+			<fileset dir="${src.dir}" includes="clock.js" />
+			
+			<fileset dir="${src.dir}" includes="model/dataStore.js" />
+			
+			<fileset dir="${src.dir}" includes="md5.js" />
+			<fileset dir="${src.dir}" includes="validator.js" />
+			
+			<fileset dir="${src.dir}" includes="service/Service.js" />
+			<fileset dir="${src.dir}" includes="appDB.js" />
+			<fileset dir="${src.dir}" includes="baseFormPanel.js" />
+			
+			<fileset dir="${src.dir}" includes="homePanel.js" />
+			<fileset dir="${src.dir}" includes="htmlPage.js" />
+			<fileset dir="${src.dir}" includes="aboutList.js" />
+			<fileset dir="${src.dir}" includes="loginPanel.js" />
+			<fileset dir="${src.dir}" includes="registerPanel.js" />
+			<fileset dir="${src.dir}" includes="navPanel.js" />
+			<fileset dir="${src.dir}" includes="gramPanel.js" />
+			<fileset dir="${src.dir}" includes="myGramPanel.js" />
+			<fileset dir="${src.dir}" includes="myTimerPanel.js" />
+			<fileset dir="${src.dir}" includes="timeEditPanel.js" />
+			<fileset dir="${src.dir}" includes="timerPanel.js" />
+			<fileset dir="${src.dir}" includes="tableTopicPanel.js" />
+			<fileset dir="${src.dir}" includes="speechNoteListPanel.js" />
+			<fileset dir="${src.dir}" includes="speechNotePanel.js" />
+			<fileset dir="${src.dir}" includes="myLogPanel.js" />
+			<fileset dir="${src.dir}" includes="meetingListPanel.js" />
+			<fileset dir="${src.dir}" includes="meetingPanel.js" />
+			<fileset dir="${src.dir}" includes="clubMemberListPanel.js" />
+			<fileset dir="${src.dir}" includes="clubMemberAddPanel.js" />
+			<fileset dir="${src.dir}" includes="changePasswordPanel.js" />
+			<fileset dir="${src.dir}" includes="questionPanel.js" />
+			<fileset dir="${src.dir}" includes="nervousTestPanel.js" />
+			
+			<fileset dir="${src.dir}" includes="cardPanel.js" />
+			<fileset dir="${src.dir}" includes="timeLimitPanel.js" />
+			
+			<fileset dir="${src.dir}" includes="meetingActionPanel.js" />
+			<fileset dir="${src.dir}" includes="htmlPage.js" />
+			
+			<fileset dir="${src.dir}" includes="service/UserService.js" />
+			<fileset dir="${src.dir}" includes="service/MeetingService.js" />
+			<fileset dir="${src.dir}" includes="service/ClubService.js" />
+			
+			<fileset dir="${src.dir}" includes="index.js" />
+	    </concat>
+
+		<yui-compressor warn="false" charset="UTF-8" fromdir="${build.dir}" todir="${build.dir}">
+			<include name="js/global.js" />
+		</yui-compressor>
+	</target>
+
+	<target name="purge-src" depends="minify">
+       <echo message="Purging javascript and stylesheet sources" />
+       <move file="${build.dir}/js/global-min.js" tofile="${src.dir}/global-min.js"/>       
+   </target>
+
+   <target name="deploy" depends="purge-src">
+       <echo message="Copy resources to toastApp folder" />
+	   <delete dir="${toastApp.dir}" />
+	   <mkdir dir="${toastApp.dir}" />
+       <copy todir="${toastApp.dir}">
+            <fileset dir="." includes="js/global-min.js"/>
+        	<fileset dir="." includes="js/phonegap.0.9.6.min.js"/>
+    		<fileset dir="." includes="js/plugin/awake.js"/>
+			
+			<!--Sencha Stuff -->
+            <fileset dir="." includes="js/ext/sencha-touch.js"/>
+            <fileset dir="." includes="js/ext/resources/css/android.css"/>
+
+            <fileset dir="." includes="css/**/*.*"/>
+            <fileset dir="." includes="help/**/*.*"/>
+            <fileset dir="." includes="images/**/*.*"/>
+            <fileset dir="." includes="index.html"/>
+       </copy>
+   </target>
+
+   <target name="build.war" depends="-init">
+        <copy todir="${build.dir}/war">
+            <fileset dir="." includes="*.html"/>
+            <fileset dir="." includes="css/**/*.*"/>
+            <fileset dir="." includes="help/**/*.*"/>
+            <fileset dir="." includes="images/**/*.*"/>
+            <fileset dir="." includes="css/**/*.*"/>
+            <fileset dir="." includes="web/**/*.*"/>
+            <fileset dir="." includes="WEB-INF/**/*.*"/>
+
+            <fileset dir="." includes="js/global-min.js"/>
+        	<fileset dir="." includes="js/phonegap.0.9.6.min.js"/>
+			
+			<!--Sencha Stuff -->
+            <fileset dir="." includes="js/ext/sencha-touch.js"/>
+            <fileset dir="." includes="js/ext/resources/css/android.css"/>
+        </copy>
+   	
+	    <war destfile="${build.dir}/${war.name}" basedir="${build.dir}/war"/>
+	    <delete dir="${build.dir}/war" />
+   </target>
+
+   <target name="build.swar" depends="-init">
+        <copy todir="${build.dir}/swar">
+        	<fileset dir="C:\programs\apache-tomcat-7.0.2\wtpwebapps" includes="toastService/**/*.*"/>
+        </copy>
+   	
+	    <war destfile="${build.dir}/${swar.name}" basedir="${build.dir}/swar/toastService"/>
+	    <delete dir="${build.dir}/swar" />
+   </target>
+
+</project>

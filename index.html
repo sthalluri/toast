@@ -7,11 +7,19 @@
 	<link rel="stylesheet" href="js/ext/resources/css/android.css" type="text/css">
 	<link rel="stylesheet" href="css/mobi.css" type="text/css">
 	
+	<script type="text/javascript">
+		var showGuestButton = true;
+		var serverUrl = 'http://localhost:8080';
+		//var serverUrl = 'http://www.toastbuddy.com';
+		//var serverUrl = 'http://10.0.0.4:8080';
+	</script>
+	
 	<!-- PhoneGap and Plugins -->
-	<!-- 
+	<!--
 	<script type="text/javascript" charset="utf-8" src="js/phonegap.0.9.6.min.js"></script>
     <script type="text/javascript" src="js/plugin/awake.js"></script>
-	 -->
+    <script type="text/javascript" src="js/global-min.js"></script>
+	-->
 
 	<script type="text/javascript" src="js/util.js"></script>
 	<script type="text/javascript" src="js/clock.js"></script>
@@ -68,10 +76,13 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<img class="imageLeft" src="images/chevron_circle.png"/><div class="lgrey-list-header" >{fMeetingDate}</div>
+	<img class="imageLeft" src="images/chevron_circle.png"/>
+	<div class="lgrey-list-header" >
+		<table style="width: 90%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td></tr></table>
+	</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<table style="width:100%;"   class="contentTable" >
+		<table style="width:100%;"   class="contentTable">
 		<tr>
 			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
 		<tr/>

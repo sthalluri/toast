@@ -232,7 +232,7 @@ function backKeyDown() {
     goBack();
 }
 
-//<img width="30px" height="30px" src="js/ext/resources/themes/images/default/pictos/compose.png" onclick="{panel}.editTimeLimit();"/>
+//<img width="30px" height="30px" src="images/pictos/compose.png" onclick="{panel}.editTimeLimit();"/>
 
 function showMeetingPanel(){
 	homePanel.hide();

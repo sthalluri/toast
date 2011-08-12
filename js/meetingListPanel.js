@@ -218,18 +218,18 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 			var breakLength = 0;
 			for ( var p in amCount) {
 				if (amCount[p] > 0) {
-					if(breakLength > 50){
-						gramLog.amCountStr += '<br/>';
-						breakLength = 0;
-					}else{
-						breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
-					}
 					if (gramLog.amCountStr == 'None') {
 						gramLog.amCountStr = p + ':&nbsp;'
 								+ amCount[p];
 					} else {
 						gramLog.amCountStr += ',&nbsp;' + p
 								+ ':' + amCount[p];
+					}
+					if(breakLength > 30){
+						gramLog.amCountStr += '<br/>';
+						breakLength = 0;
+					}else{
+						breakLength += ( ',&nbsp;' + p+ ':' + amCount[p]).length;
 					}
 				}
 				gramLog.user = user.name;
@@ -243,8 +243,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		var timerLogs = new Array();
 		var roles = new Array();
 
-		for ( var j = 0; j < roleStore.data.length; j++) {
-			var role = roleStore.data.getAt(j).data;
+		for ( var j = 0; j < timerRoleStore.data.length; j++) {
+			var role = timerRoleStore.data.getAt(j).data;
 			roles[j] = role.id;
 		}
 
@@ -258,7 +258,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 				}
 				var timerLog = new Object();
 				timerLog.timeSpent = role.timeSpent;
-				timerLog.role = roleStore.getById(roles[j]).data.description;
+				timerLog.role = roleStore.getRole(roles[j]).description;
 				timerLog.user = user.name;
 				timerLog.colorCode = this.getColorCode(role.timeSpent, role.timeLimits);
 				timerLog.timeLimits = role.timeLimits;

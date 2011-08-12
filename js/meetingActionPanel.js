@@ -5,7 +5,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
 	scroll: 'vertical',
 	initComponent: function(){
         this.list = new Ext.List({
-            itemTpl: '<table width="100%"><tr><td><div class="page"><img width="20px" height="20px" src="js/ext/resources/themes/images/default/pictos/{image}"/>&nbsp;&nbsp;{title}</div></td><td align="right"></td></tr></table>',
+            itemTpl: '<table width="100%"><tr><td><div class="page"><img width="20px" height="20px" src="images/pictos/{image}"/>&nbsp;&nbsp;{title}</div></td><td align="right"></td></tr></table>',
             ui: 'round',
             grouped: true,
             indexBar: false,
@@ -97,9 +97,3 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
 });
 
 Ext.reg('meetingActionPanel', MeetingActionPanel);
-
-
-//{title:'Be a Timer',name:'new',card: {
-//     xtype: 'htmlpage',
-//     url: 'README'
-// }}

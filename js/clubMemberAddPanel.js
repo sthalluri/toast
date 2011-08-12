@@ -170,7 +170,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	
 	deleteConfirm : function()
 	{
-		Ext.Msg.confirm("Confirm delete user", "Deleting this user will disable the user and won't be accessible anymore. Do you want to continue?", this.deleteMember, this);
+		Ext.Msg.confirm("Confirm delete user", "This user won't be accessible anymore.Do you want to continue?<br/><br/>", this.deleteMember, this);
 	},
 	
 	deleteMember : function(opt)

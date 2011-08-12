@@ -72,3 +72,11 @@ Ext.util.Format.capitalize = (function(){
     };
 })();
 
+function isToday(date){
+	var today = new Date();
+	if(today.format('F j, Y') == date.format('F j, Y')){
+		return '<p><img class="imageLeft" src="images/star.png"/>Today</p>';
+	}else{
+		return '';
+	}
+}
