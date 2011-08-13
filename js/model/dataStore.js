@@ -12,17 +12,31 @@ var mockUser={
 };
 
 var aboutPages = [ {
-	title : 'Overview',
+	title : 'About',
 	card : {
 		xtype : 'htmlpage',
 		url : '/toast/help/overview.html'
 	},
 	image : 'images/pictos/arrow_right.png'
 }, {
-	title : 'Roles',
+	title : 'About Roles',
 	card : {
 		xtype : 'htmlpage',
 		url : '/toast/help/roles.html'
+	},
+	image : 'images/pictos/arrow_right.png'
+} ,{
+	title : 'Roles CheckList',
+	card : {
+		xtype : 'htmlpage',
+		url : '/toast/help/checklist.html'
+	},
+	image : 'images/pictos/arrow_right.png'
+} ,{
+	title : 'Other',
+	card : {
+		xtype : 'htmlpage',
+		url : '/toast/help/other.html'
 	},
 	image : 'images/pictos/arrow_right.png'
 } ];

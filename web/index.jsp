@@ -9,9 +9,17 @@
         	<div class="inner">
             	<div class="container_12">
                 	<div class="wrapper">
-                    	<div class="grid_3" style="width: 20%">
+                    	<div class="grid_3">
                         	<h3>Welcome!</h3>
                             <h6>Your digital help for <b style="color: olive;">ToastMasters</b>.<br></h6>
+                            <ul class="list-2">
+                                <li class="first">Track all your club activity</li>
+                                <li>Flexibile Timer</li>
+                                <li>amCounter</li>
+                                <li>Create flash cards for speech and table topics</li>
+                                <li>Check your neverousness</li>
+                                <li><a href="mobile.jsp">More..</a></li>
+                            </ul>
                         </div>
                         <div class="grid_3">
                         	<h4 style="color: olive;"><a href="mobile.jsp" style="text-decoration: none">Mobile Buddy</a></h4>

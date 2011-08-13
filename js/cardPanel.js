@@ -38,6 +38,9 @@ CardPanel = Ext.extend(Ext.Panel,
 	},
 	
 	updateColor: function(colourClass){
+		if(!colourClass){
+			colourClass = 'silverIndi';
+		}
 		if(Ext.getCmp('colorCardDiv').el){
 			Ext.getCmp('colorCardDiv').el.dom.innerHTML='<div class='+colourClass+' style="width:900px;height:900px"></div>';
 		}

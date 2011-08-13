@@ -1,6 +1,8 @@
 <head>
     <title>ToastBuddy</title>
     <meta charset="utf-8">
+	
+	<LINK REL="SHORTCUT ICON" HREF="/toast/images/toastbuddy72.ico">
 
     <link rel="stylesheet" href="./theme/green/css/reset.css" type="text/css" media="screen">
     <link rel="stylesheet" href="./theme/green/css/style.css" type="text/css" media="screen">

@@ -183,30 +183,38 @@
 
 .redIndi {
 	background-color: red;
-	font-size: 1em;
-	vertical-align: text-top;
+	position: relative;
+	overflow: hidden;
+	z-index: 5;
+	opacity: 0.93;
+	filter:alpha(opacity=90);
 }
 
 .yellowIndi {
 	background-color: #CCCC00;
-	font-size: 1em;
-	vertical-align: text-top;
+	position: relative;
+	overflow: hidden;
+	z-index: 5;
+	opacity: 0.93;
+	filter:alpha(opacity=90);
 }
 
 .greenIndi {
 	background-color: green;
-	font-size: 1em;
-	vertical-align: text-top;
+	position: relative;
+	overflow: hidden;
+	z-index: 5;
+	opacity: 0.93;
+	filter:alpha(opacity=90);
 }
 
 .silverIndi {
 	background-color: #bababa;
-	padding: .3em;
-	font-weight: bold;
-	font-size: 1em;
 	position: relative;
 	overflow: hidden;
-	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0
+	z-index: 5;
+	opacity: 0.93;
+	filter:alpha(opacity=90);
 }
 
 table.contentTable {

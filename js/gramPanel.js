@@ -122,7 +122,7 @@ GramPanel = Ext.extend(BaseFormPanel,
 
 	
 	addCustom: function(){
-            this.msgPrompt = Ext.Msg.prompt(null, "Enter new Counter Name", this.onCustom);
+            this.msgPrompt = Ext.Msg.prompt("Enter new Counter Name", "", this.onCustom);
 	},
 
 	removeCustom: function(){

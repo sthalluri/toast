@@ -12,6 +12,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 			text : 'Register',
 			width : 150,
 			handler : function() {
+				showPanel(registerPanel);
 				registerPanel.initScreen();
 			}
 		}) ;
@@ -21,7 +22,7 @@ HomePanel = Ext.extend(Ext.Panel,{
 			text : 'Login',
 			width : 150,	
 			handler : function() {
-				loginPanel.show();
+				showPanel(loginPanel);
 			}
 		});
 		

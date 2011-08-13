@@ -290,7 +290,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	},
 
 	showCard: function(){
-		this.hide();
+		//this.hide();
 		cardPanel.showCard(this, this.timeLimits.className);
 	},
 

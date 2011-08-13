@@ -644,15 +644,18 @@ h6 {
 }
 
 .list-2 li {
+	font-size: 1.2em;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: olive;
 	line-height: 1.23em;
-	padding: 0 0px 7px 26px;
+	padding: 5px 0px 5px 26px;
 	background: url(../images/list1_marker.png) 0 5px no-repeat;
 }
 
 .list-2 li a {
-	font-size: 22px;
+	font-size: 1.2em;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color: #fdffcd;
+	color: olive;
 	display: inline-block;
 	line-height: 1.23em;
 }

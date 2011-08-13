@@ -10,24 +10,6 @@ RegisterPanel = Ext.extend(BaseFormPanel,
 				labelWidth : '40%'
 			},
 			items : [ 
-			/*
-			{
-				xtype : 'textfield',
-				name : 'clubId',
-				label : 'Club ID',
-				placeHolder: 'Club ID',
-				useClearIcon : true,
-				autoCapitalize : false,
-				required:false
-			},{
-				xtype : 'textfield',
-				name : 'clubPasscode',
-				label : 'Passcode',
-				placeHolder: 'Club Passcode',
-				useClearIcon : false,
-				required:false
-			},
-			*/
 			{
 				xtype : 'textfield',
 				name : 'firstName',
@@ -174,7 +156,10 @@ RegisterPanel = Ext.extend(BaseFormPanel,
 	initScreen: function(){
 		this.reset();
 		this.updateMessage('');
-		this.show();
+	},
+	
+	goBack: function(){
+		this.cancel();
 	}
 });
 

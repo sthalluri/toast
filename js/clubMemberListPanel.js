@@ -46,8 +46,8 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 	    	scope: this,
 	    	handler: function(){
 	    		homeTabPanel.hide();
-	    		showPanel(clubMemberAddPanel);
 	    		clubMemberAddPanel.resetFields();
+	    		showPanel(clubMemberAddPanel);
 	    	}
         }];
         buttonGroup1.push({xtype:'spacer'});
@@ -68,9 +68,9 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
     },
     
     onSelect: function(sel, record){
-    		homeTabPanel.hide();
-    		showPanel(clubMemberAddPanel);
-        	clubMemberAddPanel.populateUserDetails(record, "list");
-        	this.listPanel.getSelectionModel().deselectAll();
+		homeTabPanel.hide();
+		showPanel(clubMemberAddPanel);
+    	clubMemberAddPanel.populateUserDetails(record, "list");
+    	this.listPanel.getSelectionModel().deselectAll();
 	}
 });

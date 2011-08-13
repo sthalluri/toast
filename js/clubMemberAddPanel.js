@@ -162,7 +162,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			}
 			if(formValues.id === thisUser.id+''){
 				formValues.password = thisUser.password;
-				//formValues.accessKey = this.user.accessKey;
+				formValues.accessKey = thisUser.accessKey;
 			}
 			UserService.createClubMember(formValues, this.onOperation, this);
 		}
@@ -251,6 +251,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	resetFields : function()
 	{
 		this.reset();
+		this.user = null;
 		this.enable();
 		this.updateMessage('');
 		this.deleteButton.hide();

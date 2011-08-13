@@ -3,27 +3,28 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 		this.items = [ this.getMessageComp(),{
 			xtype : 'fieldset',
 			defaults : {
-				required : true,
 				labelAlign : 'left',
-				labelWidth : '60%'
+				labelWidth : '40%'
 			},
 			items : [ {
 				xtype : 'textfield',
 				name : 'userId',
 				placeHolder : 'Email ID',
 				useClearIcon : true,
-				autoCapitalize : false
+				autoCapitalize : false,
+				required:true
 			}, {
 				placeHolder : 'Password',
 				xtype : 'passwordfield',
 				name : 'password',
-				useClearIcon : false
+				useClearIcon : false,
+				required:true
 			}, {
-				xtype : 'togglefield',
+				xtype : 'checkboxfield',
 				name : 'rememberMe',
-				label : 'Remember Me'
+				label : 'Remember Me',
+				value: 1
 			},
-			
 			{
 				layout:'hbox',
 				flex:1,
@@ -44,7 +45,6 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 				]
 
 			}
-
 			]
 		} ];
 
@@ -69,8 +69,8 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 
 		// Base config options
 		Ext.apply(this, {
+			scroll : 'vertical',
 			standardSubmit : false,
-			title : 'Login'
 		});
 
 		if(!showGuestButton){
@@ -171,6 +171,10 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 		return true;
 	},
 
+	goBack: function(){
+		this.cancel();
+	},
+	
 	cancel : function() {
 		this.updateMessage('');
 		this.reset();
