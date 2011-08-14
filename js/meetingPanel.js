@@ -316,8 +316,9 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		if (data.success) {
 			meetingStore.loadAndFormat(data.returnVal.rows);
 			closePanel(this);
-			if(thisMeeting){
-				meetingListPanel.showMeeting(thisMeeting);
+			if(this.meeting){
+				var meeting = meetingStore.getMeeting(this.meeting.id);
+				meetingListPanel.showMeeting(meeting);
 			}else{
 		    	meetingListPanel.listMode();
 			}
@@ -427,7 +428,9 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 	onDelete:function(data){
 		if (data.success) {
 			thisMeeting = null;
-			this.goBack();
+			this.meeting = null;
+			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingListDataLoad, this);
+			//this.goBack();
 		} else {
 			this.updateMessage(data.errorMessage);
 		}

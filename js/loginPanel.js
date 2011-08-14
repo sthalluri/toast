@@ -92,8 +92,8 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 		}
 	},
 	
-	loginWithUser: function(userId, passwd){
-		this.setValues({userId: userId, password: passwd});
+	loginWithUser: function(userId, passwd, rMe){
+		this.setValues({userId: userId, password: passwd, rememberMe:rMe});
 		this.login();
 	},
 	
@@ -128,7 +128,6 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 			this.hide();
 			showMeetingPanel();
 			
-			console.log('->'+data.successMessage);
 			if(data.successMessage){
 			    Ext.Msg.alert('Notice', data.successMessage+'<br/><br/>', this.emptyFn);
 				//alert(data.successMessage);

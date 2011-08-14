@@ -150,7 +150,7 @@ RegisterPanel = Ext.extend(BaseFormPanel,
 		this.hide();
 		this.updateMessage('Confirm your password');
 		//showMeetingPanel();
-		loginPanel.loginWithUser(thisUser.userId, this.getValues().password);
+		loginPanel.loginWithUser(thisUser.userId, this.getValues().password, 1);
 	},
 	
 	initScreen: function(){

@@ -51,5 +51,3 @@ CardPanel = Ext.extend(Ext.Panel,
 		this.parentPanel.show();
 	}
 });
-
-		

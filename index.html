@@ -76,22 +76,28 @@
 <body>
 
 <div id="meeting-list" class="x-hidden-display">
-	<img class="imageLeft" src="images/chevron_circle.png"/>
 	<div class="lgrey-list-header" >
-		<table style="width: 90%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td></tr></table>
+		<table style="width: 95%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td></tr></table>
 	</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
-		<table style="width:100%;"   class="contentTable">
-		<tr>
-			<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
-		<tr/>
-		<tr >
-			<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
-		<tr>
-		<tr>
-			<td class="highlight" width="40%">Location:</td><td colSpan="3">{[values.location? values.location:"Not Available"]}</td>
-		</tr>
+		<table style="width:100%;">
+			<tr>
+				<td>
+					<table style="width:100%;"   class="contentTable">
+					<tr>
+						<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
+					<tr/>
+					<tr >
+						<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
+					<tr>
+					<tr>
+						<td class="highlight" width="40%">Location:</td><td colSpan="3">{[values.location? values.location:"Not Available"]}</td>
+					</tr>
+					</table>
+				</td>
+				<td width="5%"><img class="imageLeft" src="images/chevron_circle.png"/></td>
+			</tr>
 	</table>
 	</div>
 	</div>

@@ -58,15 +58,26 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 			}
 		});
 		
+        this.list = new Ext.List(Ext.apply(this.logBase, {
+       		fullscreen: false
+			}));
+        
+		this.pan =  new Ext.Panel({
+		    fullscreen: true,
+		    items: [this.list,{html:'<div class="x-form-fieldset-instructions" ><b>Add a meeting using the \'+\' button above</b></div>'}]
+		});		
+
+        this.pan.on('activate', function(){
+            this.list.getSelectionModel().deselectAll();
+        }, this);
+
 		
 	    this.meetingCarousel = new Ext.Panel({
 	    	activeItem:0,
 	    	height:'100%',	
         	layout: 'card',
-	    	items:[
-	    	    new Ext.List(Ext.apply(this.logBase, {
-	               fullscreen: false
-	           	})),
+	    	items:[this.pan
+	    	    ,
 	           	this.meetingDetailTabPanel
 	    	]
 	    });
@@ -189,9 +200,11 @@ MeetingListPanel = Ext.extend(Ext.Panel,
            	//navPanel.show();
        	}else{
         		//this.meetingDetailPanel.setActiveItem(this.meetingDetailPanel.items.get(0), { type: 'slide', reverse: true });		            		
-	    		this.listMode();
+	    	this.listMode();
        	}
+       	
 	},
+	
 	
 	startMeeting : function(meetingId) {
 		for(var i=0 ; i<meetingStore.data.length; i++){

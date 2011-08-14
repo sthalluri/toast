@@ -150,6 +150,9 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		{
 		}
     	//closePanel();
+    	if(this.sourcePanel){
+    		showPanel(this.sourcePanel);
+    	}
 	},
 
 	saveClubMember : function()
@@ -248,8 +251,9 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 //		changePasswordPanel.show();
 	},
 	
-	resetFields : function()
+	resetFields : function(srcPanel)
 	{
+		this.sourcePanel = srcPanel;
 		this.reset();
 		this.user = null;
 		this.enable();

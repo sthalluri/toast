@@ -141,6 +141,13 @@ TimerPanel = Ext.extend(BaseFormPanel,
             handler: this.editTime
         });
 
+		this.addMemeberButton = new Ext.Button({
+			scope: this,
+            text: 'Add New Member',
+            width:100,
+            handler: this.addNewMember
+        });
+
         this.items= [this.getMessageComp(),
                      this.formFields,
 				{
@@ -158,7 +165,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 					flex:1,
                	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
 					items:[
-							this.editTimeButton
+							this.editTimeButton, this.addMemeberButton
 					       ]
 
 				}
@@ -326,6 +333,11 @@ TimerPanel = Ext.extend(BaseFormPanel,
     updateFromTimeEdit: function(time){
         this.timerPanelClock.setSecsFromStr(time);
         this.updateTime();
+    },
+    
+    addNewMember: function(){
+    	clubMemberAddPanel.resetFields(timerPanel);
+		showPanel(clubMemberAddPanel);
     }
 });
 

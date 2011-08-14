@@ -44,8 +44,17 @@ GramPanel = Ext.extend(BaseFormPanel,
 			        }
 			    }
 		});
-
+		
+		this.addMemeberButton = new Ext.Button({
+			scope: this,
+            text: 'Add New Member',
+            width:100,
+            handler: this.addNewMember
+        });
+		
 		this.loadItems();
+
+		
 
         this.dockedItems =[
             {
@@ -89,7 +98,7 @@ GramPanel = Ext.extend(BaseFormPanel,
 					labelAlign : 'left',
 					labelWidth : '40%'
 				},
-				items : [ this.spinners ],
+				items : [ this.spinners],
 				instructions:'*Click <b>Done</b> before selecting next role.'
 			});
 		
@@ -102,7 +111,15 @@ GramPanel = Ext.extend(BaseFormPanel,
 			},
 			items : [ this.roleSelector, 
 			          this.userSelector]
-		},this.spinnerFieldSet];
+		},this.spinnerFieldSet,{
+			layout:'hbox',
+			flex:1,
+       	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+			items:[
+					this.addMemeberButton
+			       ]
+
+		} ];
 	},
 	
 	
@@ -277,6 +294,11 @@ GramPanel = Ext.extend(BaseFormPanel,
         	this.msgPrompt.hide();
     	}
     	closePanel(this);
+    },
+    
+    addNewMember: function(){
+    	clubMemberAddPanel.resetFields(gramPanel);
+		showPanel(clubMemberAddPanel);
     }
 
 });

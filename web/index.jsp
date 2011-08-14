@@ -20,10 +20,15 @@
                                 <li>Check your neverousness</li>
                                 <li><a href="mobile.jsp">More..</a></li>
                             </ul>
+                            <br/>
+							<a href="http://market.android.com/search?q=pub:ToastBuddy">
+							  <img src="http://www.android.com/images/brand/45_avail_market_logo1.png"
+							       alt="Available in Android Market" />
+							</a>
                         </div>
                         <div class="grid_3">
                         	<h4 style="color: olive;"><a href="mobile.jsp" style="text-decoration: none">Mobile Buddy</a></h4>
-                            <figure class="p2"><img width="350px" height="350px"  src="./theme/green/images/screenCaps/meetingAction.png" alt=""></figure>
+                            <figure class="p2"><img width="225px" height="350px"  src="./theme/green/images/screenCaps/meetingAction.png" alt=""></figure>
                             <h6 style="font-size: 15px; color:gray;">This is a mobile version of the 
                             app which helps you to play a role like timer, grammarian during the meeting and 
                             help you organize your speech notes, table topics and plan better for your meetings and more.. </h6>

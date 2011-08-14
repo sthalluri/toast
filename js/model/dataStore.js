@@ -145,6 +145,16 @@ var meetingStore = new Ext.data.JsonStore({
 			}
 		}
 		this.loadData(records);
+	},
+	getMeeting: function(id){
+	   var data = null;
+	   this.each(function(rec){
+			if(rec.data.id === id){
+				data = rec.data;
+				return data;
+			}
+	   }, this);
+	   return data;
 	}
 });
 

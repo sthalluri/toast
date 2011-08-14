@@ -30,7 +30,7 @@
                         	<h4 style="color: olive;"><a name="features">Features</a></h4>
                         	<h5 style="color: olive;">Organize Meetings</h5>
                             <table><tr><td></table><img width="350px" height="350px"  src="./theme/green/images/screenCaps/meetingList.png" alt=""></td>
-                            <td><img width="350px" height="350px"  src="./theme/green/images/screenCaps/meetingAction.png" alt=""></td></table>
+                            <td><img width="200px" height="350px"  src="./theme/green/images/screenCaps/meetingAction.png" alt=""></td></table>
                             <h6 style="font-size: 15px; color:gray;">You can create current meetings and plan for the future meetings. There will be a log 
                             of all the meetings and you can always come back to see what happened during the meetings. You can add a new meeting using the '+' icon
                             at the top or browse the previous or current meeting by clicking on the specific meeting.</h6>
