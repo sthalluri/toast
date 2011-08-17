@@ -75,6 +75,7 @@ NavPanel = Ext.extend(Ext.Panel,
 
 	viewMyProfile : function()
 	{
+		clubMemberAddPanel.resetFields(navPanel);
 		clubMemberAddPanel.populateUserDetails(thisUser, "profile");
     	homeTabPanel.hide();
 		showPanel(clubMemberAddPanel);

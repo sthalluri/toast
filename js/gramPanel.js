@@ -246,7 +246,9 @@ GramPanel = Ext.extend(BaseFormPanel,
 	        var selectedRole = values['role'];
 	        
 	        var roleObj = thisMeeting.roles[selectedRole];
-	        roleObj.userId = selectedUser;
+	        if(roleObj){
+		        roleObj.userId = selectedUser;
+	        }
 	        
 	        if(!thisMeeting.gramLog){
 	        	thisMeeting.gramLog = new Object();

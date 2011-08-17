@@ -165,7 +165,16 @@ TimerPanel = Ext.extend(BaseFormPanel,
 					flex:1,
                	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
 					items:[
-							this.editTimeButton, this.addMemeberButton
+							this.editTimeButton
+					       ]
+
+				},
+				{
+					layout:'hbox',
+					flex:1,
+               	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+					items:[
+							this.addMemeberButton
 					       ]
 
 				}
