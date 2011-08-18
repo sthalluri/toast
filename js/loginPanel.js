@@ -126,7 +126,7 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 			this.loggedIn = true;
 			thisUser = data.returnVal;
 			this.hide();
-			showMeetingPanel();
+			showNavPanel();
 			
 			if(data.successMessage){
 			    Ext.Msg.alert('Notice', data.successMessage+'<br/><br/>', this.emptyFn);

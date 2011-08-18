@@ -74,7 +74,7 @@
 .imageLeft {
 	float: left;
 	margin: 0.2em;
-	height: 1.2em;
+	height: 1.8em;
 }
 
 .actionImageGo {
@@ -230,9 +230,10 @@ table.contentTable td {
 }
 
 td.label {
-	font-size: 0.8em;
+	font-size: 0.7em;
 	text-align: center;
 	padding: 0.5em;
+	text-shadow: rgba(0.25, 255, 255, 0.25) 0 0.08em 0;
 }
 
 .notes {
@@ -424,6 +425,7 @@ To get rid of the grey color take out the following
 	border-bottom: 1px solid #666;
 	font-weight: bold;
 	font-size: 0.8em;
+	-webkit-border-radius: .5em;
 	padding: 0.3em 1.02em;
 	text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 	-webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
@@ -447,12 +449,6 @@ To get rid of the grey color take out the following
 .x-list-header {
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
-}
-
-.x-list .x-list-item {
-	position: relative;
-	padding: 0.1em 0.1em 0.1em 0.2em;
-	min-height: 2.6em;
 }
 
 .x-form .x-panel-body {
@@ -523,5 +519,25 @@ Use this to change the color of the confirm button
 	border: 0.1em solid #404040;
 	border-top-color: #374e02;
 }
-
 */
+
+
+.x-list-round .x-list-group-items > :first-child, .x-list-round.x-list-flat .x-list-parent > :first-child {
+	margin: .2em .2em 0;
+}
+
+.x-list-round .x-list-group-items > :last-child, .x-list-round.x-list-flat .x-list-parent > :last-child {
+	margin: 0 0.2em 0.2em;
+}
+
+.x-list-round .x-list-group-items > *, .x-list-round.x-list-flat .x-list-parent > * {
+	margin: 0 .2em;
+}
+
+.x-list .x-list-item {
+	position: relative;
+	padding: 0.1em 0.1em 0.1em 0.1em;
+	min-height: 2.6em;
+}
+
+

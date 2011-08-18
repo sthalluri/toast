@@ -26,6 +26,15 @@ HomePanel = Ext.extend(Ext.Panel,{
 			}
 		});
 		
+		this.setupButton = new Ext.Button({
+			ui : 'confirm',
+			text : 'Setup',
+			width : 150,	
+			handler : function() {
+				showPanel(registerPanel);
+			}
+		});
+		
 		this.items = [
 				{
 					html : '<div class="home-panel"><br/><br/><img width="100" height="100" src="images/toastbuddy256.png"/><p class="heading">ToastBuddy</p><br/><br/><br/></div>'
@@ -36,22 +45,34 @@ HomePanel = Ext.extend(Ext.Panel,{
 						style : 'margin: .5em;'
 					},
 					items : [ this.loginButton, this.registerButton]
+				}, {
+					layout : 'vbox',
+					defaults : {
+						style : 'margin: .5em;',
+						width: 300
+					},
+					items : [this.setupButton]
 				},
 				{
 					html : '<div class="link-panel"><br/><br/><br/>Visit us at <a href="http://www.toastbuddy.com">ToastBuddy.com</a></p><br/><br/><br/></div>'
-				},];
-		
-		//this.loginButton.hide();
-		//this.registerButton.hide();
-		
+				},];		
 		HomePanel.superclass.initComponent.call(this);
 	},
 	
 
 	showButtons:function(){
-		this.loginButton.show();
-		this.registerButton.show();
+        if(loginRequired){
+			this.loginButton.show();
+			this.registerButton.show();
+			this.setupButton.hide();
+		}
 	},
 
+	
+	localMode:function(){
+		this.loginButton.hide();
+		this.registerButton.hide();
+		this.setupButton.show();
+	},
 	
 });

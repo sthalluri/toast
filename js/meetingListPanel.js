@@ -31,6 +31,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    parentPanel:this,
 		    sorters: 'date',
 		    singleSelect:true,
+            ui: 'round',
 		    listeners: {
                 selectionchange: {fn: this.onSelect, scope: this}
             },
@@ -203,19 +204,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    	this.listMode();
        	}
        	
-	},
-	
-	
-	startMeeting : function(meetingId) {
-		for(var i=0 ; i<meetingStore.data.length; i++){
-			var meeting = meetingStore.getAt(i).data;
-			if(meeting.id==meetingId){
-				thisMeeting = meeting;
-			}
-		}
-		thisMeeting.inProgress = true;
-		this.hide();
-		roleListPanel.show();
 	},
 	
 	getGramLog : function(meeting) {

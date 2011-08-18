@@ -270,6 +270,97 @@ var roleStore = new Ext.data.JsonStore({
    autoLoad : false,
    autoDestroy : true,
    reload : function() {
+	   
+
+	   var roles = [ {
+				"id" : "evaluator1",
+				"description" : "Evaluator for First Speech",
+				"trackTime" : true
+			}, {
+				"id" : "evaluator2",
+				"description" : "Evaluator for Second Speech",
+				"trackTime" : true
+			}, {
+				"id" : "evaluator3",
+				"description" : "Evaluator for Third Speech",
+				"trackTime" : true
+			}, {
+				"id" : "generalEvaluator",
+				"description" : "General Evaluator",
+				"trackTime" : false
+			}, {
+				"id" : "grammarian",
+				"description" : "Grammarian",
+				"trackTime" : false
+			}, {
+				"id" : "speaker1",
+				"description" : "First Speech",
+				"trackTime" : true
+			}, {
+				"id" : "speaker2",
+				"description" : "Second Speech",
+				"trackTime" : true
+			}, {
+				"id" : "speaker3",
+				"description" : "Third Speech",
+				"trackTime" : true
+			}, {
+				"id" : "tableTopics",
+				"description" : "Table Topics",
+				"trackTime" : false
+			}, {
+				"id" : "timer",
+				"description" : "Timer",
+				"trackTime" : false
+			}, {
+				"id" : "toastMaster",
+				"description" : "Toast Master",
+				"trackTime" : false
+			}, {
+				"id" : "ttResponse1",
+				"description" : "Table Topic Response1",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse2",
+				"description" : "Table Topic Response2",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse3",
+				"description" : "Table Topic Response3",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse4",
+				"description" : "Table Topic Response4",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse5",
+				"description" : "Table Topic Response5",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse6",
+				"description" : "Table Topic Response6",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse7",
+				"description" : "Table Topic Response7",
+				"trackTime" : true
+			}, {
+				"id" : "ttResponse8",
+				"description" : "Table Topic Response8",
+				"trackTime" : true
+			} ];
+
+		roleStore.loadData(roles);
+		var defaultSelect = { id : '0',     description : 'Select...'};
+		roleStore.insert(0,Ext.ModelMgr.create( defaultSelect, 'Role'));
+		
+		//Load the toaststore
+		timerRoleStore.reload(roles);
+
+		//Load the toaststore
+		gramRoleStore.reload(roles);
+
+	   /*
 		Ext.Ajax.request({
 			url : urlStore.clubUrl + '/clubRoleList',
 			params : {
@@ -293,6 +384,8 @@ var roleStore = new Ext.data.JsonStore({
 				}
 			}
 		});
+		*/
+	   
    },
    
    getRole: function(id){

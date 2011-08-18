@@ -92,8 +92,8 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 
 	loadAndShow: function(){
 		if(thisMeeting.roles.tableTopics){
-			var contentId = thisMeeting.roles.tableTopics.id;
-			questionDataStore.contentId = contentId;
+			var contentId = thisMeeting.id+1; //thisMeeting.roles.tableTopics.id;
+			questionDataStore.contentId =  contentId;
 			MeetingService.getContent(contentId, this.onTableTopicsLoad, this);
 		}else{
 			MeetingService.getContent(0, this.onTableTopicsLoad, this);

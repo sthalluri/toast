@@ -58,6 +58,7 @@
 			<fileset dir="${src.dir}" includes="aboutList.js" />
 			<fileset dir="${src.dir}" includes="loginPanel.js" />
 			<fileset dir="${src.dir}" includes="registerPanel.js" />
+			<fileset dir="${src.dir}" includes="setupPanel.js" />
 			<fileset dir="${src.dir}" includes="navPanel.js" />
 			<fileset dir="${src.dir}" includes="gramPanel.js" />
 			<fileset dir="${src.dir}" includes="myGramPanel.js" />
@@ -86,6 +87,18 @@
 			<fileset dir="${src.dir}" includes="service/MeetingService.js" />
 			<fileset dir="${src.dir}" includes="service/ClubService.js" />
 			
+			<fileset dir="${src.dir}" includes="service/local/UserDAO.js" />
+			<fileset dir="${src.dir}" includes="service/local/ClubDAO.js" />
+			<fileset dir="${src.dir}" includes="service/local/UserService.js" />
+			<fileset dir="${src.dir}" includes="service/local/ClubService.js" />
+
+			<fileset dir="${src.dir}" includes="service/local/MeetingDAO.js" />
+			<fileset dir="${src.dir}" includes="service/local/MeetingService.js" />
+			<fileset dir="${src.dir}" includes="service/local/MeetingRoleContentDAO.js" />
+			<fileset dir="${src.dir}" includes="service/local/ClubService.js" />
+			<fileset dir="${src.dir}" includes="service/local/UserService.js" />
+			<fileset dir="${src.dir}" includes="service/local/ClubService.js" />
+	    			
 			<fileset dir="${src.dir}" includes="index.js" />
 	    </concat>
 

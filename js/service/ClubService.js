@@ -46,4 +46,3 @@ ClubServiceImpl = Ext.extend(Service, {
     }
 });
 
-ClubService = new ClubServiceImpl();

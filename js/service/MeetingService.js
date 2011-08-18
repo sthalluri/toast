@@ -134,5 +134,3 @@ MeetingServiceImpl = Ext.extend(Service, {
 		loadMask.show();
 	}
 });
-
-MeetingService = new MeetingServiceImpl();

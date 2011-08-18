@@ -3,7 +3,7 @@ NavPanel = Ext.extend(Ext.Panel,
 	title : 'More',
 	layout : 'vbox',
 	flex :1,
-	iconCls:'more',
+	iconCls:'home',
     tabId: 'userHome',
     scroll: 'vertical',
 	initComponent : function() {
@@ -16,39 +16,46 @@ NavPanel = Ext.extend(Ext.Panel,
 		};
 
 		this.items = [ {
-			html : '<br/><table cellpadding="30" width="100%">'+
+			html : 
+				'<br/>'+
+				'<div class="lgrey-list-header" style="width:300px">'+
+				'<table style="width: 100%; height: 50"><tr><td>Upcoming Meeting : Aug 13</td><td width="10%"><img class="imageLeft" src="images/chevron_circle.png"/></td></tr></table>'+
+				'</div>'+
+				'<br/><table cellpadding="2" width="100%">'+
 				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="images/pictos/desktop.png" onclick="navPanel.viewMyClub()"/></td>'+
+				'<td><img width="40px" height="40px" src="images/pictos/meetings.png" onclick="navPanel.viewMyClub()"/></td>'+
 				'<td width="20px"></td>'+
+				'<td><img width="40px" height="40px" src="images/pictos/club.gif" onclick="navPanel.viewNervousTest()"/></td>'+
+				'<td width="2px"></td>'+
 				'<td><img width="40px" height="40px" src="images/pictos/nervous.ico" onclick="navPanel.viewNervousTest()"/></td>'+
 				'</tr>'+
 				'<tr >'+
-				'<td class="label">Club Board</td>'+
+				'<td class="label">Meetings</td>'+
 				'<td width="20px"></td>'+
-				'<td class="label">Nervous Test</td>'+
+				'<td class="label">My Club</td>'+
+				'<td width="2px"></td>'+
+				'<td class="label">NervousCheck</td>'+
 				'</tr>'+
-				'<tr align ="center"><td height="30px"></td></tr>'+
+				'<tr><td  colSpan="6"><hr/></td> </tr>'+
 				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="images/pictos/files_text.png" onclick="navPanel.viewMyProfile()"/></td>'+
+				'<td><img width="40px" height="40px" src="images/pictos/desktop.png" onclick="navPanel.viewMyProfile()"/></td>'+
 				'<td width="20px"></td>'+
-				'<td><img width="40px" height="40px" src="images/pictos/unlock.png" onclick="navPanel.viewLogout()"/></td>'+
+				'<td><img width="40px" height="40px" src="images/pictos/folder_documents.png" onclick="navPanel.viewLogout()"/></td>'+
+				'<td width="2px"></td>'+
+				'<td colspan="4"><img width="40px" height="40px" src="images/pictos/help1.png" onclick="navPanel.viewHelp()"/></td>'+
 				'</tr>'+
 				'<tr >'+
 				'<td class="label">My Profile</td>'+
 				'<td width="20px"></td>'+
-				'<td class="label">Logout</td>'+
-				'</tr>'+
-				'<tr align ="center">'+
-				'<td colspan="4"><br/><img width="40px" height="40px" src="images/pictos/help1.png" onclick="navPanel.viewHelp()"/></td>'+
-				'</tr>'+
-				'<tr >'+
+				'<td class="label">My Reports</td>'+
+				'<td width="2px"></td>'+
 				'<td colspan="4" class="label">Help</td>'+
 				'</tr>'+
-				'</table><br/>'
+				'</table>'
 		} ];
 		
 		this.dockedItems = [ {
-			title : 'ToastApp',
+			title : 'ToastBuddy',
 			xtype : 'toolbar',
 			dock : 'top',
 			items : []

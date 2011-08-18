@@ -10,6 +10,7 @@
 	<script type="text/javascript">
 		var showGuestButton = true;
 		var serverUrl = 'http://localhost:8080';
+		var loginRequired = false;
 		//var serverUrl = 'http://www.toastbuddy.com';
 		//var serverUrl = 'http://10.0.0.4:8080';
 	</script>
@@ -40,6 +41,7 @@
 	<script type="text/javascript" src="js/aboutList.js"></script>
 	<script type="text/javascript" src="js/loginPanel.js"></script>
 	<script type="text/javascript" src="js/registerPanel.js"></script>
+	<script type="text/javascript" src="js/setupPanel.js"></script>
 	<script type="text/javascript" src="js/navPanel.js"></script>
 	<script type="text/javascript" src="js/gramPanel.js"></script>
 	<script type="text/javascript" src="js/myGramPanel.js"></script>
@@ -69,7 +71,17 @@
 	<script type="text/javascript" src="js/service/UserService.js"></script>
 	<script type="text/javascript" src="js/service/MeetingService.js"></script>
 	<script type="text/javascript" src="js/service/ClubService.js"></script>
+
+	<script type="text/javascript" src="js/service/local/UserDAO.js"></script>
+	<script type="text/javascript" src="js/service/local/ClubDAO.js"></script>
+	<script type="text/javascript" src="js/service/local/UserService.js"></script>
+	<script type="text/javascript" src="js/service/local/ClubService.js"></script>
+
+	<script type="text/javascript" src="js/service/local/MeetingDAO.js"></script>
+	<script type="text/javascript" src="js/service/local/MeetingService.js"></script>
 		
+	<script type="text/javascript" src="js/service/local/MeetingRoleContentDAO.js"></script>
+	
 	<!-- Main layout -->
 	<script type="text/javascript" src="js/index.js"></script>
 </head>
@@ -77,7 +89,7 @@
 
 <div id="meeting-list" class="x-hidden-display">
 	<div class="lgrey-list-header" >
-		<table style="width: 95%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td></tr></table>
+		<table style="width: 95%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td><td width="5%"><img class="imageLeft" src="images/chevron_circle.png"/></td></tr></table>
 	</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
@@ -96,7 +108,7 @@
 					</tr>
 					</table>
 				</td>
-				<td width="5%"><img class="imageLeft" src="images/chevron_circle.png"/></td>
+				
 			</tr>
 	</table>
 	</div>

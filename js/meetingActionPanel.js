@@ -17,12 +17,12 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             		return record.get('actionGroup');
                 },
                 data: [
-                       {title:'Speech',name:'SpeechNotes',actionGroup:'Play A Role',image:'chat4.png'},
-                       {title:'Tabletopic',name:'TableTopics',actionGroup:'Play A Role',image:'twitter2.png'},
                        {title:'Grammarian',name:'Gram',actionGroup:'Play A Role',image:'user_business.png'},
                        {title:'Timer',name:'Timer',actionGroup:'Play A Role',image:'time.png'},
-                       {title:'Grammarian Report',name:'MyGram',actionGroup:'Add My Report',image:'doc_list.png'},
-                       {title:'Timer Report',name:'MyTimer',actionGroup:'Add My Report',image:'doc_list.png'}]
+                       {title:'My Speech Cards',name:'SpeechNotes',actionGroup:'My Stuff',image:'chat4.png'},
+                       {title:'My Tabletopic',name:'TableTopics',actionGroup:'My Stuff',image:'twitter2.png'},
+                       {title:'My Grammarian Report',name:'MyGram',actionGroup:'My Stuff',image:'doc_list.png'},
+                       {title:'My Timer Report',name:'MyTimer',actionGroup:'My Stuff',image:'doc_list.png'}]
             }),
             listeners: {
                 selectionchange: {fn: this.onSelect, scope: this}

@@ -78,8 +78,8 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	
 	loadAndShow: function(){
 		if(thisMeeting.roles.speaker1){
-			var contentId = thisMeeting.roles.speaker1.id;
-			speechNoteDataStore.contentId = contentId;
+			var contentId = thisMeeting.id; //thisMeeting.roles.speaker1.id;
+			speechNoteDataStore.contentId =  contentId;
 			MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
 		}else{
 			MeetingService.getContent(0, this.onSpeechNotesLoad, this);

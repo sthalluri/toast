@@ -40,7 +40,13 @@ Ext.setup({
         
         homePanel = new HomePanel();
         loginPanel = new LoginPanel();
-        registerPanel = new RegisterPanel();
+        
+        if(loginRequired){
+            registerPanel = new RegisterPanel();
+        }else{
+            registerPanel = new SetupPanel();
+            homePanel.localMode();
+        }
         navPanel = new NavPanel();
         gramPanel = new GramPanel();
         myGramPanel = new MyGramPanel();
@@ -67,7 +73,6 @@ Ext.setup({
 
         questionPanel = new QuestionPanel();
 
-        //roleListPanel = new RoleListPanel();        
         //helpPanel = new HelpPanel();
         //roleHelpPanel = new RoleHelpPanel();
         
@@ -100,7 +105,7 @@ Ext.setup({
             fullscreen: true,
             cardSwitchAnimation:'fade',
             ui:'light',
-            items: [meetingListPanel, clubMemberListPanel,myLogPanel, navPanel],
+            items: [navPanel, meetingListPanel, clubMemberListPanel,myLogPanel],
 			listeners : {
 				beforecardswitch : {fn: logSelected, scope: this}
 			}
@@ -142,13 +147,36 @@ Ext.setup({
         
         document.addEventListener("backbutton", backKeyDown, true);
         
+        if(loginRequired){
+        	UserService = new UserServiceImpl();
+        	MeetingService = new MeetingServiceImpl();
+        	ClubService = new ClubServiceImpl();            
+        	loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
+        }else{
+        	UserService = new LocalUserServiceImpl();
+        	MeetingService = new LocalMeetingServiceImpl();
+        	ClubService = new LocalClubServiceImpl();
+
+        	if(db.getValue(db.THIS_USER)){
+        		thisUser = eval('('+db.getValue(db.THIS_USER)+')');
+                loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
+        	}
+        }
+        
+        
+        /*
         if(db.getValue(db.REMEMBER_ME) > 0){
         	loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
         }else{
         	homePanel.showButtons();
-        }
+        }*/
+        
     }
 });
+
+var UserService;
+var MeetingService;
+var ClubService;
 
 var validator;
 var db;
@@ -165,7 +193,6 @@ var myLogPanel;
 var meetingListPanel;
 var mainCardPanel;
 var rolePanel;
-var roleListPanel;
 var helpPanel;
 var meetingPanel;
 var clubMemberListPanel;
@@ -238,7 +265,12 @@ function showMeetingPanel(){
 	homePanel.hide();
 	meetingListPanel.listMode();
 	homeTabPanel.show();
-	homeTabPanel.setActiveItem(0);
+	homeTabPanel.setActiveItem(1);
+}
+
+function showNavPanel(){
+	homePanel.hide();
+	homeTabPanel.show();
 }
 
 
