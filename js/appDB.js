@@ -62,12 +62,12 @@ AppDB = Ext.extend(Object, {
 	},
 	
 	querySuccess: function (tx, results) {
-	    // this will be empty since no rows were inserted.
-	    console.log("Insert ID = " + results.insertId);
-	    // this will be 0 since it is a select statement
-	    console.log("Rows Affected = " + results.rowAffected);
-	    // the number of rows returned by the select statement
-	    console.log("Insert ID = " + results.rows.length);
+//	    // this will be empty since no rows were inserted.
+//	    console.log("Insert ID = " + results.insertId);
+//	    // this will be 0 since it is a select statement
+//	    console.log("Rows Affected = " + results.rowAffected);
+//	    // the number of rows returned by the select statement
+//	    console.log("Insert ID = " + results.rows.length);
 	},
 	
 	runQuery : function(fn) {

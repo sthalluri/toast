@@ -54,7 +54,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
     {
         xtype: 'toolbar',
         dock: 'top',
-        title:'Cards',
+        title:'Speech Cards',
         items: [
 			{
 			    text: 'Back',
@@ -78,9 +78,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 	
 	loadAndShow: function(){
 		if(thisMeeting.roles.speaker1){
-			var contentId = thisMeeting.id; //thisMeeting.roles.speaker1.id;
-			speechNoteDataStore.contentId =  contentId;
-			MeetingService.getContent(contentId, this.onSpeechNotesLoad, this);
+			MeetingService.getContent(thisMeeting.id, this.onSpeechNotesLoad, this);
 		}else{
 			MeetingService.getContent(0, this.onSpeechNotesLoad, this);
 		}
@@ -283,7 +281,7 @@ SpeechNoteListPanel = Ext.extend( Ext.Panel,
 		if(opt == "yes")
 		{
 			speechNoteDataStore.removeAt(this.activeIndex-1);
-	        MeetingService.saveSpeechNotes(this.onDelete, this);
+	        MeetingService.saveSpeechNotes(thisMeeting, this.onDelete, this);
 		}
 	},
 	

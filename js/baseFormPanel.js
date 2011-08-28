@@ -10,13 +10,15 @@ BaseFormPanel = Ext.extend(Ext.form.FormPanel,
 		}
 	},
 	
-	getMessageComp: function(){
+	getMessageComp: function(msg){
+        if(!msg){
+            msg = '';
+        }
 		this.message = new Ext.Component({
 			xtype : 'component',
-			html : ''
+			html : msg
 		});
 		return this.message;
 	}
 
 });
-

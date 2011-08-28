@@ -67,7 +67,7 @@ QuestionPanel = Ext.extend(BaseFormPanel,
 	},
 	
 	goBack: function(){
-		MeetingService.getContent(questionDataStore.contentId, this.onTableTopicsLoad, this);
+		MeetingService.getContent(thisMeeting.id+1, this.onTableTopicsLoad, this);
 	},
 	
 	onTableTopicsLoad: function(data){
@@ -111,8 +111,7 @@ QuestionPanel = Ext.extend(BaseFormPanel,
 					qData.text = values.question;
 				}
 			}
-			//this.controller.saveTableTopics();
-	        MeetingService.saveTableTopics(this.onSave, this);
+	        MeetingService.saveTableTopics(thisMeeting, this.onSave, this);
 		}
 	}
 });

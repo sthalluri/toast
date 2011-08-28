@@ -92,9 +92,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 
 	loadAndShow: function(){
 		if(thisMeeting.roles.tableTopics){
-			var contentId = thisMeeting.id+1; //thisMeeting.roles.tableTopics.id;
-			questionDataStore.contentId =  contentId;
-			MeetingService.getContent(contentId, this.onTableTopicsLoad, this);
+			MeetingService.getContent(thisMeeting.id+1, this.onTableTopicsLoad, this);
 		}else{
 			MeetingService.getContent(0, this.onTableTopicsLoad, this);
 		}
@@ -272,7 +270,7 @@ TableTopicPanel = Ext.extend( Ext.Panel,
 		if(opt == "yes")
 		{
 			questionDataStore.removeAt(this.activeIndex-1);
-	        MeetingService.saveTableTopics(this.onDelete, this);
+	        MeetingService.saveTableTopics(thisMeeting, this.onDelete, this);
 		}
 	},
 	

@@ -7,8 +7,10 @@ LocalClubServiceImpl = Ext.extend(Service, {
 			data.returnVal.rows = new Array();
 			for(id in members){
 				var member = members[id];
-				member.name = member.firstName+' '+member.lastName;
-				data.returnVal.rows.push(member);
+				if(member){
+					member.name = member.firstName+' '+member.lastName;
+					data.returnVal.rows.push(member);
+				}
 			}
 		}cb.call(scope || window, data);
 		loadMask.hide();

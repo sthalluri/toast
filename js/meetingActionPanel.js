@@ -10,7 +10,7 @@ MeetingActionPanel = Ext.extend(Ext.Panel, {
             grouped: true,
             indexBar: false,
         	scroll: 'vertical',
-        	height: '100%',
+        	height: '90%',
             store: new Ext.data.Store({
                 fields: ['name', 'card'],
                 getGroupString : function(record) {

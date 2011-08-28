@@ -266,6 +266,7 @@ GramPanel = Ext.extend(BaseFormPanel,
 			}
 	        MeetingService.save(thisMeeting, this.onSave, this);
 		}
+        this.scroller.scrollTo(0);
 	},
 	
 	resetForm:function(){

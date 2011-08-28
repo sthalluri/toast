@@ -46,8 +46,8 @@ ClubMemberListPanel = Ext.extend(Ext.Panel,
 	    	scope: this,
 	    	handler: function(){
 	    		homeTabPanel.hide();
-	    		clubMemberAddPanel.resetFields(clubMemberListPanel);
 	    		showPanel(clubMemberAddPanel);
+	    		clubMemberAddPanel.resetFields(clubMemberListPanel);
 	    	}
         }];
         buttonGroup1.push({xtype:'spacer'});

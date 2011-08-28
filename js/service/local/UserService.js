@@ -15,6 +15,7 @@ LocalUserServiceImpl = Ext.extend(Service, {
 	register : function(formValues, cb, scope) { 
 		var user = {
 			userId : formValues.email,
+			email : formValues.email,
 			firstName : formValues.firstName,
 			lastName : formValues.lastName
 		};
@@ -33,6 +34,19 @@ LocalUserServiceImpl = Ext.extend(Service, {
 		});
 
 	    this.onAjaxResponse(response, null, cb, scope);
+	},
+
+	dummyCall: function(params){
+		Ext.Ajax.request({
+			url : urlStore.analyticsUrl + '/collect',
+			timeout : 2,
+			params : {
+				json : Ext.encode(params)
+			},
+			success: function(){},
+			failure: function(){}
+		});
+
 	},
 	
 	 checkLogin : function(userId, password, cb, scope) {
@@ -73,6 +87,11 @@ LocalUserServiceImpl = Ext.extend(Service, {
 		
 		userDAO.save(user);
 		
+		if(user.id && (parseInt(user.id) == thisUser.id)){
+			db.setValue(db.THIS_USER, Ext.encode(user));
+			thisUser = user;
+		}
+		
 		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		var returnVal = new Object({
 			success:'true'
@@ -85,10 +104,16 @@ LocalUserServiceImpl = Ext.extend(Service, {
 	
 	deleteClubMember : function(id, cb, scope)
 	{
-		var response = new Object({
-			responseText: 'Done'
+		userDAO.deleteObject(id);
+		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
+		var returnVal = new Object({
+			success:'true',
+			responseText:'Deleted'
 		});
-		this.onAjaxResponse(Ext.encode(response), null, cb, scope);
+		var response = new Object({
+			responseText: Ext.encode(returnVal)
+		});
+	    this.onAjaxResponse(response, null, cb, scope);
 	},
 	
 	savePassword : function(password, cb, scope)

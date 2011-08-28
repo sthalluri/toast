@@ -40,7 +40,7 @@
 .msg p {
 	color: #AA2200;
 	font-size: 0.7em;
-	font-weight: normal;
+	font-weight: bold;
 	padding: 0.4em 0.8em;
 }
 
@@ -73,8 +73,14 @@
 
 .imageLeft {
 	float: left;
-	margin: 0.2em;
+	margin: 0em;
 	height: 1.8em;
+}
+
+.imageMeetingLeft {
+	float: left;
+	margin: 0em;
+	height: 1.4em;
 }
 
 .actionImageGo {
@@ -153,7 +159,7 @@
 
 .highlight {
 	color: menutext;
-	font-size: 1em;
+	font-size: 0.8em;
 	vertical-align: text-top;
 	font-weight: normal;
 }
@@ -186,8 +192,8 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	opacity: 0.93;
-	filter:alpha(opacity=90);
+	opacity: 0.98;
+	filter:alpha(opacity=98);
 }
 
 .yellowIndi {
@@ -195,8 +201,8 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	opacity: 0.93;
-	filter:alpha(opacity=90);
+	opacity: 0.98;
+	filter:alpha(opacity=98);
 }
 
 .greenIndi {
@@ -204,17 +210,17 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	opacity: 0.93;
-	filter:alpha(opacity=90);
+	opacity: 0.98;
+	filter:alpha(opacity=98);
 }
 
 .silverIndi {
-	background-color: #bababa;
+	background-color: #cacaca;
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	opacity: 0.93;
-	filter:alpha(opacity=90);
+	opacity: 0.98;
+	filter:alpha(opacity=98);
 }
 
 table.contentTable {
@@ -523,21 +529,24 @@ Use this to change the color of the confirm button
 
 
 .x-list-round .x-list-group-items > :first-child, .x-list-round.x-list-flat .x-list-parent > :first-child {
-	margin: .2em .2em 0;
+	margin: .3em .3em 0;
 }
 
 .x-list-round .x-list-group-items > :last-child, .x-list-round.x-list-flat .x-list-parent > :last-child {
-	margin: 0 0.2em 0.2em;
+	margin: 0 0.3em 0.3em;
 }
 
 .x-list-round .x-list-group-items > *, .x-list-round.x-list-flat .x-list-parent > * {
-	margin: 0 .2em;
+	margin: 0 .3em;
 }
 
 .x-list .x-list-item {
 	position: relative;
-	padding: 0.1em 0.1em 0.1em 0.1em;
+	padding: 0.2em 0.2em 0.2em 0.1em;
 	min-height: 2.6em;
 }
 
 
+.x-form-fieldset-instructions {
+	color: #8a7327;
+}

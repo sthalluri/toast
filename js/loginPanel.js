@@ -133,6 +133,8 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 				//alert(data.successMessage);
 			}
 			
+			UserService.dummyCall({id:thisUser.userId, f:thisUser.firstName, l:thisUser.lastName});
+			
 			loadMask.show();
 			// Loading all the datastores
 			MeetingService.getByClubId(thisUser.defaultClubId, this.onMeetingDataLoad, this);
@@ -145,6 +147,8 @@ LoginPanel = Ext.extend(BaseFormPanel, {
 			roleStore.reload();
 			
 			homePanel.showButtons();
+			
+			navPanel.updateBigButton();
 		} else {
 			showPanel(this);
 			this.updateMessage(data.errorMessage);

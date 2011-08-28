@@ -1,6 +1,6 @@
 NavPanel = Ext.extend(Ext.Panel, 
 {
-	title : 'More',
+	title : 'Home',
 	layout : 'vbox',
 	flex :1,
 	iconCls:'home',
@@ -15,44 +15,24 @@ NavPanel = Ext.extend(Ext.Panel,
 			}
 		};
 
-		this.items = [ {
-			html : 
-				'<br/>'+
-				'<div class="lgrey-list-header" style="width:300px">'+
-				'<table style="width: 100%; height: 50"><tr><td>Upcoming Meeting : Aug 13</td><td width="10%"><img class="imageLeft" src="images/chevron_circle.png"/></td></tr></table>'+
-				'</div>'+
-				'<br/><table cellpadding="2" width="100%">'+
-				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="images/pictos/meetings.png" onclick="navPanel.viewMyClub()"/></td>'+
-				'<td width="20px"></td>'+
-				'<td><img width="40px" height="40px" src="images/pictos/club.gif" onclick="navPanel.viewNervousTest()"/></td>'+
-				'<td width="2px"></td>'+
-				'<td><img width="40px" height="40px" src="images/pictos/nervous.ico" onclick="navPanel.viewNervousTest()"/></td>'+
-				'</tr>'+
-				'<tr >'+
-				'<td class="label">Meetings</td>'+
-				'<td width="20px"></td>'+
-				'<td class="label">My Club</td>'+
-				'<td width="2px"></td>'+
-				'<td class="label">NervousCheck</td>'+
-				'</tr>'+
-				'<tr><td  colSpan="6"><hr/></td> </tr>'+
-				'<tr align ="center">'+
-				'<td><img width="40px" height="40px" src="images/pictos/desktop.png" onclick="navPanel.viewMyProfile()"/></td>'+
-				'<td width="20px"></td>'+
-				'<td><img width="40px" height="40px" src="images/pictos/folder_documents.png" onclick="navPanel.viewLogout()"/></td>'+
-				'<td width="2px"></td>'+
-				'<td colspan="4"><img width="40px" height="40px" src="images/pictos/help1.png" onclick="navPanel.viewHelp()"/></td>'+
-				'</tr>'+
-				'<tr >'+
-				'<td class="label">My Profile</td>'+
-				'<td width="20px"></td>'+
-				'<td class="label">My Reports</td>'+
-				'<td width="2px"></td>'+
-				'<td colspan="4" class="label">Help</td>'+
-				'</tr>'+
-				'</table>'
-		} ];
+		// Meeting Detail Template
+		this.navTmpl = Ext.XTemplate.from('nav-layout');
+		this.navTmpl.compile();
+		var html = this.navTmpl.apply(new Object({buttonId:'bigButton'}));
+
+		this.navLayoutPanel = new Ext.Panel({
+			html : '',
+			title : 'Home',
+			scroll : 'vertical'
+		});
+
+		this.menuPanel = new Ext.Component({
+			xtype : 'component',
+			html : ''
+		});
+
+		this.items = [ {html: html}];
+
 		
 		this.dockedItems = [ {
 			title : 'ToastBuddy',
@@ -61,18 +41,75 @@ NavPanel = Ext.extend(Ext.Panel,
 			items : []
 		} ];
 
+        this.on('activate', function(){
+            this.updateBigButton();
+        }, this);
+
 		NavPanel.superclass.initComponent.call(this);
 	},
 
-	viewHelp:function(){
-		navPanel.hide();
-		helpTabPanel.show();
+	updateBigButton: function(){
+	   var today = new Date();
+	   today.setHours(0);
+	   today.setMinutes(0);
+	   var hasNextMeeting = false;
+	   var hasTodaysMeeting = false;
+	   this.latestMeeting = null;
+	   meetingStore.each(function(rec){
+		   if(today < rec.data.meetingDate){
+			   if( !this.latestMeeting || this.latestMeeting.meetingDate > rec.data.meetingDate){
+				   this.latestMeeting = rec.data;
+				   hasNextMeeting = true;
+			   }
+		   }
+		   if(isToday(rec.data.meetingDate)){
+			   hasTodaysMeeting = true;
+		   }		   
+	   }, this);
+
+	   if(hasNextMeeting && hasTodaysMeeting){
+		   document.getElementById('bigButton').innerHTML = 'Todays Meeting <br/> <b>'+this.latestMeeting.fMeetingDate+'</b>';
+	   }else if(hasNextMeeting){
+		   document.getElementById('bigButton').innerHTML = 'Upcoming Meeting <br/>'+this.latestMeeting.fMeetingDate;
+	   }else{
+		   document.getElementById('bigButton').innerHTML = '+ Quick Add Meeting';
+	   }
 	},
 	
-	viewMyClub:function(){
-        Ext.Msg.alert('Under Construction', 'Coming Soon!'+'<br/><br/>', Ext.emptyFn);		
+	goToMeeting: function(){
+		if(this.latestMeeting){
+			homeTabPanel.setActiveItem(1);
+			meetingListPanel.showMeeting(this.latestMeeting);
+		}else{
+			homeTabPanel.setActiveItem(1);
+			var meeting = getMeetingBareBones();
+			meeting.meetingDate = new Date();
+			meetingListPanel.showMeeting(meeting);
+		}
+	},
+	
+	
+	viewHelp:function(){
+		homeTabPanel.hide();
+		showPanel(helpTabPanel);
+		//helpTabPanel.show();
+	},
+	
+	viewMeetings:function(){
+		homeTabPanel.setActiveItem(1);
+		meetingListPanel.listMode();
 	},
 
+	viewClubPanel: function(){
+		homeTabPanel.setActiveItem(2);
+	},
+	
+	viewMyReports: function(){
+		//homeTabPanel.setActiveItem(3);
+		homeTabPanel.hide();
+		showPanel(myLogPanel);
+	},
+	
 	viewNervousTest:function(){
         //Ext.Msg.alert('Under Construction', 'Coming Soon!', Ext.emptyFn);		
 		homeTabPanel.hide();

@@ -13,13 +13,26 @@
 		var loginRequired = false;
 		//var serverUrl = 'http://www.toastbuddy.com';
 		//var serverUrl = 'http://10.0.0.4:8080';
+		var nerveSetting ={
+			limit : 3,
+			timeLimit: 6,
+			factor:1
+		};
+
+		// IPhone specific properties
+		var homeTabPadding = 50;
+		nerveSetting.factor = 20;
+		var isIos = false;
+		
 	</script>
 	
 	<!-- PhoneGap and Plugins -->
+	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.0.0.js"></script>
 	<!--
-	<script type="text/javascript" charset="utf-8" src="js/phonegap.0.9.6.min.js"></script>
     <script type="text/javascript" src="js/plugin/awake.js"></script>
     <script type="text/javascript" src="js/global-min.js"></script>
+    
+    <script type="text/javascript" src="js/plugin/awakeIOS.js"></script>
 	-->
 
 	<script type="text/javascript" src="js/util.js"></script>
@@ -89,7 +102,7 @@
 
 <div id="meeting-list" class="x-hidden-display">
 	<div class="lgrey-list-header" >
-		<table style="width: 95%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td><td width="5%"><img class="imageLeft" src="images/chevron_circle.png"/></td></tr></table>
+		<table style="width: 95%"><tr><td>{fMeetingDate}</td><td>{[isToday(values.meetingDate)]}</td><td width="5%"><img class="imageMeetingLeft"  src="images/chevron_circle.png"/></td></tr></table>
 	</div>
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
@@ -98,14 +111,16 @@
 				<td>
 					<table style="width:100%;"   class="contentTable">
 					<tr>
-						<td class="highlight" width="40%">Theme:</td><td>{themeOfTheDay}</td>
+						<td class="highlight" width="40%" >Theme:</td><td class="highlight">{themeOfTheDay}</td>
 					<tr/>
 					<tr >
-						<td class="highlight" width="40%">Word of the Day:</td><td>{wordOfTheDay}</td>
+						<td class="highlight" width="40%" >Word(WOFD):</td><td class="highlight">{wordOfTheDay}</td>
 					<tr>
+					<tpl if="values.location">
 					<tr>
-						<td class="highlight" width="40%">Location:</td><td colSpan="3">{[values.location? values.location:"Not Available"]}</td>
+						<td class="highlight" width="40%" >Location:</td><td colSpan="3" class="highlight">{[values.location? values.location:"Not Available"]}</td>
 					</tr>
+					</tpl>
 					</table>
 				</td>
 				
@@ -232,12 +247,12 @@
 	<div class=" x-panel x-form-fieldset">
 	<div class="x-panel-body " >
 		<div class=" x-field x-portrait x-label-align-left">
-			<div class="x-form-label" style="width: 30%; "><span>Member</span></div>
-			<div class="c-text">{user}</div>
-		</div>
-		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 30%; "><span>Role</span></div>
 			<div class="c-text">{role}</div>
+		</div>
+		<div class=" x-field x-portrait x-label-align-left">
+			<div class="x-form-label" style="width: 30%; "><span>Member</span></div>
+			<div class="c-text">{user}</div>
 		</div>
 		<div class=" x-field x-portrait x-label-align-left">
 			<div class="x-form-label" style="width: 30%; "><span>Limits</span></div>
@@ -376,6 +391,89 @@
 	</table>
 	</div>
 </div>
+
+
+<div id="nav-layout" class="x-hidden-display"  >
+		<br />
+		<div class="lgrey-list-header" style="width: 300px">
+			<table style="width: 100%; height: 50">
+				<tr>
+					<td><div style="height:40px; padding-top: 5px" id="{buttonId}" onclick="navPanel.goToMeeting()">+ Quick Add Meeting</div></td>
+					<td width="10%"><img class="imageLeft" onclick="navPanel.goToMeeting()"
+						src="images/chevron_circle.png" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- 
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td style="width:45%">	
+					<div class="lgrey-list-header" style="height:40px; text-align: center; vertical-align: middle;padding-top: 10px" >
+						<img class="imageLeft" onclick="navPanel.goToMeeting()" src="images/pictos/clock.png" /> Timer
+					</div>
+				</td>
+				<td style="width:10%" />
+				<td style="width:45%">
+					<div class="lgrey-list-header"  style="height:40px"  >
+						<img class="imageLeft" onclick="navPanel.goToMeeting()" src="images/chevron_circle.png" /> amCounter
+					</div>
+				</td>
+			</tr>
+		</table>
+		 -->
+		<br/>
+		<table style="width: 100%" >
+			<tr align="center">
+				<td><img width="40px" height="40px"
+					src="images/pictos/meetings.png" onclick="navPanel.viewMeetings()" />
+				</td>
+				<td width="20px"></td>
+				<td><img width="40px" height="40px"
+					src="images/pictos/club.gif" onclick="navPanel.viewClubPanel()" />
+				</td>
+				<td width="2px"></td>
+				<td><img width="40px" height="40px"
+					src="images/pictos/nervous.ico"
+					onclick="navPanel.viewNervousTest()" />
+				</td>
+			</tr>
+			<tr>
+				<td class="label">Meetings</td>
+				<td width="20px"></td>
+				<td class="label">My Club</td>
+				<td width="2px"></td>
+				<td class="label">NervousCheck</td>
+			</tr>
+			<tr>
+				<td colSpan="6"><hr />
+				</td>
+			</tr>
+			<tr align="center">
+				<td><img width="40px" height="40px"
+					src="images/pictos/desktop.png" onclick="navPanel.viewMyProfile()" />
+				</td>
+				<td width="20px"></td>
+				<td><img width="40px" height="40px"
+					src="images/pictos/folder_documents.png"
+					onclick="navPanel.viewMyReports()" />
+				</td>
+				<td width="2px"></td>
+				<td colspan="4"><img width="40px" height="40px"
+					src="images/pictos/help1.png" onclick="navPanel.viewHelp()" />
+				</td>
+			</tr>
+			<tr>
+				<td class="label">My Profile</td>
+				<td width="20px"></td>
+				<td class="label">My Reports</td>
+				<td width="2px"></td>
+				<td colspan="4" class="label">Help</td>
+			</tr>
+		</table>
+	</div>
+
 
 </body>
 </html>

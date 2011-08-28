@@ -65,7 +65,7 @@ SetupPanel = Ext.extend(BaseFormPanel,
 		
 		this.dockedItems = [ {
 			xtype : 'toolbar',
-			title:'Setup',
+			title:'Basic Setup',
 			dock : 'top',
 			items : [ ]
 		} ];
@@ -125,7 +125,7 @@ SetupPanel = Ext.extend(BaseFormPanel,
 	},
 	registerSuccess:function() {
 		this.hide();
-		this.updateMessage('Confirm your password');
+		this.updateMessage('Registered successfully');
 		//showMeetingPanel();
 		loginPanel.loadData(thisUser.userId, "noteuser");
 

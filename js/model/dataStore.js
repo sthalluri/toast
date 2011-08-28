@@ -19,13 +19,20 @@ var aboutPages = [ {
 	},
 	image : 'images/pictos/arrow_right.png'
 }, {
-	title : 'About Roles',
+	title : 'Learn about Roles',
 	card : {
 		xtype : 'htmlpage',
 		url : '/toast/help/roles.html'
 	},
 	image : 'images/pictos/arrow_right.png'
 } ,{
+	title : 'Speech Types',
+	card : {
+		xtype : 'htmlpage',
+		url : '/toast/help/speechTypes.html'
+	},
+	image : 'images/pictos/arrow_right.png'
+}, {
 	title : 'Roles CheckList',
 	card : {
 		xtype : 'htmlpage',
@@ -53,11 +60,6 @@ var speechNotes = [];
 var notes = [];
 var userLog =[];
 var fillers= [];
-
-var nerveSetting ={
-		limit : 3,
-		timeLimit: 6
-};
 
 var timeOptions = [
    {text: 'Select..',value: ''}, 
@@ -111,7 +113,8 @@ var urlStore = {
 		userUrl 		: serverUrl+'/toastService/user',
 		meetingUrl		: serverUrl+'/toastService/meeting',
 		registerUrl		: serverUrl+'/toastService/user/register',
-		clubUrl			: serverUrl+'/toastService/club'
+		clubUrl			: serverUrl+'/toastService/club',
+		analyticsUrl	: serverUrl+'/toastService/analytics'
 };
 
 
@@ -138,14 +141,24 @@ var meetingStore = new Ext.data.JsonStore({
 			if(records[i].meetingDate){
 				var fDate = Date.parseDate(records[i].meetingDate, "Y-m-d\\TH:i:s.u\\Z");
 				if(records[i].meetingTime){
-					records[i].fMeetingDate = fDate.format('F j, Y')+' '+records[i].meetingTime;
+					records[i].fMeetingDate = fDate.format('F j')+' '+records[i].meetingTime;
 				}else{
-					records[i].fMeetingDate = fDate.format('F j, Y');
+					records[i].fMeetingDate = fDate.format('F j');
 				}
 			}
 		}
 		this.loadData(records);
 	},
+   sorters: [
+             {
+                 property : 'meetingDate',
+                 direction: 'DESC'
+             },
+             {
+                 property : 'meetingTime',
+                 direction: 'DESC'
+             }
+	 ],
 	getMeeting: function(id){
 	   var data = null;
 	   this.each(function(rec){
@@ -183,6 +196,7 @@ var memberStore = new Ext.data.JsonStore({
    loadWithDefault: function(records){
 		this.loadData(records);
 		memberDropDownStore.loadWithDefault(records);
+		
    },
    sorters: [
              {
@@ -193,7 +207,7 @@ var memberStore = new Ext.data.JsonStore({
                  property : 'lastName',
                  direction: 'ASC'
              }
-         ],
+	 ],
    getMember: function(id){
 		var data = null;
 		this.each(function(rec){
@@ -217,7 +231,18 @@ var memberDropDownStore = new Ext.data.JsonStore({
 		   	this.loadData(records);
 			var defaultSelect = { id : '0',     name : 'Select...', firstName:'Dummy',lastName:'User'};
 			this.insert(0,Ext.ModelMgr.create( defaultSelect, 'Member'));
-	   }
+	   },
+	   sorters: [
+          {
+              property : 'firstName',
+              direction: 'ASC'
+          },
+          {
+              property : 'lastName',
+              direction: 'ASC'
+          }
+	 ]
+
 	});
 
 Ext.regModel('Role', {
@@ -270,84 +295,101 @@ var roleStore = new Ext.data.JsonStore({
    autoLoad : false,
    autoDestroy : true,
    reload : function() {
-	   
-
 	   var roles = [ {
 				"id" : "evaluator1",
 				"description" : "Evaluator for First Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 7
 			}, {
 				"id" : "evaluator2",
 				"description" : "Evaluator for Second Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 8
 			}, {
 				"id" : "evaluator3",
 				"description" : "Evaluator for Third Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 9
 			}, {
 				"id" : "generalEvaluator",
 				"description" : "General Evaluator",
-				"trackTime" : false
+				"trackTime" : false,
+				"seq": 6
 			}, {
 				"id" : "grammarian",
 				"description" : "Grammarian",
-				"trackTime" : false
+				"trackTime" : false,
+				"seq": 11
 			}, {
 				"id" : "speaker1",
 				"description" : "First Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 2
 			}, {
 				"id" : "speaker2",
 				"description" : "Second Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 3
 			}, {
 				"id" : "speaker3",
 				"description" : "Third Speech",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 4
 			}, {
 				"id" : "tableTopics",
 				"description" : "Table Topics",
-				"trackTime" : false
+				"trackTime" : false,
+				"seq": 5
 			}, {
 				"id" : "timer",
 				"description" : "Timer",
-				"trackTime" : false
+				"trackTime" : false,
+				"seq": 10
 			}, {
 				"id" : "toastMaster",
 				"description" : "Toast Master",
-				"trackTime" : false
+				"trackTime" : false,
+				"seq": 1
 			}, {
 				"id" : "ttResponse1",
 				"description" : "Table Topic Response1",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 12
 			}, {
 				"id" : "ttResponse2",
 				"description" : "Table Topic Response2",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 13
 			}, {
 				"id" : "ttResponse3",
 				"description" : "Table Topic Response3",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 14
 			}, {
 				"id" : "ttResponse4",
 				"description" : "Table Topic Response4",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 15
 			}, {
 				"id" : "ttResponse5",
 				"description" : "Table Topic Response5",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 16
 			}, {
 				"id" : "ttResponse6",
 				"description" : "Table Topic Response6",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 17
 			}, {
 				"id" : "ttResponse7",
 				"description" : "Table Topic Response7",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 18
 			}, {
 				"id" : "ttResponse8",
 				"description" : "Table Topic Response8",
-				"trackTime" : true
+				"trackTime" : true,
+				"seq": 19
 			} ];
 
 		roleStore.loadData(roles);
@@ -455,6 +497,7 @@ function getMeetingBareBones(){
 		wordOfTheDay:'',
 		themeOfTheDay:'',
 		meetingDate: new Date(),
+		fMeetingDate: (new Date()).format('F j'),
 		date:'',
 		roles : {
 			speaker1:{

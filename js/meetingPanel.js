@@ -28,6 +28,12 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 	        handler: this.deleteConfirm
 	    });
 		
+		this.addMemeberButton = new Ext.Button({
+			scope: this,
+            text: 'Add New Member',
+            handler: this.addNewMember
+        });
+
 		this.formFields = [ this.meetingDate,{
             xtype: 'selectfield',
             name: 'time',
@@ -192,7 +198,25 @@ MeetingPanel = Ext.extend(BaseFormPanel,
                 },
                 items: this.speech3Fields
             },
-            this.deleteButton
+			{
+				layout:'hbox',
+				flex:1,
+           	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+				items:[
+						this.addMemeberButton
+				       ]
+
+			},
+			{
+				layout:'hbox',
+				flex:1,
+           	 	defaults: {xtype: 'button', flex:1, style: 'margin: .5em;'},
+				items:[
+						this.deleteButton
+				       ]
+
+			}
+			
         ];
         
         this.dockedItems = [
@@ -335,7 +359,7 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 			this.meeting.id = data.returnVal.id;
 			this.goBack();
 			//this.updateMessage(data.successMessage);
-	        //this.scroller.scrollTo(0);
+	        this.scroller.scrollTo(0);
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
@@ -366,8 +390,15 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		}
 
 		meetingStore.each(function(rec){
-			var data = rec.data;
-			if(data.id !== this.meeting.id && data.fMeetingDate === fMeetingDate){
+			var data = rec.data;	
+			var recFMeetingDate = null;
+			if(data.meetingDate){
+				recFMeetingDate = data.meetingDate.format('F j, Y');
+				if(data.meetingTime){
+					recFMeetingDate += ' '+ data.meetingTime;
+				}
+			}
+			if(data.id !== this.meeting.id && recFMeetingDate === fMeetingDate){
 				this.updateMessage('A meeting with this date and time already exists');
 				noErrors = false;
 				return false;
@@ -434,6 +465,7 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
+        this.scroller.scrollTo(0);
 	},
 
 	deleteConfirm : function()
@@ -446,7 +478,12 @@ MeetingPanel = Ext.extend(BaseFormPanel,
 		{
 	        MeetingService.deleteMeeting(this.meeting.id, this.onDelete, this);
 		}
-	}
+	},
+    
+    addNewMember: function(){
+    	clubMemberAddPanel.resetFields(meetingPanel);
+		showPanel(clubMemberAddPanel);
+    }
 
 
 

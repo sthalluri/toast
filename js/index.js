@@ -96,7 +96,7 @@ Ext.setup({
         homeTabPanel = new Ext.TabPanel({
         	tabBar:{
         		dock:'bottom',
-        		height:50,
+        		height:homeTabPadding,
         		layout:{
         			pack:'center'
         		}
@@ -105,7 +105,7 @@ Ext.setup({
             fullscreen: true,
             cardSwitchAnimation:'fade',
             ui:'light',
-            items: [navPanel, meetingListPanel, clubMemberListPanel,myLogPanel],
+            items: [navPanel, meetingListPanel, clubMemberListPanel],
 			listeners : {
 				beforecardswitch : {fn: logSelected, scope: this}
 			}
@@ -129,6 +129,7 @@ Ext.setup({
                          speechNoteListPanel,
                          speechNotePanel,
                          helpTabPanel,
+                         myLogPanel,
                          nervousTestPanel ,
                          clubMemberAddPanel,
                          changePasswordPanel,
@@ -150,7 +151,7 @@ Ext.setup({
         if(loginRequired){
         	UserService = new UserServiceImpl();
         	MeetingService = new MeetingServiceImpl();
-        	ClubService = new ClubServiceImpl();            
+        	ClubService = new ClubServiceImpl();      
         	loginPanel.loadData(db.getValue(db.USERID), db.getValue(db.PASSWD));
         }else{
         	UserService = new LocalUserServiceImpl();
@@ -210,11 +211,8 @@ var changePasswordPanel;
 var nervousTestPanel ;
 
 function logSelected(comp, newCard, oldCard, index) {
-	if(index == 2){
-		myLogPanel.reload();
-	}
-	if(index != 3){
-		helpTabPanel.hide();
+	if(index != 0){
+		//helpTabPanel.hide();
 	}
 	currentPanel = newCard;
 }
@@ -275,19 +273,41 @@ function showNavPanel(){
 
 
 function acquire(){
-	if(window.plugins && window.plugins.awake){
-    	window.plugins.awake.acquire("acquire",
-			    function(r){},
-			    function(e){}
-		);
+	if(isIos){
+		if (window.plugins && window.plugins.PowerManagement) {
+			window.plugins.PowerManagement.acquire(function(r) {
+			}, function(e) {
+			});
+		}
+	}else{
+		if(window.plugins && window.plugins.awake){
+	    	window.plugins.awake.acquire('acquire',
+				    function(r){},
+				    function(e){}
+			);
+		}
 	}
 }
 
 function release(){
-	if(window.plugins && window.plugins.awake){
-    	window.plugins.awake.release("release",
-			    function(r){},
-			    function(e){}
-		);
+	if(isIos){
+		if (window.plugins && window.plugins.PowerManagement) {
+			window.plugins.PowerManagement.release(function(r) {
+			}, function(e) {
+			});
+		}
+		
+	}else{
+		if(window.plugins && window.plugins.awake){
+	    	window.plugins.awake.release('release',
+				    function(r){},
+				    function(e){}
+			);
+		}
 	}
+
+
 }
+
+
+

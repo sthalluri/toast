@@ -1,31 +1,33 @@
 LocalMeetingServiceImpl = Ext.extend(Service, {
 	
-	
     //Get the list of meetings
-	getList : function(cb, scope) {
-		
+	getMeetings : function() {
 	    var meetings = meetingDAO.getData();
-
-	    
 		var meetingArray = new Array();
 		for(var id in meetings){
 			if(meetings[id]){
 				meetingArray.push(meetings[id]);
 			}
 		}
-	    
+		return meetingArray;
+	},
+	
+    //Get the list of meetings
+	getList : function(cb, scope) {
+		var meetingArray = this.getMeetings();
 	    var returnVal = {
 				"success" : true,
 				"returnVal" : {
 					"size" : meetingArray.length,
-					"rows" :meetingArray
+					"rows" : meetingArray
 				}
 		};
+	    
 		var response = new Object({
 			responseText: Ext.encode(returnVal)
 		});
+		
 		this.onAjaxResponse(response, null, cb, scope);
-
 	},
 
 	//Get the meetings by club id
@@ -35,16 +37,24 @@ LocalMeetingServiceImpl = Ext.extend(Service, {
 
 	//Save the meeting
 	save : function(meeting, cb, scope) {
+	    var newMeeting = false;
+		if(!meeting.id){
+			newMeeting = true;
+			UserService.dummyCall({m:true, id:thisUser.userId});
+		}
 	    meetingDAO.save(meeting);		
 		this.onAjaxResponse = Ext.createDelegate(UserServiceImpl.prototype.onAjaxResponse, scope || window, [cb, scope], true);
 		var returnVal = new Object({
 			success:'true',
-			successMessage : 'Saved successfully.',
+			successMessage : 'Saved It.',
 			returnVal: meeting
 		});
 		var response = new Object({
 			responseText: Ext.encode(returnVal)
 		});
+		if(newMeeting){
+			meetingStore.loadAndFormat(this.getMeetings());
+		}
 		this.onAjaxResponse(response, null, cb, scope);		
 	},
 
@@ -63,9 +73,13 @@ LocalMeetingServiceImpl = Ext.extend(Service, {
 	},
 
 	//Save the Table Topic question
-	saveTableTopics : function(cb, scope) {
+	saveTableTopics : function(meeting, cb, scope) {
 		var tableTopics = new Object();
-		tableTopics.meetingRoleId = questionDataStore.contentId;
+		if(!meeting.id){
+		    meetingDAO.save(meeting);
+			meetingStore.loadAndFormat(this.getMeetings());
+		}
+		tableTopics.meetingRoleId = meeting.id+1;
 		var content = new Object();
 		content.questions = new Array();
 		if(questionDataStore.rowId){
@@ -76,7 +90,6 @@ LocalMeetingServiceImpl = Ext.extend(Service, {
 			content.questions[i]=question;
 		}
 		tableTopics.content = Ext.encode(content);
-		console.log(tableTopics);		
 		meetingRoleContentDAO.save(tableTopics);	
 		var returnVal = new Object({
 			success:'true',
@@ -89,9 +102,13 @@ LocalMeetingServiceImpl = Ext.extend(Service, {
 	},
 
 	//Save the Table Topic question
-	saveSpeechNotes : function(cb, scope) {
+	saveSpeechNotes : function(meeting, cb, scope) {
 		var speechNotes = new Object();
-		speechNotes.meetingRoleId = speechNoteDataStore.contentId;
+		if(!meeting.id){
+		    meetingDAO.save(meeting);		
+			meetingStore.loadAndFormat(this.getMeetings());
+		}
+		speechNotes.meetingRoleId = meeting.id;
 		var content = new Object();
 		content.speechNotes = new Array();
 		if(speechNoteDataStore.rowId){
@@ -102,8 +119,6 @@ LocalMeetingServiceImpl = Ext.extend(Service, {
 			content.speechNotes[i]=speechNote;
 		}
 		speechNotes.content = Ext.encode(content);
-
-		console.log(speechNotes);		
 		meetingRoleContentDAO.save(speechNotes);		
 		var returnVal = new Object({
 			success:'true',

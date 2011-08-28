@@ -258,6 +258,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 		} else {
 			this.updateMessage(data.errorMessage);
 		}
+		this.stopTimer();
 	},
 
 	save: function(){
@@ -269,6 +270,7 @@ TimerPanel = Ext.extend(BaseFormPanel,
 	        obj.timeLimits = this.timeLimits;
 	        MeetingService.save(thisMeeting, this.onSave, this);
 		}
+        this.scroller.scrollTo(0);
 	},
 
 	updateTime: function(){

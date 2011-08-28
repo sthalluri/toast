@@ -23,7 +23,7 @@ AboutList = Ext.extend(Ext.Panel, {
                 xtype: 'toolbar',
                 title: 'About',
     			items : [ {
-    				text : 'Back',
+    				text : 'Home',
     				scope : this,
     				ui : 'back',
     				handler: this.goBack
@@ -51,7 +51,6 @@ AboutList = Ext.extend(Ext.Panel, {
     },
 	
 	goBack: function(){
-		this.hide();
-		navPanel.show();
+		closePanel();
 	}
 });

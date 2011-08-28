@@ -4,6 +4,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     tabId: 'meetingList',
     title:'Meetings',
     fullScreen:false,
+	ui:'light',
 	defaults:{
 		flex : 1
 	},
@@ -12,6 +13,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	},
 	cls: 'demo-list',	
 	initComponent : function() {
+		
+		this.init = false;
+		
 		// Meeting Detail Template
 		this.meetingTmpl = Ext.XTemplate.from('meeting-detail');
 		this.meetingTmpl.compile();
@@ -31,7 +35,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		    parentPanel:this,
 		    sorters: 'date',
 		    singleSelect:true,
-            ui: 'round',
 		    listeners: {
                 selectionchange: {fn: this.onSelect, scope: this}
             },
@@ -63,12 +66,17 @@ MeetingListPanel = Ext.extend(Ext.Panel,
        		fullscreen: false
 			}));
         
-		this.pan =  new Ext.Panel({
-		    fullscreen: true,
-		    items: [this.list,{html:'<div class="x-form-fieldset-instructions" ><b>Add a meeting using the \'+\' button above</b></div>'}]
-		});		
+//		this.pan =  new Ext.Panel({
+//	    	height:'100%',	
+//		    fullscreen: true,
+//		    items: [this.list,{html:'<br/><div style="color:olive; font-size:0.8em; text-align: center; ">&nbsp;&nbsp;Add a meeting using the \'+\' button</div>'}]
+//		});		
 
-        this.pan.on('activate', function(){
+        this.on('activate', function(){
+        	if(!this.init){
+        		this.listMode();
+        		this.init = true;
+        	}
             this.list.getSelectionModel().deselectAll();
         }, this);
 
@@ -77,8 +85,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	    	activeItem:0,
 	    	height:'100%',	
         	layout: 'card',
-	    	items:[this.pan
-	    	    ,
+		    fullscreen: false,
+	    	items:[this.list,
 	           	this.meetingDetailTabPanel
 	    	]
 	    });
@@ -175,7 +183,8 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		this.meetingCarousel.setActiveItem(this.meetingCarousel.items.get(0));
 		Ext.getCmp('meetingPanleAddIcon').show();
 		Ext.getCmp('meetingPanleEditIcon').hide();
-		Ext.getCmp('meetingListBackButton').hide();
+		//Ext.getCmp('meetingListBackButton').hide();
+		Ext.getCmp('meetingListBackButton').setText('Home'); 
 		//this.deleteButton.hide();
 		this.mainToolbar.setTitle("Meetings");
 		this.viewMode = "LIST";
@@ -185,6 +194,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 		Ext.getCmp('meetingPanleAddIcon').hide();
 		Ext.getCmp('meetingPanleEditIcon').show();
 		Ext.getCmp('meetingListBackButton').show();
+		Ext.getCmp('meetingListBackButton').setText('Meetings'); 
 		//this.deleteButton.show();
 		this.mainToolbar.setTitle("Meeting");
 		this.viewMode = "DETAIL";
@@ -196,6 +206,9 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	},
 
 	goBack: function(){
+		if(this.viewMode == "LIST"){
+			homeTabPanel.setActiveItem(0);
+		}
        	if(this.meetingCarousel.getActiveItem().id =='meetingListPanel'){
        		//this.hide();
            	//navPanel.show();
@@ -246,7 +259,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 
 		for ( var j = 0; j < timerRoleStore.data.length; j++) {
 			var role = timerRoleStore.data.getAt(j).data;
-			roles[j] = role.id;
+			roles[role.seq-1] = role.id;
 		}
 
 		var meetingRoles = meeting.roles;
@@ -306,7 +319,7 @@ MeetingListPanel = Ext.extend(Ext.Panel,
 	showMeeting: function(meeting){
 		var carousel = this.meetingCarousel;
 		this.activeMeeting = meeting;		    		
-
+		thisMeeting = meeting;
 
 		//Set the content for the agenda tab
 		var html = this.meetingTmpl.apply(meeting);
@@ -329,7 +342,6 @@ MeetingListPanel = Ext.extend(Ext.Panel,
     onSelect: function(sel, records){
         if (records[0] !== undefined) {
         	var data = records[0].data;
-    		thisMeeting = data;
     		this.showMeeting(data);
         }
     },

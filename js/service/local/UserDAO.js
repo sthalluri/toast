@@ -29,6 +29,16 @@ UserDAOImpl = Ext.extend(Object, {
 		this.setData(users);
 	},
 
+	deleteObject: function(id){
+		var users = this.getData();
+		if(!id)
+		{
+			return null;
+		}
+		users[id] = null;
+		this.setData(users);
+	},
+
 	getUser: function(id){
 		if(!id){
 			return null;

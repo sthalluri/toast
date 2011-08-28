@@ -82,7 +82,7 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
 	},
 
 	goBack: function(){
-		MeetingService.getContent(speechNoteDataStore.contentId, this.onSpeechNotesLoad, this);
+		MeetingService.getContent(thisMeeting.id, this.onSpeechNotesLoad, this);
 	},
 	
 	onSave:function(data){
@@ -114,8 +114,7 @@ SpeechNotePanel = Ext.extend(BaseFormPanel,
 					qData.text = values.speechNote;
 				}
 			}
-			//this.controller.saveTableTopics();
-	        MeetingService.saveSpeechNotes(this.onSave, this);
+	        MeetingService.saveSpeechNotes(thisMeeting, this.onSave, this);
 		}
 	}
 });

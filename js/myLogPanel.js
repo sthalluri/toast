@@ -1,11 +1,12 @@
-MyLogPanel = Ext.extend(Ext.TabPanel, {
-	iconCls:'bookmarks',
-    tabId: 'myLog',
-    scroll: 'vertical',
-    title:'My Reports',
-	cls: 'legislator-tabs',
+MyLogPanel = Ext.extend(Ext.Panel, 
+{	
+	iconCls:'time',
+    title:'MyLog',
+    fullScreen:false,
 	ui:'light',
 	initComponent : function() {
+		
+		this.init = false;
 		
 		// Meeting Detail Template
 		this.gramLogTmpl = Ext.XTemplate.from('gram-log');
@@ -24,7 +25,7 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		this.roleLogTmpl.compile();
 
 		this.gramLogPanel = new Ext.Panel({
-			html : 'Loading..',
+			html : '<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hr<br>hrxxx',
 			title : 'Grammarian',
 			scroll : 'vertical'
 		});
@@ -41,20 +42,52 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 			scroll : 'vertical'
 		});
 
-		this.items = [ this.gramLogPanel, this.timerLogPanel, this.meetingLogPanel];
+		this.meetingDetailTabPanel = new Ext.TabPanel({
+			scroll: 'vertical',
+			fullscreen : false,
+			defaults:{
+				flex : 1
+			},
+		    layout : {
+		    	type: 'vbox',
+		        align: 'left'
+			},
+			ui:'light',
+			items : [this.gramLogPanel, this.timerLogPanel, this.meetingLogPanel]
 
+		});
+		
+	    this.meetingCarousel = new Ext.Panel({
+	    	activeItem:0,
+	    	height:'100%',	
+        	layout: 'card',
+		    fullscreen: false,
+	    	items:[
+	           	this.meetingDetailTabPanel
+	    	]
+	    });
+	
+	   this.items=[
+	        	this.meetingCarousel
+	   ];
+	   
 		this.dockedItems = [ {
 			xtype : 'toolbar',
 			title : 'My Reports',
 			dock : 'top',
-			defaults : {
-				iconMask : true,
-				ui : 'plain'
-			},
-			layout : {
-				pack : 'center'
-			}
+            items: [
+                    {
+                        text: 'Home',
+		                ui: 'back',
+		                scope:this,
+                        handler: this.goBack
+                    }
+                ]
 		} ];
+        this.on('activate', function(){
+            this.reload();
+        }, this);
+
 		MyLogPanel.superclass.initComponent.call(this);
 	},
 	
@@ -142,28 +175,56 @@ MyLogPanel = Ext.extend(Ext.TabPanel, {
 		wrapper.name = 'Grammarian Report';
 		
 		var html = this.gramLogTmpl.apply(wrapper);
-		if(!this.gramLogPanel.el){
-			this.gramLogPanel.html = html;
+		var htmlEl = this.gramLogPanel.el;
+		if(htmlEl && htmlEl.dom.childNodes[0]&& htmlEl.dom.childNodes[0].childNodes[0]){
+    		this.gramLogPanel.el.dom.childNodes[0].childNodes[0].innerHTML = html;
 		}else{
-			this.gramLogPanel.el.dom.innerHTML = html;
+    		this.gramLogPanel.html = html;
 		}
 
 		wrapper.name = 'Timer Report';
 		wrapper.timerLogs = timerLogs;
 		html = this.timerLogTmpl.apply(wrapper);
-		if(!this.timerLogPanel.el){
-			this.timerLogPanel.html = html;
+		
+		htmlEl = this.timerLogPanel.el;
+		if(htmlEl && htmlEl.dom.childNodes[0]&& htmlEl.dom.childNodes[0].childNodes[0]){
+    		this.timerLogPanel.el.dom.childNodes[0].childNodes[0].innerHTML = html;
 		}else{
-			this.timerLogPanel.el.dom.innerHTML = html;
+    		this.timerLogPanel.html = html;
 		}
 
 		wrapper.name = 'Meeting List';
 		wrapper.meetingLogs = meetingLogs;
 		html = this.meetingLogTmpl.apply(wrapper);
-		if(!this.meetingLogPanel.el){
-			this.meetingLogPanel.html = html;
+
+		htmlEl = this.meetingLogPanel.el;
+		if(htmlEl && htmlEl.dom.childNodes[0]&& htmlEl.dom.childNodes[0].childNodes[0]){
+    		this.meetingLogPanel.el.dom.childNodes[0].childNodes[0].innerHTML = html;
 		}else{
-			this.meetingLogPanel.el.dom.innerHTML = html;
+    		this.meetingLogPanel.html = html;
 		}
+
+//		if(!this.gramLogPanel.el){
+//		this.gramLogPanel.html = html;
+//	}else{
+//		this.gramLogPanel.el.dom.innerHTML = html;
+//	}
+//
+
+//		if(!this.timerLogPanel.el){
+//		this.timerLogPanel.html = html;
+//	}else{
+//		this.timerLogPanel.el.dom.innerHTML = html;
+//	}
+//
+
+//		if(!this.meetingLogPanel.el){
+//			this.meetingLogPanel.html = html;
+//		}else{
+//			this.meetingLogPanel.el.dom.innerHTML = html;
+//		}
+	},
+    goBack:function() {
+		closePanel();
 	}
 });

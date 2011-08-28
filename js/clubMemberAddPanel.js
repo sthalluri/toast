@@ -98,7 +98,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		    ]
 		});
 		
-		this.items = [this.getMessageComp(),this.formFields,
+		this.items = [this.getMessageComp('<br/>'),this.formFields,
 		              {
 							layout:'vbox',
 							flex:1,
@@ -200,7 +200,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 
 	editMember : function()
 	{
-		this.updateMessage('');
+		this.updateMessage('<br/>');
 		this.enable();
 		this.editButton.hide();
 		this.saveButton.show();
@@ -211,13 +211,13 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 		}
 		else if( this.incomingReq == "profile" )
 		{
-			this.changePasswordButton.show();
+			//this.changePasswordButton.show();
 		}
 	},
 	
 	populateUserDetails : function(user, incomingReq)
 	{
-		this.updateMessage('');
+		this.updateMessage('<br/>');
 		this.incomingReq = incomingReq;
 		this.user = user;
 		this.setValues({
@@ -239,7 +239,7 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 			this.changePasswordButton.hide();
 		}else{
 			this.deleteButton.hide();
-			this.changePasswordButton.show();
+			//this.changePasswordButton.show();
 		}
 	},
 	
@@ -253,15 +253,25 @@ ClubMemberAddPanel = Ext.extend(BaseFormPanel,
 	
 	resetFields : function(srcPanel)
 	{
-		this.sourcePanel = srcPanel;
 		this.reset();
+		this.setValues({
+			id:null,
+			userId: null,
+			fname: null,
+			lname: null,
+			email: null,
+			phone: null,
+			aboutme: null
+		});
+
 		this.user = null;
 		this.enable();
-		this.updateMessage('');
+		this.updateMessage('<br/>');
 		this.deleteButton.hide();
 		this.editButton.hide();
 		this.saveButton.show();
 		this.changePasswordButton.hide();
+		this.sourcePanel = srcPanel;
 	},
 	
 	onClubMemberLoad: function(data)
